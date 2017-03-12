@@ -6,9 +6,12 @@
   "author": "Shane Osbourne",
   "license": "MIT",
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "jest --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "d3": "^4.7.2"
+  },
   "devDependencies": {
     "babel-core": "^6.1.2",
     "babel-loader": "^6.1.0",
@@ -17,6 +20,7 @@
     "babel-preset-stage-0": "^6.1.2",
     "browser-sync": "^2.8.0",
     "bs-fullscreen-message": "^1.0.0",
+    "jest": "^19.0.2",
     "strip-ansi": "^3.0.0",
     "webpack": "^1.10.5",
     "webpack-dev-middleware": "^1.2.0"
