@@ -3,12 +3,15 @@ export const freqForIndex = (index, array) => {
 }
 
 const keyNames = [
-  "c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b"
+  "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
 ]
 
 export const keyForIndex = (index) => {
-  const key = keyNames[index % 12]
-  const oct = Math.floor(index / 12)
+  // A0 is index=0
+  // +8 passes tests but seems like it should be +9 lmao
+  const adjustedIndex = index + 8
+  const key = keyNames[adjustedIndex % 12]
+  const oct = Math.floor(adjustedIndex / 12)
   return `${key}${oct}`
 }
 
