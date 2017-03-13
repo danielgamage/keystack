@@ -125,12 +125,13 @@ const stopNote = (note) => {
     oscillator.stop(context.currentTime);
   });
   document.querySelector(`.spiral-${note.index}`)
-    .style.stroke = null;
+    .classList.remove('on')
 }
 const startNote = (note) => {
   console.log(note.index)
   document.querySelector(`.spiral-${note.index}`)
-    .style.stroke = "red";
+    .classList.add('on')
+
   var osc = context.createOscillator(),
     osc2 = context.createOscillator();
 
