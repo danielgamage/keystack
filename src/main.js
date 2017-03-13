@@ -112,32 +112,32 @@ var oscillators = {};
 window.addEventListener("keydown", (e) => {
   const note = keys.filter((el) => (el.qwerty === e.key))[3]
   // console.log(oscillators)
-  startNote(note, note.freq)
+  startNote(note)
 })
 window.addEventListener("keyup", (e) => {
   const note = keys.filter((el) => (el.qwerty === e.key))[3]
-  stopNote(note, note.freq)
+  stopNote(note)
 })
 
-const stopNote = (note, frequency) => {
-  oscillators[frequency].forEach((oscillator) => {
+const stopNote = (note) => {
+  oscillators[note.frequency].forEach((oscillator) => {
     console.log(oscillator)
     oscillator.stop(context.currentTime);
   });
   document.querySelector(`.spiral-${note.index}`)
     .style.stroke = null;
 }
-const startNote = (note, frequency) => {
+const startNote = (note) => {
   console.log(note.index)
   document.querySelector(`.spiral-${note.index}`)
     .style.stroke = "red";
   var osc = context.createOscillator(),
     osc2 = context.createOscillator();
 
-  osc.frequency.value = frequency;
+  osc.frequency.value = note.frequency;
   osc.type = 'sawtooth';
 
-  osc2.frequency.value = frequency;
+  osc2.frequency.value = note.frequency;
   osc2.type = 'triangle';
 
   osc.connect(masterVolume);
@@ -145,8 +145,71 @@ const startNote = (note, frequency) => {
 
   masterVolume.connect(context.destination);
 
-  oscillators[frequency] = [osc, osc2];
+  oscillators[note.frequency] = [osc, osc2];
 
   osc.start(context.currentTime);
   osc2.start(context.currentTime);
+}
+
+if (navigator.requestMIDIAccess) {
+    navigator.requestMIDIAccess({
+        sysex: false // this defaults to 'false' and we won't be covering sysex in this article.
+    }).then(onMIDISuccess, onMIDIFailure);
+} else {
+    console.log("No MIDI support in your browser.");
+}
+
+const getNoteIndexForMIDI = (code) => {
+  return code - 20
+}
+
+// midi functions
+function onMIDIMessage(event) {
+    console.log(event.data)
+    var data = event.data,
+        cmd = data[0] >> 4,
+        channel = data[0] & 0xf,
+        type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
+        note = data[1],
+        velocity = data[2];
+    // with pressure and tilt off
+    // note off: 128, cmd: 8
+    // note on: 144, cmd: 9
+    // pressure / tilt on
+    // pressure: 176, cmd 11:
+    // bend: 224, cmd: 14
+
+    var note = getNoteIndexForMIDI(note)
+
+    switch (type) {
+        case 144: // noteOn message
+            startNote(keys[note])
+            break;
+        case 128: // noteOff message
+            // noteOff(note, velocity);
+            stopNote(keys[note])
+
+            break;
+    }
+
+    //console.log('data', data, 'cmd', cmd, 'channel', channel);
+    logger(keyData, 'key data', data);
+}
+
+function onMIDISuccess(midiAccess) {
+    // when we get a succesful response, run this code
+    console.log('MIDI Access Object', midiAccess);
+    const inputs = midiAccess.inputs.values();
+    console.log(inputs)
+    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+        // listen for midi messages
+        input.value.onmidimessage = onMIDIMessage;
+    }
+    // listen for connect/disconnect message
+    // midiAccess.onstatechange = onStateChange;
+}
+
+function onMIDIFailure(e) {
+    // when we get a failed response, run this code
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);
 }

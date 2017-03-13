@@ -52,6 +52,6 @@ export const keys = [...Array(49).keys()].map((el, i, arr) => {
     qwerty: qwertyForIndex(el),
     note: noteForIndex(el),
     octave: octaveForIndex(el),
-    freq: freqForIndex(el)
+    frequency: freqForIndex(el)
   }
 })
