@@ -3,15 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Browsersync, Webpack + Babel</title>
+    <style>
+      body {
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+        margin: 40px;
+      }
+      .axis path {
+        fill: none;
+        stroke: #999;
+        stroke-dasharray: 2 3;
+      }
+      .axis text {
+        font-size: 13px;
+        stroke: #222;
+      }
+      text.title {
+        font-size: 24px;
+      }
+      circle.tick {
+        fill: #f3f3f3;
+        stroke: #999;
+        stroke-dasharray: 2 3;
+      }
+      path.spiral {
+        fill: none;
+        stroke: #ee8d18;
+        stroke-width: 3px;
+      }
+    </style>
 </head>
 
 <body>
     <h1>Browsersync, Webpack + Babel Example</h1>
 
-    <canvas width="960" height="500"></canvas>
-    <span id="number">0</span>
-    <button id="inc" type="button">Increase</button>
-    <button id="dec" type="button">Decrease</button>
+    <div id="chart"></div>
 
     <script src="dist/bundle.js"></script>
 </body>
