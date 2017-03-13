@@ -17,7 +17,7 @@ export const singleOctave = [
   { noteName: "B",  black: false, qwerty: "j" }
 ]
 
-export const noteForIndex = (index) => {
+export const noteObjectForIndex = (index) => {
   // A0 is index=0
   // +8 passes tests but seems like it should be +9 lmao
   const adjustedIndex = index + 8
@@ -25,19 +25,24 @@ export const noteForIndex = (index) => {
   return note
 }
 
-export const keyForIndex = (index) => {
+export const noteForIndex = (index) => {
   const adjustedIndex = index + 8
-  const note = noteForIndex(index)
+  const note = noteObjectForIndex(index)
+  return note.noteName
+}
+
+export const octaveForIndex = (index) => {
+  const adjustedIndex = index + 8
   const octave = Math.floor(adjustedIndex / 12)
-  return `${note.noteName}${octave}`
+  return octave
 }
 
 export const blackForIndex = (index) => {
-  return noteForIndex(index).black
+  return noteObjectForIndex(index).black
 }
 
 export const qwertyForIndex = (index) => {
-  return noteForIndex(index).qwerty
+  return noteObjectForIndex(index).qwerty
 }
 
 export const keys = [...Array(49).keys()].map((el, i, arr) => {
@@ -45,7 +50,8 @@ export const keys = [...Array(49).keys()].map((el, i, arr) => {
     index: i,
     black: blackForIndex(el),
     qwerty: qwertyForIndex(el),
-    key: keyForIndex(el),
+    note: noteForIndex(el),
+    octave: octaveForIndex(el),
     freq: freqForIndex(el)
   }
 })

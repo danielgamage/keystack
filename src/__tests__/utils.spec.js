@@ -1,4 +1,4 @@
-import {freqForIndex, keyForIndex} from '../utils.js'
+import {freqForIndex, noteForIndex} from '../utils.js'
 
 describe(`freqForIndex`, () => {
   it(`fetches correct frequency`, () => {
@@ -13,18 +13,18 @@ describe(`freqForIndex`, () => {
   })
 })
 
-describe(`keyForIndex`, () => {
-  it(`fetches correct key`, () => {
-    expect(keyForIndex(1)).toBe(`A0`)
-    expect(keyForIndex(13)).toBe(`A1`)
-    expect(keyForIndex(25)).toBe(`A2`)
-    expect(keyForIndex(61)).toBe(`A5`)
+describe(`noteForIndex`, () => {
+  it(`fetches correct note`, () => {
+    expect(noteForIndex(1)).toBe(`A`)
+    expect(noteForIndex(13)).toBe(`A`)
+    expect(noteForIndex(25)).toBe(`A`)
+    expect(noteForIndex(61)).toBe(`A`)
 
-    expect(keyForIndex(3)).toBe(`B0`)
-    expect(keyForIndex(4)).toBe(`C1`)
-    expect(keyForIndex(5)).toBe(`C#1`)
-    expect(keyForIndex(8)).toBe(`E1`)
-    expect(keyForIndex(40)).toBe(`C4`)
-    expect(keyForIndex(63)).toBe(`B5`)
+    expect(noteForIndex(3)).toBe(`B`)
+    expect(noteForIndex(4)).toBe(`C`)
+    expect(noteForIndex(5)).toBe(`C#`)
+    expect(noteForIndex(8)).toBe(`E`)
+    expect(noteForIndex(40)).toBe(`C`)
+    expect(noteForIndex(63)).toBe(`B`)
   })
 })

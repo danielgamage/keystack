@@ -55,7 +55,7 @@ svg.selectAll(".axis")
   .append("text")
     .attr("y", radius(end)+24)
     .text(function(d,i) {
-      return noteForIndex(i).noteName
+      return noteForIndex(i)
     })
     .attr("text-anchor", "middle")
     .attr("transform", function(d) { return "rotate(" + (180 - (360/12/2)) + ")" })
@@ -84,8 +84,7 @@ keys.map((el, i) => {
   svg.selectAll(`.spiral.spiral-${i}`)
 	    .data([el])
 	  .enter().append("path")
-      .style("stroke", (d) => (d.black) ? "black" : "white" )
-	    .attr("class", `spiral spiral-${i}`)
+	    .attr("class", (d) => `spiral spiral-${i} ${(d.black) ? "black" : "white"}`)
 	    .attr("d", (d) => spiral2(pieces2))
 })
 
@@ -100,4 +99,54 @@ function radial_tick(selection) {
       .attr("text-anchor", "bottom")
       .attr("transform", "rotate(" + angle(axis_num) + ")")
   });
+}
+
+var context = new AudioContext(),
+    masterVolume = context.createGain();
+
+masterVolume.gain.value = 0.3;
+masterVolume.connect(context.destination);
+
+var oscillators = {};
+
+window.addEventListener("keydown", (e) => {
+  const note = keys.filter((el) => (el.qwerty === e.key))[3]
+  // console.log(oscillators)
+  startNote(note, note.freq)
+})
+window.addEventListener("keyup", (e) => {
+  const note = keys.filter((el) => (el.qwerty === e.key))[3]
+  stopNote(note, note.freq)
+})
+
+const stopNote = (note, frequency) => {
+  oscillators[frequency].forEach((oscillator) => {
+    console.log(oscillator)
+    oscillator.stop(context.currentTime);
+  });
+  document.querySelector(`.spiral-${note.index}`)
+    .style.stroke = null;
+}
+const startNote = (note, frequency) => {
+  console.log(note.index)
+  document.querySelector(`.spiral-${note.index}`)
+    .style.stroke = "red";
+  var osc = context.createOscillator(),
+    osc2 = context.createOscillator();
+
+  osc.frequency.value = frequency;
+  osc.type = 'sawtooth';
+
+  osc2.frequency.value = frequency;
+  osc2.type = 'triangle';
+
+  osc.connect(masterVolume);
+  osc2.connect(masterVolume);
+
+  masterVolume.connect(context.destination);
+
+  oscillators[frequency] = [osc, osc2];
+
+  osc.start(context.currentTime);
+  osc2.start(context.currentTime);
 }
