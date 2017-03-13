@@ -7,45 +7,39 @@ import { keys, noteForIndex } from './utils'
 
 const body = document.body
 
+
+//
+// Chart
+//
+
 var width = 400,
-    height = 430,
+    height = 400,
     num_axes = 12,
     tick_axis = 1,
     start = 0,
-    end = 4,
-    r = 2
-
-var theta = function(r) {
-  return -2*Math.PI*r;
-};
+    end = 7
 
 // offset from center so there's less curl in the center
 var radius = scaleLinear()
   .domain([start, end])
-  .range([30, Math.min(width,height) / 2 - 20]);
+  .range([0, Math.min(width,height) / 2 - 25]);
 
 var angle = scaleLinear()
   .domain([0,num_axes])
   .range([0,360])
 
-console.log(select('#chart'))
 var svg = select("#chart").append("svg")
     .attr("width", width)
     .attr("height", height)
     .attr("viewBox", `0 0 ${width} ${height}`)
   .append("g")
-    .attr("transform", "translate(" + width/2 + "," + (height/2+8) +")");
-
-var pieces = range(start, end+0.001, (end-start)/(end*12));
-
-var spiral = radialLine()
-  .angle(theta)
-  .radius(radius);
+    .attr("transform", "translate(" + width/2 + "," + (height/2) +")");
 
 svg.selectAll("circle.tick")
-    .data(range(end,start,(start-end)/4))
+    .data(range(end,start,(start-end)/8))
   .enter().append("circle")
     .attr("class", "tick")
+    .style("fill", (d, i) => `hsl(210, 15%, ${i * 2 + 80}%)`)
     .attr("cx", 0)
     .attr("cy", 0)
     .attr("r", function(d) { return radius(d); })
@@ -64,32 +58,6 @@ svg.selectAll(".axis")
     .attr("text-anchor", "middle")
     .attr("transform", function(d) { return "rotate(" + (180 - (360/12/2)) + ")" })
 
-keys.map((el, i) => {
-  // range(start, end+0.001, (end-start)/(end*12));
-  var index = i/12 + 2
-  var newEnd = index + 1/12
-  var pieces2 = range(index, newEnd, (newEnd-index)/(newEnd*12))
-  var r2 = end * 5
-
-  var theta2 = function(r2) {
-	  return -2*Math.PI*r2
-	}
-
-  var radius2 = scaleLinear()
-    .domain([start, end])
-    .range([0, Math.min(width, height) / 3.5]);
-
-	var spiral2 = radialLine()
-	  .angle(theta2)
-	  .radius(radius2)
-
-  svg.selectAll(`.spiral.spiral-${i}`)
-	    .data([el])
-	  .enter().append("path")
-	    .attr("class", (d) => `spiral spiral-${i} ${(d.black) ? "black" : "white"}`)
-	    .attr("d", (d) => spiral2(pieces2))
-})
-
 function radial_tick(selection) {
   selection.each(function(axis_num) {
     axisLeft(radius)
@@ -103,17 +71,45 @@ function radial_tick(selection) {
   });
 }
 
+keys.map((el, i) => {
+  var index = i/12 + 2
+  var newEnd = index + 1/12
+  var pieces = range(index, newEnd, (newEnd-index)/(newEnd*12))
+  var r = end * 5
+
+  var theta = function(r) {
+	  return -2*Math.PI*r
+	}
+
+  var radius2 = scaleLinear()
+    .domain([start, end])
+    .range([0, Math.min(width, height) / 3.5]);
+
+	var spiral = radialLine()
+	  .angle(theta)
+	  .radius(radius2)
+
+  svg.selectAll(`.spiral.spiral-${i}`)
+	    .data([el])
+	  .enter().append("path")
+	    .attr("class", (d) => `spiral spiral-${i} ${(d.black) ? "black" : "white"}`)
+	    .attr("d", (d) => spiral(pieces))
+})
+
+//
+// Audio
+//
+
 var context = new AudioContext(),
     masterVolume = context.createGain();
 
-masterVolume.gain.value = 0.3;
+masterVolume.gain.value = 0.2;
 masterVolume.connect(context.destination);
 
 var oscillators = {};
 
 window.addEventListener("keydown", (e) => {
   const note = keys.filter((el) => (el.qwerty === e.key))[3]
-  // console.log(oscillators)
   startNote(note)
 })
 window.addEventListener("keyup", (e) => {
@@ -123,14 +119,12 @@ window.addEventListener("keyup", (e) => {
 
 const stopNote = (note) => {
   oscillators[note.frequency].forEach((oscillator) => {
-    console.log(oscillator)
     oscillator.stop(context.currentTime);
   });
   document.querySelector(`.spiral-${note.index}`)
     .classList.remove('on')
 }
 const startNote = (note) => {
-  console.log(note.index)
   document.querySelector(`.spiral-${note.index}`)
     .classList.add('on')
 
@@ -166,7 +160,10 @@ const getNoteIndexForMIDI = (code) => {
   return code - 20
 }
 
-// midi functions
+//
+// MIDI
+//
+
 function onMIDIMessage(event) {
     console.log(event.data)
     var data = event.data,
@@ -196,7 +193,7 @@ function onMIDIMessage(event) {
     }
 
     //console.log('data', data, 'cmd', cmd, 'channel', channel);
-    logger(keyData, 'key data', data);
+    // logger(keyData, 'key data', data);
 }
 
 function onMIDISuccess(midiAccess) {

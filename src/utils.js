@@ -45,7 +45,7 @@ export const qwertyForIndex = (index) => {
   return noteObjectForIndex(index).qwerty
 }
 
-export const keys = [...Array(49).keys()].map((el, i, arr) => {
+export const keys = [...Array(88).keys()].map((el, i, arr) => {
   return {
     index: i,
     black: blackForIndex(el),
