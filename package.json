@@ -7,6 +7,11 @@
   "license": "MIT",
   "scripts": {
     "start": "node app",
+    "webpack": "webpack -p",
+    "clean": "rm -rf build/",
+    "copy": "mkdir build && cp -r app/* build/",
+    "build": "npm run clean && npm run webpack && npm run copy",
+    "deploy": "gh-pages -d dist",
     "test": "jest --watch"
   },
   "dependencies": {
@@ -20,6 +25,7 @@
     "babel-preset-stage-0": "^6.1.2",
     "browser-sync": "^2.8.0",
     "bs-fullscreen-message": "^1.0.0",
+    "gh-pages": "^0.12.0",
     "jest": "^19.0.2",
     "strip-ansi": "^3.0.0",
     "webpack": "^1.10.5",
