@@ -2,7 +2,7 @@ export const freqForIndex = (index, length=49) => {
   return (2 ** ((index - 49) / 12)) * 440
 }
 
-const singleOctave = [
+export const singleOctave = [
   { keyName: "C",  black: false, qwerty: "a" },
   { keyName: "C#", black: true,  qwerty: "w" },
   { keyName: "D",  black: false, qwerty: "s" },
