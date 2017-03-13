@@ -1,3 +1,5 @@
+const __DEV__ = (process.env.NODE_ENV !== "production");
+
 // For instructions about this file refer to
 // webpack and webpack-hot-middleware documentation
 var webpack = require('webpack');
@@ -21,6 +23,8 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+
+  devtool: __DEV__ ? "eval" : "nosources-source-map",
 
   module: {
     loaders: [

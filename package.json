@@ -11,7 +11,7 @@
     "clean": "rm -rf build/",
     "copy": "mkdir build && cp -r app/* build/",
     "build": "npm run clean && npm run webpack && npm run copy",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d build",
     "test": "jest --watch"
   },
   "dependencies": {
