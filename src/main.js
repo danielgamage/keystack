@@ -1,6 +1,6 @@
 import {inc, dec} from './actions'
 import * as d3 from "d3"
-import {keys, singleOctave} from './utils'
+import {keys, noteForIndex} from './utils'
 
 const body = document.body
 
@@ -54,10 +54,10 @@ svg.selectAll(".axis")
   .append("text")
     .attr("y", radius(end)+13)
     .text(function(d,i) {
-      return singleOctave[(i + 8) % 12].keyName
+      return noteForIndex(i).noteName
     })
     .attr("text-anchor", "middle")
-    .attr("transform", function(d) { return "rotate(" + -90 + ")" })
+    .attr("transform", function(d) { return "rotate(" + (180 - (360/12/2)) + ")" })
 
 keys.map((el, i) => {
   // d3.range(start, end+0.001, (end-start)/(end*12));

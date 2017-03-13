@@ -3,18 +3,18 @@ export const freqForIndex = (index, length=49) => {
 }
 
 export const singleOctave = [
-  { keyName: "C",  black: false, qwerty: "a" },
-  { keyName: "C#", black: true,  qwerty: "w" },
-  { keyName: "D",  black: false, qwerty: "s" },
-  { keyName: "D#", black: true,  qwerty: "e" },
-  { keyName: "E",  black: false, qwerty: "d" },
-  { keyName: "F",  black: false, qwerty: "f" },
-  { keyName: "F#", black: true,  qwerty: "t" },
-  { keyName: "G",  black: false, qwerty: "g" },
-  { keyName: "G#", black: true,  qwerty: "y" },
-  { keyName: "A",  black: false, qwerty: "h" },
-  { keyName: "A#", black: true,  qwerty: "u" },
-  { keyName: "B",  black: false, qwerty: "j" }
+  { noteName: "C",  black: false, qwerty: "a" },
+  { noteName: "C#", black: true,  qwerty: "w" },
+  { noteName: "D",  black: false, qwerty: "s" },
+  { noteName: "D#", black: true,  qwerty: "e" },
+  { noteName: "E",  black: false, qwerty: "d" },
+  { noteName: "F",  black: false, qwerty: "f" },
+  { noteName: "F#", black: true,  qwerty: "t" },
+  { noteName: "G",  black: false, qwerty: "g" },
+  { noteName: "G#", black: true,  qwerty: "y" },
+  { noteName: "A",  black: false, qwerty: "h" },
+  { noteName: "A#", black: true,  qwerty: "u" },
+  { noteName: "B",  black: false, qwerty: "j" }
 ]
 
 export const noteForIndex = (index) => {
@@ -29,7 +29,7 @@ export const keyForIndex = (index) => {
   const adjustedIndex = index + 8
   const note = noteForIndex(index)
   const octave = Math.floor(adjustedIndex / 12)
-  return `${note.keyName}${octave}`
+  return `${note.noteName}${octave}`
 }
 
 export const blackForIndex = (index) => {
