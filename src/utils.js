@@ -26,7 +26,6 @@ export const noteObjectForIndex = (index) => {
 }
 
 export const noteForIndex = (index) => {
-  const adjustedIndex = index + 8
   const note = noteObjectForIndex(index)
   return note.noteName
 }
