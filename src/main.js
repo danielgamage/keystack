@@ -97,6 +97,52 @@ keys.map((el, i) => {
 })
 
 //
+// Keyboard
+//
+
+let octave = 3
+
+const keySteps = [
+  { key: `a`, step: 1 },
+  { key: `w`, step: 2 },
+  { key: `s`, step: 3 },
+  { key: `e`, step: 4 },
+  { key: `d`, step: 5 },
+  { key: `f`, step: 6 },
+  { key: `t`, step: 7 },
+  { key: `g`, step: 8 },
+  { key: `y`, step: 9 },
+  { key: `h`, step: 10 },
+  { key: `u`, step: 11 },
+  { key: `j`, step: 12 },
+  { key: `k`, step: 13 },
+  { key: `o`, step: 14 },
+  { key: `l`, step: 15 },
+  { key: `p`, step: 16 },
+  { key: `;`, step: 17 },
+  { key: `[`, step: 18 },
+  { key: `'`, step: 19 }
+]
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "z") {
+    octave = Math.max(--octave, 0)
+  } else if (e.key === "x") {
+    octave = Math.min(++octave, 5)
+  } else {
+    const steps = keySteps.filter(key => e.key === key.key)[0].step
+    const note = keys[steps + 3 + (octave * 12)]
+    startNote(note)
+  }
+  console.log(octave)
+})
+window.addEventListener("keyup", (e) => {
+  const steps = keySteps.filter(key => e.key === key.key)[0].step
+  const note = keys[steps + 3 + (octave * 12)]
+  stopNote(note)
+})
+
+//
 // Audio
 //
 
@@ -106,18 +152,7 @@ var audioCtx = new AudioContext(),
 masterVolume.gain.value = 0.2;
 masterVolume.connect(audioCtx.destination);
 
-
 var oscillators = {};
-
-window.addEventListener("keydown", (e) => {
-  const note = keys.filter((el) => (el.qwerty === e.key))[3]
-  startNote(note)
-  console.log(oscillators)
-})
-window.addEventListener("keyup", (e) => {
-  const note = keys.filter((el) => (el.qwerty === e.key))[3]
-  stopNote(note)
-})
 
 const stopNote = (note) => {
   oscillators[note.frequency].oscillators.forEach((oscillator) => {
@@ -125,7 +160,7 @@ const stopNote = (note) => {
   });
   document.querySelector(`.spiral-${note.index}`)
     .classList.remove('on')
-  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
+  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1);
   oscillators[note.frequency] = null;
 
 }
@@ -158,7 +193,7 @@ const startNote = (note) => {
 
     osc.start(audioCtx.currentTime);
     osc2.start(audioCtx.currentTime);
-    noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.1);
+    noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.05);
   }
 }
 

@@ -3,18 +3,18 @@ export const freqForIndex = (index, length=49) => {
 }
 
 export const singleOctave = [
-  { noteName: "C",  black: false, qwerty: "a" },
-  { noteName: "C#", black: true,  qwerty: "w" },
-  { noteName: "D",  black: false, qwerty: "s" },
-  { noteName: "D#", black: true,  qwerty: "e" },
-  { noteName: "E",  black: false, qwerty: "d" },
-  { noteName: "F",  black: false, qwerty: "f" },
-  { noteName: "F#", black: true,  qwerty: "t" },
-  { noteName: "G",  black: false, qwerty: "g" },
-  { noteName: "G#", black: true,  qwerty: "y" },
-  { noteName: "A",  black: false, qwerty: "h" },
-  { noteName: "A#", black: true,  qwerty: "u" },
-  { noteName: "B",  black: false, qwerty: "j" }
+  { noteName: "C",  black: false, },
+  { noteName: "C#", black: true,  },
+  { noteName: "D",  black: false, },
+  { noteName: "D#", black: true,  },
+  { noteName: "E",  black: false, },
+  { noteName: "F",  black: false, },
+  { noteName: "F#", black: true,  },
+  { noteName: "G",  black: false, },
+  { noteName: "G#", black: true,  },
+  { noteName: "A",  black: false, },
+  { noteName: "A#", black: true,  },
+  { noteName: "B",  black: false, }
 ]
 
 export const noteObjectForIndex = (index) => {
