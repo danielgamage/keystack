@@ -1,0 +1,21 @@
+export default [
+  { key: `a`, step: 1 },
+  { key: `w`, step: 2 },
+  { key: `s`, step: 3 },
+  { key: `e`, step: 4 },
+  { key: `d`, step: 5 },
+  { key: `f`, step: 6 },
+  { key: `t`, step: 7 },
+  { key: `g`, step: 8 },
+  { key: `y`, step: 9 },
+  { key: `h`, step: 10 },
+  { key: `u`, step: 11 },
+  { key: `j`, step: 12 },
+  { key: `k`, step: 13 },
+  { key: `o`, step: 14 },
+  { key: `l`, step: 15 },
+  { key: `p`, step: 16 },
+  { key: `;`, step: 17 },
+  { key: `'`, step: 18 },
+  { key: `]`, step: 19 }
+]
