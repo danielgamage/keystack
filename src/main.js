@@ -120,8 +120,8 @@ const keySteps = [
   { key: `l`, step: 15 },
   { key: `p`, step: 16 },
   { key: `;`, step: 17 },
-  { key: `[`, step: 18 },
-  { key: `'`, step: 19 }
+  { key: `'`, step: 18 },
+  { key: `]`, step: 19 }
 ]
 
 window.addEventListener("keydown", (e) => {
@@ -134,7 +134,6 @@ window.addEventListener("keydown", (e) => {
     const note = keys[steps + 3 + (octave * 12)]
     startNote(note)
   }
-  console.log(octave)
 })
 window.addEventListener("keyup", (e) => {
   const steps = keySteps.filter(key => e.key === key.key)[0].step
