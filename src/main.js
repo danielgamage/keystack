@@ -100,17 +100,19 @@ keys.map((el, i) => {
 // Audio
 //
 
-var context = new AudioContext(),
-    masterVolume = context.createGain();
+var audioCtx = new AudioContext(),
+    masterVolume = audioCtx.createGain();
 
 masterVolume.gain.value = 0.2;
-masterVolume.connect(context.destination);
+masterVolume.connect(audioCtx.destination);
+
 
 var oscillators = {};
 
 window.addEventListener("keydown", (e) => {
   const note = keys.filter((el) => (el.qwerty === e.key))[3]
   startNote(note)
+  console.log(oscillators)
 })
 window.addEventListener("keyup", (e) => {
   const note = keys.filter((el) => (el.qwerty === e.key))[3]
@@ -118,34 +120,46 @@ window.addEventListener("keyup", (e) => {
 })
 
 const stopNote = (note) => {
-  oscillators[note.frequency].forEach((oscillator) => {
-    oscillator.stop(context.currentTime);
+  oscillators[note.frequency].oscillators.forEach((oscillator) => {
+    oscillator.stop(audioCtx.currentTime + 2);
   });
   document.querySelector(`.spiral-${note.index}`)
     .classList.remove('on')
+  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
+  oscillators[note.frequency] = null;
+
 }
 const startNote = (note) => {
-  document.querySelector(`.spiral-${note.index}`)
-    .classList.add('on')
+  // prevent sticky keys
+  if (!oscillators[note.frequency]) {
+    document.querySelector(`.spiral-${note.index}`)
+      .classList.add('on')
 
-  var osc = context.createOscillator(),
-    osc2 = context.createOscillator();
+    var osc = audioCtx.createOscillator(),
+      osc2 = audioCtx.createOscillator();
 
-  osc.frequency.value = note.frequency;
-  osc.type = 'sawtooth';
+    osc.frequency.value = note.frequency;
+    osc.type = 'sawtooth';
 
-  osc2.frequency.value = note.frequency;
-  osc2.type = 'triangle';
+    osc2.frequency.value = note.frequency;
+    osc2.type = 'triangle';
 
-  osc.connect(masterVolume);
-  osc2.connect(masterVolume);
+    var noteVolume = audioCtx.createGain();
+    noteVolume.gain.value = 0.2;
+    noteVolume.connect(audioCtx.destination);
 
-  masterVolume.connect(context.destination);
+    osc.connect(noteVolume);
+    osc2.connect(noteVolume);
 
-  oscillators[note.frequency] = [osc, osc2];
+    oscillators[note.frequency] = {
+      oscillators: [osc, osc2],
+      volume: noteVolume
+    };
 
-  osc.start(context.currentTime);
-  osc2.start(context.currentTime);
+    osc.start(audioCtx.currentTime);
+    osc2.start(audioCtx.currentTime);
+    noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.1);
+  }
 }
 
 if (navigator.requestMIDIAccess) {
@@ -186,14 +200,10 @@ function onMIDIMessage(event) {
             startNote(keys[note])
             break;
         case 128: // noteOff message
-            // noteOff(note, velocity);
             stopNote(keys[note])
 
             break;
     }
-
-    //console.log('data', data, 'cmd', cmd, 'channel', channel);
-    // logger(keyData, 'key data', data);
 }
 
 function onMIDISuccess(midiAccess) {
