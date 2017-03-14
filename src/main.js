@@ -131,13 +131,13 @@ window.addEventListener("keydown", (e) => {
     octave = Math.min(++octave, 5)
   } else {
     const steps = keySteps.filter(key => e.key === key.key)[0].step
-    const note = keys[steps + 3 + (octave * 12)]
+    const note = keys[steps + 2 + (octave * 12)]
     startNote(note)
   }
 })
 window.addEventListener("keyup", (e) => {
   const steps = keySteps.filter(key => e.key === key.key)[0].step
-  const note = keys[steps + 3 + (octave * 12)]
+  const note = keys[steps + 2 + (octave * 12)]
   stopNote(note)
 })
 

@@ -1,4 +1,7 @@
-export const freqForIndex = (index, length=49) => {
+export const freqForIndex = (index) => {
+  // shift index up 1:
+  // A0 is at position 1 in the formula, but position 0 in our data
+  index += 1
   return (2 ** ((index - 49) / 12)) * 440
 }
 
@@ -19,8 +22,7 @@ export const singleOctave = [
 
 export const noteObjectForIndex = (index) => {
   // A0 is index=0
-  // +8 passes tests but seems like it should be +9 lmao
-  const adjustedIndex = index + 8
+  const adjustedIndex = index + 9
   const note = singleOctave[adjustedIndex % 12]
   return note
 }
@@ -31,7 +33,7 @@ export const noteForIndex = (index) => {
 }
 
 export const octaveForIndex = (index) => {
-  const adjustedIndex = index + 8
+  const adjustedIndex = index + 9
   const octave = Math.floor(adjustedIndex / 12)
   return octave
 }
