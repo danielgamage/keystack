@@ -4,6 +4,7 @@ import { scaleLinear } from "d3-scale"
 import { radialLine } from "d3-shape"
 import { range } from "d3-array"
 import { keys, noteForIndex } from './utils'
+import './styles/style.scss'
 
 const body = document.body
 
@@ -36,10 +37,9 @@ var svg = select("#chart").append("svg")
     .attr("transform", "translate(" + width/2 + "," + (height/2) +")");
 
 svg.selectAll("circle.tick")
-    .data(range(end,start,(start-end)/8))
+    .data(range(end,start,(start-end) / 8))
   .enter().append("circle")
     .attr("class", "tick")
-    .style("fill", (d, i) => `hsl(210, 15%, ${i * 2 + 80}%)`)
     .attr("cx", 0)
     .attr("cy", 0)
     .attr("r", function(d) { return radius(d); })

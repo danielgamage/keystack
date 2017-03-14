@@ -1,0 +1,50 @@
+$grey-6: #fdfcfb;
+$grey-5: #e8eaea;
+$grey-4: #cdd1d3;
+$grey-3: #b3b3b3;
+$grey-1: #7c7c7e;
+$grey-0: #545659;
+
+
+body {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+  margin: 40px;
+  background: $grey-6;
+  color: $grey-0;
+}
+svg {
+  width: 100%;
+}
+.axis {
+  & path {
+    fill: none;
+    stroke: #999;
+    stroke-dasharray: 2 3;
+  }
+  & text {
+    font-size: 13px;
+    fill: $grey-0;
+  }
+}
+text.title {
+  font-size: 24px;
+}
+circle.tick {
+  fill: $grey-5;
+  stroke-dasharray: 2 3;
+}
+path.spiral {
+  fill: none;
+  stroke-width: 14px;
+  transition: 0.3s ease-out;
+  &.black {
+    stroke: $grey-0;
+  }
+  &.white {
+    stroke: $grey-6;
+  }
+  &.on {
+    transition: 0s ease;
+    stroke: #FF9800;
+  }
+}

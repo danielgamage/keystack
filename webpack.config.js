@@ -6,9 +6,6 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  debug: true,
-  devtool: '#eval-source-map',
-
   entry: [
     './src/main'
   ],
@@ -20,14 +17,15 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    })
   ],
 
   devtool: __DEV__ ? "eval" : "nosources-source-map",
 
   module: {
-    loaders: [
+    rules: [
       {
         loader: "babel-loader",
 
@@ -42,6 +40,16 @@ module.exports = {
           presets: ['es2015', 'stage-0'],
         }
       },
+      {
+        test: /\.s[ac]ss$/,
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "sass-loader" // compiles Sass to CSS
+        }]
+      }
     ]
   }
 };
