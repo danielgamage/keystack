@@ -19,7 +19,7 @@ h1 {
 svg {
   width: 100%;
 }
-main {
+.app {
   display: flex;
 }
 .settings {
@@ -37,6 +37,10 @@ main {
   background-color: $grey-0;
   border-radius: 0.2rem;
   overflow: scroll;
+}
+.notes {
+  display: inline-block;
+  margin-right: 0.25rem;
 }
 .quality {
   font-family: 'Alegreya Sans SC', sans-serif;

@@ -8,8 +8,12 @@ import { keys, noteForIndex } from './utils'
 import keySteps from './data/keySteps'
 import chords from './data/chords'
 
+import { h, render } from 'preact'
+import { Provider } from 'preact-redux';
 import { createStore } from 'redux'
 import reducer from './reducers'
+
+import App from './components/app'
 
 import './styles/style.scss'
 
@@ -22,32 +26,13 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 let currentValue
 const noteViewer = document.querySelector('.note-viewer')
 const chordViewer = document.querySelector('.chord-viewer')
-store.subscribe(() => {
-  let previousValue = currentValue
-  currentValue = store.getState()
 
-  if (previousValue.notes !== currentValue.notes) {
-    let noteList = currentValue.notes.map(el => (
-      `${el.note}<sub>${el.octave}</sub>`
-    )).join(' ')
-    const sortedNotes = [...currentValue.notes].sort((a,b) => (a.index - b.index))
-    let match
-    if (sortedNotes.length > 0) {
-      const root = sortedNotes[0]
-      const chord = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
-      const matches = chords.filter(el => el.set.length === chord.length && el.set.every((e, i) => e === chord[i]))
-      if (matches[0]) {
-        match = `${root.note} ${matches[0].name} <span class="quality">${matches[0].quality}</span>`
-      } else {
-        match = ``
-      }
-    } else {
-      match = ``
-    }
-    noteViewer.innerHTML = noteList
-    chordViewer.innerHTML = match
-  }
-})
+
+render((
+	<Provider store={store}>
+		<App />
+	</Provider>
+), document.querySelector('#root'));
 
 const body = document.body
 
