@@ -178,12 +178,14 @@ const stopNote = (note) => {
     type: 'REMOVE_NOTE',
     note: note
   })
+  const envelope = store.getState().synth.envelope
   oscillators[note.frequency].oscillators.forEach((oscillator) => {
-    oscillator.stop(audioCtx.currentTime + 2);
+    oscillator.stop(audioCtx.currentTime + envelope.release);
   });
   document.querySelector(`.spiral-${note.index}`)
     .classList.remove('on')
-  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1);
+  oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime);
+  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + envelope.release);
   oscillators[note.frequency] = null;
 
 }
@@ -194,6 +196,7 @@ const startNote = (note) => {
       type: 'ADD_NOTE',
       note: note
     })
+
     document.querySelector(`.spiral-${note.index}`)
       .classList.add('on')
 
@@ -207,7 +210,11 @@ const startNote = (note) => {
     osc2.type = 'triangle';
 
     var noteVolume = audioCtx.createGain();
-    noteVolume.gain.value = 0.2;
+
+    const synth = store.getState().synth
+    const envelope = synth.envelope
+
+    noteVolume.gain.value = envelope.initial;
     noteVolume.connect(audioCtx.destination);
 
     osc.connect(noteVolume);
@@ -220,7 +227,8 @@ const startNote = (note) => {
 
     osc.start(audioCtx.currentTime);
     osc2.start(audioCtx.currentTime);
-    noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.05);
+    noteVolume.gain.linearRampToValueAtTime(envelope.peak, audioCtx.currentTime + envelope.attack);
+    noteVolume.gain.linearRampToValueAtTime(envelope.sustain, audioCtx.currentTime + envelope.attack + envelope.decay);
   }
 }
 

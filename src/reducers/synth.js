@@ -13,7 +13,14 @@ const defaultState = {
     { type: 'saw' },
     { type: 'tri' }
   ],
-  dragged: []
+  envelope: {
+    initial: 0,
+    peak: 1,
+    sustain: 0.2,
+    attack: 0.05,
+    decay: 0.5,
+    release: 1
+  }
 }
 
 const synth = (state = defaultState, action) => {
