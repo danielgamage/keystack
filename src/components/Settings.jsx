@@ -27,6 +27,9 @@ class Settings extends Component {
             <span class="match">{root.note} {match.name} <span class="quality">{match.quality}</span></span>
           ))
         }</div>
+        <div>
+          {}
+        </div>
       </div>
 		);
 	}

@@ -10,8 +10,8 @@ const osc = (state, action) => {
 
 const defaultState = {
   oscillators: [
-    { type: 'saw' },
-    { type: 'tri' }
+    { type: 'sawtooth' },
+    { type: 'triangle' }
   ],
   envelope: {
     initial: 0,

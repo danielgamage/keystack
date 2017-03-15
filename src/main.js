@@ -177,6 +177,7 @@ const stopNote = (note) => {
 const startNote = (note) => {
   // prevent sticky keys
   if (!oscillators[note.frequency]) {
+    const state = store.getState()
     store.dispatch({
       type: 'ADD_NOTE',
       note: note
@@ -185,33 +186,26 @@ const startNote = (note) => {
     document.querySelector(`.spiral-${note.index}`)
       .classList.add('on')
 
-    var osc = audioCtx.createOscillator(),
-      osc2 = audioCtx.createOscillator();
-
-    osc.frequency.value = note.frequency;
-    osc.type = 'sawtooth';
-
-    osc2.frequency.value = note.frequency;
-    osc2.type = 'triangle';
+    const envelope = state.synth.envelope
 
     var noteVolume = audioCtx.createGain();
-
-    const synth = store.getState().synth
-    const envelope = synth.envelope
-
     noteVolume.gain.value = envelope.initial;
     noteVolume.connect(audioCtx.destination);
 
-    osc.connect(noteVolume);
-    osc2.connect(noteVolume);
+    const initializedOscillators = state.synth.oscillators.map(el => {
+      const osc = audioCtx.createOscillator();
+      osc.frequency.value = note.frequency;
+      osc.type = el.type;
+      osc.connect(noteVolume);
+      osc.start(audioCtx.currentTime);
+      return osc
+    })
 
     oscillators[note.frequency] = {
-      oscillators: [osc, osc2],
+      oscillators: initializedOscillators,
       volume: noteVolume
     };
 
-    osc.start(audioCtx.currentTime);
-    osc2.start(audioCtx.currentTime);
     noteVolume.gain.linearRampToValueAtTime(envelope.peak, audioCtx.currentTime + envelope.attack);
     noteVolume.gain.linearRampToValueAtTime(envelope.sustain, audioCtx.currentTime + envelope.attack + envelope.decay);
   }
