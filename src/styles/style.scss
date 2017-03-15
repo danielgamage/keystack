@@ -8,10 +8,13 @@ $orange: #FF9800;
 
 
 body {
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+  font-family: 'Oxygen', sans-serif;
   margin: 40px;
   background: $grey-6;
   color: $grey-0;
+}
+h1 {
+  margin-top: 0;
 }
 svg {
   width: 100%;
@@ -79,7 +82,7 @@ path.spiral {
   }
 }
 kbd {
-  font-family: sans-serif;
+  font-family: inherit;
   text-transform: uppercase;
   background: $grey-0;
   color: $grey-5;
