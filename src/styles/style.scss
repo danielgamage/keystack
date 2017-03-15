@@ -4,6 +4,7 @@ $grey-4: #cdd1d3;
 $grey-3: #b3b3b3;
 $grey-1: #7c7c7e;
 $grey-0: #545659;
+$orange: #FF9800;
 
 
 body {
@@ -15,19 +16,20 @@ body {
 svg {
   width: 100%;
 }
-kbd {
-  font-family: sans-serif;
-  text-transform: uppercase;
-  background: $grey-0;
-  color: $grey-5;
-  width: 1rem;
-  height: 1rem;
-  font-size: 0.6rem;
-  line-height: 1rem;
+main {
+  display: flex;
+}
+.note-viewer {
+  width: 12rem;
+  height: 1.2rem;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  color: $grey-6;
+  background-color: $grey-0;
   border-radius: 0.2rem;
-  display: inline-block;
-  padding: 0.2rem;
-  text-align: center;
+}
+#chart {
+  margin-right: 2rem;
 }
 .axis {
   & path {
@@ -59,7 +61,7 @@ path.spiral {
   }
   &.on {
     transition: 0s ease;
-    stroke: #FF9800;
+    stroke: $orange;
   }
 }
 
@@ -75,6 +77,20 @@ path.spiral {
   section {
     margin-right: 2rem;
   }
+}
+kbd {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  background: $grey-0;
+  color: $grey-5;
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.6rem;
+  line-height: 1rem;
+  border-radius: 0.2rem;
+  display: inline-block;
+  padding: 0.2rem;
+  text-align: center;
 }
 .keyboard {
   .row {

@@ -7,10 +7,29 @@ import { range } from "d3-array"
 import { keys, noteForIndex } from './utils'
 import keySteps from './data/keySteps'
 
+import { createStore } from 'redux'
+import reducer from './reducers'
+
 import './styles/style.scss'
 
-const body = document.body
+//
+// Redux
+//
 
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+let currentValue
+const noteViewer = document.querySelector('.note-viewer')
+store.subscribe(() => {
+  let previousValue = currentValue
+  currentValue = store.getState().notes
+
+  if (previousValue !== currentValue) {
+    noteViewer.innerHTML = currentValue.map(el => `${el.note}<sub>${el.octave}</sub>`).join(' ')
+  }
+})
+
+const body = document.body
 
 //
 // Chart
@@ -113,12 +132,23 @@ window.addEventListener("keydown", (e) => {
   } else {
     const steps = keySteps.filter(key => e.key === key.key)[0].step
     const note = keys[steps + 2 + (octave * 12)]
-    startNote(note)
+    // prevent sticky keys
+    if (!oscillators[note.frequency]) {
+      store.dispatch({
+        type: 'ADD_NOTE',
+        note: note
+      })
+      startNote(note)
+    }
   }
 })
 window.addEventListener("keyup", (e) => {
   const steps = keySteps.filter(key => e.key === key.key)[0].step
   const note = keys[steps + 2 + (octave * 12)]
+  store.dispatch({
+    type: 'REMOVE_NOTE',
+    note: note
+  })
   stopNote(note)
 })
 
@@ -145,36 +175,33 @@ const stopNote = (note) => {
 
 }
 const startNote = (note) => {
-  // prevent sticky keys
-  if (!oscillators[note.frequency]) {
-    document.querySelector(`.spiral-${note.index}`)
-      .classList.add('on')
+  document.querySelector(`.spiral-${note.index}`)
+    .classList.add('on')
 
-    var osc = audioCtx.createOscillator(),
-      osc2 = audioCtx.createOscillator();
+  var osc = audioCtx.createOscillator(),
+    osc2 = audioCtx.createOscillator();
 
-    osc.frequency.value = note.frequency;
-    osc.type = 'sawtooth';
+  osc.frequency.value = note.frequency;
+  osc.type = 'sawtooth';
 
-    osc2.frequency.value = note.frequency;
-    osc2.type = 'triangle';
+  osc2.frequency.value = note.frequency;
+  osc2.type = 'triangle';
 
-    var noteVolume = audioCtx.createGain();
-    noteVolume.gain.value = 0.2;
-    noteVolume.connect(audioCtx.destination);
+  var noteVolume = audioCtx.createGain();
+  noteVolume.gain.value = 0.2;
+  noteVolume.connect(audioCtx.destination);
 
-    osc.connect(noteVolume);
-    osc2.connect(noteVolume);
+  osc.connect(noteVolume);
+  osc2.connect(noteVolume);
 
-    oscillators[note.frequency] = {
-      oscillators: [osc, osc2],
-      volume: noteVolume
-    };
+  oscillators[note.frequency] = {
+    oscillators: [osc, osc2],
+    volume: noteVolume
+  };
 
-    osc.start(audioCtx.currentTime);
-    osc2.start(audioCtx.currentTime);
-    noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.05);
-  }
+  osc.start(audioCtx.currentTime);
+  osc2.start(audioCtx.currentTime);
+  noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.05);
 }
 
 if (navigator.requestMIDIAccess) {
