@@ -28,7 +28,30 @@ class Settings extends Component {
           ))
         }</div>
         <div>
-          {}
+          <div class="controls">
+            {this.props.synth.oscillators.map((osc, i) => (
+              <div class={`osc-${i}`}>
+                {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
+                  <label title={type}>
+                    <input
+                      name={`osc-${i}`}
+                      type="radio"
+                      value={type}
+                      checked={(osc.type === type)}
+                      onClick={() => {
+                        this.props.dispatch({
+                          type: 'UPDATE_OSC_TYPE',
+                          value: type,
+                          index: i
+                        })
+                      }}
+                      />
+                    {type}
+                  </label>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 		);
@@ -36,7 +59,7 @@ class Settings extends Component {
 }
 
 function mapStateToProps (state) {
-  return { notes: state.notes }
+  return { notes: state.notes, synth: state.synth }
 }
 
 export default connect(mapStateToProps)(Settings)

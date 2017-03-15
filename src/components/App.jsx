@@ -6,8 +6,7 @@ import * as actions from '../actions';
 import Settings from './Settings.jsx'
 
 class App extends Component {
-	render({ todos }, { text }) {
-    console.log(this)
+	render() {
 		return (
 			<div class="app">
         <div id="chart"></div>

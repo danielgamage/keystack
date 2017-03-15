@@ -4,7 +4,6 @@ import reduce from '../reducers'
 
 class Settings extends Component {
 	render() {
-    console.log(this.props)
 		return (
       <div class="inputs">
         {this.props.midi.map(el => (

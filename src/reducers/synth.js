@@ -3,6 +3,8 @@ const osc = (state, action) => {
     case 'ADD_OSC':
       return {
       }
+    case 'UPDATE_OSC_TYPE':
+      return { ...state, type: action.value }
     default:
       return state
   }
@@ -26,10 +28,21 @@ const defaultState = {
 const synth = (state = defaultState, action) => {
   switch (action.type) {
     case 'ADD_OSC':
-      return { ...state, active: [
-        osc(undefined, action),
-        ...state.active.slice(action.index, state.length)
+      return { ...state, oscillators: [
+        ...state.oscillators,
+        osc(undefined, action)
       ]}
+    case 'UPDATE_OSC_TYPE':
+      return {...state, oscillators: [...state.oscillators].map((el, i) => {
+        if (i === action.index) {
+          el = osc(el, action)
+        }
+        if (el === false) { // why did i add this? probably for a good reason
+          return false
+        } else {
+          return el
+        }
+      })}
     default:
       return state
   }
