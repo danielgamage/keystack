@@ -1,14 +1,14 @@
 $grey-6: #fdfcfb;
-$grey-5: #e8eaea;
+$grey-5: #e8e9eb;
 $grey-4: #cdd1d3;
-$grey-3: #b3b3b3;
+$grey-3: #b3b3b4;
 $grey-1: #7c7c7e;
 $grey-0: #545659;
 $orange: #FF9800;
 
 
 body {
-  font-family: 'Oxygen', sans-serif;
+  font-family: 'Alegreya Sans', sans-serif;
   margin: 40px;
   background: $grey-6;
   color: $grey-0;
@@ -22,9 +22,15 @@ svg {
 main {
   display: flex;
 }
-.note-viewer {
+.settings {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.viewer {
   width: 12rem;
   height: 1.2rem;
+  margin-bottom: 1rem;
   white-space: nowrap;
   padding: 0.5rem 1rem;
   color: $grey-6;

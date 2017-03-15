@@ -759,7 +759,7 @@ export default [
       6
     ],
     "quality": "Atonal"
-  }
+  },
   {
     "name": "Viennese trichord (alt)",
     "set": [

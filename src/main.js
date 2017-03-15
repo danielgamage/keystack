@@ -6,6 +6,7 @@ import { range } from "d3-array"
 
 import { keys, noteForIndex } from './utils'
 import keySteps from './data/keySteps'
+import chords from './data/chords'
 
 import { createStore } from 'redux'
 import reducer from './reducers'
@@ -20,12 +21,31 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 let currentValue
 const noteViewer = document.querySelector('.note-viewer')
+const chordViewer = document.querySelector('.chord-viewer')
 store.subscribe(() => {
   let previousValue = currentValue
-  currentValue = store.getState().notes
+  currentValue = store.getState()
 
-  if (previousValue !== currentValue) {
-    noteViewer.innerHTML = currentValue.map(el => `${el.note}<sub>${el.octave}</sub>`).join(' ')
+  if (previousValue.notes !== currentValue.notes) {
+    let noteList = currentValue.notes.map(el => (
+      `${el.note}<sub>${el.octave}</sub>`
+    )).join(' ')
+    const sortedNotes = [...currentValue.notes].sort((a,b) => (a.index - b.index))
+    let match
+    if (sortedNotes.length > 0) {
+      const root = sortedNotes[0]
+      const chord = sortedNotes.map(note => note.index - sortedNotes[0].index)
+      const matches = chords.filter(el => el.set.length === chord.length && el.set.every((e, i) => e === chord[i]))
+      if (matches[0]) {
+        match = `${root.note} ${matches[0].name}`
+      } else {
+        match = ``
+      }
+    } else {
+      match = ``
+    }
+    noteViewer.innerHTML = noteList
+    chordViewer.innerHTML = match
   }
 })
 
