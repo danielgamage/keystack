@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import synth from './synth'
 import notes from './notes'
+import midi from './midi'
 
 const keystackApp = combineReducers({
   synth: synth,
-  notes: notes
+  notes: notes,
+  midi: midi
 })
 
 const rootReducer = (state, action) => {

@@ -13,7 +13,7 @@ import { Provider } from 'preact-redux';
 import { createStore } from 'redux'
 import reducer from './reducers'
 
-import App from './components/app'
+import App from './components/App.jsx'
 
 import './styles/style.scss'
 
@@ -234,7 +234,6 @@ const getNoteIndexForMIDI = (code) => {
 //
 
 function onMIDIMessage(event) {
-    console.log(event.data)
     var data = event.data,
         cmd = data[0] >> 4,
         channel = data[0] & 0xf,
@@ -265,9 +264,17 @@ function onMIDISuccess(midiAccess) {
     // when we get a succesful response, run this code
     console.log('MIDI Access Object', midiAccess);
     const inputs = midiAccess.inputs.values();
-    console.log(inputs)
     for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
         // listen for midi messages
+        store.dispatch({
+          type: 'ADD_MIDI',
+          value: {
+            id: input.value.id,
+            manufacturer: input.value.manufacturer,
+            name: input.value.name,
+            type: input.value.type
+          }
+        })
         input.value.onmidimessage = onMIDIMessage;
     }
     // listen for connect/disconnect message

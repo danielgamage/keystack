@@ -5,6 +5,7 @@ $grey-3: #b3b3b4;
 $grey-1: #7c7c7e;
 $grey-0: #545659;
 $orange: #FF9800;
+$orange-bright: #FFA850;
 
 
 body {
@@ -25,27 +26,30 @@ svg {
 .settings {
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  background-color: $grey-0;
+  color: $grey-6;
+  border-radius: 0.2rem;
+  padding: 1rem;
 }
 .viewer {
   width: 14rem;
   height: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   white-space: nowrap;
-  padding: 0.5rem 1rem;
-  color: $grey-6;
-  background-color: $grey-0;
-  border-radius: 0.2rem;
   overflow: scroll;
 }
 .notes {
   display: inline-block;
   margin-right: 0.25rem;
 }
+.midi-manufacturer {
+  margin-right: 0.5rem;
+}
+.midi-manufacturer,
 .quality {
   font-family: 'Alegreya Sans SC', sans-serif;
   text-transform: lowercase;
-  color: $orange;
+  color: $orange-bright;
 }
 #chart {
   margin-right: 2rem;

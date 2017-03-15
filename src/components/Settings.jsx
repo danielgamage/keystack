@@ -3,6 +3,7 @@ import { connect } from 'preact-redux'
 import reduce from '../reducers'
 import * as actions from '../actions'
 import chords from '../data/chords'
+import Midi from './MIDI.jsx'
 
 class Settings extends Component {
 	render() {
@@ -15,6 +16,7 @@ class Settings extends Component {
     }
 		return (
       <div class="settings">
+        <Midi />
         <div class="viewer note-viewer">{
           this.props.notes.map(el => (
             <span class="notes">{el.note}<sub>{el.octave}</sub></span>

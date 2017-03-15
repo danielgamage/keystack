@@ -3,7 +3,7 @@ import { connect } from 'preact-redux';
 import reduce from '../reducers';
 import * as actions from '../actions';
 
-import Settings from './Settings.js'
+import Settings from './Settings.jsx'
 
 class App extends Component {
 	render({ todos }, { text }) {
