@@ -3,12 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Keystack</title>
+<link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
 </head>
 
 <body>
     <h1>Keystack</h1>
+    <main>
+      <div id="chart"></div>
+      <div class="note-viewer"></div>
+      <!-- <div class="controls">
+        <div class="osc-1">
+          <label>
+            <input name="osc" type="radio" checked>
+            sawtooth
+          </label>
+          <label>
+            <input name="osc" type="radio">
+            triangle
+          </label>
+          <label>
+            <input name="osc" type="radio">
+            square
+          </label>
+          <label>
+            <input name="osc" type="radio">
+            sine
+          </label>
+        </div>
+      </div> -->
+    </main>
+    <div class="help">
+      <section>
+        <h3>octave</h3>
+        <kbd title="z shifts octave down">z</kbd>/<kbd title="x shifts octave up">x</kbd>
+      </section>
+      <section>
+        <h3>notes</h3>
+        <div class="keyboard">
+          <div class="row black">
+            <kbd disabled>Q</kbd>
+            <kbd>W</kbd>
+            <kbd>E</kbd>
+            <kbd disabled>R</kbd>
+            <kbd>T</kbd>
+            <kbd>Y</kbd>
+            <kbd>U</kbd>
+            <kbd disabled>I</kbd>
+            <kbd>O</kbd>
+            <kbd>P</kbd>
+            <kbd disabled>{</kbd>
+            <kbd>}</kbd>
+          </div>
+          <div class="row white">
+            <kbd>A</kbd>
+            <kbd>S</kbd>
+            <kbd>D</kbd>
+            <kbd>F</kbd>
+            <kbd>G</kbd>
+            <kbd>H</kbd>
+            <kbd>J</kbd>
+            <kbd>K</kbd>
+            <kbd>L</kbd>
+            <kbd>:</kbd>
+            <kbd>"</kbd>
+          </div>
 
-    <div id="chart"></div>
+
+        </div>
+      </section>
+    </div>
 
     <script src="dist/bundle.js"></script>
 </body>
