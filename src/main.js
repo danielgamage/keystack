@@ -152,23 +152,12 @@ window.addEventListener("keydown", (e) => {
   } else {
     const steps = keySteps.filter(key => e.key === key.key)[0].step
     const note = keys[steps + 2 + (octave * 12)]
-    // prevent sticky keys
-    if (!oscillators[note.frequency]) {
-      store.dispatch({
-        type: 'ADD_NOTE',
-        note: note
-      })
-      startNote(note)
-    }
+    startNote(note)
   }
 })
 window.addEventListener("keyup", (e) => {
   const steps = keySteps.filter(key => e.key === key.key)[0].step
   const note = keys[steps + 2 + (octave * 12)]
-  store.dispatch({
-    type: 'REMOVE_NOTE',
-    note: note
-  })
   stopNote(note)
 })
 
@@ -185,6 +174,10 @@ masterVolume.connect(audioCtx.destination);
 var oscillators = {};
 
 const stopNote = (note) => {
+  store.dispatch({
+    type: 'REMOVE_NOTE',
+    note: note
+  })
   oscillators[note.frequency].oscillators.forEach((oscillator) => {
     oscillator.stop(audioCtx.currentTime + 2);
   });
@@ -195,33 +188,40 @@ const stopNote = (note) => {
 
 }
 const startNote = (note) => {
-  document.querySelector(`.spiral-${note.index}`)
-    .classList.add('on')
+  // prevent sticky keys
+  if (!oscillators[note.frequency]) {
+    store.dispatch({
+      type: 'ADD_NOTE',
+      note: note
+    })
+    document.querySelector(`.spiral-${note.index}`)
+      .classList.add('on')
 
-  var osc = audioCtx.createOscillator(),
-    osc2 = audioCtx.createOscillator();
+    var osc = audioCtx.createOscillator(),
+      osc2 = audioCtx.createOscillator();
 
-  osc.frequency.value = note.frequency;
-  osc.type = 'sawtooth';
+    osc.frequency.value = note.frequency;
+    osc.type = 'sawtooth';
 
-  osc2.frequency.value = note.frequency;
-  osc2.type = 'triangle';
+    osc2.frequency.value = note.frequency;
+    osc2.type = 'triangle';
 
-  var noteVolume = audioCtx.createGain();
-  noteVolume.gain.value = 0.2;
-  noteVolume.connect(audioCtx.destination);
+    var noteVolume = audioCtx.createGain();
+    noteVolume.gain.value = 0.2;
+    noteVolume.connect(audioCtx.destination);
 
-  osc.connect(noteVolume);
-  osc2.connect(noteVolume);
+    osc.connect(noteVolume);
+    osc2.connect(noteVolume);
 
-  oscillators[note.frequency] = {
-    oscillators: [osc, osc2],
-    volume: noteVolume
-  };
+    oscillators[note.frequency] = {
+      oscillators: [osc, osc2],
+      volume: noteVolume
+    };
 
-  osc.start(audioCtx.currentTime);
-  osc2.start(audioCtx.currentTime);
-  noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.05);
+    osc.start(audioCtx.currentTime);
+    osc2.start(audioCtx.currentTime);
+    noteVolume.gain.linearRampToValueAtTime(1.0, audioCtx.currentTime + 0.05);
+  }
 }
 
 if (navigator.requestMIDIAccess) {
@@ -233,7 +233,7 @@ if (navigator.requestMIDIAccess) {
 }
 
 const getNoteIndexForMIDI = (code) => {
-  return code - 20
+  return code - 21
 }
 
 //
