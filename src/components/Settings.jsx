@@ -5,6 +5,8 @@ import * as actions from '../actions'
 import chords from '../data/chords'
 import Midi from './MIDI.jsx'
 
+import waveIcon from '../images/waves.svg'
+
 class Settings extends Component {
 	render() {
     let matches = []
@@ -34,6 +36,7 @@ class Settings extends Component {
                 {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
                   <label title={type}>
                     <input
+                      class="hide-input"
                       name={`osc-${i}`}
                       type="radio"
                       value={type}
@@ -46,7 +49,9 @@ class Settings extends Component {
                         })
                       }}
                       />
-                    {type}
+                    <svg className='icon icon--wave' viewBox='0 0 32 32'>
+                      <use xlinkHref={waveIcon + `#${type}`}></use>
+                    </svg>
                   </label>
                 ))}
               </div>

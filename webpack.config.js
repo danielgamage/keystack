@@ -52,6 +52,13 @@ module.exports = {
         }, {
           loader: "sass-loader" // compiles Sass to CSS
         }]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'file-loader',
+        query: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
       }
     ]
   }

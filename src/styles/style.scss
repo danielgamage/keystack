@@ -23,6 +23,11 @@ svg {
 .app {
   display: flex;
 }
+
+// ---
+// HUD
+// ---
+
 .settings {
   display: flex;
   flex-flow: column;
@@ -51,6 +56,27 @@ svg {
   text-transform: lowercase;
   color: $orange-bright;
 }
+.hide-input {
+  display: none;
+}
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+  fill: none;
+  stroke: $grey-1;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  transition: 0.2s ease;
+}
+:checked + .icon {
+  stroke: $grey-6;
+}
+
+// ----
+// Keystack
+// ----
+
 #chart {
   margin-right: 2rem;
 }
@@ -88,11 +114,9 @@ path.spiral {
   }
 }
 
-/*
- * ----
- * Help
- * ----
- */
+// ----
+// Help
+// ----
 
 .help {
   display: flex;
