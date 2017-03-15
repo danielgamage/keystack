@@ -37,7 +37,7 @@ store.subscribe(() => {
       const chord = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
       const matches = chords.filter(el => el.set.length === chord.length && el.set.every((e, i) => e === chord[i]))
       if (matches[0]) {
-        match = `${root.note} ${matches[0].name}`
+        match = `${root.note} ${matches[0].name} <span class="quality">${matches[0].quality}</span>`
       } else {
         match = ``
       }
