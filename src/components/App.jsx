@@ -5,13 +5,14 @@ import * as actions from '../actions';
 
 import Settings from './Settings.jsx'
 import NoteHUD from './NoteHUD.jsx'
+import RadialKeys from './RadialKeys.jsx'
 
 class App extends Component {
 	render() {
 		return (
 			<div class="app">
         <div class="play-area">
-          <div id="chart"></div>
+          <RadialKeys />
           <NoteHUD />
         </div>
         <Settings />

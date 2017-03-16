@@ -7,8 +7,6 @@ var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var packageJSON = require('./package.json');
 
-console.log(packageJSON.homepage)
-
 module.exports = {
   entry: [
     './src/main'

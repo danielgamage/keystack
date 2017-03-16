@@ -9,7 +9,7 @@ import Settings from './Settings.jsx'
 import eyeIcon from '../images/eye.svg'
 
 
-class App extends Component {
+class NoteHUD extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -75,4 +75,4 @@ function mapStateToProps (state) {
   return { notes: state.notes, view: state.view }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(NoteHUD)
