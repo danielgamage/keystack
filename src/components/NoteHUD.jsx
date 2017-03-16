@@ -21,12 +21,15 @@ class App extends Component {
   }
 	render() {
     let matches = []
+    let root
     if (this.state.showHUD === true) {
       if (this.props.notes.length > 0) {
         const sortedNotes = [...this.props.notes].sort((a,b) => (a.index - b.index))
-        const root = sortedNotes[0]
-        const chord = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
-        matches = chords.filter(el => el.set.length === chord.length && el.set.every((e, i) => e === chord[i]))
+        const integerList = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
+        // dedupe
+        const dedupedList = [...new Set(integerList)]
+        matches = chords.filter(el => el.set.length === dedupedList.length && el.set.every((e, i) => e === dedupedList[i]))
+        root = sortedNotes[0]
       }
     }
 		return (
@@ -45,16 +48,20 @@ class App extends Component {
           <div>
             <div>
               <div class="viewer note-viewer">{
-                this.props.notes.map(el => (
+                this.props.notes.length > 0
+                ? this.props.notes.map(el => (
                   <span class="notes">{el.note}<sub>{el.octave}</sub></span>
                 ))
+                : <span class="empty">Notes will appear here.</span>
               }</div>
               <div class="viewer chord-viewer">{
-                matches.map(match => (
+                matches.length > 0
+                ? matches.map(match => (
                   <span class="chord">
                     <span class="match">{root.note} {match.name} <span class="quality">{match.quality}</span></span>
                   </span>
                 ))
+                : <span class="empty">Matched chords will appear here.</span>
               }</div>
             </div>
           </div>

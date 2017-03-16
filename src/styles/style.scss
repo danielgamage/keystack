@@ -195,6 +195,7 @@ input {
 }
 .note-hud {
   display: flex;
+  margin-top: 2rem;
 }
 .icon--eye{
   transform: translateY(-0.5rem);
@@ -214,6 +215,9 @@ input {
 }
 .chord-viewer {
   line-height: 1.5;
+}
+.empty {
+  color: $grey-5;
 }
 .notes {
   display: inline-block;
