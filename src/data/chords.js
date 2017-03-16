@@ -1,6 +1,6 @@
 export default [
   {
-    "name": "Augmented chord",
+    "name": "Augmented",
     "set": [
       0,
       4,
@@ -9,7 +9,7 @@ export default [
     "quality": "Augmented"
   },
   {
-    "name": "Augmented eleventh chord[1]",
+    "name": "Augmented eleventh[1]",
     "set": [
       0,
       4,
@@ -21,7 +21,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Augmented major seventh chord",
+    "name": "Augmented major seventh",
     "set": [
       0,
       4,
@@ -31,7 +31,7 @@ export default [
     "quality": "Augmented"
   },
   {
-    "name": "Augmented seventh chord",
+    "name": "Augmented seventh",
     "set": [
       0,
       4,
@@ -41,7 +41,7 @@ export default [
     "quality": "Augmented"
   },
   {
-    "name": "Augmented sixth chord",
+    "name": "Augmented sixth",
     "set": [
       0,
       6,
@@ -50,7 +50,7 @@ export default [
     "quality": "Predominant"
   },
   {
-    "name": "Diminished chord",
+    "name": "Diminished",
     "set": [
       0,
       3,
@@ -59,7 +59,7 @@ export default [
     "quality": "Diminished"
   },
   {
-    "name": "Diminished major seventh chord",
+    "name": "Diminished major seventh",
     "set": [
       0,
       3,
@@ -69,7 +69,7 @@ export default [
     "quality": "Diminished"
   },
   {
-    "name": "Diminished seventh chord",
+    "name": "Diminished seventh",
     "set": [
       0,
       3,
@@ -79,16 +79,7 @@ export default [
     "quality": "Diminished"
   },
   {
-    "name": "Dominant",
-    "set": [
-      0,
-      4,
-      7
-    ],
-    "quality": "Major"
-  },
-  {
-    "name": "Dominant eleventh chord",
+    "name": "Eleventh",
     "set": [
       0,
       4,
@@ -99,19 +90,9 @@ export default [
     ],
     "quality": "Major"
   },
+
   {
-    "name": "Dominant minor ninth",
-    "set": [
-      0,
-      4,
-      7,
-      10,
-      1
-    ],
-    "quality": "Major"
-  },
-  {
-    "name": "Dominant ninth",
+    "name": "Ninth",
     "set": [
       0,
       4,
@@ -122,16 +103,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Dominant parallel",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Dominant seventh chord",
+    "name": "Seventh",
     "set": [
       0,
       4,
@@ -141,7 +113,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Dominant seventh flat five chord",
+    "name": "Seventh flat five",
     "set": [
       0,
       4,
@@ -151,7 +123,7 @@ export default [
     "quality": "Diminished"
   },
   {
-    "name": "Dominant seventh raised ninth/Dominant seventh split third chord",
+    "name": "Seventh raised ninth/Seventh split third",
     "set": [
       0,
       4,
@@ -162,7 +134,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Dominant thirteenth chord",
+    "name": "Major thirteenth",
     "set": [
       0,
       4,
@@ -175,7 +147,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Dream chord",
+    "name": "Dream",
     "set": [
       0,
       5,
@@ -185,7 +157,7 @@ export default [
     "quality": "Just"
   },
   {
-    "name": "Elektra chord",
+    "name": "Elektra",
     "set": [
       0,
       7,
@@ -196,7 +168,7 @@ export default [
     "quality": "Bitonal"
   },
   {
-    "name": "Farben chord",
+    "name": "Farben",
     "set": [
       0,
       8,
@@ -207,7 +179,7 @@ export default [
     "quality": "Atonal"
   },
   {
-    "name": "Half-diminished seventh chord",
+    "name": "Half-diminished seventh",
     "set": [
       0,
       3,
@@ -217,7 +189,7 @@ export default [
     "quality": "Diminished"
   },
   {
-    "name": "Harmonic seventh chord",
+    "name": "Harmonic seventh",
     "set": [
       0,
       4,
@@ -227,7 +199,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Hendrix chord/Augmented ninth[9]",
+    "name": "Hendrix/Augmented ninth[9]",
     "set": [
       0,
       4,
@@ -238,7 +210,7 @@ export default [
     "quality": "Mixed"
   },
   {
-    "name": "Leading-tone chord",
+    "name": "Leading-tone",
     "set": [
       0,
       3,
@@ -247,7 +219,7 @@ export default [
     "quality": "Diminished"
   },
   {
-    "name": "Lydian chord",
+    "name": "Lydian",
     "set": [
       0,
       4,
@@ -258,7 +230,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Magic chord",
+    "name": "Magic",
     "set": [
       0,
       1,
@@ -272,7 +244,7 @@ export default [
     "quality": "Just"
   },
   {
-    "name": "Major chord",
+    "name": "Major",
     "set": [
       0,
       4,
@@ -281,7 +253,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Major eleventh chord",
+    "name": "Major eleventh",
     "set": [
       0,
       4,
@@ -293,7 +265,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Major seventh chord",
+    "name": "Major seventh",
     "set": [
       0,
       4,
@@ -303,7 +275,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Major seventh sharp eleventh chord",
+    "name": "Major seventh sharp eleventh",
     "set": [
       0,
       4,
@@ -314,7 +286,7 @@ export default [
     "quality": "Augmented"
   },
   {
-    "name": "Major sixth chord",
+    "name": "Major sixth",
     "set": [
       0,
       4,
@@ -324,7 +296,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Major sixth ninth chord (\"6 add 9\",[11] Nine six,[12] 6/9)",
+    "name": "Major sixth ninth (\"6 add 9\",[11] Nine six,[12] 6/9)",
     "set": [
       0,
       4,
@@ -335,7 +307,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Major ninth chord",
+    "name": "Major ninth",
     "set": [
       0,
       4,
@@ -346,7 +318,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Major thirteenth chord",
+    "name": "Major thirteenth",
     "set": [
       0,
       4,
@@ -359,7 +331,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Mediant",
+    "name": "Minor",
     "set": [
       0,
       3,
@@ -368,16 +340,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor chord",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Minor eleventh chord",
+    "name": "Minor eleventh",
     "set": [
       0,
       3,
@@ -389,7 +352,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor major seventh chord",
+    "name": "Minor major seventh",
     "set": [
       0,
       3,
@@ -399,7 +362,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor ninth chord",
+    "name": "Minor ninth",
     "set": [
       0,
       3,
@@ -410,7 +373,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor seventh chord",
+    "name": "Minor seventh",
     "set": [
       0,
       3,
@@ -420,7 +383,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor sixth chord",
+    "name": "Minor sixth",
     "set": [
       0,
       3,
@@ -430,7 +393,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor sixth ninth chord (6/9)",
+    "name": "Minor sixth ninth (6/9)",
     "set": [
       0,
       3,
@@ -441,7 +404,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Minor thirteenth chord",
+    "name": "Minor thirteenth",
     "set": [
       0,
       3,
@@ -454,7 +417,7 @@ export default [
     "quality": "Minor"
   },
   {
-    "name": "Mu chord",
+    "name": "Mu",
     "set": [
       0,
       2,
@@ -464,7 +427,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Mystic chord",
+    "name": "Mystic",
     "set": [
       0,
       6,
@@ -476,7 +439,7 @@ export default [
     "quality": "Atonal"
   },
   {
-    "name": "Neapolitan chord",
+    "name": "Neapolitan",
     "set": [
       1,
       5,
@@ -485,7 +448,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Ninth augmented fifth chord[11][13]",
+    "name": "Ninth augmented fifth[11][13]",
     "set": [
       0,
       4,
@@ -496,7 +459,7 @@ export default [
     "quality": "Augmented"
   },
   {
-    "name": "Ninth flat fifth chord[11]",
+    "name": "Ninth flat fifth[11]",
     "set": [
       0,
       4,
@@ -507,7 +470,7 @@ export default [
     "quality": "M3+d5"
   },
   {
-    "name": "Northern lights chord",
+    "name": "Northern lights",
     "set": [
       1,
       2,
@@ -536,7 +499,7 @@ export default [
     "quality": "Atonal"
   },
   {
-    "name": "Petrushka chord",
+    "name": "Petrushka",
     "set": [
       0,
       1,
@@ -548,7 +511,7 @@ export default [
     "quality": "Mixed"
   },
   {
-    "name": "Power chord",
+    "name": "Power",
     "set": [
       0,
       7
@@ -556,43 +519,7 @@ export default [
     "quality": "Indeterminate"
   },
   {
-    "name": "Psalms chord",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Secondary dominant",
-    "set": [
-      0,
-      4,
-      7
-    ],
-    "quality": "Major"
-  },
-  {
-    "name": "Secondary leading-tone chord",
-    "set": [
-      0,
-      3,
-      6
-    ],
-    "quality": "Diminished"
-  },
-  {
-    "name": "Secondary supertonic chord",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Seven six chord[16]",
+    "name": "Seven six[16]",
     "set": [
       0,
       4,
@@ -603,7 +530,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Seventh flat nine chord[18]",
+    "name": "Seventh flat nine[18]",
     "set": [
       0,
       4,
@@ -614,7 +541,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Seventh suspension four chord[19]",
+    "name": "Seventh suspension four[19]",
     "set": [
       0,
       5,
@@ -624,7 +551,7 @@ export default [
     "quality": "Suspended"
   },
   {
-    "name": "So What chord",
+    "name": "So What",
     "set": [
       0,
       5,
@@ -635,7 +562,7 @@ export default [
     "quality": "Bitonal"
   },
   {
-    "name": "Suspended chord",
+    "name": "Suspended",
     "set": [
       0,
       5,
@@ -644,52 +571,7 @@ export default [
     "quality": "Indeterminate"
   },
   {
-    "name": "Subdominant",
-    "set": [
-      0,
-      4,
-      7
-    ],
-    "quality": "Major"
-  },
-  {
-    "name": "Subdominant parallel",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Submediant",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Subtonic",
-    "set": [
-      0,
-      4,
-      7
-    ],
-    "quality": "Major"
-  },
-  {
-    "name": "Supertonic",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Thirteenth flat ninth chord[11]",
+    "name": "Thirteenth flat ninth[11]",
     "set": [
       0,
       4,
@@ -702,7 +584,7 @@ export default [
     "quality": "Major"
   },
   {
-    "name": "Thirteenth flat ninth flat fifth chord[11]",
+    "name": "Thirteenth flat ninth flat fifth[11]",
     "set": [
       0,
       4,
@@ -715,34 +597,7 @@ export default [
     "quality": "M3+d5"
   },
   {
-    "name": "Tonic counter parallel",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Tonic",
-    "set": [
-      0,
-      4,
-      7
-    ],
-    "quality": "Major"
-  },
-  {
-    "name": "Tonic parallel",
-    "set": [
-      0,
-      3,
-      7
-    ],
-    "quality": "Minor"
-  },
-  {
-    "name": "Tristan chord",
+    "name": "Tristan",
     "set": [
       0,
       3,
