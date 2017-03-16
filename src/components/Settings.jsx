@@ -34,7 +34,8 @@ class Settings extends Component {
         <div>
           <div class="controls">
             {this.props.synth.oscillators.map((osc, i) => (
-              <div class={`osc-${i}`}>
+              <div class={`osc osc-${i}`}>
+                <span class="title">{`OSC ${i}`}</span>
                 {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
                   <label title={type}>
                     <input

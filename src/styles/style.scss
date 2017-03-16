@@ -36,8 +36,15 @@ svg {
   border-radius: 0.2rem;
   padding: 2rem;
 }
+.osc {
+  display: flex;
+  line-height: 2rem;
+  .title {
+    margin-right: 1rem;
+  }
+}
 .viewer {
-  width: 14rem;
+  max-width: 12rem;
   height: 1.2rem;
   margin-bottom: 0.5rem;
   white-space: nowrap;
@@ -73,6 +80,7 @@ svg {
   stroke: $grey-6;
 }
 .envelope {
+  max-width: 16rem;
   .envelope-path {
     overflow: visible;
     margin: 2rem 0;
