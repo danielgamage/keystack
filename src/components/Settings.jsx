@@ -4,6 +4,7 @@ import reduce from '../reducers'
 import * as actions from '../actions'
 import chords from '../data/chords'
 import Midi from './MIDI.jsx'
+import NumericInput from './NumericInput.jsx'
 
 import waveIcon from '../images/waves.svg'
 
@@ -55,6 +56,28 @@ class Settings extends Component {
                   </label>
                 ))}
               </div>
+            ))}
+          </div>
+          <div class="envelope">
+            {[
+              {name: 'initial', min: 0, max:  1,  step: 0.05},
+              {name: 'peak',    min: 0, max:  1,  step: 0.05},
+              {name: 'sustain', min: 0, max:  1,  step: 0.05},
+              {name: 'attack',  min: 0, max: 30,  step: 0.10},
+              {name: 'decay',   min: 0, max: 30,  step: 0.10},
+              {name: 'release', min: 0, max: 30,  step: 0.10}
+            ].map(el => (
+              <NumericInput
+                label={el.name}
+                class="tri"
+                id={el.name}
+                min={el.min}
+                max={el.max}
+                step={el.step}
+                value={this.props.synth.envelope[el.name]}
+                action='UPDATE_VOLUME_ENVELOPE'
+                actionKey={el.name}
+                />
             ))}
           </div>
         </div>

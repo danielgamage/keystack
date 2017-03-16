@@ -72,6 +72,16 @@ svg {
 :checked + .icon {
   stroke: $grey-6;
 }
+.envelope {
+  display: flex;
+  flex-flow: row wrap;
+}
+.tri {
+  width: calc(100% / 3);
+}
+input {
+  width: 100%;
+}
 
 // ----
 // Keystack

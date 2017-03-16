@@ -32,6 +32,10 @@ const synth = (state = defaultState, action) => {
         ...state.oscillators,
         osc(undefined, action)
       ]}
+    case 'UPDATE_VOLUME_ENVELOPE':
+      let newState = { ...state }
+      newState.envelope[action.key] = action.value
+      return newState
     case 'UPDATE_OSC_TYPE':
       return {...state, oscillators: [...state.oscillators].map((el, i) => {
         if (i === action.index) {
