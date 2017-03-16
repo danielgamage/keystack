@@ -73,7 +73,7 @@ class NumericInput extends Component {
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
           >
-          {this.props.label}
+          <span class="label-text">{this.props.label}</span>
           <svg viewBox="0 0 32 32">
             <circle
               vector-effect="non-scaling-stroke"
