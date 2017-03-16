@@ -5,6 +5,9 @@ const __DEV__ = (process.env.NODE_ENV !== "production");
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var packageJSON = require('./package.json');
+
+console.log(packageJSON.homepage)
 
 module.exports = {
   entry: [
@@ -13,7 +16,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'app'),
-    publicPath: '',
+    publicPath: packageJSON.homepage,
     filename: 'dist/bundle.js'
   },
 

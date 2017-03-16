@@ -1,9 +1,10 @@
 {
-  "name": "webpack.babel",
+  "name": "keystack",
   "version": "1.0.0",
-  "description": "Webpack + Babel",
+  "description": "Circular piano roll",
   "main": "app.js",
-  "author": "Shane Osbourne",
+  "homepage": "https://danielgamage.github.io/keystack/",
+  "author": "Daniel Gamage",
   "license": "MIT",
   "scripts": {
     "start": "node app",
