@@ -209,7 +209,7 @@ const startNote = (note) => {
     };
 
     noteVolume.gain.linearRampToValueAtTime(envelope.peak, audioCtx.currentTime + envelope.attack);
-    noteVolume.gain.linearRampToValueAtTime(envelope.sustain, audioCtx.currentTime + envelope.attack + envelope.decay);
+    noteVolume.gain.exponentialRampToValueAtTime(envelope.sustain, audioCtx.currentTime + envelope.attack + envelope.decay);
   }
 }
 

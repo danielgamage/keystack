@@ -77,9 +77,9 @@ class Settings extends Component {
             {name: 'initial', min: 0, max:  1,  step: 0.01},
             {name: 'peak',    min: 0, max:  1,  step: 0.01},
             {name: 'sustain', min: 0, max:  1,  step: 0.01},
-            {name: 'attack',  min: 0, max: 30,  step: 0.10},
-            {name: 'decay',   min: 0, max: 30,  step: 0.10},
-            {name: 'release', min: 0, max: 30,  step: 0.10}
+            {name: 'attack',  min: 0, max:  5,  step: 0.01},
+            {name: 'decay',   min: 0, max:  5,  step: 0.01},
+            {name: 'release', min: 0, max:  5,  step: 0.01}
           ].map(el => (
             <NumericInput
               label={el.name}
