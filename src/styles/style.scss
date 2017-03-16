@@ -56,6 +56,7 @@ svg {
   color: $grey-6;
   border-radius: 0.2rem;
   padding: 2rem;
+  width: 22rem;
 }
 .osc {
   display: flex;
@@ -67,18 +68,8 @@ svg {
   }
   .fader {
     margin: 0 0 0 1rem;
+    flex: 1;
   }
-}
-.viewer {
-  max-width: 12rem;
-  height: 1.2rem;
-  margin-bottom: 0.5rem;
-  white-space: nowrap;
-  overflow: scroll;
-}
-.notes {
-  display: inline-block;
-  margin-right: 0.25rem;
 }
 .midi-manufacturer {
   margin-right: 0.5rem;
@@ -194,9 +185,37 @@ input {
 // Keystack
 // ----
 
-#chart {
+.play-area {
   margin-right: 2rem;
+  width: calc(100% - 24rem);
 }
+.note-hud {
+  display: flex;
+}
+.icon--eye{
+  transform: translateY(-0.5rem);
+  flex: 0;
+  &.on {
+    fill: $grey-0;
+  }
+  margin-right: 0.5rem;
+}
+.viewer {
+  height: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.note-viewer {
+  font-weight: 700;
+  // font-size: 0.8rem;
+}
+.notes {
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+.chord {
+  margin-right: 0.5rem;
+}
+
 .axis {
   & path {
     fill: none;
