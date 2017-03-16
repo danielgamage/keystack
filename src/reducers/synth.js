@@ -14,11 +14,13 @@ const defaultState = {
   oscillators: [
     {
       type: 'sawtooth',
-      detune: 10
+      detune: 10,
+      octave: 0
     },
     {
       type: 'triangle',
-      detune: 0
+      detune: 0,
+      octave: 0
     }
   ],
   envelope: {

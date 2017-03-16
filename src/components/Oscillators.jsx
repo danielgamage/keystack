@@ -53,6 +53,20 @@ class Oscillators extends Component {
                   property: 'detune'
               }}
               />
+            <NumericInput
+              label="octave"
+              class="small"
+              id={`octave-${i}`}
+              min="-4"
+              max="4"
+              step="1"
+              value={osc.octave}
+              action={{
+                  type: 'UPDATE_OSC',
+                  index: i,
+                  property: 'octave'
+              }}
+              />
           </div>
         ))}
       </div>
