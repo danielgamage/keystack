@@ -129,21 +129,23 @@ keys.map((el, i) => {
 
 let octave = 3
 
-window.addEventListener("keydown", (e) => {
-  if (e.key === "z") {
-    octave = Math.max(--octave, 0)
-  } else if (e.key === "x") {
-    octave = Math.min(++octave, 5)
-  } else {
-    const steps = keySteps.filter(key => e.key === key.key)[0].step
+window.addEventListener("keydown", (event) => {
+  if (keySteps.some(el => el.key === event.key)) {
+    const steps = keySteps.filter(key => event.key === key.key)[0].step
     const note = keys[steps + 2 + (octave * 12)]
     startNote(note)
   }
 })
-window.addEventListener("keyup", (e) => {
-  const steps = keySteps.filter(key => e.key === key.key)[0].step
-  const note = keys[steps + 2 + (octave * 12)]
-  stopNote(note)
+window.addEventListener("keyup", (event) => {
+  if (event.key === "z") {
+    octave = Math.max(--octave, 0)
+  } else if (event.key === "x") {
+    octave = Math.min(++octave, 5)
+  } else if (keySteps.some(el => el.key === event.key)) {
+    const steps = keySteps.filter(key => event.key === key.key)[0].step
+    const note = keys[steps + 2 + (octave * 12)]
+    stopNote(note)
+  }
 })
 
 //
