@@ -6,8 +6,19 @@ import chords from '../data/chords'
 import Midi from './MIDI.jsx'
 import NumericInput from './NumericInput.jsx'
 import Envelope from './Envelope.jsx'
+import Icon from './Icon.jsx'
 
-import waveIcon from '../images/waves.svg'
+import sawtoothIcon from '../images/wave-sawtooth.svg'
+import squareIcon from '../images/wave-square.svg'
+import triangleIcon from '../images/wave-triangle.svg'
+import sineIcon from '../images/wave-sine.svg'
+
+const waves = {
+  "sawtooth": sawtoothIcon,
+  "square": squareIcon,
+  "triangle": triangleIcon,
+  "sine": sineIcon
+}
 
 class Oscillators extends Component {
 	render() {
@@ -33,9 +44,10 @@ class Oscillators extends Component {
                       })
                     }}
                     />
-                  <svg className='icon icon--wave' viewBox='0 0 32 32'>
-                    <use xlinkHref={waveIcon + `#${type}`}></use>
-                  </svg>
+                  <Icon
+                    class="icon icon--wave"
+                    src={waves[type]}
+                    />
                 </label>
               ))}
             </div>

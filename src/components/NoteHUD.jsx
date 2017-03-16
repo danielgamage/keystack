@@ -5,9 +5,9 @@ import * as actions from '../actions';
 import chords from '../data/chords'
 
 import Settings from './Settings.jsx'
+import Icon from './Icon.jsx'
 
 import eyeIcon from '../images/eye.svg'
-
 
 class NoteHUD extends Component {
   constructor (props) {
@@ -35,14 +35,13 @@ class NoteHUD extends Component {
 		return (
       <div class="note-hud">
         <div class="section-icon">
-          <svg
+          <Icon
             class={`icon icon--eye ${this.state.showHUD && 'on'}`}
             onClick={() => {
               this.setState({showHUD: !this.state.showHUD})
             }}
-            viewBox='0 0 32 32'>
-            <use xlinkHref={eyeIcon + `#eye`}></use>
-          </svg>
+            src={eyeIcon}
+            />
         </div>
         {(this.state.showHUD === true) &&
           <div>

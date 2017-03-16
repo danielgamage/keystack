@@ -14,7 +14,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'app'),
-    publicPath: packageJSON.homepage,
+    publicPath: __DEV__ ? '/' : packageJSON.homepage,
     filename: 'dist/bundle.js'
   },
 

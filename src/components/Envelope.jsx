@@ -5,8 +5,6 @@ import { line } from "d3-shape"
 import { scaleLinear } from "d3-scale"
 
 
-import waveIcon from '../images/waves.svg'
-
 class Settings extends Component {
 	render() {
     const envelope = this.props.synth.envelope
