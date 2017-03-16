@@ -196,6 +196,7 @@ const startNote = (note) => {
     const initializedOscillators = state.synth.oscillators.map(el => {
       const osc = audioCtx.createOscillator();
       osc.frequency.value = note.frequency;
+      osc.detune.value = el.detune
       osc.type = el.type;
       osc.connect(noteVolume);
       osc.start(audioCtx.currentTime);

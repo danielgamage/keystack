@@ -52,8 +52,7 @@ class NumericInput extends Component {
   }
   updateStore (v, vOrU) {
     this.props.dispatch({
-      type: this.props.action,
-      key: this.props.actionKey || null,
+      ...this.props.action,
       value: v,
       valueOrUnit: vOrU
     })

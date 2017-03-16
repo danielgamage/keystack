@@ -57,6 +57,20 @@ class Settings extends Component {
                     </svg>
                   </label>
                 ))}
+                <NumericInput
+                  label="detune"
+                  class="tri"
+                  id="detune"
+                  min="-50"
+                  max="50"
+                  step="1"
+                  value={osc.detune}
+                  action={{
+                      type: 'UPDATE_OSC',
+                      index: i,
+                      property: 'detune'
+                  }}
+                  />
               </div>
             ))}
           </div>

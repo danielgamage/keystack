@@ -12,8 +12,14 @@ const osc = (state, action) => {
 
 const defaultState = {
   oscillators: [
-    { type: 'sawtooth' },
-    { type: 'triangle' }
+    {
+      type: 'sawtooth',
+      detune: 10
+    },
+    {
+      type: 'triangle',
+      detune: 0
+    }
   ],
   envelope: {
     initial: 0,
@@ -26,6 +32,7 @@ const defaultState = {
 }
 
 const synth = (state = defaultState, action) => {
+  let newState
   switch (action.type) {
     case 'ADD_OSC':
       return { ...state, oscillators: [
@@ -33,8 +40,12 @@ const synth = (state = defaultState, action) => {
         osc(undefined, action)
       ]}
     case 'UPDATE_VOLUME_ENVELOPE':
-      let newState = { ...state }
+      newState = { ...state }
       newState.envelope[action.key] = action.value
+      return newState
+    case 'UPDATE_OSC':
+      newState = { ...state }
+      newState.oscillators[action.index][action.property] = action.value
       return newState
     case 'UPDATE_OSC_TYPE':
       return {...state, oscillators: [...state.oscillators].map((el, i) => {

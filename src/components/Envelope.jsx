@@ -89,8 +89,10 @@ class Settings extends Component {
               max={el.max}
               step={el.step}
               value={envelope[el.name]}
-              action='UPDATE_VOLUME_ENVELOPE'
-              actionKey={el.name}
+							action={{
+								type: 'UPDATE_VOLUME_ENVELOPE',
+								key: el.name
+							}}
               />
           ))}
         </div>
