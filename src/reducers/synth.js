@@ -13,12 +13,12 @@ const osc = (state, action) => {
 const defaultState = {
   oscillators: [
     {
-      type: 'sawtooth',
-      detune: 10,
+      type: 'sine',
+      detune: -10,
       octave: 0
     },
     {
-      type: 'triangle',
+      type: 'sine',
       detune: 0,
       octave: 0
     }
@@ -26,8 +26,8 @@ const defaultState = {
   envelope: {
     initial: 0,
     peak: 1,
-    sustain: 0.2,
-    attack: 0.05,
+    sustain: 0.1,
+    attack: 0.01,
     decay: 0.5,
     release: 1
   }
