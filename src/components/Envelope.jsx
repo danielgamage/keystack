@@ -14,6 +14,7 @@ class Settings extends Component {
     const log10 = (v) => Math.log10(v + 1)
     const viewBoxWidth = 32
     const viewBoxHeight = 8
+    const sustainWidth = 1
     const points = [
       { // initial
         x: 0,
@@ -28,17 +29,17 @@ class Settings extends Component {
         y: envelope.sustain
       },
       { // end of sustain
-        x: log10(envelope.attack) + log10(envelope.decay) + 4,
+        x: log10(envelope.attack) + log10(envelope.decay) + sustainWidth,
         y: envelope.sustain
       },
       { // end of release
-        x: log10(envelope.attack) + log10(envelope.decay) + 4 + log10(envelope.release),
+        x: log10(envelope.attack) + log10(envelope.decay) + sustainWidth + log10(envelope.release),
         y: 0
       }
     ]
 
     const x = scaleLinear()
-      .domain([0, log10(envelope.attack) + log10(envelope.decay) + 4 + log10(envelope.release)])
+      .domain([0, log10(envelope.attack) + log10(envelope.decay) + sustainWidth + log10(envelope.release)])
       .range([0, viewBoxWidth])
     const y = scaleLinear()
       .domain([0, 1])

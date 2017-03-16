@@ -1,5 +1,10 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
+import * as d3 from 'd3'
+import { arc } from "d3-shape"
+import { scaleLinear } from "d3-scale"
+import { range } from "d3-array"
+
 
 class NumericInput extends Component {
   constructor (props) {
@@ -53,8 +58,14 @@ class NumericInput extends Component {
     })
   }
   render () {
+    var arc = d3.arc();
+
+    var angle = scaleLinear()
+      .domain([this.props.min, this.props.max])
+      .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
+
     return (
-      <div class={this.props.class}>
+      <div class={`control fader ${this.props.class}`}>
         <label
           htmlFor={this.props.id}
           class='ControlTitle draggable'
@@ -62,14 +73,32 @@ class NumericInput extends Component {
           onTouchStart={this.onMouseDown.bind(this)}
           >
           {this.props.label}
-          {this.props.equal === false &&
-            <span
-              class="unequal"
-              title="Multiple textboxes are selected, and their values are not equal."
-              >≠</span>
-          }
+          <svg viewBox="0 0 32 32">
+            <path
+              vector-effect="non-scaling-stroke"
+              class="fader-track"
+              transform="translate(16, 16)"
+              d={arc({
+                innerRadius: 14,
+                outerRadius: 14,
+                startAngle: angle(this.props.min),
+                endAngle: angle(this.props.max)
+              })}
+              />
+            <path
+              vector-effect="non-scaling-stroke"
+              class="fader-value"
+              transform="translate(16, 16)"
+              d={arc({
+                innerRadius: 14,
+                outerRadius: 14,
+                startAngle: angle(this.props.min),
+                endAngle: angle(this.props.value)
+              })}
+              />
+          </svg>
         </label>
-        <div class='ControlFlex'>
+        <div class="input">
           <input
             id={this.props.id}
             type='number'
@@ -80,17 +109,6 @@ class NumericInput extends Component {
             defaultValue={this.props.defaultValue}
             onChange={this.onChange.bind(this)}
             />
-          {this.props.unit &&
-            <div class='select no-border'>
-              <select
-                value={this.props.unit}
-                onChange={this.onChangeUnit.bind(this)}>
-                {units.map(el => (
-                  <option key={el.value} value={el.value}>{el.value}</option>
-                ))}
-              </select>
-            </div>
-          }
         </div>
       </div>
     )
