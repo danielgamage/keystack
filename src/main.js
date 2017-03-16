@@ -9,7 +9,7 @@ import keySteps from './data/keySteps'
 import chords from './data/chords'
 
 import { h, render } from 'preact'
-import { Provider } from 'preact-redux';
+import { Provider } from 'preact-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
 
@@ -32,7 +32,7 @@ render((
 	<Provider store={store}>
 		<App />
 	</Provider>
-), document.querySelector('#root'));
+), document.querySelector('#root'))
 
 const body = document.body
 
@@ -105,36 +105,36 @@ const startNote = (note) => {
 
     const envelope = state.synth.envelope
 
-    var noteVolume = audioCtx.createGain();
-    noteVolume.gain.value = envelope.initial;
-    noteVolume.connect(audioCtx.destination);
+    var noteVolume = audioCtx.createGain()
+    noteVolume.gain.value = envelope.initial
+    noteVolume.connect(audioCtx.destination)
 
     const initializedOscillators = state.synth.oscillators.map(el => {
-      const osc = audioCtx.createOscillator();
-      osc.frequency.value = note.frequency * (2 ** el.octave);
+      const osc = audioCtx.createOscillator()
+      osc.frequency.value = note.frequency * (2 ** el.octave)
       osc.detune.value = el.detune
-      osc.type = el.type;
-      osc.connect(noteVolume);
-      osc.start(audioCtx.currentTime);
+      osc.type = el.type
+      osc.connect(noteVolume)
+      osc.start(audioCtx.currentTime)
       return osc
     })
 
     oscillators[note.frequency] = {
       oscillators: initializedOscillators,
       volume: noteVolume
-    };
+    }
 
-    noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack);
-    noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay);
+    noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
+    noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
   }
 }
 
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
         sysex: false // this defaults to 'false' and we won't be covering sysex in this article.
-    }).then(onMIDISuccess, onMIDIFailure);
+    }).then(onMIDISuccess, onMIDIFailure)
 } else {
-    console.log("No MIDI support in your browser.");
+    console.log("No MIDI support in your browser.")
 }
 
 const getNoteIndexForMIDI = (code) => {
@@ -151,7 +151,7 @@ function onMIDIMessage(event) {
         channel = data[0] & 0xf,
         type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
         note = data[1],
-        velocity = data[2];
+        velocity = data[2]
     // with pressure and tilt off
     // note off: 128, cmd: 8
     // note on: 144, cmd: 9
@@ -164,18 +164,18 @@ function onMIDIMessage(event) {
     switch (type) {
         case 144: // noteOn message
             startNote(keys[note])
-            break;
+            break
         case 128: // noteOff message
             stopNote(keys[note])
 
-            break;
+            break
     }
 }
 
 function onMIDISuccess(midiAccess) {
     // when we get a succesful response, run this code
-    console.log('MIDI Access Object', midiAccess);
-    const inputs = midiAccess.inputs.values();
+    console.log('MIDI Access Object', midiAccess)
+    const inputs = midiAccess.inputs.values()
     for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
         // listen for midi messages
         store.dispatch({
@@ -187,13 +187,13 @@ function onMIDISuccess(midiAccess) {
             type: input.value.type
           }
         })
-        input.value.onmidimessage = onMIDIMessage;
+        input.value.onmidimessage = onMIDIMessage
     }
     // listen for connect/disconnect message
-    // midiAccess.onstatechange = onStateChange;
+    // midiAccess.onstatechange = onStateChange
 }
 
 function onMIDIFailure(e) {
     // when we get a failed response, run this code
-    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e)
 }
