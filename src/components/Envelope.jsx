@@ -58,7 +58,7 @@ class Settings extends Component {
           </linearGradient>
           <path
             vector-effect="non-scaling-stroke"
-            d={envelopePath(points)}
+            d={envelopePath([{x:0, y:0}, ...points]) /* Add in an extra point at the start so the fill doesn't break when init !=0 */}
             fill="url(#Gradient)"
             />
           {points.map(point => (
