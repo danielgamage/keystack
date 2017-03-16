@@ -40,6 +40,7 @@ class NumericInput extends Component {
     value += (movement * (step || 1))
     value = (this.props.min != undefined) ? Math.max(this.props.min, value) : value
     value = (this.props.max != undefined) ? Math.min(this.props.max, value) : value
+    value = Math.round(value * 100) / 100
 
     this.updateStore(value, 'value')
   }
