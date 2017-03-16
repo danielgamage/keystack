@@ -62,7 +62,11 @@ svg {
   line-height: 2rem;
   .title {
     margin-right: 1rem;
+    display: block;
     @extend %sc;
+  }
+  .fader {
+    margin: 0 0 0 1rem;
   }
 }
 .viewer {
@@ -119,12 +123,28 @@ svg {
     flex-flow: row wrap;
   }
 }
-.control.fader {
+.fader {
   margin: 1rem 0;
+  &.small {
+    label {
+      display: flex;
+      flex-flow: row wrap;
+    }
+    svg {
+      display: inline-block;
+      margin-right: 0.5rem;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
   label {
     display: block;
     cursor: ew-resize;
     @extend %sc;
+  }
+  .label-text{
+    display: block;
+    width: 100%;
   }
   svg {
     display: block;
@@ -159,6 +179,8 @@ svg {
     background: none;
     color: inherit;
     border: none;
+    padding: 0;
+    flex: 1;
   }
 }
 .tri {

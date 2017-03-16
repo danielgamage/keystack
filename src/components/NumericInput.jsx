@@ -104,8 +104,6 @@ class NumericInput extends Component {
               })}
               />
           </svg>
-        </label>
-        <div class="input">
           <input
             id={this.props.id}
             type='number'
@@ -116,7 +114,7 @@ class NumericInput extends Component {
             defaultValue={this.props.defaultValue}
             onChange={this.onChange.bind(this)}
             />
-        </div>
+        </label>
       </div>
     )
   }

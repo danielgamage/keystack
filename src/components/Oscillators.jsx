@@ -15,32 +15,34 @@ class Oscillators extends Component {
       <div class="controls">
         {this.props.synth.oscillators.map((osc, i) => (
           <div class={`osc osc-${i}`}>
-            <span class="title">{`OSC ${i}`}</span>
-            {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
-              <label title={type}>
-                <input
-                  class="hide-input"
-                  name={`osc-${i}`}
-                  type="radio"
-                  value={type}
-                  checked={(osc.type === type)}
-                  onClick={() => {
-                    this.props.dispatch({
-                      type: 'UPDATE_OSC_TYPE',
-                      value: type,
-                      index: i
-                    })
-                  }}
-                  />
-                <svg className='icon icon--wave' viewBox='0 0 32 32'>
-                  <use xlinkHref={waveIcon + `#${type}`}></use>
-                </svg>
-              </label>
-            ))}
+            <div className="wave">
+              <span class="title">{`OSC ${i}`}</span>
+              {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
+                <label title={type}>
+                  <input
+                    class="hide-input"
+                    name={`osc-${i}`}
+                    type="radio"
+                    value={type}
+                    checked={(osc.type === type)}
+                    onClick={() => {
+                      this.props.dispatch({
+                        type: 'UPDATE_OSC_TYPE',
+                        value: type,
+                        index: i
+                      })
+                    }}
+                    />
+                  <svg className='icon icon--wave' viewBox='0 0 32 32'>
+                    <use xlinkHref={waveIcon + `#${type}`}></use>
+                  </svg>
+                </label>
+              ))}
+            </div>
             <NumericInput
               label="detune"
-              class="tri"
-              id="detune"
+              class="small"
+              id={`detune-${i}`}
               min="-50"
               max="50"
               step="1"
