@@ -73,8 +73,18 @@ svg {
   stroke: $grey-6;
 }
 .envelope {
-  display: flex;
-  flex-flow: row wrap;
+  .envelope-path {
+    overflow: visible;
+    fill: none;
+    stroke: $orange;
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .container {
+    display: flex;
+    flex-flow: row wrap;
+  }
 }
 .tri {
   width: calc(100% / 3);

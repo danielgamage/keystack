@@ -33,7 +33,6 @@ class NumericInput extends Component {
     // console.log(movement)
     let step = this.props.step || 1
     value += (movement * (step || 1))
-    console.log(this.props.min)
     value = (this.props.min != undefined) ? Math.max(this.props.min, value) : value
     value = (this.props.max != undefined) ? Math.min(this.props.max, value) : value
 

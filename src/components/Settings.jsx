@@ -17,6 +17,18 @@ class Settings extends Component {
       const chord = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
       matches = chords.filter(el => el.set.length === chord.length && el.set.every((e, i) => e === chord[i]))
     }
+    const envelope = this.props.synth.envelope
+
+    const viewBoxWidth = 32
+    const viewBoxHeight = 8
+    const envelopePath = `M0,${viewBoxHeight - envelope.initial * viewBoxHeight}
+        l${Math.log10(envelope.attack + 1) * 4},${(envelope.peak - envelope.initial) * -viewBoxHeight}
+        l${Math.log10(envelope.decay + 1) * 4},${(envelope.peak - envelope.sustain) * viewBoxHeight}
+        h${4}
+        c0,${envelope.sustain * viewBoxHeight / 3 * 2},
+        ${Math.log10(envelope.release + 1)},${envelope.sustain * viewBoxHeight},
+        ${Math.log10(envelope.release + 1) * 4},${envelope.sustain * viewBoxHeight}`
+
 		return (
       <div class="settings">
         <Midi />
@@ -59,26 +71,33 @@ class Settings extends Component {
             ))}
           </div>
           <div class="envelope">
-            {[
-              {name: 'initial', min: 0, max:  1,  step: 0.05},
-              {name: 'peak',    min: 0, max:  1,  step: 0.05},
-              {name: 'sustain', min: 0, max:  1,  step: 0.05},
-              {name: 'attack',  min: 0, max: 30,  step: 0.10},
-              {name: 'decay',   min: 0, max: 30,  step: 0.10},
-              {name: 'release', min: 0, max: 30,  step: 0.10}
-            ].map(el => (
-              <NumericInput
-                label={el.name}
-                class="tri"
-                id={el.name}
-                min={el.min}
-                max={el.max}
-                step={el.step}
-                value={this.props.synth.envelope[el.name]}
-                action='UPDATE_VOLUME_ENVELOPE'
-                actionKey={el.name}
+            <svg class="envelope-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
+              <path
+                d={envelopePath}
                 />
-            ))}
+            </svg>
+            <div className="container">
+              {[
+                {name: 'initial', min: 0, max:  1,  step: 0.01},
+                {name: 'peak',    min: 0, max:  1,  step: 0.01},
+                {name: 'sustain', min: 0, max:  1,  step: 0.01},
+                {name: 'attack',  min: 0, max: 30,  step: 0.10},
+                {name: 'decay',   min: 0, max: 30,  step: 0.10},
+                {name: 'release', min: 0, max: 30,  step: 0.10}
+              ].map(el => (
+                <NumericInput
+                  label={el.name}
+                  class="tri"
+                  id={el.name}
+                  min={el.min}
+                  max={el.max}
+                  step={el.step}
+                  value={envelope[el.name]}
+                  action='UPDATE_VOLUME_ENVELOPE'
+                  actionKey={el.name}
+                  />
+              ))}
+            </div>
           </div>
         </div>
       </div>
