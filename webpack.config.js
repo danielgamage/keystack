@@ -4,6 +4,7 @@ const __DEV__ = (process.env.NODE_ENV !== "production");
 // webpack and webpack-hot-middleware documentation
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -12,14 +13,15 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'app'),
-    publicPath: '/',
+    publicPath: '',
     filename: 'dist/bundle.js'
   },
 
   plugins: [
     new webpack.LoaderOptionsPlugin({
       debug: true
-    })
+    }),
+    new ExtractTextPlugin('dist/style.css')
   ],
 
   devtool: __DEV__ ? "eval" : "nosources-source-map",
@@ -45,13 +47,13 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/,
-        use: [{
-          loader: "style-loader" // creates style nodes from JS strings
-        }, {
-          loader: "css-loader" // translates CSS into CommonJS
-        }, {
-          loader: "sass-loader" // compiles Sass to CSS
-        }]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader", // creates style nodes from JS strings
+          use: [
+            "css-loader", // translates CSS into CommonJS
+            "sass-loader" // compiles Sass to CSS
+          ]
+        })
       },
       {
         test: /\.svg$/,
