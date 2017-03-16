@@ -2,8 +2,9 @@ $grey-6: #fdfcfb;
 $grey-5: #e8e9eb;
 $grey-4: #cdd1d3;
 $grey-3: #b3b3b4;
-$grey-1: #7c7c7e;
-$grey-0: #545659;
+$grey-2: #7c7c7e;
+$grey-1: #5c5c5e;
+$grey-0: #444649;
 $orange: #FF9800;
 $orange-bright: #FFA850;
 
@@ -104,6 +105,22 @@ svg {
     margin: 0.5rem 0;
     width: 3rem;
     height: 3rem;
+    &:hover {
+      .fader-knob {
+        opacity: 1;
+      }
+    }
+    .fader-knob {
+      transition: 0.2s ease;
+      fill: $grey-1;
+      opacity: 0;
+    }
+    .fader-track {
+      stroke: $grey-1;
+    }
+    .fader-value {
+      stroke: $grey-6;
+    }
   }
   path {
     stroke-width: 2px;
@@ -117,12 +134,6 @@ svg {
     color: inherit;
     border: none;
   }
-}
-.fader-track {
-  stroke: $grey-1;
-}
-.fader-value {
-  stroke: $grey-6;
 }
 .tri {
   width: calc(100% / 3);

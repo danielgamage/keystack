@@ -74,6 +74,13 @@ class NumericInput extends Component {
           >
           {this.props.label}
           <svg viewBox="0 0 32 32">
+            <circle
+              vector-effect="non-scaling-stroke"
+              class="fader-knob"
+              cx={16}
+              cy={16}
+              r="14"
+              />
             <path
               vector-effect="non-scaling-stroke"
               class="fader-track"
