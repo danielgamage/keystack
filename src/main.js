@@ -170,6 +170,7 @@ const stopNote = (note) => {
   document.querySelector(`.spiral-${note.index}`)
     .classList.remove('on')
   oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime);
+  oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime);
   oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + envelope.release);
   oscillators[note.frequency] = null;
 

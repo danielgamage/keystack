@@ -34,7 +34,7 @@ svg {
   background-color: $grey-0;
   color: $grey-6;
   border-radius: 0.2rem;
-  padding: 1rem;
+  padding: 2rem;
 }
 .viewer {
   width: 14rem;
@@ -75,11 +75,14 @@ svg {
 .envelope {
   .envelope-path {
     overflow: visible;
-    fill: none;
-    stroke: $orange;
-    stroke-width: 0.5px;
+    margin: 2rem 0;
+    stroke: $grey-3;
+    stroke-width: 2px;
     stroke-linejoin: round;
     stroke-linecap: round;
+  }
+  .dot {
+    fill: $grey-0;
   }
   .container {
     display: flex;
