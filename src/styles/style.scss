@@ -35,6 +35,10 @@ body {
     user-select: none;
   }
 }
+#root {
+  margin: auto;
+  max-width: 52rem;
+}
 h1 {
   margin-top: 0;
 }
@@ -207,6 +211,9 @@ input {
 .note-viewer {
   font-weight: 700;
   // font-size: 0.8rem;
+}
+.chord-viewer {
+  line-height: 1.5;
 }
 .notes {
   display: inline-block;
