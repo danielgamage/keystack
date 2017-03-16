@@ -66,12 +66,13 @@ window.addEventListener("keyup", (event) => {
 //
 
 var audioCtx = new AudioContext(),
-    masterVolume = audioCtx.createGain();
+    masterVolume = audioCtx.createGain()
 
-masterVolume.gain.value = 0.2;
-masterVolume.connect(audioCtx.destination);
+masterVolume.gain.value = 0.2
+masterVolume.connect(audioCtx.destination)
 
-var oscillators = {};
+var oscillators = {}
+const minVolume = 0.00001
 
 const stopNote = (note) => {
   store.dispatch({
@@ -80,14 +81,14 @@ const stopNote = (note) => {
   })
   const envelope = store.getState().synth.envelope
   oscillators[note.frequency].oscillators.forEach((oscillator) => {
-    oscillator.stop(audioCtx.currentTime + envelope.release);
-  });
+    oscillator.stop(audioCtx.currentTime + envelope.release)
+  })
   document.querySelector(`.spiral-${note.index}`)
     .classList.remove('on')
-  oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime);
-  oscillators[note.frequency].volume.gain.setValueAtTime(oscillators[note.frequency].volume.gain.value, audioCtx.currentTime);
-  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + envelope.release);
-  oscillators[note.frequency] = null;
+  oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime)
+  oscillators[note.frequency].volume.gain.setValueAtTime(oscillators[note.frequency].volume.gain.value, audioCtx.currentTime)
+  oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
+  oscillators[note.frequency] = null
 
 }
 const startNote = (note) => {
@@ -123,8 +124,8 @@ const startNote = (note) => {
       volume: noteVolume
     };
 
-    noteVolume.gain.linearRampToValueAtTime(envelope.peak, audioCtx.currentTime + envelope.attack);
-    noteVolume.gain.exponentialRampToValueAtTime(envelope.sustain, audioCtx.currentTime + envelope.attack + envelope.decay);
+    noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack);
+    noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay);
   }
 }
 
