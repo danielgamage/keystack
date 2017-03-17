@@ -52,7 +52,7 @@ class Oscillators extends Component {
               ))}
             </div>
             <NumericInput
-              label="detune"
+              label="tune"
               class="small"
               id={`detune-${i}`}
               min="-50"
@@ -66,7 +66,7 @@ class Oscillators extends Component {
               }}
               />
             <NumericInput
-              label="octave"
+              label="oct"
               class="small"
               id={`octave-${i}`}
               min="-4"
@@ -77,6 +77,20 @@ class Oscillators extends Component {
                   type: 'UPDATE_OSC',
                   index: i,
                   property: 'octave'
+              }}
+              />
+            <NumericInput
+              label="vol"
+              class="small"
+              id={`volume-${i}`}
+              min="0"
+              max="1"
+              step="0.01"
+              value={osc.volume}
+              action={{
+                  type: 'UPDATE_OSC',
+                  index: i,
+                  property: 'volume'
               }}
               />
           </div>

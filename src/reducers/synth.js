@@ -14,11 +14,13 @@ const defaultState = {
   oscillators: [
     {
       type: 'sine',
+      volume: 1,
       detune: -10,
       octave: 0
     },
     {
       type: 'sine',
+      volume: 1,
       detune: 0,
       octave: 0
     }

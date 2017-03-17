@@ -114,7 +114,13 @@ const startNote = (note) => {
       osc.frequency.value = note.frequency * (2 ** el.octave)
       osc.detune.value = el.detune
       osc.type = el.type
-      osc.connect(noteVolume)
+
+			var oscVolume = audioCtx.createGain()
+	    oscVolume.gain.value = el.volume
+
+      osc.connect(oscVolume)
+      oscVolume.connect(noteVolume)
+
       osc.start(audioCtx.currentTime)
       return osc
     })
