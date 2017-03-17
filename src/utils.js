@@ -20,6 +20,10 @@ export const singleOctave = [
   { noteName: "B",  black: false, }
 ]
 
+export const getNoteIndexForMIDI = (code) => {
+  return code - 21
+}
+
 export const noteObjectForIndex = (index) => {
   // A0 is index=0
   const adjustedIndex = index + 9
