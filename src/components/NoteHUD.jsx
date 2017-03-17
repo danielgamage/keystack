@@ -28,7 +28,10 @@ class NoteHUD extends Component {
         const integerList = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
         // dedupe
         const dedupedList = [...new Set(integerList)]
-        matches = chords.filter(el => el.set.length === dedupedList.length && el.set.every((e, i) => e === dedupedList[i]))
+        matches = chords.filter(el => (
+          el.set.length === dedupedList.length
+          && el.set.every((e, i) => dedupedList.indexOf(e) !== -1 )
+        ))
         root = sortedNotes[0]
       }
     }
