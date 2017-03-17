@@ -33,7 +33,7 @@ class NoteHUD extends Component {
       }
     }
 		return (
-      <div class="note-hud">
+      <div class="note-hud info-section">
         <div class="section-icon">
           <Icon
             class={`icon icon--eye ${this.state.showHUD && 'on'}`}

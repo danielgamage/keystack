@@ -192,19 +192,25 @@ input {
 // Keystack
 // --------
 
+#chart {
+  margin-bottom: 2rem;
+}
 .play-area {
   margin-right: 2rem;
   width: calc(100% - 24rem);
 }
-.note-hud {
+.info-section {
   display: flex;
-  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.section-icon {
+  margin-right: 0.5rem;
 }
 .icon--eye{
   transform: translateY(-0.5rem);
   flex: 0;
   .icon--eye--fill {
-    fill: $grey-0;
+    fill: $grey-1;
     stroke: none;
     opacity: 0;
     transform: scale(0.5);
@@ -216,7 +222,14 @@ input {
       transform: scale(1);
     }
   }
-  margin-right: 0.5rem;
+}
+.icon--midi{
+  transform: translateY(-0.5rem);
+  &.on {
+    .icon--midi--black {
+      fill: $grey-1;
+    }
+  }
 }
 .viewer {
   height: 1.2rem;
@@ -241,11 +254,6 @@ input {
 }
 
 .axis {
-  & path {
-    fill: none;
-    stroke: #999;
-    stroke-dasharray: 2 3;
-  }
   & text {
     font-size: 13px;
     fill: $grey-0;

@@ -6,6 +6,7 @@ import * as actions from '../actions';
 import Settings from './Settings.jsx'
 import NoteHUD from './NoteHUD.jsx'
 import RadialKeys from './RadialKeys.jsx'
+import Midi from './MIDI.jsx'
 
 class App extends Component {
 	render() {
@@ -14,6 +15,7 @@ class App extends Component {
         <div class="play-area">
           <RadialKeys />
           <NoteHUD />
+          <Midi />
         </div>
         <Settings />
 			</div>
