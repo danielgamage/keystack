@@ -125,7 +125,7 @@ svg {
   max-width: 16rem;
   .envelope-path {
     overflow: visible;
-    margin: 2rem 0;
+    margin: 2rem 0 1rem;
     stroke: $grey-3;
     stroke-width: 2px;
     stroke-linejoin: round;
@@ -140,7 +140,7 @@ svg {
   }
 }
 .fader {
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
   &.small {
     label {
       display: flex;
@@ -164,7 +164,7 @@ svg {
   }
   svg {
     display: block;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0.2rem;
     width: 3rem;
     height: 3rem;
     &:hover {
