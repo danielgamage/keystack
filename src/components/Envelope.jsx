@@ -51,9 +51,9 @@ class Settings extends Component {
       <div class="envelope">
         <svg class="envelope-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
           <linearGradient id="Gradient" x1="0" x2="0" y1="0" y2={viewBoxHeight} gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="rgba(255,255,255, 0.1)"/>
-            <stop offset="75%" stop-color="rgba(255,255,255, 0.02)"/>
-            <stop offset="100%" stop-color="rgba(255,255,255, 0)"/>
+            <stop offset="0%" stop-color="#6c6c6e"/>
+            <stop offset="80%" stop-color="#47494b"/>
+            <stop offset="100%" stop-color="#444649"/>
           </linearGradient>
           <path
             vector-effect="non-scaling-stroke"
