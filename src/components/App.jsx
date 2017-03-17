@@ -7,18 +7,22 @@ import Settings from './Settings.jsx'
 import NoteHUD from './NoteHUD.jsx'
 import RadialKeys from './RadialKeys.jsx'
 import Midi from './MIDI.jsx'
+import Help from './Help.jsx'
 
 class App extends Component {
 	render() {
 		return (
-			<div class="app">
-        <div class="play-area">
-          <RadialKeys />
-          <NoteHUD />
-          <Midi />
-        </div>
-        <Settings />
-			</div>
+      <div>
+        <div class="app">
+          <div class="play-area">
+            <RadialKeys />
+            <NoteHUD />
+            <Midi />
+          </div>
+          <Settings />
+  			</div>
+        <Help></Help>
+      </div>
 		);
 	}
 }
