@@ -1,13 +1,9 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import reduce from '../reducers';
-import * as actions from '../actions';
-import chords from '../data/chords'
 
 import Settings from './Settings.jsx'
 import Icon from './Icon.jsx'
-import removeDuplicates from '../utils/removeDuplicates'
-
+import matchChords from '../utils/matchChords'
 import eyeIcon from '../images/eye.svg'
 
 class NoteHUD extends Component {
@@ -24,23 +20,7 @@ class NoteHUD extends Component {
     let matches = []
     let root
     if (this.state.showHUD === true && this.props.notes.length > 0) {
-      [...this.props.notes].map((loopEl, loopIndex, arr) => {
-        const integerList = arr.map((note) => {
-          return (note.index - arr[loopIndex].index + 96) % 12
-        })
-        const dedupedList = [...new Set(integerList)]
-        chords.filter(el => (
-          el.set.length === dedupedList.length
-          && el.set.every((e) => dedupedList.indexOf(e) !== -1 )
-        )).map(chord => {
-          matches.push({
-            chord: `${arr[loopIndex].note} ${chord.name}`,
-            quality: chord.quality
-          })
-        })
-      })
-      // dedupe results
-      matches = removeDuplicates(matches, 'chord')
+      matches = matchChords([...this.props.notes])
     }
 		return (
       <div class="note-hud info-section">
