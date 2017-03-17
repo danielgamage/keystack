@@ -27,7 +27,18 @@ class Oscillators extends Component {
         {this.props.synth.oscillators.map((osc, i) => (
           <div class={`osc osc-${i}`}>
             <div className="wave">
-              <span class="title">{`OSC ${i}`}</span>
+              <span class="title">
+                {`OSC ${i}`}
+                <button
+                  class="delete-osc"
+                  onClick={() => {
+                    this.props.dispatch({
+                      type: 'DELETE_OSC',
+                      index: i
+                    })
+                  }}
+                  >Delete</button>
+              </span>
               {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
                 <label title={type}>
                   <input
@@ -38,7 +49,8 @@ class Oscillators extends Component {
                     checked={(osc.type === type)}
                     onClick={() => {
                       this.props.dispatch({
-                        type: 'UPDATE_OSC_TYPE',
+                        type: 'UPDATE_OSC',
+                        property: 'type',
                         value: type,
                         index: i
                       })
@@ -95,6 +107,14 @@ class Oscillators extends Component {
               />
           </div>
         ))}
+        <button
+          class="add-osc"
+          onClick={() => {
+            this.props.dispatch({
+              type: 'ADD_OSC'
+            })
+          }}
+          >Add Oscillator</button>
       </div>
 		);
 	}

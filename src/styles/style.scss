@@ -75,6 +75,24 @@ svg {
     flex: 1;
   }
 }
+.add-osc, .delete-osc {
+  line-height: 1;
+  padding: 0.2rem 0.4rem 0.25rem;
+  appearance: none;
+  background: $grey-1;
+  color: $grey-6;
+  border: 0;
+  @extend %sc;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background: $grey-2;
+  }
+}
+.delete-osc {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
 .midi-manufacturer {
   margin-right: 0.5rem;
 }
