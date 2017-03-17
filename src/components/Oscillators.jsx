@@ -66,17 +66,17 @@ class Oscillators extends Component {
               }}
               />
             <NumericInput
-              label="oct"
+              label="pitch"
               class="small"
-              id={`octave-${i}`}
-              min="-4"
-              max="4"
+              id={`pitch-${i}`}
+              min="-48"
+              max="48"
               step="1"
-              value={osc.octave}
+              value={osc.pitch}
               action={{
                   type: 'UPDATE_OSC',
                   index: i,
-                  property: 'octave'
+                  property: 'pitch'
               }}
               />
             <NumericInput

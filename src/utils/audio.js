@@ -9,6 +9,10 @@ masterVolume.connect(audioCtx.destination)
 var oscillators = {}
 const minVolume = 0.00001
 
+export const shiftFrequencyByStep = (frequency, step) => {
+  return frequency * (2 ** (step / 12))
+}
+
 export const stopNote = (note) => {
   store.dispatch({
     type: 'REMOVE_NOTE',
@@ -47,7 +51,7 @@ export const startNote = (note) => {
 
     const initializedOscillators = state.synth.oscillators.map(el => {
       const osc = audioCtx.createOscillator()
-      osc.frequency.value = note.frequency * (2 ** el.octave)
+      osc.frequency.value = shiftFrequencyByStep(note.frequency, el.pitch)
       osc.detune.value = el.detune
       osc.type = el.type
 
