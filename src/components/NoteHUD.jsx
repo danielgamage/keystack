@@ -6,6 +6,7 @@ import chords from '../data/chords'
 
 import Settings from './Settings.jsx'
 import Icon from './Icon.jsx'
+import removeDuplicates from '../utils/removeDuplicates'
 
 import eyeIcon from '../images/eye.svg'
 
@@ -22,18 +23,24 @@ class NoteHUD extends Component {
 	render() {
     let matches = []
     let root
-    if (this.state.showHUD === true) {
-      if (this.props.notes.length > 0) {
-        const sortedNotes = [...this.props.notes].sort((a,b) => (a.index - b.index))
-        const integerList = sortedNotes.map(note => ((note.index - sortedNotes[0].index) % 12 ))
-        // dedupe
+    if (this.state.showHUD === true && this.props.notes.length > 0) {
+      [...this.props.notes].map((loopEl, loopIndex, arr) => {
+        const integerList = arr.map((note) => {
+          return (note.index - arr[loopIndex].index + 96) % 12
+        })
         const dedupedList = [...new Set(integerList)]
-        matches = chords.filter(el => (
+        chords.filter(el => (
           el.set.length === dedupedList.length
-          && el.set.every((e, i) => dedupedList.indexOf(e) !== -1 )
-        ))
-        root = sortedNotes[0]
-      }
+          && el.set.every((e) => dedupedList.indexOf(e) !== -1 )
+        )).map(chord => {
+          matches.push({
+            chord: `${arr[loopIndex].note} ${chord.name}`,
+            quality: chord.quality
+          })
+        })
+      })
+      // dedupe results
+      matches = removeDuplicates(matches, 'chord')
     }
 		return (
       <div class="note-hud info-section">
@@ -60,7 +67,7 @@ class NoteHUD extends Component {
                 matches.length > 0
                 ? matches.map(match => (
                   <span class="chord">
-                    <span class="match">{root.note} {match.name} <span class="quality">{match.quality}</span></span>
+                    <span class="match">{match.chord} <span class="quality">{match.quality}</span></span>
                   </span>
                 ))
                 : <span class="empty">Matched chords will appear here.</span>
