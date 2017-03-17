@@ -1,5 +1,6 @@
 import { h, Component } from 'preact'
-console.log('top')
+import 'whatwg-fetch'
+
 class Icon extends Component {
   constructor (props) {
     super(props)

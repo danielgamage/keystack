@@ -65,7 +65,7 @@ window.addEventListener("keyup", (event) => {
 // Audio
 //
 
-var audioCtx = new AudioContext(),
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
     masterVolume = audioCtx.createGain()
 
 masterVolume.gain.value = 0.2

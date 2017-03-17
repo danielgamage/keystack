@@ -10,7 +10,9 @@ class NumericInput extends Component {
   constructor (props) {
     super(props)
     this.onDrag = this.onDrag.bind(this)
+    this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
+    this.updateStore = this.updateStore.bind(this)
     this.initialX = 0
   }
   onMouseDown (e) {
@@ -30,12 +32,10 @@ class NumericInput extends Component {
   }
   onDrag (e) {
     var value = this.props.value || this.props.defaultValue || 0
-    const movement = e.touches ? e.touches[0].pageX - this.initialX : e.movementX
-    if (e.touches) {
-      this.initialX = e.touches[0].pageX
-    }
 
-    // console.log(movement)
+    const movement = (e.pageX || e.touches[0].pageX) - this.initialX
+    this.initialX = e.pageX || e.touches[0].pageX
+
     let step = this.props.step || 1
     value += (movement * (step || 1))
     value = (this.props.min != undefined) ? Math.max(this.props.min, value) : value
