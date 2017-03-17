@@ -1,0 +1,10 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<g id="midi">
+	<polygon vector-effect="non-scaling-stroke" class="icon--midi--white" points="23,4 23,20 20,20 20,28 28,28 28,4 	"/>
+	<polygon vector-effect="non-scaling-stroke" class="icon--midi--white" points="9,20 9,4 4,4 4,28 12,28 12,20 	"/>
+	<polygon vector-effect="non-scaling-stroke" class="icon--midi--white" points="18,20 18,4 14,4 14,20 12,20 12,28 20,28 20,20 	"/>
+	<rect x="9"  y="4" vector-effect="non-scaling-stroke" class="icon--midi--black" width="5" height="16"/>
+	<rect x="18" y="4" vector-effect="non-scaling-stroke" class="icon--midi--black" width="5" height="16"/>
+</g>
+</svg>
