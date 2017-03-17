@@ -12,7 +12,9 @@ class Settings extends Component {
     super(props)
     this.onMIDIMessage = this.onMIDIMessage.bind(this)
     this.onMIDISuccess = this.onMIDISuccess.bind(this)
+    this.onMIDIChange = this.onMIDIChange.bind(this)
     this.onMIDIFailure = this.onMIDIFailure.bind(this)
+    this.createMIDIObject = this.createMIDIObject.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
   }
   onMIDIMessage(event) {
@@ -42,29 +44,47 @@ class Settings extends Component {
               break
       }
   }
+  createMIDIObject(device) {
+    return {
+      id: device.id,
+      manufacturer: device.manufacturer,
+      name: device.name,
+      type: device.type
+    }
+  }
   onMIDISuccess(midiAccess) {
-      // when we get a succesful response, run this code
-      console.log('MIDI Access Object', midiAccess)
-      const inputs = midiAccess.inputs.values()
-      for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
-          // listen for midi messages
-          this.props.dispatch({
-            type: 'ADD_MIDI',
-            value: {
-              id: input.value.id,
-              manufacturer: input.value.manufacturer,
-              name: input.value.name,
-              type: input.value.type
-            }
-          })
-          input.value.onmidimessage = this.onMIDIMessage
-      }
-      // listen for connect/disconnect message
-      // midiAccess.onstatechange = onStateChange
+    this.props.dispatch({
+      type: 'CHANGE_MIDI_SUPPORT',
+      value: true
+    })
+    const inputs = midiAccess.inputs.values()
+    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+      this.props.dispatch({
+        type: 'ADD_MIDI',
+        value: this.createMIDIObject(input.value)
+      })
+      // listen for midi messages
+      input.value.onmidimessage = this.onMIDIMessage
+    }
+    // listen for connect/disconnect message
+    midiAccess.onstatechange = this.onMIDIChange
+  }
+  onMIDIChange(e) {
+    const device = e.port
+    if ((device.type === "input") && (this.props.midi.inputs.indexOf(this.createMIDIObject(device)) === -1)) {
+      this.props.dispatch({
+        type: (device.state === 'connected') ? 'ADD_MIDI' : 'REMOVE_MIDI',
+        value: this.createMIDIObject(device)
+      })
+      // listen for midi messages
+      device.onmidimessage = this.onMIDIMessage
+    }
   }
   onMIDIFailure(e) {
-      // when we get a failed response, run this code
-      console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e)
+    this.props.dispatch({
+      type: 'CHANGE_MIDI_SUPPORT',
+      value: false
+    })
   }
   componentWillMount() {
     if (navigator.requestMIDIAccess) {
@@ -76,7 +96,7 @@ class Settings extends Component {
     }
   }
 	render() {
-    const hasMidi = this.props.midi.length > 0
+    const hasMidi = this.props.midi.inputs.length > 0
 		return (
       <div class="inputs info-section">
         <div class="section-icon">
@@ -85,12 +105,17 @@ class Settings extends Component {
             src={midiIcon}
             />
         </div>
-        {this.props.midi.map(el => (
+        {this.props.midi.supports ?
+          this.props.midi.inputs.map(el => (
             <div class="viewer">
               <span class="midi-manufacturer">{el.manufacturer}</span>
               <span class="midi-name">{el.name}</span>
             </div>
           ))
+           :
+          <div class="viewer">
+            Your browser does not support MIDI
+          </div>
         }
       </div>
 		);
