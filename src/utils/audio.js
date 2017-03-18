@@ -25,8 +25,7 @@ export const stopNote = (note) => {
       oscillators[note.frequency].oscillators.forEach((oscillator) => {
         oscillator.stop(audioCtx.currentTime + envelope.release)
       })
-      document.querySelector(`.spiral-${note.index}`)
-        .classList.remove('on')
+
       oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime)
       oscillators[note.frequency].volume.gain.setValueAtTime(oscillators[note.frequency].volume.gain.value, audioCtx.currentTime)
       oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
@@ -46,9 +45,6 @@ export const startNote = (note) => {
 
     state.instruments.map(instrument => {
       if (instrument.type === "KeySynth") {
-        document.querySelector(`.spiral-${note.index}`)
-          .classList.add('on')
-
         const envelope = instrument.envelope
 
         var noteVolume = audioCtx.createGain()

@@ -94,6 +94,15 @@ class RadialKeys extends Component {
     	    .attr("d", (d) => spiral(pieces))
     })
   }
+  componentWillReceiveProps(nextProps) {
+    [...document.querySelectorAll(`.spiral.on`)].map(note => {
+      note.classList.remove('on')
+    })
+    nextProps.notes.map(note => {
+      document.querySelector(`.spiral-${note.index}`)
+        .classList.add('on')
+    })
+  }
 	render() {
 		return (
       <div id="chart"></div>
