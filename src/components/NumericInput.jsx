@@ -31,10 +31,20 @@ class NumericInput extends Component {
     document.body.classList.remove('cursor--lr')
   }
   onDrag (e) {
-    var value = this.props.value || this.props.defaultValue || 0
+    let value = this.props.value || 0
+    let movement
 
-    const movement = (e.pageX || e.touches[0].pageX) - this.initialX
-    this.initialX = e.pageX || e.touches[0].pageX
+    if (e.movementX != undefined) {
+      movement = e.movementX
+    } else {
+      if (e.pageX != undefined) {
+        movement = e.pageX - this.initialX
+        this.initialX = e.pageX
+      } else {
+        movement = e.touches[0].pageX - this.initialX
+        this.initialX = e.touches[0].pageX
+      }
+    }
 
     let step = this.props.step || 1
     value += (movement * (step || 1))

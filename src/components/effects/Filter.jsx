@@ -14,9 +14,26 @@ const filterTypes = [
   { name: "allpass",   frequency: true, q: true,  gain: false },
 ]
 
+const parameters = [
+  { name: "frequency",
+    min: 30,
+    max: 12000,
+    step: 10
+  },
+  { name: "q",
+    min: 0,
+    max: 18,
+    step: .1
+  },
+  { name: "gain",
+    min: -15,
+    max: 15,
+    step: .1
+  }
+]
+
 class Filter extends Component {
 	render() {
-    console.log(filterTypes.find(el => el.name === this.props.data.type))
 		return (
       <div>
         <h3>Filter</h3>
@@ -36,23 +53,7 @@ class Filter extends Component {
             ))}
           </select>
         </div>
-        {[
-          { name: "frequency",
-            min: 30,
-            max: 12000,
-            step: 1
-          },
-          { name: "q",
-            min: 0,
-            max: 1,
-            step: .01
-          },
-          { name: "gain",
-            min: 0,
-            max: 1,
-            step: .01
-          }
-        ].map(param => (
+        {parameters.map(param => (
           <NumericInput
             label={param.name}
             class="tri"

@@ -5,7 +5,7 @@ const defaultState = [
     type: "lowpass",
     frequency: 200,
     q: 0.5,
-    gain: 25
+    gain: 0
   }
 ]
 
