@@ -1,25 +1,7 @@
 @import '~normalize.css';
 @import '~normalize-opentype.css/normalize-opentype.scss';
-
-$grey-6: #fdfcfb;
-$grey-5: #e8e9eb;
-$grey-4: #cdd1d3;
-$grey-3: #b3b3b4;
-$grey-2: #7c7c7e;
-$grey-1: #5c5c5e;
-$grey-0: #444649;
-$orange: #FF9800;
-$orange-bright: #FFA850;
-
-$sans: 'Alegreya Sans', sans-serif;
-$sc: 'Alegreya Sans SC', sans-serif;
-
-%sc {
-  font-family: $sc;
-  text-transform: lowercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-}
+@import './base.scss';
+@import './forms.scss';
 
 button, input, optgroup, select, textarea {
   font-family: inherit;
@@ -58,7 +40,7 @@ svg {
   flex-flow: column;
   background-color: $grey-0;
   color: $grey-6;
-  border-radius: 0.2rem;
+  border-radius: $radius;
   padding: 2rem;
   width: 22rem;
 }
@@ -75,24 +57,7 @@ svg {
     flex: 1;
   }
 }
-.add-osc, .delete-osc {
-  line-height: 1;
-  padding: 0.2rem 0.4rem 0.25rem;
-  appearance: none;
-  background: $grey-1;
-  color: $grey-6;
-  border: 0;
-  @extend %sc;
-  cursor: pointer;
-  &:hover,
-  &:focus {
-    background: $grey-2;
-  }
-}
-.delete-osc {
-  display: inline-block;
-  margin-left: 0.5rem;
-}
+
 .midi-manufacturer {
   margin-right: 0.5rem;
 }
@@ -153,6 +118,10 @@ svg {
       width: 1rem;
       height: 1rem;
     }
+  }
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
   label {
     display: block;
@@ -320,7 +289,7 @@ kbd {
   height: 1rem;
   font-size: 0.6rem;
   line-height: 1rem;
-  border-radius: 0.2rem;
+  border-radius: $radius;
   display: inline-block;
   padding: 0.2rem;
   text-align: center;

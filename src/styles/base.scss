@@ -1,0 +1,21 @@
+$grey-6: #fdfcfb;
+$grey-5: #e8e9eb;
+$grey-4: #cdd1d3;
+$grey-3: #b3b3b4;
+$grey-2: #7c7c7e;
+$grey-1: #5c5c5e;
+$grey-0: #444649;
+$orange: #FF9800;
+$orange-bright: #FFA850;
+
+$sans: 'Alegreya Sans', sans-serif;
+$sc: 'Alegreya Sans SC', sans-serif;
+
+$radius: 0.2rem;
+
+%sc {
+  font-family: $sc;
+  text-transform: lowercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}

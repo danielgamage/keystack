@@ -1,12 +1,46 @@
 import { store } from './store'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
-    masterVolume = audioCtx.createGain()
+    masterVolume = audioCtx.createGain(),
+    masterCompressor = audioCtx.createDynamicsCompressor()
 
+masterCompressor.connect(masterVolume)
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
 
-var oscillators = []
+const setFilterProps = (filter, state) => {
+  filter.type = state.type
+  filter.frequency.value = state.frequency
+  filter.Q.value = state.q
+  filter.gain.value = state.gain
+}
+
+let audioEffectNodes = {}
+store.getState().audioEffects.map(effect => {
+  const filter = audioCtx.createBiquadFilter()
+  setFilterProps(filter, effect)
+  audioEffectNodes[effect.id] = filter
+})
+
+let currentEffects
+function handleChange() {
+  let previousEffects = currentEffects
+  currentEffects = store.getState().audioEffects
+  currentEffects.map(effect => {
+    setFilterProps(audioEffectNodes[effect.id], effect)
+  })
+}
+let unsubscribe = store.subscribe(handleChange)
+
+store.getState().audioEffects.map((el, i, arr) => {
+	if (i !== arr.length - 1) {
+		audioEffectNodes[el.id].connect(audioEffectNodes[arr[i+1].id])
+	} else {
+		audioEffectNodes[el.id].connect(masterCompressor)
+	}
+})
+
+var oscillators = {}
 const minVolume = 0.00001
 
 export const shiftFrequencyByStep = (frequency, step) => {
@@ -49,7 +83,7 @@ export const startNote = (note) => {
 
         var noteVolume = audioCtx.createGain()
         noteVolume.gain.value = envelope.initial
-        noteVolume.connect(audioCtx.destination)
+        noteVolume.connect(audioEffectNodes[Object.keys(audioEffectNodes)[0]])
 
         const initializedOscillators = instrument.oscillators.map(el => {
           const osc = audioCtx.createOscillator()

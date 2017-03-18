@@ -61,10 +61,10 @@ class NumericInput extends Component {
       .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
 
     return (
-      <div class={`control fader ${this.props.class}`}>
+      <div class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}>
         <label
           htmlFor={this.props.id}
-          class='ControlTitle draggable'
+          class={`ControlTitle draggable`}
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
           >
@@ -103,6 +103,7 @@ class NumericInput extends Component {
           <input
             id={this.props.id}
             type='number'
+            disabled={this.props.disabled}
             inputMode='numeric'
             min={this.props.min}
             max={this.props.max}
