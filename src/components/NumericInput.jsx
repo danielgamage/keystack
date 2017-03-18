@@ -1,3 +1,7 @@
+// TODO:
+//  make <input> invisible unless focused and show <output> with unit
+//  allow log scaling
+
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import * as d3 from 'd3'
@@ -9,6 +13,8 @@ import { range } from "d3-array"
 class NumericInput extends Component {
   constructor (props) {
     super(props)
+    this.scale = this.scale.bind(this)
+    this.unscale = this.unscale.bind(this)
     this.onDrag = this.onDrag.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -30,9 +36,25 @@ class NumericInput extends Component {
     document.removeEventListener('touchend', this.onMouseUp)
     document.body.classList.remove('cursor--lr')
   }
+  scale (value) {
+    const scale = this.props.scale || 1
+    if (scale !== 1) {
+      value = Math.log(value) / Math.log(scale)
+    }
+    return value
+  }
+  unscale (value) {
+    const scale = this.props.scale || 1
+    if (scale !== 1) {
+      value = scale ** value
+    }
+    return value
+  }
   onDrag (e) {
     let value = this.props.value || 0
     let movement
+
+    value = this.scale(value)
 
     if (e.movementX != undefined) {
       movement = e.movementX
@@ -47,7 +69,8 @@ class NumericInput extends Component {
     }
 
     let step = this.props.step || 1
-    value += (movement * (step || 1))
+    value = (movement * (step || 1)) + value
+    value = this.unscale(value)
     value = (this.props.min != undefined) ? Math.max(this.props.min, value) : value
     value = (this.props.max != undefined) ? Math.min(this.props.max, value) : value
     value = Math.round(value * 100) / 100

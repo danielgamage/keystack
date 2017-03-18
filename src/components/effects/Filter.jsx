@@ -18,17 +18,20 @@ const parameters = [
   { name: "frequency",
     min: 30,
     max: 12000,
-    step: 10
+    step: 0.01,
+    scale: 10
   },
   { name: "q",
-    min: 0,
+    min: 0.1,
     max: 18,
-    step: .1
+    step: 0.1,
+    scale: Math.E
   },
   { name: "gain",
     min: -15,
     max: 15,
-    step: .1
+    step: 0.1,
+    scale: 1
   }
 ]
 
@@ -62,6 +65,7 @@ class Filter extends Component {
             min={param.min}
             max={param.max}
             step={param.step}
+            scale={param.scale}
             value={this.props.data[param.name]}
             action={{
               type: 'UPDATE_FILTER',
