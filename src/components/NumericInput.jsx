@@ -108,6 +108,7 @@ class NumericInput extends Component {
             min={this.props.min}
             max={this.props.max}
             value={this.props.value}
+            step={this.props.step}
             defaultValue={this.props.defaultValue}
             onChange={this.onChange.bind(this)}
             />
