@@ -23,7 +23,7 @@ class App extends Component {
           <Settings />
   			</div>
         <Help></Help>
-        <StatusBar></StatusBar>
+        {/*<StatusBar></StatusBar>*/}
       </div>
 		);
 	}
