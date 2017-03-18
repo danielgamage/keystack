@@ -47,14 +47,10 @@ class NumericInput extends Component {
   onChange (e) {
     this.updateStore(e.target.value, 'value')
   }
-  onChangeUnit (e) {
-    this.updateStore(e.target.value, 'unit')
-  }
-  updateStore (v, vOrU) {
+  updateStore (v) {
     this.props.dispatch({
       ...this.props.action,
       value: v,
-      valueOrUnit: vOrU
     })
   }
   render () {

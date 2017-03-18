@@ -24,7 +24,7 @@ class Oscillators extends Component {
 	render() {
 		return (
       <div class="controls">
-        {this.props.synth.oscillators.map((osc, i) => (
+        {this.props.oscillators.map((osc, i) => (
           <div class={`osc osc-${i}`}>
             <div className="wave">
               <span class="title">
@@ -33,6 +33,7 @@ class Oscillators extends Component {
                   class="delete-osc"
                   onClick={() => {
                     this.props.dispatch({
+                      id: this.props.instrument.id,
                       type: 'DELETE_OSC',
                       index: i
                     })
@@ -49,6 +50,7 @@ class Oscillators extends Component {
                     checked={(osc.type === type)}
                     onClick={() => {
                       this.props.dispatch({
+                        id: this.props.instrument.id,
                         type: 'UPDATE_OSC',
                         property: 'type',
                         value: type,
@@ -72,9 +74,10 @@ class Oscillators extends Component {
               step="1"
               value={osc.detune}
               action={{
-                  type: 'UPDATE_OSC',
-                  index: i,
-                  property: 'detune'
+                id: this.props.instrument.id,
+                type: 'UPDATE_OSC',
+                index: i,
+                property: 'detune'
               }}
               />
             <NumericInput
@@ -86,9 +89,10 @@ class Oscillators extends Component {
               step="1"
               value={osc.pitch}
               action={{
-                  type: 'UPDATE_OSC',
-                  index: i,
-                  property: 'pitch'
+                id: this.props.instrument.id,
+                type: 'UPDATE_OSC',
+                index: i,
+                property: 'pitch'
               }}
               />
             <NumericInput
@@ -100,9 +104,10 @@ class Oscillators extends Component {
               step="0.01"
               value={osc.volume}
               action={{
-                  type: 'UPDATE_OSC',
-                  index: i,
-                  property: 'volume'
+                id: this.props.instrument.id,
+                type: 'UPDATE_OSC',
+                index: i,
+                property: 'volume'
               }}
               />
           </div>
@@ -111,6 +116,7 @@ class Oscillators extends Component {
           class="add-osc"
           onClick={() => {
             this.props.dispatch({
+              id: this.props.instrument.id,
               type: 'ADD_OSC'
             })
           }}
@@ -120,8 +126,4 @@ class Oscillators extends Component {
 	}
 }
 
-function mapStateToProps (state) {
-  return { notes: state.notes, synth: state.synth }
-}
-
-export default connect(mapStateToProps)(Oscillators)
+export default connect()(Oscillators)

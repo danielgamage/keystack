@@ -7,7 +7,7 @@ import { scaleLinear } from "d3-scale"
 
 class Settings extends Component {
 	render() {
-    const envelope = this.props.synth.envelope
+    const envelope = this.props.envelope
 
     const log10 = (v) => Math.log10(v + 1)
     const viewBoxWidth = 32
@@ -89,6 +89,7 @@ class Settings extends Component {
               value={envelope[el.name]}
 							action={{
 								type: 'UPDATE_VOLUME_ENVELOPE',
+                id: this.props.instrument.id,
 								key: el.name
 							}}
               />
@@ -99,8 +100,4 @@ class Settings extends Component {
 	}
 }
 
-function mapStateToProps (state) {
-  return { notes: state.notes, synth: state.synth }
-}
-
-export default connect(mapStateToProps)(Settings)
+export default connect()(Settings)

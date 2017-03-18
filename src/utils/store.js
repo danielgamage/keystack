@@ -16,7 +16,6 @@ export const loadProject = () => {
   fileUpload.onchange = (e) => {
     const file = [...e.target.files][0]
     readFile(file).then((jsonObject) => {
-      console.log(jsonObject)
       store.dispatch({
         type: 'LOAD_STATE',
         value: jsonObject
