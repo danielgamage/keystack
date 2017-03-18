@@ -1,5 +1,4 @@
 import { h, Component } from 'preact'
-import 'whatwg-fetch'
 
 class Icon extends Component {
   constructor (props) {

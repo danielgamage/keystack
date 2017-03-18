@@ -8,6 +8,7 @@ import NoteHUD from './NoteHUD.jsx'
 import RadialKeys from './RadialKeys.jsx'
 import Midi from './MIDI.jsx'
 import Help from './Help.jsx'
+import StatusBar from './StatusBar.jsx'
 
 class App extends Component {
 	render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Settings />
   			</div>
         <Help></Help>
+        <StatusBar></StatusBar>
       </div>
 		);
 	}

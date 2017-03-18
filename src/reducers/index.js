@@ -14,6 +14,9 @@ const rootReducer = (state, action) => {
   if (action.type === 'RESET_STATE') {
     state = undefined
   }
+  if (action.type === 'LOAD_STATE') {
+    state = action.value
+  }
   return keystackApp(state, action)
 }
 
