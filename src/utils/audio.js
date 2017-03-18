@@ -15,7 +15,7 @@ const setFilterProps = (filter, state) => {
   filter.gain.value = state.gain
 }
 
-let audioEffectNodes = {}
+export let audioEffectNodes = {}
 store.getState().audioEffects.map(effect => {
   const filter = audioCtx.createBiquadFilter()
   setFilterProps(filter, effect)
