@@ -8,11 +8,11 @@ const set = (state, action) => {
     case 'ADD_NOTE':
       return [
         ...state,
-        action.note
+        action.value
       ]
     case 'REMOVE_NOTE':
       return [...state].filter(el => (
-        el !== action.note
+        el !== action.value
       ))
     default:
       return state
@@ -20,13 +20,19 @@ const set = (state, action) => {
 }
 
 const notes = (state = defaultState, action) => {
-  switch (action.at) {
-    case 'input':
-      return {...state, input: set(state.input, action)}
-    case 'output':
-      return {...state, output: set(state.output, action)}
-    default:
-      return state
+  if (action.type === 'SET_NOTES') {
+    let newState = {...state}
+    newState[action.at] = action.value
+    return newState
+  } else {
+    switch (action.at) {
+      case 'input':
+        return {...state, input: set(state.input, action)}
+      case 'output':
+        return {...state, output: set(state.output, action)}
+      default:
+        return state
+    }
   }
 }
 
