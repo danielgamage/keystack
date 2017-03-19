@@ -3,12 +3,14 @@ import { connect } from 'preact-redux'
 import NumericInput from './NumericInput.jsx'
 import KeySynth from './instruments/KeySynth.jsx'
 import Filter from './effects/Filter.jsx'
+import StereoPanner from './effects/StereoPanner.jsx'
 
 const InstrumentsByName = {
   "KeySynth": KeySynth
 };
 const AudioEffectsByName = {
-  "Filter": Filter
+  "Filter": Filter,
+  "StereoPanner": StereoPanner
 };
 
 class Settings extends Component {

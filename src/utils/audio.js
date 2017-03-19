@@ -8,18 +8,35 @@ masterCompressor.connect(masterVolume)
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
 
-const setFilterProps = (filter, state) => {
-  filter.type = state.type
-  filter.frequency.value = state.frequency
-  filter.Q.value = state.q
-  filter.gain.value = state.gain
+const setProps = {
+  Filter: (effect, state) => {
+    effect.type = state.type
+    effect.frequency.value = state.frequency
+    effect.Q.value = state.q
+    effect.gain.value = state.gain
+  },
+  StereoPanner: (effect, state) => {
+    effect.pan.value = state.pan
+  }
+
+}
+
+const createEffect = {
+  Filter: (effect) => {
+    const filter = audioCtx.createBiquadFilter()
+    setProps[effect.audioEffectType](filter, effect)
+    audioEffectNodes[effect.id] = filter
+  },
+  StereoPanner: (effect) => {
+    const stereoPanner = audioCtx.createStereoPanner()
+    setProps[effect.audioEffectType](stereoPanner, effect)
+    audioEffectNodes[effect.id] = stereoPanner
+  }
 }
 
 export let audioEffectNodes = {}
 store.getState().audioEffects.map(effect => {
-  const filter = audioCtx.createBiquadFilter()
-  setFilterProps(filter, effect)
-  audioEffectNodes[effect.id] = filter
+  createEffect[effect.audioEffectType](effect)
 })
 
 let currentEffects
@@ -27,7 +44,7 @@ function handleChange() {
   let previousEffects = currentEffects
   currentEffects = store.getState().audioEffects
   currentEffects.map(effect => {
-    setFilterProps(audioEffectNodes[effect.id], effect)
+    setProps[effect.audioEffectType](audioEffectNodes[effect.id], effect)
   })
 }
 let unsubscribe = store.subscribe(handleChange)
