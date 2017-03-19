@@ -1,10 +1,10 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import Settings from './Settings.jsx'
-import Icon from './Icon.jsx'
-import matchChords from '../utils/matchChords'
-import eyeIcon from '../images/eye.svg'
+import Settings from '../Settings.jsx'
+import Icon from '../Icon.jsx'
+import matchChords from '../../utils/matchChords'
+import eyeIcon from '../../images/eye.svg'
 
 class NoteHUD extends Component {
   constructor (props) {

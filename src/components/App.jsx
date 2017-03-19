@@ -4,8 +4,8 @@ import reduce from '../reducers';
 import * as actions from '../actions';
 
 import Settings from './Settings.jsx'
-import NoteHUD from './NoteHUD.jsx'
-import RadialKeys from './RadialKeys.jsx'
+import NoteHUD from './visualizers/NoteHUD.jsx'
+import RadialKeys from './visualizers/RadialKeys.jsx'
 import Midi from './MIDI.jsx'
 import Help from './Help.jsx'
 import StatusBar from './StatusBar.jsx'
