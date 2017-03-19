@@ -40,25 +40,37 @@ const parameters = [
   }
 ]
 
+const viewBoxWidth = 32
+const viewBoxHeight = 8
+const frequencyBars = 1024
+const minHz = 30
+const maxHz = 16000
+
+const mapFreq = scalePow()
+  .exponent(5)
+  .domain([
+    0,
+    frequencyBars
+  ])
+  .range([
+    minHz,
+    maxHz
+  ])
+
+const x = scaleLog()
+  .domain([minHz, maxHz])
+  .range([0, viewBoxWidth])
+const y = scaleLinear()
+  .domain([-3, 3])
+  .range([viewBoxHeight, 0])
+  .clamp(true)
+const envelopePath = line()
+  .x((d) => x(d.x) )
+  .y((d) => y(d.y) )
+  .curve(curveCatmullRom)
+
 class Filter extends Component {
 	render() {
-    const viewBoxWidth = 32
-    const viewBoxHeight = 8
-    const frequencyBars = 512
-    const minHz = 30
-    const maxHz = 16000
-
-    const mapFreq = scalePow()
-      .exponent(5)
-      .domain([
-        0,
-        frequencyBars
-      ])
-      .range([
-        minHz,
-        maxHz
-      ])
-
     var myFrequencyArray = new Float32Array(frequencyBars);
     for(var i = 0; i < frequencyBars; ++i) {
       myFrequencyArray[i] = mapFreq(i)
@@ -73,71 +85,61 @@ class Filter extends Component {
       phaseResponseOutput
     )
     const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
-    const x = scaleLog()
-      .domain([minHz, maxHz])
-      .range([0, viewBoxWidth])
-    const y = scaleLinear()
-      .domain([0, 3])
-      .range([viewBoxHeight, 0])
-      .clamp(true)
-    const envelopePath = line()
-      .x((d) => x(d.x) )
-      .y((d) => y(d.y) )
-      .curve(curveCatmullRom)
-
+    const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
 
 		return (
-      <div>
-        <h3>Filter</h3>
-        <svg class="envelope-path" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+      <div class="item effect-item">
+        <header>
+          <h3 class="title">Filter</h3>
+          <div className="select">
+            <select
+              onChange={(e) => {
+                this.props.dispatch({
+                  type: 'UPDATE_FILTER',
+                  id: this.props.data.id,
+                  property: 'type',
+                  value: e.target.value
+                })
+              }}
+              >
+              {filterTypes.map(type => (
+                <option value={type.name}>{type.name}</option>
+              ))}
+            </select>
+          </div>
+        </header>
+        <svg class="vis-path" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
           <path
+            class="filter-phase"
             vector-effect="non-scaling-stroke"
-            d={envelopePath([...magnitudePoints]) /* Add in an extra point at the start so the fill doesn't break when init !=0 */}
+            d={envelopePath(phasePoints)}
             />
-          {/*magnitudePoints.map(point => (
-            <circle
-              vector-effect="non-scaling-stroke"
-              class="dot"
-              cx={x(point.x)}
-              cy={y(point.y)}
-              r="0.3"
-              />
-          ))*/}
+          <path
+            class="filter-magnitude"
+            vector-effect="non-scaling-stroke"
+            d={envelopePath(magnitudePoints)}
+            />
         </svg>
-        <div className="select">
-          <select
-            onChange={(e) => {
-              this.props.dispatch({
+        <div class="flex-container">
+          {parameters.map(param => (
+            <NumericInput
+              label={param.name}
+              class="tri"
+              disabled={!filterTypes.find(el => el.name === this.props.data.type)[param.name]}
+              id={param.name}
+              min={param.min}
+              max={param.max}
+              step={param.step}
+              scale={param.scale}
+              value={this.props.data[param.name]}
+              action={{
                 type: 'UPDATE_FILTER',
                 id: this.props.data.id,
-                property: 'type',
-                value: e.target.value
-              })
-            }}
-            >
-            {filterTypes.map(type => (
-              <option value={type.name}>{type.name}</option>
-            ))}
-          </select>
+                property: param.name
+              }}
+              />
+          ))}
         </div>
-        {parameters.map(param => (
-          <NumericInput
-            label={param.name}
-            class="tri"
-            disabled={!filterTypes.find(el => el.name === this.props.data.type)[param.name]}
-            id={param.name}
-            min={param.min}
-            max={param.max}
-            step={param.step}
-            scale={param.scale}
-            value={this.props.data[param.name]}
-            action={{
-              type: 'UPDATE_FILTER',
-              id: this.props.data.id,
-              property: param.name
-            }}
-            />
-        ))}
       </div>
 		)
 	}

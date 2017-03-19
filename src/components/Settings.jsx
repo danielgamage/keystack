@@ -24,6 +24,7 @@ class Settings extends Component {
 		return (
       <div class="settings">
         {instruments}
+        <hr/>
         {audioEffects}
       </div>
 		);

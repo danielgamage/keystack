@@ -56,6 +56,27 @@ svg {
   border-radius: $radius;
   padding: 2rem;
   width: 26rem;
+  .item {
+    header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      .title {
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+    section {
+      margin-bottom: 1rem;
+    }
+  }
+  hr {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-top: 2px solid $grey-1;
+    margin: 1rem 0;
+  }
 }
 .osc {
   display: flex;
@@ -103,22 +124,24 @@ svg {
 path {
   fill: none;
 }
-.envelope-path {
+.vis-path {
   overflow: visible;
-  margin: 2rem 0 1rem;
-  stroke: $grey-3;
+  margin: 1rem 0;
+  stroke: $grey-4;
   stroke-width: 2px;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+.filter-phase {
+  stroke: $grey-1;
+}
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+}
 .envelope {
-  max-width: 16rem;
   .dot {
     fill: $grey-0;
-  }
-  .container {
-    display: flex;
-    flex-flow: row wrap;
   }
 }
 .fader {
@@ -136,7 +159,7 @@ path {
     }
   }
   &.disabled {
-    opacity: 0.5;
+    opacity: 0.1;
     pointer-events: none;
   }
   label {

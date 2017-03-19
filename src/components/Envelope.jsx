@@ -48,8 +48,8 @@ class Settings extends Component {
 
 
 		return (
-      <div class="envelope">
-        <svg class="envelope-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
+      <section class="envelope">
+        <svg class="vis-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
           <linearGradient id="Gradient" x1="0" x2="0" y1="0" y2={viewBoxHeight} gradientUnits="userSpaceOnUse">
             <stop offset="0%" stop-color="#6c6c6e"/>
             <stop offset="80%" stop-color="#47494b"/>
@@ -70,7 +70,7 @@ class Settings extends Component {
               />
           ))}
         </svg>
-        <div className="container">
+        <div className="flex-container">
           {[
             {name: 'initial', min: 0, max:  1,  step: 0.01},
             {name: 'peak',    min: 0, max:  1,  step: 0.01},
@@ -95,7 +95,7 @@ class Settings extends Component {
               />
           ))}
         </div>
-      </div>
+      </section>
 		);
 	}
 }

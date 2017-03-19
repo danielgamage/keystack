@@ -23,7 +23,7 @@ const waves = {
 class Oscillators extends Component {
 	render() {
 		return (
-      <div class="controls">
+      <section class="controls">
         {this.props.oscillators.map((osc, i) => (
           <div class={`osc osc-${i}`}>
             <div className="wave">
@@ -121,7 +121,7 @@ class Oscillators extends Component {
             })
           }}
           >Add Oscillator</button>
-      </div>
+      </section>
 		);
 	}
 }

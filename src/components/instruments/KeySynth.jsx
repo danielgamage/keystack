@@ -7,7 +7,10 @@ import Envelope from '../Envelope.jsx'
 class KeySynth extends Component {
 	render() {
 		return (
-      <div>
+      <div class="item instrument-item">
+        <header>
+          <h3 class="title">KeySynth</h3>
+        </header>
         <Oscillators instrument={this.props.data} oscillators={this.props.data.oscillators}/>
         <Envelope instrument={this.props.data} envelope={this.props.data.envelope}/>
       </div>
