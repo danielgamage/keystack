@@ -1,10 +1,9 @@
 // TODO:
-//  make <input> invisible unless focused and show <output> with unit
-//  allow log scaling
+// - make <input> invisible unless focused and show <output> with unit
+// - allow log scaling
 
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
-import * as d3 from 'd3'
 import { arc } from "d3-shape"
 import { scaleLinear } from "d3-scale"
 import { range } from "d3-array"
@@ -87,7 +86,7 @@ class NumericInput extends Component {
     })
   }
   render () {
-    var arc = d3.arc();
+    var arcPath = arc();
 
     var angle = scaleLinear()
       .domain([this.props.min, this.props.max])
@@ -114,7 +113,7 @@ class NumericInput extends Component {
               vector-effect="non-scaling-stroke"
               class="fader-track"
               transform="translate(16, 16)"
-              d={arc({
+              d={arcPath({
                 innerRadius: 14,
                 outerRadius: 14,
                 startAngle: angle(this.props.min),
@@ -125,7 +124,7 @@ class NumericInput extends Component {
               vector-effect="non-scaling-stroke"
               class="fader-value"
               transform="translate(16, 16)"
-              d={arc({
+              d={arcPath({
                 innerRadius: 14,
                 outerRadius: 14,
                 startAngle: angle(this.props.min),

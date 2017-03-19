@@ -50,15 +50,15 @@ class Settings extends Component {
 		return (
       <section class="envelope">
         <svg class="vis-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
-          <linearGradient id="Gradient" x1="0" x2="0" y1="0" y2={viewBoxHeight} gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#6c6c6e"/>
+          <linearGradient id="EnvelopeGradient" x1="0" x2="0" y1="0" y2={viewBoxHeight} gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#59595b"/>
             <stop offset="80%" stop-color="#47494b"/>
             <stop offset="100%" stop-color="#444649"/>
           </linearGradient>
           <path
             vector-effect="non-scaling-stroke"
             d={envelopePath([{x:0, y:0}, ...points]) /* Add in an extra point at the start so the fill doesn't break when init !=0 */}
-            fill="url(#Gradient)"
+            fill="url(#EnvelopeGradient)"
             />
           {points.map(point => (
             <circle

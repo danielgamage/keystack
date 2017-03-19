@@ -59,6 +59,7 @@ svg {
       display: flex;
       justify-content: space-between;
       margin-bottom: 1rem;
+      line-height: 1;
       .title {
         margin: 0;
         -webkit-font-smoothing: antialiased;
@@ -123,6 +124,7 @@ svg {
   overflow: visible;
   margin: 1rem 0 2rem;
   stroke: $grey-4;
+  fill: none;
   stroke-width: 2px;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -161,6 +163,9 @@ svg {
   flex-flow: row wrap;
 }
 .envelope {
+  .vis-path {
+    fill: unset;
+  }
   .dot {
     fill: $grey-0;
   }
