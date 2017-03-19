@@ -11,13 +11,11 @@
 
 html,
 body,
-#root {
+#root,
+.app {
   height: 100%;
 }
 
-button, input, optgroup, select, textarea {
-  font-family: inherit;
-}
 body {
   font-family: $sans;
   background: $grey-6;
@@ -333,9 +331,26 @@ path.spiral {
 // Help
 // ----
 
-.help {
-  display: flex;
+.help-button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 11;
+}
+.help-container {
+  display: none;
+  background: $grey-6;
+  border-radius: $radius;
+  box-shadow: 0 0 2rem transparentize($grey-0, 0.8);
+  padding: 1rem;
+  right: 2rem;
+  bottom: 2rem;
+  position: absolute;
+  z-index: 10;
   justify-content: flex-start;
+  &.active {
+    display: flex;
+  }
   section {
     margin-right: 2rem;
   }

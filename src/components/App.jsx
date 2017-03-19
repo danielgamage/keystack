@@ -13,18 +13,15 @@ import StatusBar from './StatusBar.jsx'
 class App extends Component {
 	render() {
 		return (
-      <div>
-        <div class="app">
-          <div class="play-area">
-            <RadialKeys />
-            <NoteHUD />
-            <Midi />
-          </div>
-          <Settings />
-  			</div>
-        <Help></Help>
-        {/*<StatusBar></StatusBar>*/}
-      </div>
+      <div class="app">
+        <div class="play-area">
+          <RadialKeys />
+          <NoteHUD />
+          <Midi />
+          <Help></Help>
+        </div>
+        <Settings />
+			</div>
 		);
 	}
 }

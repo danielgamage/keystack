@@ -1,26 +1,26 @@
-/*
- * Select
- */
+input, optgroup, select, textarea {
+ font-family: inherit;
+}
 
- .add-osc, .delete-osc {
-   line-height: 1;
-   padding: 0.2rem 0.4rem 0.25rem;
-   appearance: none;
-   background: $grey-1;
-   color: $grey-6;
-   border: 0;
-   border-radius: $radius;
-   @extend %sc;
-   cursor: pointer;
-   &:hover,
-   &:focus {
-     background: $grey-2;
-   }
- }
- .delete-osc {
-   display: inline-block;
-   margin-left: 0.5rem;
- }
+button {
+  line-height: 1;
+  padding: 0.2rem 0.4rem 0.25rem;
+  appearance: none;
+  background: $grey-1;
+  color: $grey-6;
+  border: 0;
+  border-radius: $radius;
+  @extend %sc;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background: $grey-2;
+  }
+}
+.delete-osc {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
 
 .select {
   position: relative;
