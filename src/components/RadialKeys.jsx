@@ -98,7 +98,7 @@ class RadialKeys extends Component {
     [...document.querySelectorAll(`.spiral.on`)].map(note => {
       note.classList.remove('on')
     })
-    nextProps.notes.map(note => {
+    nextProps.notes.input.map(note => {
       document.querySelector(`.spiral-${note.index}`)
         .classList.add('on')
     })

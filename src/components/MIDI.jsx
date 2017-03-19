@@ -89,7 +89,7 @@ class Settings extends Component {
   componentWillMount() {
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess({
-            sysex: false // this defaults to 'false' and we won't be covering sysex in this article.
+            sysex: false
         }).then(this.onMIDISuccess, this.onMIDIFailure)
     } else {
         console.log("No MIDI support in your browser.")

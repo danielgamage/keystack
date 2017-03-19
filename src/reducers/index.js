@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import instruments from './instruments'
 import audioEffects from './audioEffects'
+import midiEffects from './midiEffects'
 import notes from './notes'
 import midi from './midi'
 
 const keystackApp = combineReducers({
   instruments: instruments,
   audioEffects: audioEffects,
+  midiEffects: midiEffects,
   notes: notes,
   midi: midi
 })

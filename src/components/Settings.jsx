@@ -4,7 +4,11 @@ import NumericInput from './NumericInput.jsx'
 import KeySynth from './instruments/KeySynth.jsx'
 import Filter from './effects/Filter.jsx'
 import StereoPanner from './effects/StereoPanner.jsx'
+import Transpose from './midi/Transpose.jsx'
 
+const MidiEffectsByName = {
+  "Transpose": Transpose
+};
 const InstrumentsByName = {
   "KeySynth": KeySynth
 };
@@ -15,6 +19,10 @@ const AudioEffectsByName = {
 
 class Settings extends Component {
 	render() {
+    const midiEffects = this.props.midiEffects.map(effect => {
+      const ComponentName = MidiEffectsByName[effect.midiEffectType]
+      return (<ComponentName data={effect} />)
+    })
     const instruments = this.props.instruments.map(instrument => {
       const ComponentName = InstrumentsByName[instrument.type]
       return (<ComponentName data={instrument} />)
@@ -25,6 +33,8 @@ class Settings extends Component {
     })
 		return (
       <div class="settings">
+        {midiEffects}
+        <hr/>
         {instruments}
         <hr/>
         {audioEffects}
@@ -34,7 +44,11 @@ class Settings extends Component {
 }
 
 function mapStateToProps (state) {
-  return { instruments: state.instruments, audioEffects: state.audioEffects }
+  return {
+    instruments: state.instruments,
+    audioEffects: state.audioEffects,
+    midiEffects: state.midiEffects
+  }
 }
 
 export default connect(mapStateToProps)(Settings)

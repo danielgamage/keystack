@@ -46,15 +46,10 @@ export const blackForIndex = (index) => {
   return noteObjectForIndex(index).black
 }
 
-export const qwertyForIndex = (index) => {
-  return noteObjectForIndex(index).qwerty
-}
-
 export const keys = [...Array(88).keys()].map((el, i, arr) => {
   return {
     index: i,
     black: blackForIndex(el),
-    qwerty: qwertyForIndex(el),
     note: noteForIndex(el),
     octave: octaveForIndex(el),
     frequency: freqForIndex(el)

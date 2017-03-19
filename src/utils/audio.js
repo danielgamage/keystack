@@ -1,4 +1,5 @@
 import { store } from './store'
+import { sendNoteToMIDIChain } from './midiEffects'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
     masterVolume = audioCtx.createGain(),
@@ -67,37 +68,45 @@ export const shiftFrequencyByStep = (frequency, step) => {
 export const stopNote = (note) => {
   store.dispatch({
     type: 'REMOVE_NOTE',
+    at: 'input',
     note: note
   })
   const state = store.getState()
   state.instruments.map(instrument => {
     if (instrument.type === "KeySynth") {
       const envelope = instrument.envelope
-      oscillators[note.frequency].oscillators.forEach((oscillator) => {
+      oscillators[note.index].oscillators.forEach((oscillator) => {
         oscillator.stop(audioCtx.currentTime + envelope.release)
       })
 
-      oscillators[note.frequency].volume.gain.cancelScheduledValues(audioCtx.currentTime)
-      oscillators[note.frequency].volume.gain.setValueAtTime(oscillators[note.frequency].volume.gain.value, audioCtx.currentTime)
-      oscillators[note.frequency].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
-      oscillators[note.frequency] = null
+      oscillators[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
+      oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
+      oscillators[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
+      oscillators[note.index] = null
     }
   })
 }
 
 export const startNote = (note) => {
   // prevent sticky keys
-  if (!oscillators[note.frequency]) {
-    const state = store.getState()
+  const state = store.getState()
+  if (!oscillators[note.index]) {
     store.dispatch({
       type: 'ADD_NOTE',
+      at: 'input',
       note: note
     })
 
-    state.instruments.map(instrument => {
-      if (instrument.type === "KeySynth") {
-        const envelope = instrument.envelope
+    sendNoteToMIDIChain(note)
+  }
+}
+export const playInstrument = (notes) => {
+  const state = store.getState()
+  state.instruments.map(instrument => {
+    if (instrument.type === "KeySynth") {
+      const envelope = instrument.envelope
 
+      notes.map(note => {
         var noteVolume = audioCtx.createGain()
         noteVolume.gain.value = envelope.initial
         noteVolume.connect(audioEffectNodes[Object.keys(audioEffectNodes)[0]])
@@ -108,8 +117,8 @@ export const startNote = (note) => {
           osc.detune.value = el.detune
           osc.type = el.type
 
-    			var oscVolume = audioCtx.createGain()
-    	    oscVolume.gain.value = el.volume
+          var oscVolume = audioCtx.createGain()
+          oscVolume.gain.value = el.volume
 
           osc.connect(oscVolume)
           oscVolume.connect(noteVolume)
@@ -118,14 +127,16 @@ export const startNote = (note) => {
           return osc
         })
 
-        oscillators[note.frequency] = {
+        oscillators[note.index] = {
           oscillators: initializedOscillators,
           volume: noteVolume
         }
 
         noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
         noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
-      }
-    })
-  }
+
+      })
+    }
+  })
+
 }

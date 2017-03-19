@@ -3,28 +3,26 @@ import { connect } from 'preact-redux'
 
 import NumericInput from '../NumericInput.jsx'
 
-class StereoPanner extends Component {
-
+class Transpose extends Component {
 	render() {
-
 		return (
-      <div class="item effect-item">
+      <div class="item midi-item">
         <header>
-          <h3 class="title">Stereo Panner</h3>
+          <h3 class="title">Transpose</h3>
         </header>
         <div class="flex-container">
           <NumericInput
-            label="Pan"
-            class="tri"
+            label="Transpose"
+            class="tri small"
             id={`pan-${this.props.data.id}`}
-            min={-1}
-            max={1}
-            step={.01}
-            value={this.props.data["pan"]}
+            min={-48}
+            max={48}
+            step={1}
+            value={this.props.data.value}
             action={{
-              type: 'UPDATE_EFFECT',
+              type: 'UPDATE_MIDI_EFFECT',
               id: this.props.data.id,
-              property: "pan"
+              property: "value"
             }}
             />
         </div>
@@ -33,4 +31,4 @@ class StereoPanner extends Component {
 	}
 }
 
-export default connect()(StereoPanner)
+export default connect()(Transpose)
