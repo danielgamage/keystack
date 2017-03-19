@@ -4,7 +4,7 @@ import { connect } from 'preact-redux'
 import { audioEffectNodes } from '../../utils/audio'
 
 import { line, curveCatmullRom } from "d3-shape"
-import { scaleLinear, scaleLog } from "d3-scale"
+import { scaleLinear, scaleLog, scalePow } from "d3-scale"
 
 import NumericInput from '../NumericInput.jsx'
 
@@ -44,28 +44,42 @@ class Filter extends Component {
 	render() {
     const viewBoxWidth = 32
     const viewBoxHeight = 8
-    var frequencyBars = 256;
+    const frequencyBars = 512
+    const minHz = 30
+    const maxHz = 16000
+
+    const mapFreq = scalePow()
+      .exponent(5)
+      .domain([
+        0,
+        frequencyBars
+      ])
+      .range([
+        minHz,
+        maxHz
+      ])
 
     var myFrequencyArray = new Float32Array(frequencyBars);
     for(var i = 0; i < frequencyBars; ++i) {
-      myFrequencyArray[i] = 20000/frequencyBars*(i+1);
+      myFrequencyArray[i] = mapFreq(i)
     }
 
-    var magResponseOutput = new Float32Array(frequencyBars); // magnitude
-    var phaseResponseOutput = new Float32Array(frequencyBars);
+    var magResponseOutput = new Float32Array(frequencyBars) // magnitude
+    var phaseResponseOutput = new Float32Array(frequencyBars)
     const filterNode = audioEffectNodes[this.props.data.id]
     filterNode.getFrequencyResponse(
       myFrequencyArray,
       magResponseOutput,
       phaseResponseOutput
     )
-    const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: i + 1.01, y: response}))
+    const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
     const x = scaleLog()
-      .domain([1.01, frequencyBars])
+      .domain([minHz, maxHz])
       .range([0, viewBoxWidth])
     const y = scaleLinear()
       .domain([0, 3])
       .range([viewBoxHeight, 0])
+      .clamp(true)
     const envelopePath = line()
       .x((d) => x(d.x) )
       .y((d) => y(d.y) )
