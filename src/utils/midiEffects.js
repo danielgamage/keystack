@@ -13,17 +13,17 @@ export const processMIDI = {
 
 export const parseMIDIChain = (oldState) => {
   const state = store.getState()
-  const oldInput = oldState.notes.input
+  const oldOutput = oldState.notes.output
   const notes = state.notes.input
   const output = state.midiEffects.reduce((midiInput, effect, currentIndex, array) => {
     const newNotes = processMIDI[effect.midiEffectType](midiInput, effect)
     return newNotes
   }, notes)
-  const notesToRemove = oldInput.filter((el, i) => {
+  const notesToRemove = oldOutput.filter((el, i) => {
     return (!output.includes(el))
   })
   const notesToAdd = output.filter((el, i) => {
-    return (!oldInput.includes(el))
+    return (!oldOutput.includes(el))
   })
   playInstrument(notesToAdd)
   if (notesToRemove.length > 0) {
