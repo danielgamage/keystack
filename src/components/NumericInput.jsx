@@ -1,11 +1,10 @@
 // TODO:
 // - make <input> invisible unless focused and show <output> with unit
-// - allow log scaling
 
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import { arc } from "d3-shape"
-import { scaleLinear } from "d3-scale"
+import { scaleLinear, scaleLog } from "d3-scale"
 import { range } from "d3-array"
 
 
@@ -85,12 +84,23 @@ class NumericInput extends Component {
       value: v,
     })
   }
+  angle (value) {
+    const scale = this.props.scale || 1
+    let angle
+    if (scale !== 1) {
+      angle = scaleLog()
+        .domain([this.props.min, this.props.max])
+        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
+        .base(scale)
+    } else {
+      angle = scaleLinear()
+        .domain([this.props.min, this.props.max])
+        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
+    }
+    return angle(value)
+  }
   render () {
     var arcPath = arc();
-
-    var angle = scaleLinear()
-      .domain([this.props.min, this.props.max])
-      .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
 
     return (
       <div class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}>
@@ -116,8 +126,8 @@ class NumericInput extends Component {
               d={arcPath({
                 innerRadius: 14,
                 outerRadius: 14,
-                startAngle: angle(this.props.min),
-                endAngle: angle(this.props.max)
+                startAngle: this.angle(this.props.min),
+                endAngle: this.angle(this.props.max)
               })}
               />
             <path
@@ -127,8 +137,8 @@ class NumericInput extends Component {
               d={arcPath({
                 innerRadius: 14,
                 outerRadius: 14,
-                startAngle: angle(this.props.min),
-                endAngle: angle(this.props.value)
+                startAngle: this.angle(this.props.min),
+                endAngle: this.angle(this.props.value)
               })}
               />
           </svg>
