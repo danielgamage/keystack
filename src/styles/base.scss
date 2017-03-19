@@ -19,3 +19,7 @@ $radius: 0.2rem;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
 }
+
+svg:not(:root) {
+  overflow: visible;
+}

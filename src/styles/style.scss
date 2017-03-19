@@ -100,16 +100,19 @@ svg {
 :checked + .icon {
   stroke: $grey-6;
 }
+path {
+  fill: none;
+}
+.envelope-path {
+  overflow: visible;
+  margin: 2rem 0 1rem;
+  stroke: $grey-3;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
 .envelope {
   max-width: 16rem;
-  .envelope-path {
-    overflow: visible;
-    margin: 2rem 0 1rem;
-    stroke: $grey-3;
-    stroke-width: 2px;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-  }
   .dot {
     fill: $grey-0;
   }

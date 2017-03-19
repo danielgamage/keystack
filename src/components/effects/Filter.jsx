@@ -3,6 +3,9 @@ import { connect } from 'preact-redux'
 
 import { audioEffectNodes } from '../../utils/audio'
 
+import { line, curveCatmullRom } from "d3-shape"
+import { scaleLinear, scaleLog } from "d3-scale"
+
 import NumericInput from '../NumericInput.jsx'
 
 const filterTypes = [
@@ -38,53 +41,16 @@ const parameters = [
 ]
 
 class Filter extends Component {
-  componentDidMount() {
-    this.updateFrequencyResponse()
-  }
-  componentWillReceiveProps() {
-    this.updateFrequencyResponse()
-  }
-  drawFrequencyResponse(mag, phase) {
-    var frequencyBars = 100;
+	render() {
+    const viewBoxWidth = 32
+    const viewBoxHeight = 8
+    var frequencyBars = 256;
 
-
-
-    var canvas = document.getElementById("canvas")
-    var canvasContext = canvas.getContext("2d")
-    canvasContext.clearRect(0, 0, canvas.width, canvas.height)
-    var barWidth = 400 / frequencyBars
-
-    // Magnitude
-    canvasContext.strokeStyle = "white"
-    canvasContext.beginPath()
-    for(var frequencyStep = 0; frequencyStep < frequencyBars; ++frequencyStep) {
-      canvasContext.lineTo(
-        frequencyStep * barWidth,
-        canvas.height - mag[frequencyStep]*90)
-    }
-    canvasContext.stroke()
-
-    // Phase
-    canvasContext.strokeStyle = "red"
-    canvasContext.beginPath()
-    for(var frequencyStep = 0; frequencyStep < frequencyBars; ++frequencyStep) {
-      canvasContext.lineTo(
-        frequencyStep * barWidth,
-        canvas.height - (phase[frequencyStep]*90 + 300)/Math.PI)
-    }
-    canvasContext.stroke()
-  }
-  updateFrequencyResponse() {
-    var frequencyBars = 100;
-    // Array containing all the frequencies we want to get
-    // response for when calling getFrequencyResponse()
     var myFrequencyArray = new Float32Array(frequencyBars);
     for(var i = 0; i < frequencyBars; ++i) {
       myFrequencyArray[i] = 20000/frequencyBars*(i+1);
     }
 
-    // We receive the result in these two when calling
-    // getFrequencyResponse()
     var magResponseOutput = new Float32Array(frequencyBars); // magnitude
     var phaseResponseOutput = new Float32Array(frequencyBars);
     const filterNode = audioEffectNodes[this.props.data.id]
@@ -93,13 +59,37 @@ class Filter extends Component {
       magResponseOutput,
       phaseResponseOutput
     )
-    this.drawFrequencyResponse(magResponseOutput, phaseResponseOutput)
-  }
-	render() {
+    const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: i + 1.01, y: response}))
+    const x = scaleLog()
+      .domain([1.01, frequencyBars])
+      .range([0, viewBoxWidth])
+    const y = scaleLinear()
+      .domain([0, 3])
+      .range([viewBoxHeight, 0])
+    const envelopePath = line()
+      .x((d) => x(d.x) )
+      .y((d) => y(d.y) )
+      .curve(curveCatmullRom)
+
+
 		return (
       <div>
         <h3>Filter</h3>
-        <canvas id="canvas"></canvas>
+        <svg class="envelope-path" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+          <path
+            vector-effect="non-scaling-stroke"
+            d={envelopePath([...magnitudePoints]) /* Add in an extra point at the start so the fill doesn't break when init !=0 */}
+            />
+          {/*magnitudePoints.map(point => (
+            <circle
+              vector-effect="non-scaling-stroke"
+              class="dot"
+              cx={x(point.x)}
+              cy={y(point.y)}
+              r="0.3"
+              />
+          ))*/}
+        </svg>
         <div className="select">
           <select
             onChange={(e) => {
