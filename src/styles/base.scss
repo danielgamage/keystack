@@ -23,3 +23,15 @@ $radius: 0.2rem;
 svg:not(:root) {
   overflow: visible;
 }
+svg {
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+line, path {
+  fill: none;
+  stroke: inherit;
+  stroke-width: inherit;
+  stroke-linecap: inherit;
+  stroke-linejoin: inherit;
+}

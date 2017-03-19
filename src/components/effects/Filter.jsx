@@ -5,6 +5,9 @@ import { audioEffectNodes } from '../../utils/audio'
 
 import { line, curveCatmullRom } from "d3-shape"
 import { scaleLinear, scaleLog, scalePow } from "d3-scale"
+import { axisBottom } from "d3-axis"
+import { select } from "d3-selection"
+
 
 import NumericInput from '../NumericInput.jsx'
 
@@ -22,7 +25,7 @@ const filterTypes = [
 const parameters = [
   { name: "frequency",
     min: 30,
-    max: 12000,
+    max: 22000,
     step: 0.01,
     scale: 10
   },
@@ -40,11 +43,11 @@ const parameters = [
   }
 ]
 
-const viewBoxWidth = 32
-const viewBoxHeight = 8
+const viewBoxWidth = 256
+const viewBoxHeight = 64
 const frequencyBars = 1024
 const minHz = 30
-const maxHz = 16000
+const maxHz = 22000
 
 const mapFreq = scalePow()
   .exponent(5)
@@ -69,7 +72,24 @@ const envelopePath = line()
   .y((d) => y(d.y) )
   .curve(curveCatmullRom)
 
+const xAxis = axisBottom()
+  .scale(x)
+  .ticks(3, ".1s")
+
 class Filter extends Component {
+  componentDidMount() {
+    const axis = select(`#vis-${this.props.data.id} .axis-x`)
+      .call(xAxis.tickSize('5'))
+      .selectAll('*')
+        .attr('vector-effect', "non-scaling-stroke")
+    const grid = select(`#vis-${this.props.data.id} .grid`)
+      .call(xAxis
+        .tickSize(viewBoxHeight)
+        .tickFormat("")
+      )
+      .selectAll('*')
+        .attr('vector-effect', "non-scaling-stroke");
+  }
 	render() {
     var myFrequencyArray = new Float32Array(frequencyBars);
     for(var i = 0; i < frequencyBars; ++i) {
@@ -108,7 +128,8 @@ class Filter extends Component {
             </select>
           </div>
         </header>
-        <svg class="vis-path" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+        <svg class="vis-path" id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+          <g class="grid" />
           <path
             class="filter-phase"
             vector-effect="non-scaling-stroke"
@@ -118,6 +139,10 @@ class Filter extends Component {
             class="filter-magnitude"
             vector-effect="non-scaling-stroke"
             d={envelopePath(magnitudePoints)}
+            />
+          <g
+            class="graph-axis axis-x"
+            transform={`translate(0,${viewBoxHeight})`}
             />
         </svg>
         <div class="flex-container">
