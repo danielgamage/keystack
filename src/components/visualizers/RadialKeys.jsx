@@ -11,12 +11,6 @@ import { keys, noteForIndex } from '../../utils'
 
 
 class RadialKeys extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      input: true
-    }
-  }
   componentDidMount() {
     var width = 400,
         height = 400,
@@ -105,29 +99,15 @@ class RadialKeys extends Component {
     [...document.querySelectorAll(`.spiral.on`)].map(note => {
       note.classList.remove('on')
     })
-    if (this.state.input === true) {
-      nextProps.notes.input.map(note => {
-        document.querySelector(`.spiral-${note.index}`)
-          .classList.add('on')
-      })
-    } else {
-      nextProps.notes.output.map(note => {
-        document.querySelector(`.spiral-${note.index}`)
-          .classList.add('on')
-      })
-    }
+    nextProps.notes[this.props.midiReadPosition].map(note => {
+      document.querySelector(`.spiral-${note.index}`)
+        .classList.add('on')
+    })
 
   }
 	render() {
 		return (
       <div id="chart">
-        <button
-          onClick={() => {
-            this.setState({input: !this.state.input})
-          }}
-          class="input-output-switch">
-          {this.state.input === true ? 'input' : 'output'}
-        </button>
       </div>
 		);
 	}

@@ -243,6 +243,8 @@ input {
 #chart {
   margin-bottom: 2rem;
   svg {
+    width: 100%;
+    height: 100%;
     stroke-linecap: butt;
   }
 }

@@ -19,8 +19,8 @@ class NoteHUD extends Component {
 	render() {
     let matches = []
     let root
-    if (this.state.showHUD === true && this.props.notes.length > 0) {
-      matches = matchChords([...this.props.notes])
+    if (this.state.showHUD === true && this.props.notes[this.props.midiReadPosition].length > 0) {
+      matches = matchChords([...this.props.notes[this.props.midiReadPosition]])
     }
 		return (
       <div class="note-hud info-section">
@@ -37,8 +37,8 @@ class NoteHUD extends Component {
           <div>
             <div>
               <div class="viewer note-viewer">{
-                this.props.notes.length > 0
-                ? this.props.notes.map(el => (
+                this.props.notes[this.props.midiReadPosition].length > 0
+                ? this.props.notes[this.props.midiReadPosition].map(el => (
                   <span class="notes">{el.note}<sub>{el.octave}</sub></span>
                 ))
                 : <span class="empty">Notes will appear here.</span>
