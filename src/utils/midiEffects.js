@@ -8,6 +8,16 @@ export const processMIDI = {
       const value = parseInt(note.index) + parseInt(state.value)
       return keys[value]
     })
+  },
+  Chord: (notes, state) => {
+    return notes.map(note => {
+      return [...new Set(state.value)].map(tone => {
+        const value = parseInt(note.index) + parseInt(tone)
+        return keys[value]
+      })
+    }).reduce((acc, cur) => {
+      return acc.concat(cur)
+    }, [])
   }
 }
 

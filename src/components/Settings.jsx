@@ -1,13 +1,16 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import NumericInput from './NumericInput.jsx'
+
 import KeySynth from './instruments/KeySynth.jsx'
 import Filter from './effects/Filter.jsx'
 import StereoPanner from './effects/StereoPanner.jsx'
 import Transpose from './midi/Transpose.jsx'
+import Chord from './midi/Chord.jsx'
 
 const MidiEffectsByName = {
-  "Transpose": Transpose
+  "Transpose": Transpose,
+  "Chord": Chord
 };
 const InstrumentsByName = {
   "KeySynth": KeySynth
