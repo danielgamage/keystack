@@ -37,12 +37,12 @@ const params = {
   'attack': {
     min: 0,
     max: 1,
-    step: 0.1
+    step: 0.01
   },
   'release': {
     min: 0,
     max: 1,
-    step: 0.1
+    step: 0.01
   },
   'knee': {
     min: 0,
@@ -52,7 +52,7 @@ const params = {
   'ratio': {
     min: 1,
     max: 20,
-    step: 0.5
+    step: 0.1
   },
   'threshold': {
     min: -100,
@@ -117,7 +117,7 @@ class Compressor extends Component {
                   class="dot"
                   cx={x(point.x)}
                   cy={y(point.y)}
-                  r="2"
+                  r="4"
                   />
               ))}
               <g
@@ -133,7 +133,7 @@ class Compressor extends Component {
                 id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                 min={params[el].min}
                 max={params[el].max}
-                step={1}
+                step={params[el].step}
                 value={this.props.data[el]}
                 action={{
                   type: 'UPDATE_EFFECT',
@@ -152,7 +152,7 @@ class Compressor extends Component {
               id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
               min={params[el].min}
               max={params[el].max}
-              step={1}
+              step={params[el].step}
               value={this.props.data[el]}
               action={{
                 type: 'UPDATE_EFFECT',
