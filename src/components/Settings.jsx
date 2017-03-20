@@ -22,6 +22,14 @@ const AudioEffectsByName = {
   "Compressor": Compressor
 };
 
+const insertHRs = (arr) => {
+  const length = arr.length
+  for (let i=1; i<length; i++) {
+    arr.splice(length - i, 0, <hr />)
+  }
+  return arr
+}
+
 class Settings extends Component {
 	render() {
     const midiEffects = this.props.midiEffects.map(effect => {
@@ -38,11 +46,20 @@ class Settings extends Component {
     })
 		return (
       <div class="settings">
-        {midiEffects}
-        <hr/>
-        {instruments}
-        <hr/>
-        {audioEffects}
+        <section class="settings-section">
+          <h3 class="settings-title">Midi Effects</h3>
+          {insertHRs(midiEffects)}
+        </section>
+        <hr class="section-splitter"/>
+        <section class="settings-section">
+          <h3 class="settings-title">Instruments</h3>
+          {insertHRs(instruments)}
+        </section>
+        <hr class="section-splitter"/>
+        <section class="settings-section">
+          <h3 class="settings-title">Audio Effects</h3>
+          {insertHRs(audioEffects)}
+        </section>
       </div>
 		);
 	}
