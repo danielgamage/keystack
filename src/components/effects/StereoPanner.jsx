@@ -4,9 +4,7 @@ import { connect } from 'preact-redux'
 import NumericInput from '../NumericInput.jsx'
 
 class StereoPanner extends Component {
-
 	render() {
-
 		return (
       <div class="item effect-item">
         <header>

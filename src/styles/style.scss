@@ -170,6 +170,15 @@ svg {
     fill: $grey-0;
   }
 }
+.compressor-container {
+  display: flex;
+  .vis {
+    margin-right: 2rem;
+  }
+  .vis-path {
+    margin: 0;
+  }
+}
 .fader {
   margin: 0 0 1rem 0;
   &.small {
