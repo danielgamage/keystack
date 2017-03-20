@@ -5,6 +5,7 @@ import NumericInput from './NumericInput.jsx'
 import KeySynth from './instruments/KeySynth.jsx'
 import Filter from './effects/Filter.jsx'
 import StereoPanner from './effects/StereoPanner.jsx'
+import Compressor from './effects/Compressor.jsx'
 import Transpose from './midi/Transpose.jsx'
 import Chord from './midi/Chord.jsx'
 
@@ -17,7 +18,8 @@ const InstrumentsByName = {
 };
 const AudioEffectsByName = {
   "Filter": Filter,
-  "StereoPanner": StereoPanner
+  "StereoPanner": StereoPanner,
+  "Compressor": Compressor
 };
 
 class Settings extends Component {

@@ -18,8 +18,14 @@ const setProps = {
   },
   StereoPanner: (effect, state) => {
     effect.pan.value = state.pan
+  },
+  Compressor: (effect, state) => {
+    effect.attack.value = state.attack,
+    effect.knee.value = state.knee,
+    effect.ratio.value = state.ratio,
+    effect.release.value = state.release,
+    effect.threshold.value = state.threshold
   }
-
 }
 
 const createEffect = {
@@ -32,6 +38,11 @@ const createEffect = {
     const stereoPanner = audioCtx.createStereoPanner()
     setProps[effect.audioEffectType](stereoPanner, effect)
     audioEffectNodes[effect.id] = stereoPanner
+  },
+  Compressor: (effect) => {
+    const compressor = audioCtx.createDynamicsCompressor()
+    setProps[effect.audioEffectType](compressor, effect)
+    audioEffectNodes[effect.id] = compressor
   }
 }
 

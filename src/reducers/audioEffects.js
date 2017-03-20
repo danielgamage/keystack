@@ -11,6 +11,15 @@ const defaultState = [
     id: "47",
     audioEffectType: "StereoPanner",
     pan: 0
+  },
+  {
+    id: "80",
+    audioEffectType: "Compressor",
+    attack: 0.003,
+    knee: 30,
+    ratio: 12,
+    release: 0.25,
+    threshold: -24
   }
 ]
 
