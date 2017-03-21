@@ -181,6 +181,7 @@ class NumericInput extends Component {
         </svg>
         <div className="input-output">
           <output
+            for={this.props.id}
             class={!this.state.showInput && "active"}
             >
             {format(valueFormat)(this.props.value)}{this.props.unit}
