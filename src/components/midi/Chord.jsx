@@ -13,9 +13,10 @@ class Chord extends Component {
         <div class="flex-container">
           {this.props.data.value.map((el, i) => (
             <NumericInput
-              label={i}
+              label={`Note #${i + 1}`}
+              showLabel={false}
               class="six small"
-              id={`pan-${this.props.data.id}-${i}`}
+              id={`pan-${this.props.data.id}-${i + 1}`}
               min={-24}
               max={24}
               step={1}

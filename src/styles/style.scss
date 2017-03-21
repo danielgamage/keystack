@@ -192,7 +192,12 @@ svg {
     margin-right: 2rem;
   }
   .vis-path {
-    margin: 0;
+    margin: 0 0 1rem;
+  }
+  .flex-container {
+    .control {
+      width: 50%;
+    }
   }
 }
 .fader {

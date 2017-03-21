@@ -13,6 +13,7 @@ class Transpose extends Component {
         <div class="flex-container">
           <NumericInput
             label="Transpose"
+            showLabel={false}
             class="tri small"
             id={`pan-${this.props.data.id}`}
             min={-48}

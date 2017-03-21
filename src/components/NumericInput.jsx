@@ -16,6 +16,7 @@ class NumericInput extends Component {
     this.onDrag = this.onDrag.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
+    this.onChange = this.onChange.bind(this)
     this.updateStore = this.updateStore.bind(this)
     this.initialX = 0
   }
@@ -54,10 +55,10 @@ class NumericInput extends Component {
 
     value = this.scale(value)
 
-    if (e.movementX != undefined) {
+    if (e.movementX !== undefined) {
       movement = e.movementX
     } else {
-      if (e.pageX != undefined) {
+      if (e.pageX !== undefined) {
         movement = e.pageX - this.initialX
         this.initialX = e.pageX
       } else {
@@ -76,7 +77,8 @@ class NumericInput extends Component {
     this.updateStore(value, 'value')
   }
   onChange (e) {
-    this.updateStore(e.target.value, 'value')
+    const value = parseFloat(e.target.value)
+    this.updateStore(value)
   }
   updateStore (v) {
     this.props.dispatch({
@@ -109,8 +111,11 @@ class NumericInput extends Component {
           class={`ControlTitle draggable`}
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
+          title={this.props.label}
           >
-          <span class="label-text">{this.props.label}</span>
+          {this.props.showLabel !== false &&
+            <span class="label-text">{this.props.label}</span>
+          }
           <svg viewBox="0 0 32 32">
             <circle
               vector-effect="non-scaling-stroke"

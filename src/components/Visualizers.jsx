@@ -16,6 +16,7 @@ class App extends Component {
 		return (
       <div class="play-area">
         <button
+          title={"Change where visualizers read notes from: pre or post-FX"}
           onClick={() => {
             this.setState({midiReadPosition: this.state.midiReadPosition === "input" ? "output" : "input"})
           }}
