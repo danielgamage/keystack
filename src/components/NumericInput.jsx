@@ -28,13 +28,11 @@ class NumericInput extends Component {
     this.initialX = 0
   }
   handleFocus (e) {
-    console.log("handle focus")
     this.setState({
       showInput: true
     })
   }
   handleBlur (e) {
-    console.log("handle blur")
     this.setState({
       showInput: false
     })
@@ -128,15 +126,18 @@ class NumericInput extends Component {
       <div class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}>
         <label
           htmlFor={this.props.id}
-          class={`ControlTitle draggable`}
-          onMouseDown={this.onMouseDown.bind(this)}
-          onTouchStart={this.onMouseDown.bind(this)}
+          class={`ControlTitle`}
           title={this.props.label}
           >
           {this.props.showLabel !== false &&
             <span class="label-text">{this.props.label}</span>
           }
-          <svg viewBox="0 0 32 32">
+          <svg
+            viewBox="0 0 32 32"
+            class={`draggable`}
+            onMouseDown={this.onMouseDown.bind(this)}
+            onTouchStart={this.onMouseDown.bind(this)}
+            >
             <circle
               vector-effect="non-scaling-stroke"
               class="fader-knob"

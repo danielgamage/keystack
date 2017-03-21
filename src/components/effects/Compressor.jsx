@@ -128,7 +128,7 @@ class Compressor extends Component {
               {["attack", "release"].map((el, i) => (
                 <NumericInput
                   label={el}
-                  class="tri small"
+                  class="tri small right"
                   id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                   min={params[el].min}
                   max={params[el].max}

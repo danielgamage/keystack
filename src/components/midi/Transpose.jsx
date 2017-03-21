@@ -14,7 +14,7 @@ class Transpose extends Component {
           <NumericInput
             label="Transpose"
             showLabel={false}
-            class="tri small"
+            class="tri small right"
             id={`pan-${this.props.data.id}`}
             min={-48}
             max={48}
