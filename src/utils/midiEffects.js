@@ -3,36 +3,46 @@ import { keys } from '../utils'
 import { playInstrument, stopInstrument } from './audio'
 
 export const processMIDI = {
-  Transpose: (notes, state) => {
-    return notes.map(note => {
-      const value = parseInt(note.index) + parseInt(state.value)
+  Transpose: (notes, effect, effectIndex, effectsArray, oldState) => {
+    const value = notes.map(note => {
+      const value = parseInt(note.index) + parseInt(effect.value)
       return keys[value]
     })
+    nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
   },
-  Chord: (notes, state) => {
-    return notes.map(note => {
-      return [...new Set(state.value)].map(tone => {
+  Chord: (notes, effect, effectIndex, effectsArray, oldState) => {
+    const value = notes.map(note => {
+      return [...new Set(effect.value)].map(tone => {
         const value = parseInt(note.index) + parseInt(tone)
         return keys[value]
       })
     }).reduce((acc, cur) => {
       return acc.concat(cur)
     }, [])
+    nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
   }
 }
 
-export const parseMIDIChain = (oldState) => {
+export const nextInMIDIChain = (notes, effect, effectIndex, effectsArray, oldState) => {
+  if ((effectsArray.length - 1) !== effectIndex) {
+    processMIDI[effectsArray[effectIndex+1].midiEffectType](notes, effectsArray[effectIndex+1], effectIndex+1, effectsArray, oldState)
+  } else {
+    sendMIDIOut(notes, oldState)
+  }
+}
+
+export const startMIDIChain = (oldState) => {
   const state = store.getState()
-  const oldOutput = oldState.notes.output
   const notes = state.notes.input
-  const output = state.midiEffects.reduce((midiInput, effect, currentIndex, array) => {
-    const newNotes = processMIDI[effect.midiEffectType](midiInput, effect)
-    return newNotes
-  }, notes)
+  const newNotes = processMIDI[state.midiEffects[0].midiEffectType](notes, state.midiEffects[0], 0, state.midiEffects, oldState)
+}
+
+export const sendMIDIOut = (newOutput, oldState) => {
+  const oldOutput = oldState.notes.output
   const notesToRemove = oldOutput.filter((el, i) => {
-    return (!output.includes(el))
+    return (!newOutput.includes(el))
   })
-  const notesToAdd = output.filter((el, i) => {
+  const notesToAdd = newOutput.filter((el, i) => {
     return (!oldOutput.includes(el))
   })
   playInstrument(notesToAdd)
@@ -42,7 +52,6 @@ export const parseMIDIChain = (oldState) => {
   store.dispatch({
     type: 'SET_NOTES',
     at: 'output',
-    value: output
+    value: newOutput
   })
-
 }

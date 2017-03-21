@@ -1,17 +1,8 @@
+import { midiEffectSchema } from './schema.js'
+
 const defaultState = [
-  {
-    id: "29",
-    midiEffectType: "Transpose",
-    value: 0
-  },
-  {
-    id: "28",
-    midiEffectType: "Chord",
-    value: [
-      0, 0, 0,
-      0, 0, 0
-    ]
-  }
+  midiEffectSchema.Transpose(),
+  midiEffectSchema.Chord()
 ]
 
 const midiEffect = (state, action) => {
@@ -41,6 +32,8 @@ const midiEffects = (state = defaultState, action) => {
           return effect
         }
       })
+    case 'ADD_MIDI_EFFECT':
+      return midiEffectSchema[action.value](...action.arguments)
     default:
       return state
   }

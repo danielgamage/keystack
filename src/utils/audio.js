@@ -1,5 +1,5 @@
 import { store } from './store'
-import { parseMIDIChain } from './midiEffects'
+import { startMIDIChain } from './midiEffects'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
     masterVolume = audioCtx.createGain(),
@@ -83,7 +83,7 @@ export const stopNote = (note) => {
     at: 'input',
     value: note
   })
-  parseMIDIChain(state)
+  startMIDIChain(state)
 }
 
 export const startNote = (note) => {
@@ -96,7 +96,7 @@ export const startNote = (note) => {
       value: note
     })
 
-    parseMIDIChain(state)
+    startMIDIChain(state)
   }
 }
 export const playInstrument = (notes) => {

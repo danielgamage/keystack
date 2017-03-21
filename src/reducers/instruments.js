@@ -1,24 +1,7 @@
+import { instrumentSchema } from './schema.js'
+
 const defaultState = [
-  {
-    id: "1",
-    type: "KeySynth",
-    oscillators: [
-      {
-        type: 'sine',
-        volume: 0.8,
-        detune: 0,
-        pitch: 0
-      }
-    ],
-    envelope: {
-      initial: 0,
-      peak: 1,
-      sustain: 0.1,
-      attack: 0.01,
-      decay: 0.5,
-      release: 1
-    }
-  }
+  instrumentSchema.KeySynth()
 ]
 
 const synth = (state, action) => {

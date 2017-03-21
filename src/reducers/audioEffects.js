@@ -1,26 +1,9 @@
+import { audioEffectSchema } from './schema'
+
 const defaultState = [
-  {
-    id: "46",
-    audioEffectType: "Filter",
-    type: "lowpass",
-    frequency: 200,
-    q: 0.5,
-    gain: 0
-  },
-  {
-    id: "47",
-    audioEffectType: "StereoPanner",
-    pan: 0
-  },
-  {
-    id: "80",
-    audioEffectType: "Compressor",
-    attack: 0.003,
-    knee: 30,
-    ratio: 12,
-    release: 0.25,
-    threshold: -24
-  }
+  audioEffectSchema.Filter(),
+  audioEffectSchema.StereoPanner(),
+  audioEffectSchema.Compressor()
 ]
 
 const filter = (state, action) => {
