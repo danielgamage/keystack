@@ -5,7 +5,7 @@ import { audioEffectNodes } from '../../utils/audio'
 
 import { line, curveCatmullRom } from "d3-shape"
 import { scaleLinear, scaleLog, scalePow } from "d3-scale"
-import { axisBottom } from "d3-axis"
+import { axisBottom, axisLeft } from "d3-axis"
 import { select } from "d3-selection"
 
 
@@ -64,7 +64,7 @@ const x = scaleLog()
   .domain([minHz, maxHz])
   .range([0, viewBoxWidth])
 const y = scaleLinear()
-  .domain([-3, 3])
+  .domain([-1, 3])
   .range([viewBoxHeight, 0])
   .clamp(true)
 const envelopePath = line()
@@ -75,6 +75,9 @@ const envelopePath = line()
 const xAxis = axisBottom()
   .scale(x)
   .ticks(3, ".1s")
+const yAxis = axisLeft()
+  .scale(y)
+  .ticks(5, ".1s")
 
 class Filter extends Component {
   componentDidMount() {
@@ -82,11 +85,19 @@ class Filter extends Component {
       .call(xAxis.tickSize('5'))
       .selectAll('*')
         .attr('vector-effect', "non-scaling-stroke")
-    const grid = select(`#vis-${this.props.data.id} .grid`)
+    const gridX = select(`#vis-${this.props.data.id} .grid-x`)
       .call(xAxis
         .tickSize(viewBoxHeight)
         .tickFormat("")
       )
+      .selectAll('*')
+        .attr('vector-effect', "non-scaling-stroke");
+    const gridY = select(`#vis-${this.props.data.id} .grid-y`)
+      .call(yAxis
+        .tickSize(viewBoxWidth)
+        .tickFormat("")
+      )
+      .attr('transform', `translate(${viewBoxWidth},0)`)
       .selectAll('*')
         .attr('vector-effect', "non-scaling-stroke");
   }
@@ -129,7 +140,8 @@ class Filter extends Component {
           </div>
         </header>
         <svg class="vis-path" id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-          <g class="grid" />
+          <g class="grid grid-x" />
+          <g class="grid grid-y" />
           <path
             class="filter-phase"
             vector-effect="non-scaling-stroke"
