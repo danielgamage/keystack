@@ -70,6 +70,7 @@ class Oscillators extends Component {
               min="-50"
               max="50"
               step="1"
+              unit=" ct"
               value={osc.detune}
               action={{
                 id: this.props.instrument.id,
@@ -85,6 +86,7 @@ class Oscillators extends Component {
               min="-48"
               max="48"
               step="1"
+              unit=" st"
               value={osc.pitch}
               action={{
                 id: this.props.instrument.id,

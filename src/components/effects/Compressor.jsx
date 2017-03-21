@@ -35,11 +35,15 @@ const compressionCurve = line()
 
 const params = {
   'attack': {
+    unit: "s",
+    format: "0.3s",
     min: 0,
     max: 1,
     step: 0.01
   },
   'release': {
+    unit: "s",
+    format: "0.3s",
     min: 0,
     max: 1,
     step: 0.01
@@ -50,6 +54,7 @@ const params = {
     step: 1
   },
   'ratio': {
+    unit: ":1",
     min: 1,
     max: 20,
     step: 0.1
@@ -128,6 +133,8 @@ class Compressor extends Component {
                   min={params[el].min}
                   max={params[el].max}
                   step={params[el].step}
+                  unit={params[el].unit}
+                  format={params[el].format}
                   value={this.props.data[el]}
                   action={{
                     type: 'UPDATE_EFFECT',

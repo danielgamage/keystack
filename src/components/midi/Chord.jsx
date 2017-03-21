@@ -20,6 +20,7 @@ class Chord extends Component {
               min={-24}
               max={24}
               step={1}
+              unit={" st"}
               value={this.props.data.value[i]}
               action={{
                 type: 'UPDATE_MIDI_CHORD_VALUES',

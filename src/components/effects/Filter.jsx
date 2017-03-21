@@ -24,6 +24,8 @@ const filterTypes = [
 
 const parameters = [
   { name: "frequency",
+    unit: "hz",
+    format: ".3s",
     min: 30,
     max: 22000,
     step: 0.01,
@@ -36,6 +38,7 @@ const parameters = [
     scale: Math.E
   },
   { name: "gain",
+    unit: "dB",
     min: -15,
     max: 15,
     step: 0.1,
@@ -167,6 +170,8 @@ class Filter extends Component {
               min={param.min}
               max={param.max}
               step={param.step}
+              unit={param.unit}
+              format={param.format}
               scale={param.scale}
               value={this.props.data[param.name]}
               action={{

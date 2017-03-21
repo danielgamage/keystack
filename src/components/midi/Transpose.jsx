@@ -19,6 +19,7 @@ class Transpose extends Component {
             min={-48}
             max={48}
             step={1}
+            unit={" st"}
             value={this.props.data.value}
             action={{
               type: 'UPDATE_MIDI_EFFECT',

@@ -5,12 +5,19 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import { arc } from "d3-shape"
 import { scaleLinear, scaleLog } from "d3-scale"
+import { format } from "d3-format"
+
 import { range } from "d3-array"
 
 
 class NumericInput extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      showInput: false
+    }
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
     this.scale = this.scale.bind(this)
     this.unscale = this.unscale.bind(this)
     this.onDrag = this.onDrag.bind(this)
@@ -19,6 +26,18 @@ class NumericInput extends Component {
     this.onChange = this.onChange.bind(this)
     this.updateStore = this.updateStore.bind(this)
     this.initialX = 0
+  }
+  handleFocus (e) {
+    console.log("handle focus")
+    this.setState({
+      showInput: true
+    })
+  }
+  handleBlur (e) {
+    console.log("handle blur")
+    this.setState({
+      showInput: false
+    })
   }
   onMouseDown (e) {
     this.initialX = e.pageX || e.touches[0].pageX
@@ -103,6 +122,7 @@ class NumericInput extends Component {
   }
   render () {
     var arcPath = arc();
+    const valueFormat = this.props.format !== undefined ? this.props.format : "";
 
     return (
       <div class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}>
@@ -147,18 +167,28 @@ class NumericInput extends Component {
               })}
               />
           </svg>
-          <input
-            id={this.props.id}
-            type='number'
-            disabled={this.props.disabled}
-            inputMode='numeric'
-            min={this.props.min}
-            max={this.props.max}
-            value={this.props.value}
-            step={this.props.step}
-            defaultValue={this.props.defaultValue}
-            onChange={this.onChange.bind(this)}
-            />
+          <div className="input-output">
+            <output
+              class={!this.state.showInput && "active"}
+              >
+              {format(valueFormat)(this.props.value)}{this.props.unit}
+            </output>
+            <input
+              class={this.state.showInput && "active"}
+              id={this.props.id}
+              type='number'
+              disabled={this.props.disabled}
+              inputMode='numeric'
+              min={this.props.min}
+              max={this.props.max}
+              value={this.props.value}
+              step={this.props.step}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              defaultValue={this.props.defaultValue}
+              onChange={this.onChange.bind(this)}
+              />
+          </div>
         </label>
       </div>
     )

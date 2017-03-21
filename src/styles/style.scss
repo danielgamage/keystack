@@ -249,6 +249,21 @@ svg {
       stroke: $grey-6;
     }
   }
+  .input-output {
+    position: relative;
+    flex: 1;
+    input,
+    output {
+      opacity: 0;
+      &.active {
+        opacity: 1;
+      }
+    }
+    input {
+      position: absolute;
+      top: 0;
+    }
+  }
   input {
     display: block;
     appearance: none;

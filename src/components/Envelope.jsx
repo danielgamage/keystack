@@ -72,12 +72,12 @@ class Settings extends Component {
         </svg>
         <div className="flex-container">
           {[
-            {name: 'initial', min: 0, max:  1,  step: 0.01},
-            {name: 'peak',    min: 0, max:  1,  step: 0.01},
-            {name: 'sustain', min: 0, max:  1,  step: 0.01},
-            {name: 'attack',  min: 0, max:  5,  step: 0.01},
-            {name: 'decay',   min: 0, max:  5,  step: 0.01},
-            {name: 'release', min: 0, max:  5,  step: 0.01}
+            {name: 'initial',                            min: 0, max:  1,  step: 0.01},
+            {name: 'peak',                               min: 0, max:  1,  step: 0.01},
+            {name: 'sustain',                            min: 0, max:  1,  step: 0.01},
+            {name: 'attack',  unit: "s", format: "0.3s", min: 0, max:  5,  step: 0.01},
+            {name: 'decay',   unit: "s", format: "0.3s", min: 0, max:  5,  step: 0.01},
+            {name: 'release', unit: "s", format: "0.3s", min: 0, max:  5,  step: 0.01}
           ].map(el => (
             <NumericInput
               label={el.name}
@@ -86,6 +86,8 @@ class Settings extends Component {
               min={el.min}
               max={el.max}
               step={el.step}
+							unit={el.unit}
+							format={el.format}
               value={envelope[el.name]}
 							action={{
 								type: 'UPDATE_VOLUME_ENVELOPE',
