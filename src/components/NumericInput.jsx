@@ -26,6 +26,8 @@ class NumericInput extends Component {
     this.onChange = this.onChange.bind(this)
     this.updateStore = this.updateStore.bind(this)
     this.initialX = 0
+    this.mouseDownX = 0
+    this.mouseDownY = 0
   }
   handleFocus (e) {
     this.setState({
@@ -38,7 +40,10 @@ class NumericInput extends Component {
     })
   }
   onMouseDown (e) {
+    e.preventDefault()
     this.initialX = e.pageX || e.touches[0].pageX
+    this.mouseDownX = e.pageX || e.touches[0].pageX
+    this.mouseDownY = e.pageY || e.touches[0].pageY
     document.addEventListener('mousemove', this.onDrag)
     document.addEventListener('mouseup', this.onMouseUp)
     document.addEventListener('touchmove', this.onDrag)
@@ -46,6 +51,11 @@ class NumericInput extends Component {
     document.body.classList.add('cursor--lr')
   }
   onMouseUp (e) {
+    const currentMouseDownX = e.pageX || e.touches[0].pageX
+    const currentMouseDownY = e.pageY || e.touches[0].pageY
+    if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
+      document.querySelector(`#${this.props.id}`).focus()
+    }
     document.removeEventListener('mousemove', this.onDrag)
     document.removeEventListener('mouseup', this.onMouseUp)
     document.removeEventListener('touchmove', this.onDrag)
@@ -132,65 +142,65 @@ class NumericInput extends Component {
           {this.props.showLabel !== false &&
             <span class="label-text">{this.props.label}</span>
           }
-          <svg
-            viewBox="0 0 32 32"
-            class={`draggable`}
-            onMouseDown={this.onMouseDown.bind(this)}
-            onTouchStart={this.onMouseDown.bind(this)}
-            >
-            <circle
-              vector-effect="non-scaling-stroke"
-              class="fader-knob"
-              cx={16}
-              cy={16}
-              r="14"
-              />
-            <path
-              vector-effect="non-scaling-stroke"
-              class="fader-track"
-              transform="translate(16, 16)"
-              d={arcPath({
-                innerRadius: 14,
-                outerRadius: 14,
-                startAngle: this.angle(this.props.min),
-                endAngle: this.angle(this.props.max)
-              })}
-              />
-            <path
-              vector-effect="non-scaling-stroke"
-              class="fader-value"
-              transform="translate(16, 16)"
-              d={arcPath({
-                innerRadius: 14,
-                outerRadius: 14,
-                startAngle: this.angle(this.props.min),
-                endAngle: this.angle(this.props.value)
-              })}
-              />
-          </svg>
-          <div className="input-output">
-            <output
-              class={!this.state.showInput && "active"}
-              >
-              {format(valueFormat)(this.props.value)}{this.props.unit}
-            </output>
-            <input
-              class={this.state.showInput && "active"}
-              id={this.props.id}
-              type='number'
-              disabled={this.props.disabled}
-              inputMode='numeric'
-              min={this.props.min}
-              max={this.props.max}
-              value={this.props.value}
-              step={this.props.step}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-              defaultValue={this.props.defaultValue}
-              onChange={this.onChange.bind(this)}
-              />
-          </div>
         </label>
+        <svg
+          viewBox="0 0 32 32"
+          class={`draggable`}
+          onMouseDown={this.onMouseDown.bind(this)}
+          onTouchStart={this.onMouseDown.bind(this)}
+          >
+          <circle
+            vector-effect="non-scaling-stroke"
+            class="fader-knob"
+            cx={16}
+            cy={16}
+            r="14"
+            />
+          <path
+            vector-effect="non-scaling-stroke"
+            class="fader-track"
+            transform="translate(16, 16)"
+            d={arcPath({
+              innerRadius: 14,
+              outerRadius: 14,
+              startAngle: this.angle(this.props.min),
+              endAngle: this.angle(this.props.max)
+            })}
+            />
+          <path
+            vector-effect="non-scaling-stroke"
+            class="fader-value"
+            transform="translate(16, 16)"
+            d={arcPath({
+              innerRadius: 14,
+              outerRadius: 14,
+              startAngle: this.angle(this.props.min),
+              endAngle: this.angle(this.props.value)
+            })}
+            />
+        </svg>
+        <div className="input-output">
+          <output
+            class={!this.state.showInput && "active"}
+            >
+            {format(valueFormat)(this.props.value)}{this.props.unit}
+          </output>
+          <input
+            class={this.state.showInput && "active"}
+            id={this.props.id}
+            type='number'
+            disabled={this.props.disabled}
+            inputMode='numeric'
+            min={this.props.min}
+            max={this.props.max}
+            value={this.props.value}
+            step={this.props.step}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            defaultValue={this.props.defaultValue}
+            onChange={this.onChange.bind(this)}
+            />
+        </div>
       </div>
     )
   }

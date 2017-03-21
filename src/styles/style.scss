@@ -209,11 +209,9 @@ svg {
     }
   }
   &.right {
-    label {
-      display: flex;
-      align-items: center;
-      flex-flow: row wrap;
-    }
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
     svg {
       display: inline-block;
       margin-right: 0.5rem;
@@ -225,11 +223,8 @@ svg {
   }
   label {
     display: block;
-    @extend %sc;
-  }
-  .label-text{
-    display: block;
     width: 100%;
+    @extend %sc;
   }
   svg {
     display: block;
@@ -257,6 +252,7 @@ svg {
     position: relative;
     flex: 1;
     height: 1rem;
+    @extend %sc;
     input,
     output {
       opacity: 0;
@@ -266,7 +262,11 @@ svg {
     }
     input {
       position: absolute;
-      top: 0;
+      padding: 0.3rem 0.5rem;
+      top: -0.3rem;
+      left: -0.5rem;
+      bottom: -0.3rem;
+      right: -0.5rem;
     }
   }
   input {
