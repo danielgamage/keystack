@@ -130,3 +130,50 @@ button {
     background-color: #eee;
   }
 }
+
+.piano-checkboxes {
+  display: flex;
+  padding-top: 2rem;
+}
+.replaced-checkbox {
+  position: relative;
+  margin: 0 0.5rem;
+  input {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  &.black {
+    margin-right: -0.5rem;
+    margin-left: -0.5rem;
+    margin-top: -1.7rem;
+  }
+  .checkbox-check {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 0.25rem;
+    height: 0.25rem;
+    background-color: $grey-6;
+    border-radius: 0.5rem;
+    transform: translate(-50%, -50%) scale(0.8,0.8);
+    opacity: 0;
+    &.active {
+      transform: translate(-50%, -50%) scale(1,1);
+      opacity: 1;
+    }
+  }
+}
+.checkbox-replacement {
+  position: relative;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 1rem;
+  border: 2px solid $grey-6;
+}

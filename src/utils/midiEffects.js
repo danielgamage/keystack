@@ -20,6 +20,12 @@ export const processMIDI = {
       return acc.concat(cur)
     }, [])
     nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
+  },
+  DisableNotes: (notes, effect, effectIndex, effectsArray, oldState) => {
+    const value = notes.filter(note => (
+      effect.value[(note.index + 9) % 12]
+    ))
+    nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
   }
 }
 

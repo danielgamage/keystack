@@ -17,6 +17,15 @@ export const midiEffectSchema = {
       0, 0, 0,
       0, 0, 0
     ]
+  }),
+  "DisableNotes": () => ({
+    id: generateID(),
+    midiEffectType: "DisableNotes",
+    value: [
+      true, true, true, true,
+      true, true, true, true,
+      true, true, true, true
+    ]
   })
 }
 

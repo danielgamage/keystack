@@ -8,10 +8,12 @@ import StereoPanner from './effects/StereoPanner.jsx'
 import Compressor from './effects/Compressor.jsx'
 import Transpose from './midi/Transpose.jsx'
 import Chord from './midi/Chord.jsx'
+import DisableNotes from './midi/DisableNotes.jsx'
 
 const MidiEffectsByName = {
   "Transpose": Transpose,
-  "Chord": Chord
+  "Chord": Chord,
+  "DisableNotes": DisableNotes
 };
 const InstrumentsByName = {
   "KeySynth": KeySynth

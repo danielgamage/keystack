@@ -2,7 +2,8 @@ import { midiEffectSchema } from './schema.js'
 
 const defaultState = [
   midiEffectSchema.Transpose(),
-  midiEffectSchema.Chord()
+  midiEffectSchema.Chord(),
+  midiEffectSchema.DisableNotes()
 ]
 
 const midiEffect = (state, action) => {
@@ -12,7 +13,7 @@ const midiEffect = (state, action) => {
       newState = { ...state }
       newState[action.property] = action.value
       return newState
-    case 'UPDATE_MIDI_CHORD_VALUES':
+    case 'UPDATE_MIDI_VALUE_ARRAY':
       newState = { ...state }
       newState.value[action.index] = action.value
       return newState
@@ -24,7 +25,7 @@ const midiEffect = (state, action) => {
 const midiEffects = (state = defaultState, action) => {
   switch (action.type) {
     case 'UPDATE_MIDI_EFFECT':
-    case 'UPDATE_MIDI_CHORD_VALUES':
+    case 'UPDATE_MIDI_VALUE_ARRAY':
       return [...state].map(effect => {
         if (effect.id === action.id) {
           return midiEffect(effect, action)
