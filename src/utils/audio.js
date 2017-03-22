@@ -113,6 +113,7 @@ export const loadSample = (instrumentId) => {
     readSample(file).then((sampleData) => {
       audioCtx.decodeAudioData(sampleData, function(buffer) {
           console.log(file)
+          console.log(buffer)
           bufferChannelData = buffer.getChannelData(0)
             .filter((el, i, arr) => (i % Math.ceil(arr.length / 256) === 0))
           store.dispatch({
@@ -122,6 +123,8 @@ export const loadSample = (instrumentId) => {
               waveform: bufferChannelData,
               name: file.name,
               size: file.size,
+              duration: buffer.duration,
+              length: buffer.length,
               type: file.type
             }
           })
@@ -190,7 +193,9 @@ export const playInstrument = (notes) => {
 
         source.buffer = myBuffer
         source.playbackRate.value = transposeSample(note.index)
-        source.loop = true
+        source.loop = instrument.loop
+        source.loopStart = instrument.loopStart
+        source.loopEnd = instrument.loopEnd
         source.connect(noteVolume)
         source.start(audioCtx.currentTime)
 

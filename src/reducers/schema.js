@@ -60,6 +60,9 @@ export const instrumentSchema = {
     volume: 0.8,
     detune: 0,
     pitch: 0,
+    loop: true,
+    loopStart: 0,
+    loopEnd: 0,
     sample: {
       buffer: null,
       name: null,
