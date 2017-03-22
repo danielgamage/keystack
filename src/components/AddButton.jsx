@@ -22,6 +22,7 @@ class AddButton extends Component {
               onClick={() => {
                 this.props.dispatch({
                   type: this.props.action,
+                  index: this.props.index,
                   value: item
                 })
               }}

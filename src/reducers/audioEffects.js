@@ -29,7 +29,11 @@ const audioEffects = (state = defaultState, action) => {
         }
       })
     case 'ADD_AUDIO_EFFECT':
-      return [...state, audioEffectSchema[action.value]()]
+      return [
+        ...state.slice(0, action.index),
+        audioEffectSchema[action.value](),
+        ...state.slice(action.index, state.length)
+      ]
     default:
       return state
   }
