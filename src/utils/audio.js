@@ -1,5 +1,6 @@
 import { store } from './store'
 import { startMIDIChain } from './midiEffects'
+import transposeSample from './transposeSample'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
     masterVolume = audioCtx.createGain(),
@@ -113,7 +114,6 @@ export const loadSample = (instrumentId) => {
       audioCtx.decodeAudioData(sampleData, function(buffer) {
           bufferChannelData = buffer.getChannelData(0)
             .filter((el, i, arr) => (i % Math.ceil(arr.length / 256) === 0))
-          console.log(bufferChannelData)
           store.dispatch({
             type: 'UPDATE_SAMPLE',
             id: instrumentId,
@@ -184,7 +184,7 @@ export const playInstrument = (notes) => {
         noteVolume.connect(audioEffectNodes[Object.keys(audioEffectNodes)[0]])
 
         source.buffer = myBuffer
-        source.playbackRate.value = note.index / 12 * 2
+        source.playbackRate.value = transposeSample(note.index)
         source.loop = true
         source.connect(noteVolume)
         source.start(audioCtx.currentTime)
