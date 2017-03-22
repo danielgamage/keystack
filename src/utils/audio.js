@@ -111,18 +111,8 @@ export const loadSample = (instrumentId) => {
     readSample(file).then((sampleData) => {
       audioCtx.decodeAudioData(sampleData, function(buffer) {
           myBuffer = buffer
-          // source.buffer = myBuffer
-          // source.playbackRate.value = this.value
-          // source.connect(audioCtx.destination)
-          // source.loop = true
-        },
-
-        function(e){"Error with decoding audio data" + e.err})
-      // store.dispatch({
-      //   type: 'UPDATE_SAMPLER_BUFFER',
-      //   id: instrumentId,
-      //   value: sampleData
-      // })
+        }, function(e){"Error with decoding audio data" + e.err}
+      )
     })
   }
   fileUpload.click()
@@ -132,8 +122,7 @@ const readSample = (file) => {
   return new Promise(function(resolve, reject) {
     let reader = new FileReader()
     reader.addEventListener('load', () => {
-      const data = reader.result
-      resolve(data)
+      resolve(reader.result)
     }, false)
     reader.readAsArrayBuffer(file)
   });
