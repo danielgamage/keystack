@@ -40,7 +40,11 @@ export const nextInMIDIChain = (notes, effect, effectIndex, effectsArray, oldSta
 export const startMIDIChain = (oldState) => {
   const state = store.getState()
   const notes = state.notes.input
-  const newNotes = processMIDI[state.midiEffects[0].midiEffectType](notes, state.midiEffects[0], 0, state.midiEffects, oldState)
+  if (state.midiEffects.length > 0) {
+    const newNotes = processMIDI[state.midiEffects[0].midiEffectType](notes, state.midiEffects[0], 0, state.midiEffects, oldState)
+  } else {
+    sendMIDIOut(notes, oldState)
+  }
 }
 
 export const sendMIDIOut = (newOutput, oldState) => {
