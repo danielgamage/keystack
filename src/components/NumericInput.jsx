@@ -44,6 +44,7 @@ class NumericInput extends Component {
     this.initialX = e.pageX || e.touches[0].pageX
     this.mouseDownX = e.pageX || e.touches[0].pageX
     this.mouseDownY = e.pageY || e.touches[0].pageY
+    this.element.classList.add('active')
     document.addEventListener('mousemove', this.onDrag)
     document.addEventListener('mouseup', this.onMouseUp)
     document.addEventListener('touchmove', this.onDrag)
@@ -56,6 +57,7 @@ class NumericInput extends Component {
     if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
       document.querySelector(`#${this.props.id}`).focus()
     }
+    this.element.classList.remove('active')
     document.removeEventListener('mousemove', this.onDrag)
     document.removeEventListener('mouseup', this.onMouseUp)
     document.removeEventListener('touchmove', this.onDrag)
@@ -133,7 +135,9 @@ class NumericInput extends Component {
     const valueFormat = this.props.format !== undefined ? this.props.format : "";
 
     return (
-      <div class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}>
+      <div
+        class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}
+        ref={(c) => this.element = c}>
         <label
           htmlFor={this.props.id}
           class={`ControlTitle`}
@@ -154,7 +158,7 @@ class NumericInput extends Component {
             class="fader-knob"
             cx={16}
             cy={16}
-            r="14"
+            r="10"
             />
           <path
             vector-effect="non-scaling-stroke"
