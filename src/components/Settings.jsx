@@ -30,10 +30,10 @@ const AudioEffectsByName = {
   "Compressor": Compressor
 }
 
-const insertButtons = (arr, schema, action) => {
+const insertHRs = (arr) => {
   const length = arr.length
-  for (let i=0; i <= length; i++) {
-    arr.splice(length - i, 0, <AddButton index={length - i} schema={schema} action={action}/>)
+  for (let i=1; i < length; i++) {
+    arr.splice(length - i, 0, <hr/>)
   }
   return arr
 }
@@ -56,19 +56,20 @@ class Settings extends Component {
       <div class="settings">
         <section class="settings-section">
           <h3 class="settings-title">Midi Effects</h3>
-          {insertButtons(midiEffects, midiEffectSchema, 'ADD_MIDI_EFFECT')}
+          {insertHRs(midiEffects)}
+          <AddButton schema={midiEffectSchema} action={'ADD_MIDI_EFFECT'}/>
         </section>
         <hr class="section-splitter"/>
         <section class="settings-section">
           <h3 class="settings-title">Instruments</h3>
-          {/*insertButtons(instruments, instrumentSchema, 'ADD_INSTRUMENT')*/}
-          {instruments}
+          {insertHRs(instruments)}
+          <AddButton schema={instrumentSchema} action={'ADD_INSTRUMENT'}/>
         </section>
         <hr class="section-splitter"/>
         <section class="settings-section">
           <h3 class="settings-title">Audio Effects</h3>
-          {/*insertButtons(audioEffects, audioEffectSchema, 'ADD_AUDIO_EFFECT')*/}
-          {audioEffects}
+          {insertHRs(audioEffects)}
+          <AddButton schema={audioEffectSchema} action={'ADD_AUDIO_EFFECT'}/>
         </section>
       </div>
 		);
