@@ -62,6 +62,9 @@ export const instrumentSchema = {
     pitch: 0,
     sample: {
       buffer: null,
+      name: null,
+      size: null,
+      type: null,
       waveform: [0,0]
     },
     envelope: {

@@ -292,6 +292,14 @@ input {
   width: 100%;
 }
 
+.sample-info {
+  @extend %sc;
+  .size {
+    color: $grey-3;
+    margin-left: 1rem;
+  }
+}
+
 // --------
 // Keystack
 // --------

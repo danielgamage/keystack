@@ -5,6 +5,7 @@ import { line, curveBundle } from "d3-shape"
 import { scaleLinear, scaleLog, scalePow } from "d3-scale"
 import { axisBottom, axisLeft } from "d3-axis"
 import { select } from "d3-selection"
+import { format } from "d3-format"
 
 import NumericInput from './NumericInput.jsx'
 import Envelope from './Envelope.jsx'
@@ -32,16 +33,22 @@ class Sample extends Component {
       .x((d, i) => x(i) )
       .y((d) => y(d) )
       .curve(curveBundle.beta(1))
+    const sample = this.props.instrument.sample
+
 		return (
-      <section class="controls">
+      <section class="sample">
         <svg class="vis-path" id={`vis-${this.props.instrument.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-          {this.props.instrument.sample.waveform !== null &&
+          {sample.waveform !== null &&
             <path
               vector-effect="non-scaling-stroke"
-              d={waveform(this.props.instrument.sample.waveform)}
+              d={waveform(sample.waveform)}
               />
           }
         </svg>
+        <div className="sample-info">
+          <span>{sample.name}</span>
+          <span class="size">{sample.size != null && `${format(".2")(sample.size / 1024 / 1024)}mb`}</span>
+        </div>
         <div
           onClick={() => {
             loadSample(this.props.instrument.id)

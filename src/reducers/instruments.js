@@ -30,7 +30,7 @@ const synth = (state, action) => {
       return newState
     case 'UPDATE_SAMPLE':
       newState = { ...state }
-      newState.sample[action.property] = action.value
+      newState.sample = action.value
       return newState
     default:
       return state
