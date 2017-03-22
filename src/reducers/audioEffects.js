@@ -28,6 +28,8 @@ const audioEffects = (state = defaultState, action) => {
           return effect
         }
       })
+    case 'ADD_AUDIO_EFFECT':
+      return [...state, audioEffectSchema[action.value]()]
     default:
       return state
   }

@@ -2,6 +2,8 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import NumericInput from './NumericInput.jsx'
 
+import AddButton from './AddButton.jsx'
+
 import KeySynth from './instruments/KeySynth.jsx'
 import Sampler from './instruments/Sampler.jsx'
 import Filter from './effects/Filter.jsx'
@@ -10,6 +12,8 @@ import Compressor from './effects/Compressor.jsx'
 import Transpose from './midi/Transpose.jsx'
 import Chord from './midi/Chord.jsx'
 import DisableNotes from './midi/DisableNotes.jsx'
+
+import { midiEffectSchema, instrumentSchema, audioEffectSchema } from '../reducers/schema'
 
 const MidiEffectsByName = {
   "Transpose": Transpose,
@@ -26,10 +30,10 @@ const AudioEffectsByName = {
   "Compressor": Compressor
 }
 
-const insertHRs = (arr) => {
+const insertButtons = (arr, schema, action) => {
   const length = arr.length
-  for (let i=1; i<length; i++) {
-    arr.splice(length - i, 0, <hr />)
+  for (let i=0; i <= length; i++) {
+    arr.splice(length - i, 0, <AddButton index={length - i} schema={schema} action={action}/>)
   }
   return arr
 }
@@ -52,17 +56,19 @@ class Settings extends Component {
       <div class="settings">
         <section class="settings-section">
           <h3 class="settings-title">Midi Effects</h3>
-          {insertHRs(midiEffects)}
+          {insertButtons(midiEffects, midiEffectSchema, 'ADD_MIDI_EFFECT')}
         </section>
         <hr class="section-splitter"/>
         <section class="settings-section">
           <h3 class="settings-title">Instruments</h3>
-          {insertHRs(instruments)}
+          {/*insertButtons(instruments, instrumentSchema, 'ADD_INSTRUMENT')*/}
+          {instruments}
         </section>
         <hr class="section-splitter"/>
         <section class="settings-section">
           <h3 class="settings-title">Audio Effects</h3>
-          {insertHRs(audioEffects)}
+          {/*insertButtons(audioEffects, audioEffectSchema, 'ADD_AUDIO_EFFECT')*/}
+          {audioEffects}
         </section>
       </div>
 		);

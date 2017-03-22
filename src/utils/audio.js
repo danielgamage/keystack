@@ -112,8 +112,6 @@ export const loadSample = (instrumentId) => {
     const file = [...e.target.files][0]
     readSample(file).then((sampleData) => {
       audioCtx.decodeAudioData(sampleData, function(buffer) {
-          console.log(file)
-          console.log(buffer)
           bufferChannelData = buffer.getChannelData(0)
             .filter((el, i, arr) => (i % Math.ceil(arr.length / 256) === 0))
           store.dispatch({

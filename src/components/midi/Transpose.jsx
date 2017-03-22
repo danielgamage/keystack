@@ -6,8 +6,13 @@ import NumericInput from '../NumericInput.jsx'
 class Transpose extends Component {
 	render() {
 		return (
-      <div class="item midi-item">
-        <header>
+      <div
+        class="item midi-item"
+        >
+        <header
+          onClick={() => {
+          }}
+          >
           <h3 class="title">Transpose</h3>
         </header>
         <div class="flex-container">

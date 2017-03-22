@@ -34,7 +34,7 @@ const midiEffects = (state = defaultState, action) => {
         }
       })
     case 'ADD_MIDI_EFFECT':
-      return midiEffectSchema[action.value](...action.arguments)
+      return [...state, midiEffectSchema[action.value]()]
     default:
       return state
   }

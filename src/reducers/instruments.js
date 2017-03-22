@@ -56,6 +56,8 @@ const instruments = (state = defaultState, action) => {
           return instrument
         }
       })
+    case 'ADD_INSTRUMENT':
+      return [...state, instrumentSchema[action.value]()]
     default:
       return state
   }

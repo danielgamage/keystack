@@ -87,7 +87,7 @@ export const instrumentSchema = {
 
 export const audioEffectSchema = {
   "Filter": () => ({
-    id: "46",
+    id: generateID(),
     audioEffectType: "Filter",
     type: "lowpass",
     frequency: 600,
@@ -95,12 +95,12 @@ export const audioEffectSchema = {
     gain: 0
   }),
   "StereoPanner": () => ({
-    id: "47",
+    id: generateID(),
     audioEffectType: "StereoPanner",
     pan: 0
   }),
   "Compressor": () => ({
-    id: "80",
+    id: generateID(),
     audioEffectType: "Compressor",
     attack: 0.003,
     knee: 30,
