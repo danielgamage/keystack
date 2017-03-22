@@ -13,6 +13,12 @@ import { keys, noteForIndex } from '../../utils'
 
 
 class RadialKeys extends Component {
+  constructor (props) {
+    super(props)
+    this.interact = this.interact.bind(this)
+    this.radialNoteOn = this.radialNoteOn.bind(this)
+    this.radialNoteOff = this.radialNoteOff.bind(this)
+  }
   componentDidMount() {
     var width = 400,
         height = 400,
@@ -100,23 +106,26 @@ class RadialKeys extends Component {
     })
 
     const radialKeys = document.querySelector('.radial-keys')
-    radialKeys.addEventListener('mousedown',(event) => {
-      event.preventDefault()
+    radialKeys.addEventListener('mousedown', this.interact)
+  }
+  interact(event) {
+    if ([...event.target.classList].includes('spiral')) {
+      this.radialNoteOn(event)
+    }
+    event.preventDefault()
+    ;[...document.querySelectorAll('.spiral')].map((el, i) => {
+      el.addEventListener('mousemove', this.radialNoteOn)
+      el.addEventListener('mouseleave', this.radialNoteOff)
+      el.addEventListener('mouseup', this.radialNoteOff)
+    })
+    window.addEventListener('mouseup', () => {
       ;[...document.querySelectorAll('.spiral')].map((el, i) => {
-        el.addEventListener('mousemove', this.radialNoteOn)
-        el.addEventListener('mouseleave', this.radialNoteOff)
-        el.addEventListener('mouseup', this.radialNoteOff)
-      })
-      window.addEventListener('mouseup', () => {
-        ;[...document.querySelectorAll('.spiral')].map((el, i) => {
-          el.removeEventListener('mousemove', this.radialNoteOn)
-          el.removeEventListener('mouseleave', this.radialNoteOff)
-        })
+        el.removeEventListener('mousemove', this.radialNoteOn)
+        el.removeEventListener('mouseleave', this.radialNoteOff)
       })
     })
   }
   radialNoteOn(e) {
-    console.log(e.target)
     startNote(keys[e.target.getAttribute("data-index")])
   }
   radialNoteOff(e) {
