@@ -2,14 +2,12 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
 import NumericInput from '../NumericInput.jsx'
+import Item from '../Item.jsx'
 
 class Chord extends Component {
 	render() {
 		return (
-      <div class="item midi-item">
-        <header>
-          <h3 class="title">Chord</h3>
-        </header>
+      <Item title="Chord" type="midi" item={this.props.data}>
         <div class="flex-container">
           {this.props.data.value.map((el, i) => (
             <NumericInput
@@ -30,7 +28,7 @@ class Chord extends Component {
               />
           ))}
         </div>
-      </div>
+      </Item>
 		)
 	}
 }

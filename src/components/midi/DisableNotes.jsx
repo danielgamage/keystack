@@ -2,14 +2,12 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
 import NumericInput from '../NumericInput.jsx'
+import Item from '../Item.jsx'
 
 class DisableNotes extends Component {
 	render() {
 		return (
-      <div class="item midi-item">
-        <header>
-          <h3 class="title">Disable Notes</h3>
-        </header>
+      <Item title="Disable Notes" type="midi" item={this.props.data}>
         <div class="piano-checkboxes">
           {this.props.data.value.map((el, i) => (
             <label class={`replaced-checkbox ${[1,3,6,8,10].includes(i) ? "black" : "white"}`}>
@@ -31,7 +29,7 @@ class DisableNotes extends Component {
             </label>
           ))}
         </div>
-      </div>
+      </Item>
 		)
 	}
 }

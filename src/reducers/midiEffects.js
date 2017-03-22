@@ -39,6 +39,8 @@ const midiEffects = (state = defaultState, action) => {
         midiEffectSchema[action.value](),
         ...state.slice(action.index, state.length)
       ]
+    case 'REMOVE_MIDI_ITEM':
+      return [...state].filter(el => el.id !== action.id)
     default:
       return state
   }

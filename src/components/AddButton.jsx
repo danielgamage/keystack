@@ -18,7 +18,7 @@ class AddButton extends Component {
         >
         {this.state.open
           ? Object.keys(this.props.schema).map(item => (
-            <div
+            <button
               onClick={() => {
                 this.props.dispatch({
                   type: this.props.action,
@@ -27,9 +27,9 @@ class AddButton extends Component {
                 })
               }}
               class="add-item-option"
-              >{item}</div>
+              >{item}</button>
           ))
-          : <div class="add-item-toggle">+</div>
+          : <button class="add-item-toggle">+</button>
         }
       </div>
 		);

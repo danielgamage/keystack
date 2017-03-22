@@ -2,19 +2,12 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
 import NumericInput from '../NumericInput.jsx'
+import Item from '../Item.jsx'
 
 class Transpose extends Component {
 	render() {
 		return (
-      <div
-        class="item midi-item"
-        >
-        <header
-          onClick={() => {
-          }}
-          >
-          <h3 class="title">Transpose</h3>
-        </header>
+      <Item title="Transpose" type="midi" item={this.props.data}>
         <div class="flex-container">
           <NumericInput
             label="Transpose"
@@ -33,7 +26,7 @@ class Transpose extends Component {
             }}
             />
         </div>
-      </div>
+      </Item>
 		)
 	}
 }
