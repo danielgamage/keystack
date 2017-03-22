@@ -70,6 +70,7 @@ store.getState().audioEffects.map((el, i, arr) => {
 })
 
 var oscillators = {}
+var samples = {}
 const minVolume = 0.00001
 
 export const shiftFrequencyByStep = (frequency, step) => {
@@ -99,6 +100,45 @@ export const startNote = (note) => {
     startMIDIChain(state)
   }
 }
+
+let myBuffer = null
+
+export const loadSample = (instrumentId) => {
+  const fileUpload = document.createElement('input')
+  fileUpload.type = "file"
+  fileUpload.onchange = (e) => {
+    const file = [...e.target.files][0]
+    readSample(file).then((sampleData) => {
+      audioCtx.decodeAudioData(sampleData, function(buffer) {
+          myBuffer = buffer
+          // source.buffer = myBuffer
+          // source.playbackRate.value = this.value
+          // source.connect(audioCtx.destination)
+          // source.loop = true
+        },
+
+        function(e){"Error with decoding audio data" + e.err})
+      // store.dispatch({
+      //   type: 'UPDATE_SAMPLER_BUFFER',
+      //   id: instrumentId,
+      //   value: sampleData
+      // })
+    })
+  }
+  fileUpload.click()
+}
+
+const readSample = (file) => {
+  return new Promise(function(resolve, reject) {
+    let reader = new FileReader()
+    reader.addEventListener('load', () => {
+      const data = reader.result
+      resolve(data)
+    }, false)
+    reader.readAsArrayBuffer(file)
+  });
+}
+
 export const playInstrument = (notes) => {
   const state = store.getState()
   state.instruments.map(instrument => {
@@ -135,6 +175,29 @@ export const playInstrument = (notes) => {
         noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
 
       })
+    } else if (instrument.type === "Sampler") {
+      const envelope = instrument.envelope
+
+      notes.map(note => {
+        let source = audioCtx.createBufferSource()
+        var noteVolume = audioCtx.createGain()
+        noteVolume.gain.value = envelope.initial
+        noteVolume.connect(audioEffectNodes[Object.keys(audioEffectNodes)[0]])
+
+        source.buffer = myBuffer
+        source.playbackRate.value = note.index / 12 * 2
+        source.loop = true
+        source.connect(noteVolume)
+        source.start(audioCtx.currentTime)
+
+        samples[note.index] = {
+          instance: source,
+          volume: noteVolume
+        }
+
+        noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
+        noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
+      })
     }
   })
 
@@ -154,6 +217,14 @@ export const stopInstrument = (notes) => {
         oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
         oscillators[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
         oscillators[note.index] = null
+      } else if (instrument.type === "Sampler") {
+        const envelope = instrument.envelope
+        samples[note.index].instance.stop(audioCtx.currentTime + envelope.release)
+
+        samples[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
+        samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
+        samples[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
+        samples[note.index] = null
       }
     })
   })

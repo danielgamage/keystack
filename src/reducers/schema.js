@@ -53,6 +53,24 @@ export const instrumentSchema = {
       decay: 0.5,
       release: 1
     }
+  }),
+  "Sampler": () => ({
+    id: generateID(),
+    type: "Sampler",
+    volume: 0.8,
+    detune: 0,
+    pitch: 0,
+    sample: {
+      buffer: null
+    },
+    envelope: {
+      initial: 0,
+      peak: 1,
+      sustain: 0.1,
+      attack: 0.01,
+      decay: 0.5,
+      release: 1
+    }
   })
 }
 

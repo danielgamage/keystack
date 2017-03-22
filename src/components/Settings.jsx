@@ -3,6 +3,7 @@ import { connect } from 'preact-redux'
 import NumericInput from './NumericInput.jsx'
 
 import KeySynth from './instruments/KeySynth.jsx'
+import Sampler from './instruments/Sampler.jsx'
 import Filter from './effects/Filter.jsx'
 import StereoPanner from './effects/StereoPanner.jsx'
 import Compressor from './effects/Compressor.jsx'
@@ -14,15 +15,16 @@ const MidiEffectsByName = {
   "Transpose": Transpose,
   "Chord": Chord,
   "DisableNotes": DisableNotes
-};
+}
 const InstrumentsByName = {
-  "KeySynth": KeySynth
-};
+  "KeySynth": KeySynth,
+  "Sampler": Sampler
+}
 const AudioEffectsByName = {
   "Filter": Filter,
   "StereoPanner": StereoPanner,
   "Compressor": Compressor
-};
+}
 
 const insertHRs = (arr) => {
   const length = arr.length

@@ -1,7 +1,7 @@
 import { instrumentSchema } from './schema.js'
 
 const defaultState = [
-  instrumentSchema.KeySynth()
+  instrumentSchema.Sampler()
 ]
 
 const synth = (state, action) => {
@@ -28,6 +28,10 @@ const synth = (state, action) => {
       newState = { ...state }
       newState.oscillators[action.index][action.property] = action.value
       return newState
+    case 'UPDATE_SAMPLER_BUFFER':
+      newState = { ...state }
+      newState.sample.buffer = action.value
+      return newState
     default:
       return state
   }
@@ -39,6 +43,7 @@ const instruments = (state = defaultState, action) => {
     case 'ADD_OSC':
     case 'DELETE_OSC':
     case 'UPDATE_OSC':
+    case 'UPDATE_SAMPLER_BUFFER':
       return [...state].map(instrument => {
         if (instrument.id === action.id) {
           return synth(instrument, action)
