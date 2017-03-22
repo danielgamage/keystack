@@ -61,7 +61,8 @@ export const instrumentSchema = {
     detune: 0,
     pitch: 0,
     sample: {
-      buffer: null
+      buffer: null,
+      waveform: [0,0]
     },
     envelope: {
       initial: 0,

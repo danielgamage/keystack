@@ -15,10 +15,6 @@ import NumericInput from '../NumericInput.jsx'
 const viewBoxWidth = 256
 const viewBoxHeight = 256
 
-export const mapSample = (input, knee, ratio, threshold) => {
-
-}
-
 const x = scaleLinear()
   .domain([-100, 0])
   .range([0, viewBoxWidth])

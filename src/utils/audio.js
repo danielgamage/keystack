@@ -102,6 +102,7 @@ export const startNote = (note) => {
 }
 
 let myBuffer = null
+let bufferChannelData
 
 export const loadSample = (instrumentId) => {
   const fileUpload = document.createElement('input')
@@ -110,6 +111,15 @@ export const loadSample = (instrumentId) => {
     const file = [...e.target.files][0]
     readSample(file).then((sampleData) => {
       audioCtx.decodeAudioData(sampleData, function(buffer) {
+          bufferChannelData = buffer.getChannelData(0)
+            .filter((el, i, arr) => (i % Math.ceil(arr.length / 256) === 0))
+          console.log(bufferChannelData)
+          store.dispatch({
+            type: 'UPDATE_SAMPLE',
+            id: instrumentId,
+            property: 'waveform',
+            value: bufferChannelData
+          })
           myBuffer = buffer
         }, function(e){"Error with decoding audio data" + e.err}
       )

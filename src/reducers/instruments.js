@@ -28,9 +28,9 @@ const synth = (state, action) => {
       newState = { ...state }
       newState.oscillators[action.index][action.property] = action.value
       return newState
-    case 'UPDATE_SAMPLER_BUFFER':
+    case 'UPDATE_SAMPLE':
       newState = { ...state }
-      newState.sample.buffer = action.value
+      newState.sample[action.property] = action.value
       return newState
     default:
       return state
@@ -43,7 +43,7 @@ const instruments = (state = defaultState, action) => {
     case 'ADD_OSC':
     case 'DELETE_OSC':
     case 'UPDATE_OSC':
-    case 'UPDATE_SAMPLER_BUFFER':
+    case 'UPDATE_SAMPLE':
       return [...state].map(instrument => {
         if (instrument.id === action.id) {
           return synth(instrument, action)
