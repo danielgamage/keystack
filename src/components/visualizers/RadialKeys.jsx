@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
+import { store } from '../../utils/store'
+import { startNote, stopNote } from '../../utils/audio'
 
 import { select, selectAll } from "d3-selection"
 import { axisLeft } from "d3-axis"
@@ -29,6 +31,7 @@ class RadialKeys extends Component {
       .range([0,360])
 
     var svg = select("#chart").append("svg")
+        .attr("class", "radial-keys")
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", `0 0 ${width} ${height}`)
@@ -91,9 +94,33 @@ class RadialKeys extends Component {
       svg.selectAll(`.spiral.spiral-${i}`)
     	    .data([el])
     	  .enter().append("path")
+    	    .attr("data-index", () => i)
     	    .attr("class", (d) => `spiral spiral-${i} ${(d.black) ? "black" : "white"}`)
     	    .attr("d", (d) => spiral(pieces))
     })
+
+    const radialKeys = document.querySelector('.radial-keys')
+    radialKeys.addEventListener('mousedown',(event) => {
+      event.preventDefault()
+      ;[...document.querySelectorAll('.spiral')].map((el, i) => {
+        el.addEventListener('mousemove', this.radialNoteOn)
+        el.addEventListener('mouseleave', this.radialNoteOff)
+        el.addEventListener('mouseup', this.radialNoteOff)
+      })
+      window.addEventListener('mouseup', () => {
+        ;[...document.querySelectorAll('.spiral')].map((el, i) => {
+          el.removeEventListener('mousemove', this.radialNoteOn)
+          el.removeEventListener('mouseleave', this.radialNoteOff)
+        })
+      })
+    })
+  }
+  radialNoteOn(e) {
+    console.log(e.target)
+    startNote(keys[e.target.getAttribute("data-index")])
+  }
+  radialNoteOff(e) {
+    stopNote(keys[e.target.getAttribute("data-index")])
   }
   componentWillReceiveProps(nextProps) {
     [...document.querySelectorAll(`.spiral.on`)].map(note => {

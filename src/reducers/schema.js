@@ -90,7 +90,7 @@ export const audioEffectSchema = {
     id: "46",
     audioEffectType: "Filter",
     type: "lowpass",
-    frequency: 200,
+    frequency: 600,
     q: 0.5,
     gain: 0
   }),
