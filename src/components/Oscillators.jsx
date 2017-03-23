@@ -42,11 +42,12 @@ class Oscillators extends Component {
                 <label title={type}>
                   <input
                     class="hide-input"
-                    name={`osc-${i}`}
+                    name={`osc-${this.props.instrument.id}-${i}`}
                     type="radio"
                     value={type}
                     checked={(osc.type === type)}
-                    onClick={() => {
+                    onClick={(e) => {
+                      console.log("update osc")
                       this.props.dispatch({
                         id: this.props.instrument.id,
                         type: 'UPDATE_OSC',

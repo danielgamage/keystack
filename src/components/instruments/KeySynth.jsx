@@ -11,10 +11,10 @@ class KeySynth extends Component {
         <header>
           <h3 class="title">KeySynth</h3>
         </header>
-        <Oscillators instrument={this.props.data} oscillators={this.props.data.oscillators}/>
-        <Envelope instrument={this.props.data} envelope={this.props.data.envelope}/>
+        <Oscillators instrument={this.props.data} oscillators={this.props.data.oscillators} />
+        <Envelope instrument={this.props.data} envelope={this.props.data.envelope} />
       </div>
-		);
+		)
 	}
 }
 

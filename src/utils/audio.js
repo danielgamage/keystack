@@ -29,7 +29,10 @@ const createEffect = {
   Filter: (effect) => {
     const filter = audioCtx.createBiquadFilter()
     setProps[effect.audioEffectType](filter, effect)
-    audioEffectNodes[effect.id] = filter
+    audioEffectNodes.push({
+      id: effect.id,
+      node: filter
+    })
   },
   // StereoPanner: (effect) => {
   //   const stereoPanner = audioCtx.createStereoPanner()
@@ -39,20 +42,24 @@ const createEffect = {
   Compressor: (effect) => {
     const compressor = audioCtx.createDynamicsCompressor()
     setProps[effect.audioEffectType](compressor, effect)
-    audioEffectNodes[effect.id] = compressor
+    audioEffectNodes.push({
+      id: effect.id,
+      node: compressor
+    })
   }
 }
 
-export let audioEffectNodes = {}
+export let audioEffectNodes = []
 store.getState().audioEffects.map(effect => {
   createEffect[effect.audioEffectType](effect)
 })
 
+// initial connections
 store.getState().audioEffects.map((el, i, arr) => {
   if (i !== arr.length - 1) {
-    audioEffectNodes[el.id].connect(audioEffectNodes[arr[i + 1].id])
+    audioEffectNodes[i].node.connect(audioEffectNodes[i + 1].node)
   } else {
-    audioEffectNodes[el.id].connect(masterVolume)
+    audioEffectNodes[i].node.connect(masterVolume)
   }
 })
 
@@ -61,32 +68,30 @@ function handleChange () {
   let previousEffects = currentEffects
   currentEffects = store.getState().audioEffects
   if (previousEffects && currentEffects.length !== previousEffects.length) {
-    // remove unused
-    Object.keys(audioEffectNodes).map((id, i, arr) => {
-      audioEffectNodes[id].disconnect()
-    })
-    Object.keys(audioEffectNodes).map((id, i, arr) => {
-      if (!currentEffects.some(el => id === el.id)) {
-        delete audioEffectNodes[id]
+    // disconnect and remove unused
+    audioEffectNodes.map((el, i, arr) => {
+      el.node.disconnect()
+      if (!currentEffects.some(effect => el.id === effect.id)) {
+        audioEffectNodes.splice(i, 1)
       }
     })
     // add new
     currentEffects.map((effect, i, arr) => {
-      if (!audioEffectNodes.hasOwnProperty(effect.id)) {
+      if (!audioEffectNodes.some(el => el.id === effect.id)) {
         createEffect[effect.audioEffectType](effect)
       }
     })
     // connect
     currentEffects.map((el, i, arr) => {
       if (i !== arr.length - 1) {
-        audioEffectNodes[el.id].connect(audioEffectNodes[arr[i + 1].id])
+        audioEffectNodes[i].node.connect(audioEffectNodes[i + 1].node)
       } else {
-        audioEffectNodes[el.id].connect(masterVolume)
+        audioEffectNodes[i].node.connect(masterVolume)
       }
     })
   }
   currentEffects.map(effect => {
-    setProps[effect.audioEffectType](audioEffectNodes[effect.id], effect)
+    setProps[effect.audioEffectType](audioEffectNodes.find(el => el.id === effect.id).node, effect)
   })
 }
 let unsubscribe = store.subscribe(handleChange)
@@ -149,7 +154,7 @@ export const playInstrument = (notes) => {
       notes.map(note => {
         var noteVolume = audioCtx.createGain()
         noteVolume.gain.value = envelope.initial
-        noteVolume.connect(audioEffectNodes[Object.keys(audioEffectNodes)[0]])
+        noteVolume.connect(audioEffectNodes[0].node)
 
         const initializedOscillators = instrument.oscillators.map(el => {
           const osc = audioCtx.createOscillator()
@@ -182,7 +187,7 @@ export const playInstrument = (notes) => {
         let source = audioCtx.createBufferSource()
         var noteVolume = audioCtx.createGain()
         noteVolume.gain.value = envelope.initial
-        noteVolume.connect(audioEffectNodes[Object.keys(audioEffectNodes)[0]])
+        noteVolume.connect(audioEffectNodes[0].node)
 
         source.buffer = myBuffer
         source.playbackRate.value = transposeSample(note.index)
