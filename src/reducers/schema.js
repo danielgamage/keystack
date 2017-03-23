@@ -5,22 +5,22 @@ import generateID from '../utils/generateID'
 // ------------
 
 export const midiEffectSchema = {
-  "Transpose": () => ({
+  Transpose: () => ({
     id: generateID(),
-    midiEffectType: "Transpose",
+    midiEffectType: `Transpose`,
     value: 0
   }),
-  "Chord": () => ({
+  Chord: () => ({
     id: generateID(),
-    midiEffectType: "Chord",
+    midiEffectType: `Chord`,
     value: [
       0, 0, 0,
       0, 0, 0
     ]
   }),
-  "DisableNotes": () => ({
+  DisableNotes: () => ({
     id: generateID(),
-    midiEffectType: "DisableNotes",
+    midiEffectType: `DisableNotes`,
     value: [
       true, true, true, true,
       true, true, true, true,
@@ -34,9 +34,9 @@ export const midiEffectSchema = {
 // -----------
 
 export const instrumentSchema = {
-  "KeySynth": () => ({
+  KeySynth: () => ({
     id: generateID(),
-    type: "KeySynth",
+    type: `KeySynth`,
     oscillators: [
       {
         type: 'sine',
@@ -54,9 +54,9 @@ export const instrumentSchema = {
       release: 1
     }
   }),
-  "Sampler": () => ({
+  Sampler: () => ({
     id: generateID(),
-    type: "Sampler",
+    type: `Sampler`,
     volume: 0.8,
     detune: 0,
     pitch: 0,
@@ -68,7 +68,7 @@ export const instrumentSchema = {
       name: null,
       size: null,
       type: null,
-      waveform: [0,0]
+      waveform: [0, 0]
     },
     envelope: {
       initial: 0,
@@ -86,22 +86,22 @@ export const instrumentSchema = {
 // -------------
 
 export const audioEffectSchema = {
-  "Filter": () => ({
+  Filter: () => ({
     id: generateID(),
-    audioEffectType: "Filter",
-    type: "lowpass",
+    audioEffectType: `Filter`,
+    type: `lowpass`,
     frequency: 600,
     q: 0.5,
     gain: 0
   }),
-  "StereoPanner": () => ({
+  StereoPanner: () => ({
     id: generateID(),
-    audioEffectType: "StereoPanner",
+    audioEffectType: `StereoPanner`,
     pan: 0
   }),
-  "Compressor": () => ({
+  Compressor: () => ({
     id: generateID(),
-    audioEffectType: "Compressor",
+    audioEffectType: `Compressor`,
     attack: 0.003,
     knee: 30,
     ratio: 12,

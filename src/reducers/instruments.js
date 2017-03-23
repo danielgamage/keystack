@@ -21,8 +21,9 @@ const synth = (state, action) => {
       }
       return newState
     case 'DELETE_OSC':
-      return { ...state, oscillators:
-        [...state.oscillators].filter((el, i) => (i !== action.index))
+      return {
+        ...state,
+        oscillators: [...state.oscillators].filter((el, i) => (i !== action.index))
       }
     case 'UPDATE_OSC':
       newState = { ...state }

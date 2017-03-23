@@ -31,7 +31,8 @@ export const processMIDI = {
 
 export const nextInMIDIChain = (notes, effect, effectIndex, effectsArray, oldState) => {
   if ((effectsArray.length - 1) !== effectIndex) {
-    processMIDI[effectsArray[effectIndex+1].midiEffectType](notes, effectsArray[effectIndex+1], effectIndex+1, effectsArray, oldState)
+    const nextIndex = effectIndex + 1
+    processMIDI[effectsArray[nextIndex].midiEffectType](notes, effectsArray[nextIndex], nextIndex, effectsArray, oldState)
   } else {
     sendMIDIOut(notes, oldState)
   }
@@ -41,7 +42,7 @@ export const startMIDIChain = (oldState) => {
   const state = store.getState()
   const notes = state.notes.input
   if (state.midiEffects.length > 0) {
-    const newNotes = processMIDI[state.midiEffects[0].midiEffectType](notes, state.midiEffects[0], 0, state.midiEffects, oldState)
+    processMIDI[state.midiEffects[0].midiEffectType](notes, state.midiEffects[0], 0, state.midiEffects, oldState)
   } else {
     sendMIDIOut(notes, oldState)
   }

@@ -1,8 +1,8 @@
 import { store } from './store'
 import transposeSample from './transposeSample'
 
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
-    masterVolume = audioCtx.createGain()
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+var masterVolume = audioCtx.createGain()
 
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
@@ -18,10 +18,10 @@ const setProps = {
     effect.pan.value = state.pan
   },
   Compressor: (effect, state) => {
-    effect.attack.value = state.attack,
-    effect.knee.value = state.knee,
-    effect.ratio.value = state.ratio,
-    effect.release.value = state.release,
+    effect.attack.value = state.attack
+    effect.knee.value = state.knee
+    effect.ratio.value = state.ratio
+    effect.release.value = state.release
     effect.threshold.value = state.threshold
   }
 }
@@ -50,15 +50,15 @@ store.getState().audioEffects.map(effect => {
 })
 
 store.getState().audioEffects.map((el, i, arr) => {
-	if (i !== arr.length - 1) {
-		audioEffectNodes[el.id].connect(audioEffectNodes[arr[i+1].id])
-	} else {
-		audioEffectNodes[el.id].connect(masterVolume)
-	}
+  if (i !== arr.length - 1) {
+    audioEffectNodes[el.id].connect(audioEffectNodes[arr[i + 1].id])
+  } else {
+    audioEffectNodes[el.id].connect(masterVolume)
+  }
 })
 
 let currentEffects
-function handleChange() {
+function handleChange () {
   let previousEffects = currentEffects
   currentEffects = store.getState().audioEffects
   if (previousEffects && currentEffects.length !== previousEffects.length) {
@@ -79,11 +79,11 @@ function handleChange() {
     })
     // connect
     currentEffects.map((el, i, arr) => {
-    	if (i !== arr.length - 1) {
-    		audioEffectNodes[el.id].connect(audioEffectNodes[arr[i+1].id])
-    	} else {
-    		audioEffectNodes[el.id].connect(masterVolume)
-    	}
+      if (i !== arr.length - 1) {
+        audioEffectNodes[el.id].connect(audioEffectNodes[arr[i + 1].id])
+      } else {
+        audioEffectNodes[el.id].connect(masterVolume)
+      }
     })
   }
   currentEffects.map(effect => {
@@ -110,30 +110,29 @@ export const loadSample = (e, instrumentId) => {
   if (dt.files) {
     const file = [...dt.files][0]
     readSample(file).then((sampleData) => {
-      audioCtx.decodeAudioData(sampleData, function(buffer) {
-          bufferChannelData = buffer.getChannelData(0)
-            .filter((el, i, arr) => (i % Math.ceil(arr.length / 256) === 0))
-          store.dispatch({
-            type: 'UPDATE_SAMPLE',
-            id: instrumentId,
-            value: {
-              waveform: bufferChannelData,
-              name: file.name,
-              size: file.size,
-              duration: buffer.duration,
-              length: buffer.length,
-              type: file.type
-            }
-          })
-          myBuffer = buffer
-        }, function(e){"Error with decoding audio data" + e.err}
-      )
+      audioCtx.decodeAudioData(sampleData, (buffer) => {
+        bufferChannelData = buffer.getChannelData(0)
+          .filter((el, i, arr) => (i % Math.ceil(arr.length / 256) === 0))
+        store.dispatch({
+          type: 'UPDATE_SAMPLE',
+          id: instrumentId,
+          value: {
+            waveform: bufferChannelData,
+            name: file.name,
+            size: file.size,
+            duration: buffer.duration,
+            length: buffer.length,
+            type: file.type
+          }
+        })
+        myBuffer = buffer
+      }, (e) => { 'Error with decoding audio data' + e.err })
     })
   }
 }
 
 const readSample = (file) => {
-  return new Promise (function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     let reader = new FileReader()
     reader.addEventListener('load', () => {
       resolve(reader.result)
@@ -145,7 +144,7 @@ const readSample = (file) => {
 export const playInstrument = (notes) => {
   const state = store.getState()
   state.instruments.map(instrument => {
-    if (instrument.type === "KeySynth") {
+    if (instrument.type === `KeySynth`) {
       const envelope = instrument.envelope
 
       notes.map(note => {
@@ -176,9 +175,8 @@ export const playInstrument = (notes) => {
 
         noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
         noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
-
       })
-    } else if (instrument.type === "Sampler") {
+    } else if (instrument.type === `Sampler`) {
       const envelope = instrument.envelope
 
       notes.map(note => {
@@ -205,14 +203,13 @@ export const playInstrument = (notes) => {
       })
     }
   })
-
 }
 
 export const stopInstrument = (notes) => {
   const state = store.getState()
   state.instruments.map(instrument => {
     notes.map(note => {
-      if (instrument.type === "KeySynth") {
+      if (instrument.type === `KeySynth`) {
         const envelope = instrument.envelope
         oscillators[note.index].oscillators.forEach((oscillator) => {
           oscillator.stop(audioCtx.currentTime + envelope.release)
@@ -222,7 +219,7 @@ export const stopInstrument = (notes) => {
         // oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
         oscillators[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
         oscillators[note.index] = null
-      } else if (instrument.type === "Sampler") {
+      } else if (instrument.type === `Sampler`) {
         const envelope = instrument.envelope
         samples[note.index].instance.stop(audioCtx.currentTime + envelope.release)
 

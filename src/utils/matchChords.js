@@ -10,8 +10,8 @@ const matchChords = (notes) => {
     })
     const dedupedList = [...new Set(integerList)]
     chords.filter(el => (
-      el.set.length === dedupedList.length
-      && el.set.every((e) => dedupedList.indexOf(e) !== -1 )
+      el.set.length === dedupedList.length &&
+      el.set.every((e) => dedupedList.indexOf(e) !== -1)
     )).map(chord => {
       matches.push({
         chord: `${arr[loopIndex].note} ${chord.name}`,
