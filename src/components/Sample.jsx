@@ -10,7 +10,6 @@ import { format } from "d3-format"
 import NumericInput from './NumericInput.jsx'
 import Envelope from './Envelope.jsx'
 import Icon from './Icon.jsx'
-import uploadIcon from '../images/upload.svg'
 
 import { loadSample } from '../utils/audio'
 
@@ -41,16 +40,36 @@ class Sample extends Component {
 
 		return (
       <section class="sample">
-        <svg class="vis-path" id={`vis-${this.props.instrument.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+        <svg
+          ref={(c) => this.element = c}
+          class="vis-path"
+          id={`vis-${this.props.instrument.id}`}
+          viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+          onDragOver={(e) => {
+            e.preventDefault()
+            this.element.classList.add('dragging')
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault()
+            this.element.classList.remove('dragging')
+          }}
+          onDrop={(e) => {
+            e.preventDefault()
+            // If dropped items aren't files, reject them
+            this.element.classList.remove('dragging')
+            loadSample(e, instrument.id)
+          }}>
           <path
             vector-effect="non-scaling-stroke"
             d={waveform(sample.waveform)}
             />
-          <line x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2="0"/>
-          <line x1={loopEndX}   y1={viewBoxHeight} x2={loopEndX} y2="0"/>
+          <rect vector-effect="non-scaling-stroke" class="inactive-cover" x={loopEndX} y="0" height={viewBoxHeight} width={viewBoxWidth - loopEndX}/>
+          <rect vector-effect="non-scaling-stroke" class="loop-bar" x={loopStartX} y="0" height="8" width={loopEndX - loopStartX}/>
+          <line vector-effect="non-scaling-stroke" class="loop-marker" x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2="0"/>
+          <line vector-effect="non-scaling-stroke" class="loop-marker" x1={loopEndX}   y1={viewBoxHeight} x2={loopEndX} y2="0"/>
         </svg>
         <div className="sample-info">
-          <span>{sample.name}</span>
+          <span class="name">{sample.name}</span>
           <span class="size">{sample.size != null && `${format(".2")(sample.size / 1024 / 1024)}mb`}</span>
         </div>
         {[
@@ -74,17 +93,6 @@ class Sample extends Component {
             }}
             />
         ))}
-
-        <div
-          onClick={() => {
-            loadSample(this.props.instrument.id)
-          }}
-          >
-          <Icon
-            class="icon"
-            src={uploadIcon}
-            />
-        </div>
       </section>
 		);
 	}

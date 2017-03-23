@@ -1,7 +1,7 @@
 import { instrumentSchema } from './schema.js'
 
 const defaultState = [
-  instrumentSchema.KeySynth()
+  instrumentSchema.Sampler()
 ]
 
 const synth = (state, action) => {

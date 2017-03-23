@@ -105,11 +105,12 @@ export const startNote = (note) => {
 let myBuffer = null
 let bufferChannelData
 
-export const loadSample = (instrumentId) => {
-  const fileUpload = document.createElement('input')
-  fileUpload.type = "file"
-  fileUpload.onchange = (e) => {
-    const file = [...e.target.files][0]
+export const loadSample = (e, instrumentId) => {
+  // If dropped items aren't files, reject them
+  var dt = e.dataTransfer
+
+  if (dt.files) {
+    const file = [...dt.files][0]
     readSample(file).then((sampleData) => {
       audioCtx.decodeAudioData(sampleData, function(buffer) {
           bufferChannelData = buffer.getChannelData(0)
@@ -131,7 +132,6 @@ export const loadSample = (instrumentId) => {
       )
     })
   }
-  fileUpload.click()
 }
 
 const readSample = (file) => {

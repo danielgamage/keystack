@@ -325,8 +325,26 @@ input {
   width: 100%;
 }
 
+.sample{
+  .vis-path {
+    &.dragging {
+      background-color: $orange
+    }
+  }
+  .inactive-cover {
+    fill: $grey-0;
+    stroke: $grey-0;
+    opacity: 0.9;
+  }
+}
 .sample-info {
   @extend %sc;
+  display: flex;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+  .name {
+    overflow: scroll;
+  }
   .size {
     color: $grey-3;
     margin-left: 1rem;
