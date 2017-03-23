@@ -107,6 +107,7 @@ class RadialKeys extends Component {
 
     const radialKeys = document.querySelector('.radial-keys')
     radialKeys.addEventListener('mousedown', this.interact)
+    radialKeys.addEventListener('touchstart', this.interact)
   }
   interact(event) {
     if ([...event.target.classList].includes('spiral')) {
@@ -117,12 +118,17 @@ class RadialKeys extends Component {
       el.addEventListener('mousemove', this.radialNoteOn)
       el.addEventListener('mouseleave', this.radialNoteOff)
       el.addEventListener('mouseup', this.radialNoteOff)
+      el.addEventListener('touchmove', this.radialNoteOn)
+      el.addEventListener('touchcancel', this.radialNoteOff)
+      el.addEventListener('touchend', this.radialNoteOff)
     })
-    window.addEventListener('mouseup', () => {
-      ;[...document.querySelectorAll('.spiral')].map((el, i) => {
-        el.removeEventListener('mousemove', this.radialNoteOn)
-        el.removeEventListener('mouseleave', this.radialNoteOff)
-      })
+    window.addEventListener('mouseup', this.unBind)
+    window.addEventListener('touchend', this.unBind)
+  }
+  unBind(event) {
+    ;[...document.querySelectorAll('.spiral')].map((el, i) => {
+      el.removeEventListener('mousemove', this.radialNoteOn)
+      el.removeEventListener('mouseleave', this.radialNoteOff)
     })
   }
   radialNoteOn(e) {
