@@ -2,10 +2,8 @@ import { store } from './store'
 import transposeSample from './transposeSample'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
-    masterVolume = audioCtx.createGain(),
-    masterCompressor = audioCtx.createDynamicsCompressor()
+    masterVolume = audioCtx.createGain()
 
-masterCompressor.connect(masterVolume)
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
 
@@ -65,7 +63,7 @@ store.getState().audioEffects.map((el, i, arr) => {
 	if (i !== arr.length - 1) {
 		audioEffectNodes[el.id].connect(audioEffectNodes[arr[i+1].id])
 	} else {
-		audioEffectNodes[el.id].connect(masterCompressor)
+		audioEffectNodes[el.id].connect(masterVolume)
 	}
 })
 
