@@ -49,16 +49,6 @@ store.getState().audioEffects.map(effect => {
   createEffect[effect.audioEffectType](effect)
 })
 
-let currentEffects
-function handleChange() {
-  let previousEffects = currentEffects
-  currentEffects = store.getState().audioEffects
-  currentEffects.map(effect => {
-    setProps[effect.audioEffectType](audioEffectNodes[effect.id], effect)
-  })
-}
-let unsubscribe = store.subscribe(handleChange)
-
 store.getState().audioEffects.map((el, i, arr) => {
 	if (i !== arr.length - 1) {
 		audioEffectNodes[el.id].connect(audioEffectNodes[arr[i+1].id])
@@ -66,6 +56,41 @@ store.getState().audioEffects.map((el, i, arr) => {
 		audioEffectNodes[el.id].connect(masterVolume)
 	}
 })
+
+let currentEffects
+function handleChange() {
+  let previousEffects = currentEffects
+  currentEffects = store.getState().audioEffects
+  if (previousEffects && currentEffects.length !== previousEffects.length) {
+    // remove unused
+    Object.keys(audioEffectNodes).map((id, i, arr) => {
+      audioEffectNodes[id].disconnect()
+    })
+    Object.keys(audioEffectNodes).map((id, i, arr) => {
+      if (!currentEffects.some(el => id === el.id)) {
+        delete audioEffectNodes[id]
+      }
+    })
+    // add new
+    currentEffects.map((effect, i, arr) => {
+      if (!audioEffectNodes.hasOwnProperty(effect.id)) {
+        createEffect[effect.audioEffectType](effect)
+      }
+    })
+    // connect
+    currentEffects.map((el, i, arr) => {
+    	if (i !== arr.length - 1) {
+    		audioEffectNodes[el.id].connect(audioEffectNodes[arr[i+1].id])
+    	} else {
+    		audioEffectNodes[el.id].connect(masterVolume)
+    	}
+    })
+  }
+  currentEffects.map(effect => {
+    setProps[effect.audioEffectType](audioEffectNodes[effect.id], effect)
+  })
+}
+let unsubscribe = store.subscribe(handleChange)
 
 var oscillators = {}
 var samples = {}
@@ -108,13 +133,13 @@ export const loadSample = (e, instrumentId) => {
 }
 
 const readSample = (file) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise (function(resolve, reject) {
     let reader = new FileReader()
     reader.addEventListener('load', () => {
       resolve(reader.result)
     }, false)
     reader.readAsArrayBuffer(file)
-  });
+  })
 }
 
 export const playInstrument = (notes) => {
@@ -194,7 +219,7 @@ export const stopInstrument = (notes) => {
         })
 
         oscillators[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
-        oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
+        // oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
         oscillators[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
         oscillators[note.index] = null
       } else if (instrument.type === "Sampler") {

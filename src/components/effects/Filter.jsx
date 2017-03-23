@@ -8,7 +8,7 @@ import { scaleLinear, scaleLog, scalePow } from "d3-scale"
 import { axisBottom, axisLeft } from "d3-axis"
 import { select } from "d3-selection"
 
-
+import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
 const filterTypes = [
@@ -122,26 +122,23 @@ class Filter extends Component {
     const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
 
 		return (
-      <div class="item effect-item">
-        <header>
-          <h3 class="title">Filter</h3>
-          <div className="select">
-            <select
-              onChange={(e) => {
-                this.props.dispatch({
-                  type: 'UPDATE_EFFECT',
-                  id: this.props.data.id,
-                  property: 'type',
-                  value: e.target.value
-                })
-              }}
-              >
-              {filterTypes.map(type => (
-                <option value={type.name}>{type.name}</option>
-              ))}
-            </select>
-          </div>
-        </header>
+      <Item title="Filter" type="audio" item={this.props.data}
+        headerChildren={<div className="select">
+                    <select
+                      onChange={(e) => {
+                        this.props.dispatch({
+                          type: 'UPDATE_EFFECT',
+                          id: this.props.data.id,
+                          property: 'type',
+                          value: e.target.value
+                        })
+                      }}
+                      >
+                      {filterTypes.map(type => (
+                        <option value={type.name}>{type.name}</option>
+                      ))}
+                    </select>
+                  </div>}>
         <svg class="vis-path" id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
           <g class="grid grid-x" />
           <g class="grid grid-y" />
@@ -182,7 +179,7 @@ class Filter extends Component {
               />
           ))}
         </div>
-      </div>
+      </Item>
 		)
 	}
 }

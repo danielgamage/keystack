@@ -29,11 +29,17 @@ const audioEffects = (state = defaultState, action) => {
         }
       })
     case 'ADD_AUDIO_EFFECT':
+      // return [
+        // ...state.slice(0, action.index),
+        // audioEffectSchema[action.value](),
+        // ...state.slice(action.index, state.length)
+      // ]
       return [
-        ...state.slice(0, action.index),
+        ...state,
         audioEffectSchema[action.value](),
-        ...state.slice(action.index, state.length)
       ]
+    case 'REMOVE_AUDIO_ITEM':
+      return [...state].filter(el => el.id !== action.id)
     default:
       return state
   }

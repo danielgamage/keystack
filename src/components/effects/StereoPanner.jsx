@@ -1,15 +1,13 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
+import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
 class StereoPanner extends Component {
 	render() {
 		return (
-      <div class="item effect-item">
-        <header>
-          <h3 class="title">Stereo Panner</h3>
-        </header>
+      <Item title="Stereo Panner" type="audio" item={this.props.data}>
         <div class="flex-container">
           <NumericInput
             label="Pan"
@@ -26,7 +24,7 @@ class StereoPanner extends Component {
             }}
             />
         </div>
-      </div>
+      </Item>
 		)
 	}
 }

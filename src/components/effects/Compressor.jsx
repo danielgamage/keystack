@@ -9,6 +9,7 @@ import { select } from "d3-selection"
 import { audioEffectNodes } from '../../utils/audio'
 import { compressSample } from '../../utils/compressor'
 
+import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
 
@@ -95,10 +96,7 @@ class Compressor extends Component {
       0
     ].map(x => ({x: x, y: compressSample(x, this.props.data.threshold, this.props.data.ratio, this.props.data.knee)}))
 		return (
-      <div class="item effect-item">
-        <header>
-          <h3 class="title">Compressor</h3>
-        </header>
+      <Item title="Compressor" type="audio" item={this.props.data}>
         <div className="compressor-container">
           <div class="vis">
             <svg class="vis-path" id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
@@ -159,7 +157,7 @@ class Compressor extends Component {
             ))}
           </div>
         </div>
-      </div>
+      </Item>
 		)
 	}
 }

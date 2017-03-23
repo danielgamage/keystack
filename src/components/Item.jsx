@@ -15,6 +15,7 @@ class Item extends Component {
         >
         <header>
           <h3 class="title">{this.props.title}</h3>
+          {this.props.headerChildren}
           <button
             class="button"
             onClick={() => {
