@@ -3,7 +3,6 @@ import transposeSample from './transposeSample'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 var masterVolume = audioCtx.createGain()
-
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
 
@@ -32,11 +31,11 @@ const createEffect = {
     setProps[effect.audioEffectType](filter, effect)
     audioEffectNodes[effect.id] = filter
   },
-  StereoPanner: (effect) => {
-    const stereoPanner = audioCtx.createStereoPanner()
-    setProps[effect.audioEffectType](stereoPanner, effect)
-    audioEffectNodes[effect.id] = stereoPanner
-  },
+  // StereoPanner: (effect) => {
+  //   const stereoPanner = audioCtx.createStereoPanner()
+  //   setProps[effect.audioEffectType](stereoPanner, effect)
+  //   audioEffectNodes[effect.id] = stereoPanner
+  // },
   Compressor: (effect) => {
     const compressor = audioCtx.createDynamicsCompressor()
     setProps[effect.audioEffectType](compressor, effect)

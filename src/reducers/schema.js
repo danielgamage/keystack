@@ -94,11 +94,11 @@ export const audioEffectSchema = {
     q: 0.5,
     gain: 0
   }),
-  StereoPanner: () => ({
-    id: generateID(),
-    audioEffectType: `StereoPanner`,
-    pan: 0
-  }),
+  // StereoPanner: () => ({
+  //   id: generateID(),
+  //   audioEffectType: `StereoPanner`,
+  //   pan: 0
+  // }),
   Compressor: () => ({
     id: generateID(),
     audioEffectType: `Compressor`,
