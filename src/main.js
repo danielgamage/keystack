@@ -5,7 +5,7 @@ import { radialLine } from "d3-shape"
 import { range } from "d3-array"
 
 import { keys, noteForIndex } from './utils'
-import { stopNote, startNote } from './utils/audio'
+import { stopNote, startNote } from './utils/notes'
 import keySteps from './data/keySteps'
 import chords from './data/chords'
 

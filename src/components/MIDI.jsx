@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import Icon from './Icon.jsx'
 
-import { stopNote, startNote } from '../utils/audio'
+import { stopNote, startNote } from '../utils/notes'
 import { keys, noteForIndex, getNoteIndexForMIDI } from '../utils'
 
 import midiIcon from '../images/midi.svg'

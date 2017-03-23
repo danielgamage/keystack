@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { store } from '../../utils/store'
-import { startNote, stopNote } from '../../utils/audio'
+import { startNote, stopNote } from '../../utils/notes'
 
 import { select, selectAll } from "d3-selection"
 import { axisLeft } from "d3-axis"

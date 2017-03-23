@@ -1,5 +1,4 @@
 import { store } from './store'
-import { startMIDIChain } from './midiEffects'
 import transposeSample from './transposeSample'
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
@@ -76,30 +75,6 @@ const minVolume = 0.00001
 
 export const shiftFrequencyByStep = (frequency, step) => {
   return frequency * (2 ** (step / 12))
-}
-
-export const stopNote = (note) => {
-  const state = store.getState()
-  store.dispatch({
-    type: 'REMOVE_NOTE',
-    at: 'input',
-    value: note
-  })
-  startMIDIChain(state)
-}
-
-export const startNote = (note) => {
-  // prevent sticky keys
-  const state = store.getState()
-  if (!state.notes.input.includes(note)) {
-    store.dispatch({
-      type: 'ADD_NOTE',
-      at: 'input',
-      value: note
-    })
-
-    startMIDIChain(state)
-  }
 }
 
 let myBuffer = null
