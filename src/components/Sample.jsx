@@ -11,6 +11,7 @@ import NumericInput from './NumericInput.jsx'
 import Envelope from './Envelope.jsx'
 import Icon from './Icon.jsx'
 
+import { keys, noteForIndex } from '../utils'
 import { loadSample } from '../utils/audio'
 
 const viewBoxWidth = 256
@@ -36,12 +37,12 @@ class Sample extends Component {
 
     const loopStartX = this.props.instrument.loopStart / sample.duration * viewBoxWidth
     const loopEndX   = this.props.instrument.loopEnd   / sample.duration * viewBoxWidth
-
+    console.log(sample.name)
 		return (
       <section class='sample'>
         <svg
           ref={(c) => this.element = c}
-          class='vis-path'
+          class={`vis-path ${sample.name === null ? 'empty' : ''}`}
           id={`vis-${this.props.instrument.id}`}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
           onDragOver={(e) => {
@@ -59,15 +60,23 @@ class Sample extends Component {
             loadSample(e, instrument.id)
           }}>
           <path
+            class='waveform'
             vector-effect='non-scaling-stroke'
             d={waveform(sample.waveform)}
             />
+          <rect vector-effect='non-scaling-stroke' class='inactive-cover' x={loopEndX} y='0' height={viewBoxHeight} width={viewBoxWidth - loopEndX} />
+          <rect vector-effect='non-scaling-stroke' class='frame' x='0' y='0' height={viewBoxHeight} width={viewBoxWidth} />
           <polygon vector-effect='non-scaling-stroke' class='start-marker-flag' points='0,0 0,8 6,0' />
           <line vector-effect='non-scaling-stroke' class='start-marker' x1='0' y1={viewBoxHeight} x2='0' y2='0' />
-          <rect vector-effect='non-scaling-stroke' class='inactive-cover' x={loopEndX} y='0' height={viewBoxHeight} width={viewBoxWidth - loopEndX} />
           <rect vector-effect='non-scaling-stroke' class='loop-bar' x={loopStartX} y='0' height='8' width={loopEndX - loopStartX} />
           <line vector-effect='non-scaling-stroke' class='loop-marker' x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2='0' />
           <line vector-effect='non-scaling-stroke' class='loop-marker' x1={loopEndX} y1={viewBoxHeight} x2={loopEndX} y2='0' />
+          <text class='sample-text empty-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
+            No sample added
+          </text>
+          <text class='sample-text drop-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
+            Drop file Here
+          </text>
         </svg>
         <div className='sample-info'>
           <span class='name'>{sample.name}</span>
@@ -95,27 +104,36 @@ class Sample extends Component {
               }}
               />
           ))}
-          {[
-            {name: 'pitch', max: 88, min: 0},
-            {name: 'detune', max: 50, min: -50}
-          ].map(el => (
             <NumericInput
-              label={`${el.name}`}
-              unit='s'
-              format='.3s'
+              label='Pitch'
               class='small quad'
-              id={`loop-${el.name}`}
-              min={el.min}
-              max={el.max}
-              step='0.01'
-              value={this.props.instrument[el.name]}
+              id='sample-pitch'
+              min={0}
+              max={88}
+              step={1}
+              displayValue={keys[this.props.instrument.pitch].note + keys[this.props.instrument.pitch].octave}
+              value={this.props.instrument.pitch}
               action={{
                 id: this.props.instrument.id,
                 type: 'UPDATE_INSTRUMENT_ITEM',
-                property: `loop${el.name}`
+                property: 'pitch'
               }}
               />
-          ))}
+            <NumericInput
+              label='Detune'
+              unit=' ct'
+              class='small quad'
+              id='sample-detune'
+              min={-50}
+              max={50}
+              step={0.1}
+              value={this.props.instrument.detune}
+              action={{
+                id: this.props.instrument.id,
+                type: 'UPDATE_INSTRUMENT_ITEM',
+                property: 'detune'
+              }}
+              />
         </div>
       </section>
 		);

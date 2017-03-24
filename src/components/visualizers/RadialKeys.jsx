@@ -11,7 +11,6 @@ import { range } from "d3-array"
 
 import { keys, noteForIndex } from '../../utils'
 
-
 class RadialKeys extends Component {
   constructor (props) {
     super(props)

@@ -64,7 +64,7 @@ export const instrumentSchema = {
     type: `Sampler`,
     volume: 0.8,
     detune: 0,
-    pitch: 0,
+    pitch: 27,
     loop: true,
     loopStart: 0,
     loopEnd: 0,

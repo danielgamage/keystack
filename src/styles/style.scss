@@ -330,19 +330,44 @@ input {
 }
 
 .sample{
+  .frame,
   .loop-bar,
   .loop-marker,
   .start-marker,
   .start-marker-flag {
     stroke-width: 1px;
   }
+  .frame {
+    stroke: $grey-1;
+  }
   .start-marker-flag {
     fill: $grey-4;
   }
+  .sample-text {
+    display: none;
+    @extend %sc;
+    font-size: 0.6rem;
+    fill: $grey-4;
+    stroke: none;
+  }
   .vis-path {
     margin-bottom: 0.5rem;
+    &.empty {
+      .empty-text {
+        display: block;
+      }
+      .waveform {
+        stroke: $grey-1;
+      }
+    }
     &.dragging {
-      background-color: $orange
+      background-color: $grey-1;
+      .drop-text {
+        display: block;
+      }
+      .empty-text {
+        display: none;
+      }
     }
   }
   .inactive-cover {

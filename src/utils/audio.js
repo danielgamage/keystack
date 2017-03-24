@@ -148,7 +148,7 @@ export const playInstrument = (notes) => {
             noteVolume.connect(audioEffectNodes[0].entry)
 
             source.buffer = myBuffer
-            source.playbackRate.value = transposeSample(note.index)
+            source.playbackRate.value = transposeSample(note.index + 27 - instrument.pitch)
             source.loop = instrument.loop
             source.loopStart = instrument.loopStart
             source.loopEnd = instrument.loopEnd
