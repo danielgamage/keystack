@@ -11,12 +11,30 @@ const mix = (dry, wet, mix) => {
   wet.gain.value = mix / 100
 }
 
+const makeDistortionCurve = (amount) => {
+  let k = typeof amount === 'number' ? amount : 50
+  let nSamples = 44100
+  let curve = new Float32Array(nSamples)
+  let deg = Math.PI / 180
+  let x
+  for (let i = 0; i < nSamples; ++i) {
+    x = i * 2 / nSamples - 1
+    curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x))
+  }
+  return curve
+}
+
 const setProps = {
   Filter: (effect, state) => {
     effect.filter.type = state.type
     effect.filter.frequency.value = state.frequency
     effect.filter.Q.value = state.q
     effect.filter.gain.value = state.gain
+    mix(effect.dry, effect.wet, state.mix)
+  },
+  Distortion: (effect, state) => {
+    effect.distortion.curve = makeDistortionCurve(state.amount)
+    effect.distortion.oversample = state.oversample
     mix(effect.dry, effect.wet, state.mix)
   },
   // StereoPanner: (effect, state) => {
@@ -95,6 +113,25 @@ const createEffect = {
     effectObj.delay.connect(effectObj.feedback)
     effectObj.feedback.connect(effectObj.delay)
     effectObj.delay.connect(effectObj.wet)
+    effectObj.wet.connect(effectObj.exit)
+
+    effectObj.entry.connect(effectObj.dry)
+    effectObj.dry.connect(effectObj.exit)
+
+    setProps[effect.audioEffectType](effectObj, effect)
+    audioEffectNodes.push(effectObj)
+  },
+  Distortion: (effect) => {
+    let effectObj = {
+      id: effect.id,
+      distortion: audioCtx.createWaveShaper(),
+      dry: audioCtx.createGain(),
+      wet: audioCtx.createGain(),
+      entry: audioCtx.createGain(),
+      exit: audioCtx.createGain()
+    }
+    effectObj.entry.connect(effectObj.distortion)
+    effectObj.distortion.connect(effectObj.wet)
     effectObj.wet.connect(effectObj.exit)
 
     effectObj.entry.connect(effectObj.dry)

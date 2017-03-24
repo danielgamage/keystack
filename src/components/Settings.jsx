@@ -11,6 +11,7 @@ import Filter from './effects/Filter.jsx'
 import StereoPanner from './effects/StereoPanner.jsx'
 import Compressor from './effects/Compressor.jsx'
 import Delay from './effects/Delay.jsx'
+import Distortion from './effects/Distortion.jsx'
 
 import Transpose from './midi/Transpose.jsx'
 import Chord from './midi/Chord.jsx'
@@ -31,7 +32,8 @@ const AudioEffectsByName = {
   "Filter": Filter,
   "StereoPanner": StereoPanner,
   "Compressor": Compressor,
-  "Delay": Delay
+  "Delay": Delay,
+  "Distortion": Distortion
 }
 
 const insertHRs = (arr) => {

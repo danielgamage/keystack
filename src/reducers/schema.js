@@ -109,6 +109,14 @@ export const audioEffectSchema = {
     delay: 0.5,
     feedback: 30
   }),
+  Distortion: () => ({
+    id: generateID(),
+    name: `Distortion`,
+    audioEffectType: `Distortion`,
+    amount: 300,
+    oversample: '2x',
+    mix: 100
+  }),
   // StereoPanner: () => ({
   //   id: generateID(),
   //   name:   `Stereo Panner`,
