@@ -24,7 +24,7 @@ class Item extends Component {
               })
             }}
             contentEditable={true}
-            class="title"
+            class="title item-title"
             >{this.props.item.name}</h3>
           {this.props.headerChildren}
           <button
