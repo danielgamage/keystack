@@ -32,9 +32,9 @@ export const processMIDI = {
 export const nextInMIDIChain = (notes, effect, effectIndex, effectsArray, oldState) => {
   if ((effectsArray.length - 1) !== effectIndex) {
     const nextIndex = effectIndex + 1
-    processMIDI[effectsArray[nextIndex].midiEffectType](notes, effectsArray[nextIndex], nextIndex, effectsArray, oldState)
+    processMIDI[effectsArray[nextIndex].midiEffectType]([...new Set(notes)], effectsArray[nextIndex], nextIndex, effectsArray, oldState)
   } else {
-    sendMIDIOut(notes, oldState)
+    sendMIDIOut([...new Set(notes)], oldState)
   }
 }
 
