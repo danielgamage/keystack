@@ -7,18 +7,18 @@ import Item from '../Item.jsx'
 class Chord extends Component {
 	render() {
 		return (
-      <Item type="midi" item={this.props.data}>
-        <div class="flex-container">
+      <Item type='midi' item={this.props.data}>
+        <div class='flex-container'>
           {this.props.data.value.map((el, i) => (
             <NumericInput
               label={`Note #${i + 1}`}
               showLabel={false}
-              class="six small"
+              class='six small'
               id={`pan-${this.props.data.id}-${i + 1}`}
               min={-24}
               max={24}
               step={1}
-              unit={" st"}
+              unit=' st'
               value={this.props.data.value[i]}
               action={{
                 type: 'UPDATE_MIDI_VALUE_ARRAY',

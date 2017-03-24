@@ -52,9 +52,9 @@ class Delay extends Component {
               min={param.min}
               max={param.max}
               step={param.step}
-              unit={param.unit}
-              format={param.format}
               scale={param.scale}
+              unit={param.unit}
+              displayValue={this.props.data[param.name]}
               value={this.props.data[param.name]}
               action={{
                 type: 'UPDATE_AUDIO_ITEM',

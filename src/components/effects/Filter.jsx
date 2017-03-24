@@ -7,6 +7,7 @@ import { line, curveCatmullRom } from 'd3-shape'
 import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
 import { axisBottom, axisLeft } from 'd3-axis'
 import { select } from 'd3-selection'
+import { format } from 'd3-format'
 
 import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
@@ -32,12 +33,15 @@ const parameters = [
     scale: 10
   },
   { name: 'q',
+    unit: '',
+    format: '',
     min: 0.1,
     max: 18,
     step: 0.1,
     scale: Math.E
   },
   { name: 'gain',
+    format: '',
     unit: 'dB',
     min: -15,
     max: 15,
@@ -45,6 +49,7 @@ const parameters = [
     scale: 1
   },
   { name: 'mix',
+    format: '',
     unit: '%',
     min: 0,
     max: 100,
@@ -170,9 +175,9 @@ class Filter extends Component {
               min={param.min}
               max={param.max}
               step={param.step}
-              unit={param.unit}
-              format={param.format}
               scale={param.scale}
+              unit={param.unit}
+              displayValue={format(param.format)(this.props.data[param.name])}
               value={this.props.data[param.name]}
               action={{
                 type: 'UPDATE_AUDIO_ITEM',

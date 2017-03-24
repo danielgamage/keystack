@@ -3,11 +3,10 @@
 
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
-import { arc } from "d3-shape"
-import { scaleLinear, scaleLog } from "d3-scale"
-import { format } from "d3-format"
+import { arc } from 'd3-shape'
+import { scaleLinear, scaleLog } from 'd3-scale'
 
-import { range } from "d3-array"
+import { range } from 'd3-array'
 
 
 class NumericInput extends Component {
@@ -99,8 +98,8 @@ class NumericInput extends Component {
     let step = this.props.step || 1
     value = (movement * (step || 1)) + value
     value = this.unscale(value)
-    value = (this.props.min != undefined) ? Math.max(this.props.min, value) : value
-    value = (this.props.max != undefined) ? Math.min(this.props.max, value) : value
+    value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
+    value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
     value = Math.round(value * 100) / 100
 
     this.updateStore(value, 'value')
@@ -112,7 +111,7 @@ class NumericInput extends Component {
   updateStore (v) {
     this.props.dispatch({
       ...this.props.action,
-      value: v,
+      value: v
     })
   }
   angle (value) {
@@ -131,8 +130,7 @@ class NumericInput extends Component {
     return angle(value)
   }
   render () {
-    var arcPath = arc();
-    const valueFormat = this.props.format !== undefined ? this.props.format : "";
+    var arcPath = arc()
 
     return (
       <div
@@ -144,26 +142,26 @@ class NumericInput extends Component {
           title={this.props.label}
           >
           {this.props.showLabel !== false &&
-            <span class="label-text">{this.props.label}</span>
+            <span class='label-text'>{this.props.label}</span>
           }
         </label>
         <svg
-          viewBox="0 0 32 32"
+          viewBox='0 0 32 32'
           class={`draggable`}
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
           >
           <circle
-            vector-effect="non-scaling-stroke"
-            class="fader-knob"
+            vector-effect='non-scaling-stroke'
+            class='fader-knob'
             cx={16}
             cy={16}
-            r="10"
+            r='10'
             />
           <path
-            vector-effect="non-scaling-stroke"
-            class="fader-track"
-            transform="translate(16, 16)"
+            vector-effect='non-scaling-stroke'
+            class='fader-track'
+            transform='translate(16, 16)'
             d={arcPath({
               innerRadius: 14,
               outerRadius: 14,
@@ -172,9 +170,9 @@ class NumericInput extends Component {
             })}
             />
           <path
-            vector-effect="non-scaling-stroke"
-            class="fader-value"
-            transform="translate(16, 16)"
+            vector-effect='non-scaling-stroke'
+            class='fader-value'
+            transform='translate(16, 16)'
             d={arcPath({
               innerRadius: 14,
               outerRadius: 14,
@@ -183,15 +181,16 @@ class NumericInput extends Component {
             })}
             />
         </svg>
-        <div className="input-output">
+        <div className='input-output'>
           <output
             for={this.props.id}
-            class={!this.state.showInput && "active"}
+            class={!this.state.showInput && 'active'}
             >
-            {format(valueFormat)(this.props.value)}{this.props.unit}
+            {this.props.displayValue !== undefined ? this.props.displayValue : this.props.value}
+            <span class='suffix'>{this.props.unit}</span>
           </output>
           <input
-            class={this.state.showInput && "active"}
+            class={this.state.showInput && 'active'}
             id={this.props.id}
             type='number'
             disabled={this.props.disabled}

@@ -12,23 +12,23 @@ import triangleIcon from '../images/wave-triangle.svg'
 import sineIcon from '../images/wave-sine.svg'
 
 const waves = {
-  "sawtooth": sawtoothIcon,
-  "square": squareIcon,
-  "triangle": triangleIcon,
-  "sine": sineIcon
+  'sawtooth': sawtoothIcon,
+  'square': squareIcon,
+  'triangle': triangleIcon,
+  'sine': sineIcon
 }
 
 class Oscillators extends Component {
 	render() {
 		return (
-      <section class="controls">
+      <section class='controls'>
         {this.props.oscillators.map((osc, i) => (
           <div class={`osc osc-${i}`}>
-            <div className="wave">
-              <span class="title">
+            <div className='wave'>
+              <span class='title'>
                 {`OSC ${i}`}
                 <button
-                  class="delete-osc"
+                  class='delete-osc'
                   onClick={() => {
                     this.props.dispatch({
                       id: this.props.instrument.id,
@@ -38,16 +38,15 @@ class Oscillators extends Component {
                   }}
                   >Delete</button>
               </span>
-              {["sawtooth", "triangle", "square", "sine"].map((type, typeIndex) => (
+              {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
                 <label title={type}>
                   <input
-                    class="hide-input"
+                    class='hide-input'
                     name={`osc-${this.props.instrument.id}-${i}`}
-                    type="radio"
+                    type='radio'
                     value={type}
                     checked={(osc.type === type)}
                     onClick={(e) => {
-                      console.log("update osc")
                       this.props.dispatch({
                         id: this.props.instrument.id,
                         type: 'UPDATE_OSC',
@@ -58,20 +57,21 @@ class Oscillators extends Component {
                     }}
                     />
                   <Icon
-                    class="icon icon--wave"
+                    class='icon icon--wave'
                     src={waves[type]}
                     />
                 </label>
               ))}
             </div>
             <NumericInput
-              label="tune"
-              class="small"
+              label='tune'
+              class='small'
               id={`detune-${i}`}
-              min="-50"
-              max="50"
-              step="1"
-              unit=" ct"
+              min='-50'
+              max='50'
+              step='1'
+              unit=' ct'
+              displayValue={osc.detune}
               value={osc.detune}
               action={{
                 id: this.props.instrument.id,
@@ -81,13 +81,14 @@ class Oscillators extends Component {
               }}
               />
             <NumericInput
-              label="pitch"
-              class="small"
+              label='pitch'
+              class='small'
               id={`pitch-${i}`}
-              min="-48"
-              max="48"
-              step="1"
-              unit=" st"
+              min='-48'
+              max='48'
+              step='1'
+              unit=' st'
+              displayValue={osc.pitch}
               value={osc.pitch}
               action={{
                 id: this.props.instrument.id,
@@ -97,12 +98,12 @@ class Oscillators extends Component {
               }}
               />
             <NumericInput
-              label="vol"
-              class="small"
+              label='vol'
+              class='small'
               id={`volume-${i}`}
-              min="0"
-              max="1"
-              step="0.01"
+              min='0'
+              max='1'
+              step='0.01'
               value={osc.volume}
               action={{
                 id: this.props.instrument.id,
@@ -114,7 +115,7 @@ class Oscillators extends Component {
           </div>
         ))}
         <button
-          class="add-osc"
+          class='add-osc'
           onClick={() => {
             this.props.dispatch({
               id: this.props.instrument.id,

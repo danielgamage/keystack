@@ -17,10 +17,11 @@ class Transpose extends Component {
             min={-48}
             max={48}
             step={1}
-            unit={" st"}
+            unit={` st`}
+            displayValue={this.props.data.value}
             value={this.props.data.value}
             action={{
-              type: 'UPDATE_MIDI_EFFECT',
+              type: 'UPDATE_MIDI_ITEM',
               id: this.props.data.id,
               property: "value"
             }}

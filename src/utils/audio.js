@@ -140,29 +140,30 @@ export const playInstrument = (notes) => {
       })
     } else if (instrument.type === `Sampler`) {
       const envelope = instrument.envelope
+      if (myBuffer !== null) {
+        notes.map(note => {
+          let source = audioCtx.createBufferSource()
+          var noteVolume = audioCtx.createGain()
+          noteVolume.gain.value = envelope.initial
+          noteVolume.connect(audioEffectNodes[0].entry)
 
-      notes.map(note => {
-        let source = audioCtx.createBufferSource()
-        var noteVolume = audioCtx.createGain()
-        noteVolume.gain.value = envelope.initial
-        noteVolume.connect(audioEffectNodes[0].entry)
+          source.buffer = myBuffer
+          source.playbackRate.value = transposeSample(note.index)
+          source.loop = instrument.loop
+          source.loopStart = instrument.loopStart
+          source.loopEnd = instrument.loopEnd
+          source.connect(noteVolume)
+          source.start(audioCtx.currentTime)
 
-        source.buffer = myBuffer
-        source.playbackRate.value = transposeSample(note.index)
-        source.loop = instrument.loop
-        source.loopStart = instrument.loopStart
-        source.loopEnd = instrument.loopEnd
-        source.connect(noteVolume)
-        source.start(audioCtx.currentTime)
+          samples[note.index] = {
+            instance: source,
+            volume: noteVolume
+          }
 
-        samples[note.index] = {
-          instance: source,
-          volume: noteVolume
-        }
-
-        noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
-        noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
-      })
+          noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
+          noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
+        })
+      }
     }
   })
 }
@@ -170,8 +171,8 @@ export const playInstrument = (notes) => {
 export const stopInstrument = (notes) => {
   const state = store.getState()
   state.instruments.map(instrument => {
-    notes.map(note => {
-      if (instrument.type === `KeySynth`) {
+    if (instrument.type === `KeySynth`) {
+      notes.map(note => {
         const envelope = instrument.envelope
         oscillators[note.index].oscillators.forEach((oscillator) => {
           oscillator.stop(audioCtx.currentTime + envelope.release)
@@ -181,15 +182,19 @@ export const stopInstrument = (notes) => {
         // oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
         oscillators[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
         oscillators[note.index] = null
-      } else if (instrument.type === `Sampler`) {
-        const envelope = instrument.envelope
-        samples[note.index].instance.stop(audioCtx.currentTime + envelope.release)
+      })
+    } else if (instrument.type === `Sampler`) {
+      if (myBuffer !== null) {
+        notes.map(note => {
+          const envelope = instrument.envelope
+          samples[note.index].instance.stop(audioCtx.currentTime + envelope.release)
 
-        samples[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
-        // samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
-        samples[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
-        samples[note.index] = null
+          samples[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
+          // samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
+          samples[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
+          samples[note.index] = null
+        })
       }
-    })
+    }
   })
 }

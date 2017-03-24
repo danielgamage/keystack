@@ -1,10 +1,11 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
-import { line, curveBundle } from "d3-shape"
-import { scaleLinear, scaleLog, scalePow } from "d3-scale"
-import { axisBottom, axisLeft } from "d3-axis"
-import { select } from "d3-selection"
+import { line, curveBundle } from 'd3-shape'
+import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
+import { axisBottom, axisLeft } from 'd3-axis'
+import { select } from 'd3-selection'
+import { format } from 'd3-format'
 
 import { audioEffectNodes } from '../../utils/audio'
 import { compressSample } from '../../utils/compressor'
@@ -32,31 +33,36 @@ const compressionCurve = line()
 
 const params = {
   'attack': {
-    unit: "s",
-    format: "0.3s",
+    unit: 's',
+    format: '0.3s',
     min: 0,
     max: 1,
     step: 0.01
   },
   'release': {
-    unit: "s",
-    format: "0.3s",
+    unit: 's',
+    format: '0.3s',
     min: 0,
     max: 1,
     step: 0.01
   },
   'knee': {
+    unit: ' dB',
+    format: '',
     min: 0,
     max: 40,
     step: 1
   },
   'ratio': {
-    unit: ":1",
+    unit: ':1',
+    format: '',
     min: 1,
     max: 20,
     step: 0.1
   },
   'threshold': {
+    unit: ' dB',
+    format: '',
     min: -100,
     max: 0,
     step: 1
@@ -65,27 +71,27 @@ const params = {
 
 const xAxis = axisBottom()
   .scale(x)
-  .ticks(5, ".0s")
+  .ticks(5, '.0s')
 const yAxis = axisLeft()
   .scale(y)
-  .ticks(5, ".0s")
+  .ticks(5, '.0s')
 
 class Compressor extends Component {
   componentDidMount () {
     const gridX = select(`#vis-${this.props.data.id} .grid-x`)
       .call(xAxis
         .tickSize(viewBoxHeight)
-        .tickFormat("")
+        .tickFormat('')
       )
       .selectAll('*')
-        .attr('vector-effect', "non-scaling-stroke");
+        .attr('vector-effect', 'non-scaling-stroke');
     const gridY = select(`#vis-${this.props.data.id} .grid-y`)
       .call(yAxis
         .tickSize(viewBoxWidth)
-        .tickFormat("")
+        .tickFormat('')
       )
       .selectAll('*')
-        .attr('vector-effect', "non-scaling-stroke");
+        .attr('vector-effect', 'non-scaling-stroke');
   }
 	render() {
     const points = [
@@ -96,39 +102,39 @@ class Compressor extends Component {
       0
     ].map(x => ({x: x, y: compressSample(x, this.props.data.threshold, this.props.data.ratio, this.props.data.knee)}))
 		return (
-      <Item type="audio" item={this.props.data}>
-        <div className="compressor-container">
-          <div class="vis">
-            <svg class="vis-path" id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-              <g class="grid grid-x" />
-              <g class="grid grid-y"
+      <Item type='audio' item={this.props.data}>
+        <div className='compressor-container'>
+          <div class='vis'>
+            <svg class='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+              <g class='grid grid-x' />
+              <g class='grid grid-y'
                 transform={`translate(${viewBoxWidth},0)`}
                 />
               <path
-                vector-effect="non-scaling-stroke"
+                vector-effect='non-scaling-stroke'
                 d={compressionCurve(points)}
                 />
               {points.map(point => (
                 <circle
-                  vector-effect="non-scaling-stroke"
-                  class="dot"
+                  vector-effect='non-scaling-stroke'
+                  class='dot'
                   cx={x(point.x)}
                   cy={y(point.y)}
-                  r="4"
+                  r='4'
                   />
               ))}
             </svg>
-            <div class="flex-container">
-              {["attack", "release"].map((el, i) => (
+            <div class='flex-container'>
+              {['attack', 'release'].map((el, i) => (
                 <NumericInput
                   label={el}
-                  class="tri small right"
+                  class='tri small right'
                   id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                   min={params[el].min}
                   max={params[el].max}
                   step={params[el].step}
                   unit={params[el].unit}
-                  format={params[el].format}
+                  displayValue={format(params[el].format)(this.props.data[el])}
                   value={this.props.data[el]}
                   action={{
                     type: 'UPDATE_AUDIO_ITEM',
@@ -140,13 +146,15 @@ class Compressor extends Component {
             </div>
           </div>
           <div >
-            {["threshold", "ratio", "knee"].map((el, i) => (
+            {['threshold', 'ratio', 'knee'].map((el, i) => (
               <NumericInput
                 label={el}
                 id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                 min={params[el].min}
                 max={params[el].max}
                 step={params[el].step}
+                unit={params[el].unit}
+                displayValue={format(params[el].format)(this.props.data[el])}
                 value={this.props.data[el]}
                 action={{
                   type: 'UPDATE_AUDIO_ITEM',
