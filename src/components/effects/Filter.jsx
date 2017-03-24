@@ -12,14 +12,14 @@ import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
 const filterTypes = [
-  { name: 'lowpass',   frequency: true, q: true,  gain: false },
-  { name: 'highpass',  frequency: true, q: true,  gain: false },
-  { name: 'bandpass',  frequency: true, q: true,  gain: false },
-  { name: 'lowshelf',  frequency: true, q: false, gain: true  },
-  { name: 'highshelf', frequency: true, q: false, gain: true  },
-  { name: 'peaking',   frequency: true, q: true,  gain: true  },
-  { name: 'notch',     frequency: true, q: true,  gain: false },
-  { name: 'allpass',   frequency: true, q: true,  gain: false },
+  { name: 'lowpass',   frequency: true, q: true,  gain: false, mix: true },
+  { name: 'highpass',  frequency: true, q: true,  gain: false, mix: true },
+  { name: 'bandpass',  frequency: true, q: true,  gain: false, mix: true },
+  { name: 'lowshelf',  frequency: true, q: false, gain: true,  mix: true },
+  { name: 'highshelf', frequency: true, q: false, gain: true,  mix: true },
+  { name: 'peaking',   frequency: true, q: true,  gain: true,  mix: true },
+  { name: 'notch',     frequency: true, q: true,  gain: false, mix: true },
+  { name: 'allpass',   frequency: true, q: true,  gain: false, mix: true },
 ]
 
 const parameters = [
@@ -42,6 +42,13 @@ const parameters = [
     min: -15,
     max: 15,
     step: 0.1,
+    scale: 1
+  },
+  { name: 'mix',
+    unit: '%',
+    min: 0,
+    max: 100,
+    step: 1,
     scale: 1
   }
 ]
@@ -157,7 +164,7 @@ class Filter extends Component {
           {parameters.map(param => (
             <NumericInput
               label={param.name}
-              class='tri'
+              class='quad'
               disabled={!filterTypes.find(el => el.name === this.props.data.type)[param.name]}
               id={param.name}
               min={param.min}

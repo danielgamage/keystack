@@ -93,12 +93,12 @@ export const audioEffectSchema = {
     frequency: 600,
     q: 0.5,
     gain: 0,
-    mix: 50
+    mix: 100
   }),
   Delay: () => ({
     id: generateID(),
     audioEffectType: `Delay`,
-    mix: 50,
+    mix: 20,
     delay: 0.5,
     feedback: 30
   }),
@@ -115,6 +115,6 @@ export const audioEffectSchema = {
     ratio: 12,
     release: 0.25,
     threshold: -24,
-    mix: 50
+    mix: 100
   })
 }
