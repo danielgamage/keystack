@@ -62,7 +62,8 @@ class Sample extends Component {
             vector-effect='non-scaling-stroke'
             d={waveform(sample.waveform)}
             />
-          <polygon vector-effect='non-scaling-stroke' class='start-marker' points='0,0 0,8 6,0' />
+          <polygon vector-effect='non-scaling-stroke' class='start-marker-flag' points='0,0 0,8 6,0' />
+          <line vector-effect='non-scaling-stroke' class='start-marker' x1='0' y1={viewBoxHeight} x2='0' y2='0' />
           <rect vector-effect='non-scaling-stroke' class='inactive-cover' x={loopEndX} y='0' height={viewBoxHeight} width={viewBoxWidth - loopEndX} />
           <rect vector-effect='non-scaling-stroke' class='loop-bar' x={loopStartX} y='0' height='8' width={loopEndX - loopStartX} />
           <line vector-effect='non-scaling-stroke' class='loop-marker' x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2='0' />
@@ -72,48 +73,50 @@ class Sample extends Component {
           <span class='name'>{sample.name}</span>
           <span class='size'>{sample.size != null && `${format('.2')(sample.size / 1024 / 1024)}mb`}</span>
         </div>
-        {[
-          {name: 'Start', max: instrument.loopEnd, min: 0},
-          {name: 'End', max: sample.duration, min: instrument.loopStart}
-        ].map(el => (
-          <NumericInput
-            label={`Loop ${el.name}`}
-            unit='s'
-            format='.3s'
-            class='small'
-            id={`loop-${el.name}`}
-            min={el.min}
-            max={el.max}
-            step='0.01'
-            value={this.props.instrument[`loop${el.name}`]}
-            action={{
-              id: this.props.instrument.id,
-              type: 'UPDATE_INSTRUMENT_ITEM',
-              property: `loop${el.name}`
-            }}
-            />
-        ))}
-        {[
-          {name: 'pitch', max: 88, min: 0},
-          {name: 'detune', max: 50, min: -50}
-        ].map(el => (
-          <NumericInput
-            label={`Loop ${el.name}`}
-            unit='s'
-            format='.3s'
-            class='small'
-            id={`loop-${el.name}`}
-            min={el.min}
-            max={el.max}
-            step='0.01'
-            value={this.props.instrument[el.name]}
-            action={{
-              id: this.props.instrument.id,
-              type: 'UPDATE_INSTRUMENT_ITEM',
-              property: `loop${el.name}`
-            }}
-            />
-        ))}
+        <div className="flex-container">
+          {[
+            {name: 'Start', max: instrument.loopEnd, min: 0},
+            {name: 'End', max: sample.duration, min: instrument.loopStart}
+          ].map(el => (
+            <NumericInput
+              label={`Loop ${el.name}`}
+              unit='s'
+              format='.3s'
+              class='small quad'
+              id={`loop-${el.name}`}
+              min={el.min}
+              max={el.max}
+              step='0.01'
+              value={this.props.instrument[`loop${el.name}`]}
+              action={{
+                id: this.props.instrument.id,
+                type: 'UPDATE_INSTRUMENT_ITEM',
+                property: `loop${el.name}`
+              }}
+              />
+          ))}
+          {[
+            {name: 'pitch', max: 88, min: 0},
+            {name: 'detune', max: 50, min: -50}
+          ].map(el => (
+            <NumericInput
+              label={`${el.name}`}
+              unit='s'
+              format='.3s'
+              class='small quad'
+              id={`loop-${el.name}`}
+              min={el.min}
+              max={el.max}
+              step='0.01'
+              value={this.props.instrument[el.name]}
+              action={{
+                id: this.props.instrument.id,
+                type: 'UPDATE_INSTRUMENT_ITEM',
+                property: `loop${el.name}`
+              }}
+              />
+          ))}
+        </div>
       </section>
 		);
 	}

@@ -332,10 +332,11 @@ input {
 .sample{
   .loop-bar,
   .loop-marker,
-  .start-marker {
+  .start-marker,
+  .start-marker-flag {
     stroke-width: 1px;
   }
-  .start-marker {
+  .start-marker-flag {
     fill: $grey-4;
   }
   .vis-path {
