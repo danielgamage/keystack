@@ -1,5 +1,6 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
+import { bindKeyboardEvents, unbindKeyboardEvents } from '../main.js'
 
 class Item extends Component {
   constructor (props) {
@@ -15,6 +16,12 @@ class Item extends Component {
         >
         <header>
           <h3
+            onFocus={() => {
+              unbindKeyboardEvents()
+            }}
+            onBlur={() => {
+              bindKeyboardEvents()
+            }}
             onInput={(e) => {
               this.props.dispatch({
                 type: `UPDATE_${this.props.type.toUpperCase()}_ITEM`,
