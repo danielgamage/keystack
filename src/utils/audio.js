@@ -186,7 +186,7 @@ export const stopInstrument = (notes) => {
         samples[note.index].instance.stop(audioCtx.currentTime + envelope.release)
 
         samples[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
-        samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
+        // samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
         samples[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
         samples[note.index] = null
       }
