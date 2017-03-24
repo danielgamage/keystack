@@ -108,7 +108,7 @@ class Filter extends Component {
 
     var magResponseOutput = new Float32Array(this.frequencyBars) // magnitude
     var phaseResponseOutput = new Float32Array(this.frequencyBars)
-    const filterNode = audioEffectNodes.find(el => el.id === this.props.data.id).node
+    const filterNode = audioEffectNodes.find(el => el.id === this.props.data.id).filter
     filterNode.getFrequencyResponse(
       myFrequencyArray,
       magResponseOutput,

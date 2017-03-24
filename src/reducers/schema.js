@@ -92,7 +92,15 @@ export const audioEffectSchema = {
     type: `lowpass`,
     frequency: 600,
     q: 0.5,
-    gain: 0
+    gain: 0,
+    mix: 50
+  }),
+  Delay: () => ({
+    id: generateID(),
+    audioEffectType: `Delay`,
+    mix: 50,
+    delay: 0.5,
+    feedback: 30
   }),
   // StereoPanner: () => ({
   //   id: generateID(),
@@ -106,6 +114,7 @@ export const audioEffectSchema = {
     knee: 30,
     ratio: 12,
     release: 0.25,
-    threshold: -24
+    threshold: -24,
+    mix: 50
   })
 }

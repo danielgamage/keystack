@@ -3,7 +3,8 @@ import { audioEffectSchema } from './schema'
 const defaultState = [
   audioEffectSchema.Filter(),
   // audioEffectSchema.StereoPanner(),
-  audioEffectSchema.Compressor()
+  audioEffectSchema.Compressor(),
+  audioEffectSchema.Delay()
 ]
 
 const filter = (state, action) => {

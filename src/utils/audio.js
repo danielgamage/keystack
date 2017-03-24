@@ -6,33 +6,55 @@ var masterVolume = audioCtx.createGain()
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
 
+const mix = (dry, wet, mix) => {
+  dry.gain.value = 1.0 - (mix / 100)
+  wet.gain.value = mix / 100
+}
+
 const setProps = {
   Filter: (effect, state) => {
-    effect.type = state.type
-    effect.frequency.value = state.frequency
-    effect.Q.value = state.q
-    effect.gain.value = state.gain
+    effect.filter.type = state.type
+    effect.filter.frequency.value = state.frequency
+    effect.filter.Q.value = state.q
+    effect.filter.gain.value = state.gain
+    mix(effect.dry, effect.wet, state.mix)
   },
-  StereoPanner: (effect, state) => {
-    effect.pan.value = state.pan
-  },
+  // StereoPanner: (effect, state) => {
+  //   effect.pan.value = state.pan
+  // },
   Compressor: (effect, state) => {
-    effect.attack.value = state.attack
-    effect.knee.value = state.knee
-    effect.ratio.value = state.ratio
-    effect.release.value = state.release
-    effect.threshold.value = state.threshold
+    effect.compressor.attack.value = state.attack
+    effect.compressor.knee.value = state.knee
+    effect.compressor.ratio.value = state.ratio
+    effect.compressor.release.value = state.release
+    effect.compressor.threshold.value = state.threshold
+    mix(effect.dry, effect.wet, state.mix)
+  },
+  Delay: (effect, state) => {
+    effect.delay.delayTime.value = state.delay
+    mix(effect.dry, effect.wet, state.mix)
   }
 }
 
 const createEffect = {
   Filter: (effect) => {
-    const filter = audioCtx.createBiquadFilter()
-    setProps[effect.audioEffectType](filter, effect)
-    audioEffectNodes.push({
+    let effectObj = {
       id: effect.id,
-      node: filter
-    })
+      filter: audioCtx.createBiquadFilter(),
+      dry: audioCtx.createGain(),
+      wet: audioCtx.createGain(),
+      entry: audioCtx.createGain(),
+      exit: audioCtx.createGain()
+    }
+    effectObj.entry.connect(effectObj.filter)
+    effectObj.filter.connect(effectObj.wet)
+    effectObj.wet.connect(effectObj.exit)
+
+    effectObj.entry.connect(effectObj.dry)
+    effectObj.dry.connect(effectObj.exit)
+
+    setProps[effect.audioEffectType](effectObj, effect)
+    audioEffectNodes.push(effectObj)
   },
   // StereoPanner: (effect) => {
   //   const stereoPanner = audioCtx.createStereoPanner()
@@ -40,12 +62,43 @@ const createEffect = {
   //   audioEffectNodes[effect.id] = stereoPanner
   // },
   Compressor: (effect) => {
-    const compressor = audioCtx.createDynamicsCompressor()
-    setProps[effect.audioEffectType](compressor, effect)
-    audioEffectNodes.push({
+    const effectObj = {
       id: effect.id,
-      node: compressor
-    })
+      compressor: audioCtx.createDynamicsCompressor(),
+      dry: audioCtx.createGain(),
+      wet: audioCtx.createGain(),
+      entry: audioCtx.createGain(),
+      exit: audioCtx.createGain()
+    }
+    effectObj.entry.connect(effectObj.compressor)
+    effectObj.compressor.connect(effectObj.wet)
+    effectObj.wet.connect(effectObj.exit)
+
+    effectObj.entry.connect(effectObj.dry)
+    effectObj.dry.connect(effectObj.exit)
+
+    setProps[effect.audioEffectType](effectObj, effect)
+    audioEffectNodes.push(effectObj)
+  },
+  Delay: (effect) => {
+    let effectObj = {
+      id: effect.id,
+      delay: audioCtx.createDelay(),
+      dry: audioCtx.createGain(),
+      wet: audioCtx.createGain(),
+      feedback: audioCtx.createGain(),
+      entry: audioCtx.createGain(),
+      exit: audioCtx.createGain()
+    }
+    effectObj.entry.connect(effectObj.delay)
+    effectObj.delay.connect(effectObj.wet)
+    effectObj.wet.connect(effectObj.exit)
+
+    effectObj.entry.connect(effectObj.dry)
+    effectObj.dry.connect(effectObj.exit)
+
+    setProps[effect.audioEffectType](effectObj, effect)
+    audioEffectNodes.push(effectObj)
   }
 }
 
@@ -57,9 +110,9 @@ store.getState().audioEffects.map(effect => {
 // initial connections
 store.getState().audioEffects.map((el, i, arr) => {
   if (i !== arr.length - 1) {
-    audioEffectNodes[i].node.connect(audioEffectNodes[i + 1].node)
+    audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
   } else {
-    audioEffectNodes[i].node.connect(masterVolume)
+    audioEffectNodes[i].exit.connect(masterVolume)
   }
 })
 
@@ -70,7 +123,7 @@ function handleChange () {
   if (previousEffects && currentEffects.length !== previousEffects.length) {
     // disconnect and remove unused
     audioEffectNodes.map((el, i, arr) => {
-      el.node.disconnect()
+      el.exit.disconnect()
       if (!currentEffects.some(effect => el.id === effect.id)) {
         audioEffectNodes.splice(i, 1)
       }
@@ -84,14 +137,14 @@ function handleChange () {
     // connect
     currentEffects.map((el, i, arr) => {
       if (i !== arr.length - 1) {
-        audioEffectNodes[i].node.connect(audioEffectNodes[i + 1].node)
+        audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
       } else {
-        audioEffectNodes[i].node.connect(masterVolume)
+        audioEffectNodes[i].exit.connect(masterVolume)
       }
     })
   }
   currentEffects.map(effect => {
-    setProps[effect.audioEffectType](audioEffectNodes.find(el => el.id === effect.id).node, effect)
+    setProps[effect.audioEffectType](audioEffectNodes.find(el => el.id === effect.id), effect)
   })
 }
 let unsubscribe = store.subscribe(handleChange)
@@ -154,7 +207,7 @@ export const playInstrument = (notes) => {
       notes.map(note => {
         var noteVolume = audioCtx.createGain()
         noteVolume.gain.value = envelope.initial
-        noteVolume.connect(audioEffectNodes[0].node)
+        noteVolume.connect(audioEffectNodes[0].entry)
 
         const initializedOscillators = instrument.oscillators.map(el => {
           const osc = audioCtx.createOscillator()
@@ -187,7 +240,7 @@ export const playInstrument = (notes) => {
         let source = audioCtx.createBufferSource()
         var noteVolume = audioCtx.createGain()
         noteVolume.gain.value = envelope.initial
-        noteVolume.connect(audioEffectNodes[0].node)
+        noteVolume.connect(audioEffectNodes[0].entry)
 
         source.buffer = myBuffer
         source.playbackRate.value = transposeSample(note.index)

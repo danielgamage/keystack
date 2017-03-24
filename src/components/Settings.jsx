@@ -6,9 +6,12 @@ import AddButton from './AddButton.jsx'
 
 import KeySynth from './instruments/KeySynth.jsx'
 import Sampler from './instruments/Sampler.jsx'
+
 import Filter from './effects/Filter.jsx'
 import StereoPanner from './effects/StereoPanner.jsx'
 import Compressor from './effects/Compressor.jsx'
+import Delay from './effects/Delay.jsx'
+
 import Transpose from './midi/Transpose.jsx'
 import Chord from './midi/Chord.jsx'
 import DisableNotes from './midi/DisableNotes.jsx'
@@ -27,7 +30,8 @@ const InstrumentsByName = {
 const AudioEffectsByName = {
   "Filter": Filter,
   "StereoPanner": StereoPanner,
-  "Compressor": Compressor
+  "Compressor": Compressor,
+  "Delay": Delay
 }
 
 const insertHRs = (arr) => {
@@ -39,7 +43,7 @@ const insertHRs = (arr) => {
 }
 
 class Settings extends Component {
-	render() {
+	render () {
     const midiEffects = this.props.midiEffects.map(effect => {
       const ComponentName = MidiEffectsByName[effect.midiEffectType]
       return (<ComponentName data={effect} />)
