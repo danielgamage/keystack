@@ -1,7 +1,7 @@
 import { instrumentSchema } from './schema.js'
 
 const defaultState = [
-  instrumentSchema.Sampler()
+  instrumentSchema.KeySynth()
 ]
 
 const synth = (state, action) => {
@@ -59,10 +59,12 @@ const instruments = (state = defaultState, action) => {
       })
     case 'ADD_INSTRUMENT_ITEM':
       return [
-        ...state.slice(0, action.index),
-        instrumentSchema[action.value](),
-        ...state.slice(action.index, state.length)
+        ...state,
+        instrumentSchema[action.value]()
+        // ...state.slice(action.index, state.length)
       ]
+    case 'REMOVE_INSTRUMENT_ITEM':
+      return [...state].filter(el => el.id !== action.id)
     default:
       return state
   }

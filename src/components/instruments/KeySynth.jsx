@@ -3,17 +3,15 @@ import { connect } from 'preact-redux'
 
 import Oscillators from '../Oscillators.jsx'
 import Envelope from '../Envelope.jsx'
+import Item from '../Item.jsx'
 
 class KeySynth extends Component {
 	render() {
 		return (
-      <div class="item instrument-item">
-        <header>
-          <h3 class="title">KeySynth</h3>
-        </header>
+      <Item type='instrument' item={this.props.data}>
         <Oscillators instrument={this.props.data} oscillators={this.props.data.oscillators} />
         <Envelope instrument={this.props.data} envelope={this.props.data.envelope} />
-      </div>
+      </Item>
 		)
 	}
 }

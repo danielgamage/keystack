@@ -2,7 +2,7 @@ input, optgroup, select, textarea {
  font-family: inherit;
 }
 
-button {
+%button {
   line-height: 1;
   padding: 0.2rem 0.4rem 0.25rem;
   appearance: none;
@@ -17,6 +17,10 @@ button {
     background: $grey-2;
   }
 }
+
+button {
+  @extend %button;
+}
 .delete-osc {
   display: inline-block;
   margin-left: 0.5rem;
@@ -28,17 +32,12 @@ button {
   color: $grey-6;
 }
 .select select {
+  @extend %button;
   display: inline-block;
-  line-height: 1;
   padding: 0.2rem 1.5rem 0.25rem 0.4rem;
   width: 100%;
   margin: 0;
   @extend %sc;
-  color: inherit;
-  background-color: $grey-1;
-  border: 0;
-  border-radius: $radius;
-  cursor: pointer;
   outline: 0;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -100,34 +99,6 @@ button {
   /* <option> elements inherit styles from <select>, so reset them. */
   .select option {
     background-color: #fff;
-  }
-}
-
-/* IE9 hack to hide the arrow */
-@media screen and (min-width:0\0) {
-  .select select {
-    z-index: 1;
-    padding: .5rem 1.5rem .5rem 1rem;
-  }
-  .select:after {
-    z-index: 5;
-  }
-  .select:before {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    bottom: 0;
-    z-index: 2;
-    content: "";
-    display: block;
-    width: 1.5rem;
-    background-color: #eee;
-  }
-  .select select:hover,
-  .select select:focus,
-  .select select:active {
-    color: #555;
-    background-color: #eee;
   }
 }
 

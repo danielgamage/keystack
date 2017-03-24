@@ -28,7 +28,7 @@ const parameters = [
     unit: 'hz',
     format: '.3s',
     min: 30,
-    max: 22000,
+    max: 20000,
     step: 0.01,
     scale: 10
   },
@@ -65,7 +65,7 @@ class Filter extends Component {
     this.viewBoxHeight = 64
     this.frequencyBars = 1024
     this.minHz = 30
-    this.maxHz = 22000
+    this.maxHz = 20000
 
     this.mapFreq = scalePow()
       .exponent(5)

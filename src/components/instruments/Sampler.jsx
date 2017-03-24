@@ -3,17 +3,15 @@ import { connect } from 'preact-redux'
 
 import Sample from '../Sample.jsx'
 import Envelope from '../Envelope.jsx'
+import Item from '../Item.jsx'
 
 class Sampler extends Component {
 	render() {
 		return (
-      <div class="item instrument-item">
-        <header>
-          <h3 class="title">Sampler</h3>
-        </header>
+      <Item type='instrument' item={this.props.data}>
         <Sample instrument={this.props.data} />
         <Envelope instrument={this.props.data} envelope={this.props.data.envelope}/>
-      </div>
+      </Item>
 		);
 	}
 }
