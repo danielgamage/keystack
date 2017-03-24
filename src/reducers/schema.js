@@ -7,11 +7,13 @@ import generateID from '../utils/generateID'
 export const midiEffectSchema = {
   Transpose: () => ({
     id: generateID(),
+    name: `Transpose`,
     midiEffectType: `Transpose`,
     value: 0
   }),
   Chord: () => ({
     id: generateID(),
+    name: `Chord`,
     midiEffectType: `Chord`,
     value: [
       0, 0, 0,
@@ -20,6 +22,7 @@ export const midiEffectSchema = {
   }),
   DisableNotes: () => ({
     id: generateID(),
+    name: `Disable Notes`,
     midiEffectType: `DisableNotes`,
     value: [
       true, true, true, true,
@@ -36,6 +39,7 @@ export const midiEffectSchema = {
 export const instrumentSchema = {
   KeySynth: () => ({
     id: generateID(),
+    name: `KeySynth`,
     type: `KeySynth`,
     oscillators: [
       {
@@ -56,6 +60,7 @@ export const instrumentSchema = {
   }),
   Sampler: () => ({
     id: generateID(),
+    name: `Sampler`,
     type: `Sampler`,
     volume: 0.8,
     detune: 0,
@@ -88,6 +93,7 @@ export const instrumentSchema = {
 export const audioEffectSchema = {
   Filter: () => ({
     id: generateID(),
+    name: `Filter`,
     audioEffectType: `Filter`,
     type: `lowpass`,
     frequency: 600,
@@ -97,6 +103,7 @@ export const audioEffectSchema = {
   }),
   Delay: () => ({
     id: generateID(),
+    name: `Delay`,
     audioEffectType: `Delay`,
     mix: 20,
     delay: 0.5,
@@ -104,11 +111,13 @@ export const audioEffectSchema = {
   }),
   // StereoPanner: () => ({
   //   id: generateID(),
+  //   name:   `Stereo Panner`,
   //   audioEffectType: `StereoPanner`,
   //   pan: 0
   // }),
   Compressor: () => ({
     id: generateID(),
+    name: `Compressor`,
     audioEffectType: `Compressor`,
     attack: 0.003,
     knee: 30,

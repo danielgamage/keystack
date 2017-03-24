@@ -61,19 +61,19 @@ class Settings extends Component {
         <section class="settings-section">
           <h3 class="settings-title">Midi Effects</h3>
           {insertHRs(midiEffects)}
-          <AddButton schema={midiEffectSchema} action={'ADD_MIDI_EFFECT'}/>
+          <AddButton schema={midiEffectSchema} action={'ADD_MIDI_ITEM'}/>
         </section>
         <hr class="section-splitter"/>
         <section class="settings-section">
           <h3 class="settings-title">Instruments</h3>
           {insertHRs(instruments)}
-          <AddButton schema={instrumentSchema} action={'ADD_INSTRUMENT'}/>
+          <AddButton schema={instrumentSchema} action={'ADD_INSTRUMENT_ITEM'}/>
         </section>
         <hr class="section-splitter"/>
         <section class="settings-section">
           <h3 class="settings-title">Audio Effects</h3>
           {insertHRs(audioEffects)}
-          <AddButton schema={audioEffectSchema} action={'ADD_AUDIO_EFFECT'}/>
+          <AddButton schema={audioEffectSchema} action={'ADD_AUDIO_ITEM'}/>
         </section>
       </div>
 		);

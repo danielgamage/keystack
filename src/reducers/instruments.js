@@ -33,7 +33,7 @@ const synth = (state, action) => {
       newState = { ...state }
       newState.sample = action.value
       return newState
-    case 'UPDATE_INSTRUMENT':
+    case 'UPDATE_INSTRUMENT_ITEM':
       newState = { ...state }
       newState[action.property] = action.value
       return newState
@@ -49,7 +49,7 @@ const instruments = (state = defaultState, action) => {
     case 'DELETE_OSC':
     case 'UPDATE_OSC':
     case 'UPDATE_SAMPLE':
-    case 'UPDATE_INSTRUMENT':
+    case 'UPDATE_INSTRUMENT_ITEM':
       return [...state].map(instrument => {
         if (instrument.id === action.id) {
           return synth(instrument, action)
@@ -57,7 +57,7 @@ const instruments = (state = defaultState, action) => {
           return instrument
         }
       })
-    case 'ADD_INSTRUMENT':
+    case 'ADD_INSTRUMENT_ITEM':
       return [
         ...state.slice(0, action.index),
         instrumentSchema[action.value](),

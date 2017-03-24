@@ -14,7 +14,18 @@ class Item extends Component {
         class={`item item-${this.props.type}`}
         >
         <header>
-          <h3 class="title">{this.props.title}</h3>
+          <h3
+            onInput={(e) => {
+              this.props.dispatch({
+                type: `UPDATE_${this.props.type.toUpperCase()}_ITEM`,
+                id: this.props.item.id,
+                property: 'name',
+                value: e.target.textContent
+              })
+            }}
+            contentEditable={true}
+            class="title"
+            >{this.props.item.name}</h3>
           {this.props.headerChildren}
           <button
             class="button"

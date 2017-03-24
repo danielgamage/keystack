@@ -7,7 +7,7 @@ import Item from '../Item.jsx'
 class Chord extends Component {
 	render() {
 		return (
-      <Item title="Chord" type="midi" item={this.props.data}>
+      <Item type="midi" item={this.props.data}>
         <div class="flex-container">
           {this.props.data.value.map((el, i) => (
             <NumericInput

@@ -96,7 +96,7 @@ class Compressor extends Component {
       0
     ].map(x => ({x: x, y: compressSample(x, this.props.data.threshold, this.props.data.ratio, this.props.data.knee)}))
 		return (
-      <Item title="Compressor" type="audio" item={this.props.data}>
+      <Item type="audio" item={this.props.data}>
         <div className="compressor-container">
           <div class="vis">
             <svg class="vis-path" id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
@@ -131,7 +131,7 @@ class Compressor extends Component {
                   format={params[el].format}
                   value={this.props.data[el]}
                   action={{
-                    type: 'UPDATE_EFFECT',
+                    type: 'UPDATE_AUDIO_ITEM',
                     id: this.props.data.id,
                     property: el
                   }}
@@ -149,7 +149,7 @@ class Compressor extends Component {
                 step={params[el].step}
                 value={this.props.data[el]}
                 action={{
-                  type: 'UPDATE_EFFECT',
+                  type: 'UPDATE_AUDIO_ITEM',
                   id: this.props.data.id,
                   property: el
                 }}

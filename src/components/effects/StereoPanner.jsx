@@ -7,7 +7,7 @@ import NumericInput from '../NumericInput.jsx'
 class StereoPanner extends Component {
 	render() {
 		return (
-      <Item title="Stereo Panner" type="audio" item={this.props.data}>
+      <Item type="audio" item={this.props.data}>
         <div class="flex-container">
           <NumericInput
             label="Pan"
@@ -18,7 +18,7 @@ class StereoPanner extends Component {
             step={.01}
             value={this.props.data["pan"]}
             action={{
-              type: 'UPDATE_EFFECT',
+              type: 'UPDATE_AUDIO_ITEM',
               id: this.props.data.id,
               property: "pan"
             }}

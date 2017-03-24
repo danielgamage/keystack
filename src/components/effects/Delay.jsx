@@ -43,7 +43,7 @@ class Delay extends Component {
   }
   render () {
     return (
-      <Item title='Delay' type='audio' item={this.props.data}>
+      <Item type='audio' item={this.props.data}>
         <div class='flex-container'>
           {parameters.map(param => (
             <NumericInput
@@ -58,7 +58,7 @@ class Delay extends Component {
               scale={param.scale}
               value={this.props.data[param.name]}
               action={{
-                type: 'UPDATE_EFFECT',
+                type: 'UPDATE_AUDIO_ITEM',
                 id: this.props.data.id,
                 property: param.name
               }}

@@ -10,7 +10,7 @@ const defaultState = [
 const filter = (state, action) => {
   let newState
   switch (action.type) {
-    case 'UPDATE_EFFECT':
+    case 'UPDATE_AUDIO_ITEM':
       newState = { ...state }
       newState[action.property] = action.value
       return newState
@@ -21,7 +21,7 @@ const filter = (state, action) => {
 
 const audioEffects = (state = defaultState, action) => {
   switch (action.type) {
-    case 'UPDATE_EFFECT':
+    case 'UPDATE_AUDIO_ITEM':
       return [...state].map(effect => {
         if (effect.id === action.id) {
           return filter(effect, action)
@@ -29,7 +29,7 @@ const audioEffects = (state = defaultState, action) => {
           return effect
         }
       })
-    case 'ADD_AUDIO_EFFECT':
+    case 'ADD_AUDIO_ITEM':
       // return [
         // ...state.slice(0, action.index),
         // audioEffectSchema[action.value](),

@@ -7,7 +7,7 @@ import Item from '../Item.jsx'
 class Transpose extends Component {
 	render() {
 		return (
-      <Item title="Transpose" type="midi" item={this.props.data}>
+      <Item type="midi" item={this.props.data}>
         <div class="flex-container">
           <NumericInput
             label="Transpose"

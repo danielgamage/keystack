@@ -125,12 +125,12 @@ class Filter extends Component {
     const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
 
     return (
-      <Item title='Filter' type='audio' item={this.props.data}
+      <Item type='audio' item={this.props.data}
         headerChildren={<div className='select'>
           <select
             onChange={(e) => {
               this.props.dispatch({
-                type: 'UPDATE_EFFECT',
+                type: 'UPDATE_AUDIO_ITEM',
                 id: this.props.data.id,
                 property: 'type',
                 value: e.target.value
@@ -175,7 +175,7 @@ class Filter extends Component {
               scale={param.scale}
               value={this.props.data[param.name]}
               action={{
-                type: 'UPDATE_EFFECT',
+                type: 'UPDATE_AUDIO_ITEM',
                 id: this.props.data.id,
                 property: param.name
               }}

@@ -9,7 +9,7 @@ const defaultState = [
 const midiEffect = (state, action) => {
   let newState
   switch (action.type) {
-    case 'UPDATE_MIDI_EFFECT':
+    case 'UPDATE_MIDI_ITEM':
       newState = { ...state }
       newState[action.property] = action.value
       return newState
@@ -24,7 +24,7 @@ const midiEffect = (state, action) => {
 
 const midiEffects = (state = defaultState, action) => {
   switch (action.type) {
-    case 'UPDATE_MIDI_EFFECT':
+    case 'UPDATE_MIDI_ITEM':
     case 'UPDATE_MIDI_VALUE_ARRAY':
       return [...state].map(effect => {
         if (effect.id === action.id) {
@@ -33,11 +33,11 @@ const midiEffects = (state = defaultState, action) => {
           return effect
         }
       })
-    case 'ADD_MIDI_EFFECT':
+    case 'ADD_MIDI_ITEM':
       return [
-        ...state.slice(0, action.index),
-        midiEffectSchema[action.value](),
-        ...state.slice(action.index, state.length)
+        ...state,
+        midiEffectSchema[action.value]()
+        // ...state.slice(action.index, state.length)
       ]
     case 'REMOVE_MIDI_ITEM':
       return [...state].filter(el => el.id !== action.id)
