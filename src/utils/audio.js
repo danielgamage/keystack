@@ -32,6 +32,7 @@ const setProps = {
   },
   Delay: (effect, state) => {
     effect.delay.delayTime.value = state.delay
+    effect.feedback.gain.value = state.feedback / 100
     mix(effect.dry, effect.wet, state.mix)
   }
 }
@@ -83,7 +84,7 @@ const createEffect = {
   Delay: (effect) => {
     let effectObj = {
       id: effect.id,
-      delay: audioCtx.createDelay(),
+      delay: audioCtx.createDelay(2.0),
       dry: audioCtx.createGain(),
       wet: audioCtx.createGain(),
       feedback: audioCtx.createGain(),
@@ -91,6 +92,8 @@ const createEffect = {
       exit: audioCtx.createGain()
     }
     effectObj.entry.connect(effectObj.delay)
+    effectObj.delay.connect(effectObj.feedback)
+    effectObj.feedback.connect(effectObj.delay)
     effectObj.delay.connect(effectObj.wet)
     effectObj.wet.connect(effectObj.exit)
 

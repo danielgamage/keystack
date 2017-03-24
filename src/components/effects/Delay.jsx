@@ -14,15 +14,16 @@ import NumericInput from '../NumericInput.jsx'
 const parameters = [
   { name: 'mix',
     unit: '%',
-    format: '.3s',
     min: 0,
     max: 100,
     step: 1,
     scale: 1
   },
   { name: 'delay',
-    min: 0.1,
-    max: 1,
+    unit: 's',
+    format: '.3s',
+    min: 0.01,
+    max: 2,
     step: 0.01,
     scale: 1
   },
@@ -30,7 +31,7 @@ const parameters = [
     unit: '%',
     min: 0,
     max: 90,
-    step: 0.1,
+    step: 1,
     scale: 1
   }
 ]
