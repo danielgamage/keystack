@@ -1,7 +1,7 @@
 import { audioEffectSchema } from './schema'
 
 const defaultState = [
-  audioEffectSchema.Filter(),
+  audioEffectSchema.Filter()
   // audioEffectSchema.StereoPanner(),
   // audioEffectSchema.Compressor(),
   // audioEffectSchema.Delay()
@@ -37,7 +37,7 @@ const audioEffects = (state = defaultState, action) => {
       // ]
       return [
         ...state,
-        audioEffectSchema[action.value](),
+        audioEffectSchema[action.value]()
       ]
     case 'REMOVE_AUDIO_ITEM':
       return [...state].filter(el => el.id !== action.id)

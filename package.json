@@ -13,6 +13,7 @@
     "copy": "mkdir build && cp -r app/* build/",
     "build": "npm run clean && NODE_ENV=production npm run webpack && npm run copy",
     "deploy": "gh-pages -d build",
+    "lint": "standard",
     "test": "jest --watch"
   },
   "dependencies": {

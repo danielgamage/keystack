@@ -1,5 +1,5 @@
-import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { h, Component } from 'preact'
+import { connect } from 'preact-redux'
 
 import NoteHUD from './visualizers/NoteHUD.jsx'
 import RadialKeys from './visualizers/RadialKeys.jsx'
@@ -12,24 +12,24 @@ class App extends Component {
       midiReadPosition: 'input'
     }
   }
-	render() {
-		return (
-      <div class="play-area">
+  render () {
+    return (
+      <div class='play-area'>
         <button
-          title={"Change where visualizers read notes from: pre or post-FX"}
+          title={'Change where visualizers read notes from: pre or post-FX'}
           onClick={() => {
-            this.setState({midiReadPosition: this.state.midiReadPosition === "input" ? "output" : "input"})
+            this.setState({midiReadPosition: this.state.midiReadPosition === 'input' ? 'output' : 'input'})
           }}
-          class="input-output-switch">
+          class='input-output-switch'>
           {this.state.midiReadPosition}
         </button>
 
-        <RadialKeys midiReadPosition={this.state.midiReadPosition}/>
-        <NoteHUD midiReadPosition={this.state.midiReadPosition}/>
+        <RadialKeys midiReadPosition={this.state.midiReadPosition} />
+        <NoteHUD midiReadPosition={this.state.midiReadPosition} />
         <Midi />
-			</div>
-		);
-	}
+      </div>
+    )
+  }
 }
 
 function mapStateToProps (state) {

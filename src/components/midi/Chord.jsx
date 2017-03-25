@@ -5,8 +5,8 @@ import NumericInput from '../NumericInput.jsx'
 import Item from '../Item.jsx'
 
 class Chord extends Component {
-	render() {
-		return (
+  render () {
+    return (
       <Item type='midi' item={this.props.data}>
         <div class='flex-container'>
           {this.props.data.value.map((el, i) => (
@@ -29,8 +29,8 @@ class Chord extends Component {
           ))}
         </div>
       </Item>
-		)
-	}
+    )
+  }
 }
 
 export default connect()(Chord)

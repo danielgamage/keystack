@@ -17,13 +17,13 @@ class Settings extends Component {
     this.createMIDIObject = this.createMIDIObject.bind(this)
     this.componentWillMount = this.componentWillMount.bind(this)
   }
-  onMIDIMessage(event) {
-      var data = event.data,
-          cmd = data[0] >> 4,
-          channel = data[0] & 0xf,
-          type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
-          note = data[1],
-          velocity = data[2]
+  onMIDIMessage (event) {
+    var data = event.data,
+      cmd = data[0] >> 4,
+      channel = data[0] & 0xf,
+      type = data[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
+      note = data[1],
+      velocity = data[2]
       /*  WITH PRESSURE AND TILT OFF
        *    note off: 128, cmd: 8
        *    note on: 144, cmd: 9
@@ -32,19 +32,19 @@ class Settings extends Component {
        *    bend: 224, cmd: 14
       */
 
-      var note = getNoteIndexForMIDI(note)
+    var note = getNoteIndexForMIDI(note)
 
-      switch (type) {
-          case 144: // noteOn message
-              startNote(keys[note])
-              break
-          case 128: // noteOff message
-              stopNote(keys[note])
+    switch (type) {
+      case 144: // noteOn message
+        startNote(keys[note])
+        break
+      case 128: // noteOff message
+        stopNote(keys[note])
 
-              break
-      }
+        break
+    }
   }
-  createMIDIObject(device) {
+  createMIDIObject (device) {
     return {
       id: device.id,
       manufacturer: device.manufacturer,
@@ -52,7 +52,7 @@ class Settings extends Component {
       type: device.type
     }
   }
-  onMIDISuccess(midiAccess) {
+  onMIDISuccess (midiAccess) {
     this.props.dispatch({
       type: 'CHANGE_MIDI_SUPPORT',
       value: true
@@ -69,9 +69,9 @@ class Settings extends Component {
     // listen for connect/disconnect message
     midiAccess.onstatechange = this.onMIDIChange
   }
-  onMIDIChange(e) {
+  onMIDIChange (e) {
     const device = e.port
-    if ((device.type === "input") && (this.props.midi.inputs.indexOf(this.createMIDIObject(device)) === -1)) {
+    if ((device.type === 'input') && (this.props.midi.inputs.indexOf(this.createMIDIObject(device)) === -1)) {
       this.props.dispatch({
         type: (device.state === 'connected') ? 'ADD_MIDI' : 'REMOVE_MIDI',
         value: this.createMIDIObject(device)
@@ -80,46 +80,45 @@ class Settings extends Component {
       device.onmidimessage = this.onMIDIMessage
     }
   }
-  onMIDIFailure(e) {
+  onMIDIFailure (e) {
     this.props.dispatch({
       type: 'CHANGE_MIDI_SUPPORT',
       value: false
     })
   }
-  componentWillMount() {
+  componentWillMount () {
     if (navigator.requestMIDIAccess) {
-        navigator.requestMIDIAccess({
-            sysex: false
-        }).then(this.onMIDISuccess, this.onMIDIFailure)
+      navigator.requestMIDIAccess({
+        sysex: false
+      }).then(this.onMIDISuccess, this.onMIDIFailure)
     } else {
-        console.log("No MIDI support in your browser.")
+      console.log('No MIDI support in your browser.')
     }
   }
-	render() {
+  render () {
     const hasMidi = this.props.midi.inputs.length > 0
-		return (
-      <div class="inputs info-section">
-        <div class="section-icon">
+    return (
+      <div class='inputs info-section'>
+        <div class='section-icon'>
           <Icon
             class={`icon icon--midi ${hasMidi && 'on'}`}
             src={midiIcon}
             />
         </div>
-        {this.props.midi.supports ?
-          this.props.midi.inputs.map(el => (
-            <div class="viewer">
-              <span class="midi-manufacturer">{el.manufacturer}</span>
-              <span class="midi-name">{el.name}</span>
+        {this.props.midi.supports
+          ? this.props.midi.inputs.map(el => (
+            <div class='viewer'>
+              <span class='midi-manufacturer'>{el.manufacturer}</span>
+              <span class='midi-name'>{el.name}</span>
             </div>
           ))
-           :
-          <div class="viewer">
+           : <div class='viewer'>
             Your browser does not support MIDI
           </div>
         }
       </div>
-		);
-	}
+    )
+  }
 }
 
 function mapStateToProps (state) {

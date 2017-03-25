@@ -2,23 +2,19 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
 import { line, curveBundle } from 'd3-shape'
-import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
-import { axisBottom, axisLeft } from 'd3-axis'
-import { select } from 'd3-selection'
+import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'
 
 import NumericInput from './NumericInput.jsx'
-import Envelope from './Envelope.jsx'
-import Icon from './Icon.jsx'
 
-import { keys, noteForIndex } from '../utils'
+import { keys } from '../utils'
 import { loadSample } from '../utils/audio'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 64
 
 class Sample extends Component {
-	render() {
+  render () {
     const x = scaleLinear()
       .domain([0, this.props.instrument.sample.waveform.length - 1])
       .range([0, viewBoxWidth])
@@ -36,9 +32,9 @@ class Sample extends Component {
     const sample = instrument.sample
 
     const loopStartX = this.props.instrument.loopStart / sample.duration * viewBoxWidth
-    const loopEndX   = this.props.instrument.loopEnd   / sample.duration * viewBoxWidth
+    const loopEndX = this.props.instrument.loopEnd / sample.duration * viewBoxWidth
     console.log(sample.name)
-		return (
+    return (
       <section class='sample'>
         <svg
           ref={(c) => this.element = c}
@@ -82,7 +78,7 @@ class Sample extends Component {
           <span class='name'>{sample.name}</span>
           <span class='size'>{sample.size != null && `${format('.2')(sample.size / 1024 / 1024)}mb`}</span>
         </div>
-        <div className="flex-container">
+        <div className='flex-container'>
           {[
             {name: 'Start', max: instrument.loopEnd, min: 0},
             {name: 'End', max: sample.duration, min: instrument.loopStart}
@@ -104,40 +100,40 @@ class Sample extends Component {
               }}
               />
           ))}
-            <NumericInput
-              label='Pitch'
-              class='small quad'
-              id='sample-pitch'
-              min={0}
-              max={88}
-              step={1}
-              displayValue={keys[this.props.instrument.pitch].note + keys[this.props.instrument.pitch].octave}
-              value={this.props.instrument.pitch}
-              action={{
-                id: this.props.instrument.id,
-                type: 'UPDATE_INSTRUMENT_ITEM',
-                property: 'pitch'
-              }}
+          <NumericInput
+            label='Pitch'
+            class='small quad'
+            id='sample-pitch'
+            min={0}
+            max={88}
+            step={1}
+            displayValue={keys[this.props.instrument.pitch].note + keys[this.props.instrument.pitch].octave}
+            value={this.props.instrument.pitch}
+            action={{
+              id: this.props.instrument.id,
+              type: 'UPDATE_INSTRUMENT_ITEM',
+              property: 'pitch'
+            }}
               />
-            <NumericInput
-              label='Detune'
-              unit=' ct'
-              class='small quad'
-              id='sample-detune'
-              min={-50}
-              max={50}
-              step={0.1}
-              value={this.props.instrument.detune}
-              action={{
-                id: this.props.instrument.id,
-                type: 'UPDATE_INSTRUMENT_ITEM',
-                property: 'detune'
-              }}
+          <NumericInput
+            label='Detune'
+            unit=' ct'
+            class='small quad'
+            id='sample-detune'
+            min={-50}
+            max={50}
+            step={0.1}
+            value={this.props.instrument.detune}
+            action={{
+              id: this.props.instrument.id,
+              type: 'UPDATE_INSTRUMENT_ITEM',
+              property: 'detune'
+            }}
               />
         </div>
       </section>
-		);
-	}
+    )
+  }
 }
 
 export default connect()(Sample)

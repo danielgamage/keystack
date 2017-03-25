@@ -13,14 +13,14 @@ import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
 const filterTypes = [
-  { name: 'lowpass',   frequency: true, q: true,  gain: false, mix: true },
-  { name: 'highpass',  frequency: true, q: true,  gain: false, mix: true },
-  { name: 'bandpass',  frequency: true, q: true,  gain: false, mix: true },
-  { name: 'lowshelf',  frequency: true, q: false, gain: true,  mix: true },
-  { name: 'highshelf', frequency: true, q: false, gain: true,  mix: true },
-  { name: 'peaking',   frequency: true, q: true,  gain: true,  mix: true },
-  { name: 'notch',     frequency: true, q: true,  gain: false, mix: true },
-  { name: 'allpass',   frequency: true, q: true,  gain: false, mix: true },
+  { name: 'lowpass', frequency: true, q: true, gain: false, mix: true },
+  { name: 'highpass', frequency: true, q: true, gain: false, mix: true },
+  { name: 'bandpass', frequency: true, q: true, gain: false, mix: true },
+  { name: 'lowshelf', frequency: true, q: false, gain: true, mix: true },
+  { name: 'highshelf', frequency: true, q: false, gain: true, mix: true },
+  { name: 'peaking', frequency: true, q: true, gain: true, mix: true },
+  { name: 'notch', frequency: true, q: true, gain: false, mix: true },
+  { name: 'allpass', frequency: true, q: true, gain: false, mix: true }
 ]
 
 const parameters = [

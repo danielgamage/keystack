@@ -1,5 +1,5 @@
 import {
-  compressSample,
+  compressSample
 } from '../compressor.js'
 
 describe(`compressSample`, () => {

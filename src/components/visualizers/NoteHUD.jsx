@@ -1,5 +1,5 @@
-import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { h, Component } from 'preact'
+import { connect } from 'preact-redux'
 
 import Settings from '../Settings.jsx'
 import Icon from '../Icon.jsx'
@@ -16,15 +16,15 @@ class NoteHUD extends Component {
   switchTabs (tab) {
     this.setState({tab: tab})
   }
-	render() {
+  render () {
     let matches = []
     let root
     if (this.state.showHUD === true && this.props.notes[this.props.midiReadPosition].length > 0) {
       matches = matchChords([...this.props.notes[this.props.midiReadPosition]])
     }
-		return (
-      <div class="note-hud info-section">
-        <div class="section-icon">
+    return (
+      <div class='note-hud info-section'>
+        <div class='section-icon'>
           <Icon
             class={`icon icon--eye ${this.state.showHUD && 'on'}`}
             onClick={() => {
@@ -34,30 +34,30 @@ class NoteHUD extends Component {
             />
         </div>
         {(this.state.showHUD === true) &&
+        <div>
           <div>
-            <div>
-              <div class="viewer note-viewer">{
+            <div class='viewer note-viewer'>{
                 this.props.notes[this.props.midiReadPosition].length > 0
                 ? this.props.notes[this.props.midiReadPosition].map(el => (
-                  <span class="notes">{el.note}<sub>{el.octave}</sub></span>
+                  <span class='notes'>{el.note}<sub>{el.octave}</sub></span>
                 ))
-                : <span class="empty">Notes will appear here.</span>
+                : <span class='empty'>Notes will appear here.</span>
               }</div>
-              <div class="viewer chord-viewer">{
+            <div class='viewer chord-viewer'>{
                 matches.length > 0
                 ? matches.map(match => (
-                  <span class="chord">
-                    <span class="match">{match.chord} <span class="quality">{match.quality}</span></span>
+                  <span class='chord'>
+                    <span class='match'>{match.chord} <span class='quality'>{match.quality}</span></span>
                   </span>
                 ))
-                : <span class="empty">Matched chords will appear here.</span>
+                : <span class='empty'>Matched chords will appear here.</span>
               }</div>
-            </div>
           </div>
+        </div>
         }
       </div>
-		);
-	}
+    )
+  }
 }
 
 function mapStateToProps (state) {

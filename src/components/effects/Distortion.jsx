@@ -3,11 +3,6 @@ import { connect } from 'preact-redux'
 
 import { audioEffectNodes } from '../../utils/audio'
 
-import { line, curveCatmullRom } from 'd3-shape'
-import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
-import { axisBottom, axisLeft } from 'd3-axis'
-import { select } from 'd3-selection'
-
 import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
@@ -36,10 +31,6 @@ const parameters = [
 ]
 
 class Delay extends Component {
-  constructor (props) {
-    super(props)
-
-  }
   render () {
     return (
       <Item type='audio' item={this.props.data}>

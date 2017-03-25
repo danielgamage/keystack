@@ -1,416 +1,416 @@
 export default [
   {
-    "name": "Augmented",
-    "set": [
+    'name': 'Augmented',
+    'set': [
       0, 4, 8
     ],
-    "quality": "Augmented"
+    'quality': 'Augmented'
   },
   {
-    "name": "Augmented eleventh[1]",
-    "set": [
+    'name': 'Augmented eleventh[1]',
+    'set': [
       0, 4, 7, 10, 2, 6
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Augmented major seventh",
-    "set": [
+    'name': 'Augmented major seventh',
+    'set': [
       0, 4, 8, 11
     ],
-    "quality": "Augmented"
+    'quality': 'Augmented'
   },
   {
-    "name": "Augmented seventh",
-    "set": [
+    'name': 'Augmented seventh',
+    'set': [
       0, 4, 8, 10
     ],
-    "quality": "Augmented"
+    'quality': 'Augmented'
   },
   {
-    "name": "Augmented sixth",
-    "set": [
+    'name': 'Augmented sixth',
+    'set': [
       0, 6, 8
     ],
-    "quality": "Predominant"
+    'quality': 'Predominant'
   },
   {
-    "name": "Diminished",
-    "set": [
+    'name': 'Diminished',
+    'set': [
       0, 3, 6
     ],
-    "quality": "Diminished"
+    'quality': 'Diminished'
   },
   {
-    "name": "Diminished major seventh",
-    "set": [
+    'name': 'Diminished major seventh',
+    'set': [
       0, 3, 6, 11
     ],
-    "quality": "Diminished"
+    'quality': 'Diminished'
   },
   {
-    "name": "Diminished seventh",
-    "set": [
+    'name': 'Diminished seventh',
+    'set': [
       0, 3, 6, 9
     ],
-    "quality": "Diminished"
+    'quality': 'Diminished'
   },
   {
-    "name": "Eleventh",
-    "set": [
+    'name': 'Eleventh',
+    'set': [
       0, 4, 7, 10, 2, 5
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
 
   {
-    "name": "Ninth",
-    "set": [
+    'name': 'Ninth',
+    'set': [
       0, 4, 7, 10, 2
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Seventh",
-    "set": [
+    'name': 'Seventh',
+    'set': [
       0, 4, 7, 10
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Seventh flat five",
-    "set": [
+    'name': 'Seventh flat five',
+    'set': [
       0, 4, 6, 10
     ],
-    "quality": "Diminished"
+    'quality': 'Diminished'
   },
   {
-    "name": "Seventh raised ninth/Seventh split third",
-    "set": [
+    'name': 'Seventh raised ninth/Seventh split third',
+    'set': [
       0, 4, 7, 10, 3
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major thirteenth",
-    "set": [
+    'name': 'Major thirteenth',
+    'set': [
       0, 4, 7, 10, 2, 5, 9
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Dream",
-    "set": [
+    'name': 'Dream',
+    'set': [
       0, 5, 6, 7
     ],
-    "quality": "Just"
+    'quality': 'Just'
   },
   {
-    "name": "Elektra",
-    "set": [
+    'name': 'Elektra',
+    'set': [
       0, 7, 9, 1, 4
     ],
-    "quality": "Bitonal"
+    'quality': 'Bitonal'
   },
   {
-    "name": "Farben",
-    "set": [
+    'name': 'Farben',
+    'set': [
       0, 8, 11, 4, 9
     ],
-    "quality": "Atonal"
+    'quality': 'Atonal'
   },
   {
-    "name": "Half-diminished seventh",
-    "set": [
+    'name': 'Half-diminished seventh',
+    'set': [
       0, 3, 6, 10
     ],
-    "quality": "Diminished"
+    'quality': 'Diminished'
   },
   {
-    "name": "Harmonic seventh",
-    "set": [
+    'name': 'Harmonic seventh',
+    'set': [
       0, 4, 7, 10
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Hendrix/Augmented ninth[9]",
-    "set": [
+    'name': 'Hendrix/Augmented ninth[9]',
+    'set': [
       0, 4, 7, 10, 3
     ],
-    "quality": "Mixed"
+    'quality': 'Mixed'
   },
   {
-    "name": "Leading-tone",
-    "set": [
+    'name': 'Leading-tone',
+    'set': [
       0, 3, 6
     ],
-    "quality": "Diminished"
+    'quality': 'Diminished'
   },
   {
-    "name": "Lydian",
-    "set": [
+    'name': 'Lydian',
+    'set': [
       0, 4, 7, 11, 6
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Magic",
-    "set": [
+    'name': 'Magic',
+    'set': [
       0, 1, 5, 6, 10, 0, 3, 5
     ],
-    "quality": "Just"
+    'quality': 'Just'
   },
   {
-    "name": "Major",
-    "set": [
+    'name': 'Major',
+    'set': [
       0, 4, 7
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major eleventh",
-    "set": [
+    'name': 'Major eleventh',
+    'set': [
       0, 4, 7, 11, 2, 5
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major seventh",
-    "set": [
+    'name': 'Major seventh',
+    'set': [
       0, 4, 7, 11
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major seventh sharp eleventh",
-    "set": [
+    'name': 'Major seventh sharp eleventh',
+    'set': [
       0, 4, 8, 11, 6
     ],
-    "quality": "Augmented"
+    'quality': 'Augmented'
   },
   {
-    "name": "Major sixth",
-    "set": [
+    'name': 'Major sixth',
+    'set': [
       0, 4, 7, 9
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major sixth ninth (\"6 add 9\",[11] Nine six,[12] 6/9)",
-    "set": [
+    'name': 'Major sixth ninth ("6 add 9",[11] Nine six,[12] 6/9)',
+    'set': [
       0, 4, 7, 9, 2
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major ninth",
-    "set": [
+    'name': 'Major ninth',
+    'set': [
       0, 4, 7, 11, 2
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Major thirteenth",
-    "set": [
+    'name': 'Major thirteenth',
+    'set': [
       0, 4, 7, 11, 2, 6, 9
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Minor",
-    "set": [
+    'name': 'Minor',
+    'set': [
       0, 3, 7
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor eleventh",
-    "set": [
+    'name': 'Minor eleventh',
+    'set': [
       0, 3, 7, 10, 2, 5
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor major seventh",
-    "set": [
+    'name': 'Minor major seventh',
+    'set': [
       0, 3, 7, 11
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor ninth",
-    "set": [
+    'name': 'Minor ninth',
+    'set': [
       0, 3, 7, 10, 2
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor seventh",
-    "set": [
+    'name': 'Minor seventh',
+    'set': [
       0, 3, 7, 10
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor sixth",
-    "set": [
+    'name': 'Minor sixth',
+    'set': [
       0, 3, 7, 9
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor sixth ninth (6/9)",
-    "set": [
+    'name': 'Minor sixth ninth (6/9)',
+    'set': [
       0, 3, 7, 9, 2
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Minor thirteenth",
-    "set": [
+    'name': 'Minor thirteenth',
+    'set': [
       0, 3, 7, 10, 2, 5, 9
     ],
-    "quality": "Minor"
+    'quality': 'Minor'
   },
   {
-    "name": "Mu",
-    "set": [
+    'name': 'Mu',
+    'set': [
       0, 2, 4, 7
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Mystic",
-    "set": [
+    'name': 'Mystic',
+    'set': [
       0, 6, 10, 4, 9, 2
     ],
-    "quality": "Atonal"
+    'quality': 'Atonal'
   },
   {
-    "name": "Neapolitan",
-    "set": [
+    'name': 'Neapolitan',
+    'set': [
       1, 5, 8
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Ninth augmented fifth[11][13]",
-    "set": [
+    'name': 'Ninth augmented fifth[11][13]',
+    'set': [
       0, 4, 8, 10, 2
     ],
-    "quality": "Augmented"
+    'quality': 'Augmented'
   },
   {
-    "name": "Ninth flat fifth[11]",
-    "set": [
+    'name': 'Ninth flat fifth[11]',
+    'set': [
       0, 4, 6, 10, 2
     ],
-    "quality": "M3+d5"
+    'quality': 'M3+d5'
   },
   {
-    "name": "Northern lights",
-    "set": [
+    'name': 'Northern lights',
+    'set': [
       1, 2, 8, 0, 3, 6, 7, 10, 11, 4, 7
     ],
-    "quality": "Atonal"
+    'quality': 'Atonal'
   },
   {
-    "name": "\"Ode-to-Napoleon\" hexachord",
-    "set": [
+    'name': '"Ode-to-Napoleon" hexachord',
+    'set': [
       0, 1, 4, 5, 8, 9
     ],
-    "quality": "Atonal"
+    'quality': 'Atonal'
   },
   {
-    "name": "Petrushka",
-    "set": [
+    'name': 'Petrushka',
+    'set': [
       0, 1, 4, 6, 7, 10
     ],
-    "quality": "Mixed"
+    'quality': 'Mixed'
   },
   {
-    "name": "Power",
-    "set": [
+    'name': 'Power',
+    'set': [
       0, 7
     ],
-    "quality": "Indeterminate"
+    'quality': 'Indeterminate'
   },
   {
-    "name": "Seven six[16]",
-    "set": [
+    'name': 'Seven six[16]',
+    'set': [
       0, 4, 7, 9, 10
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Seventh flat nine[18]",
-    "set": [
+    'name': 'Seventh flat nine[18]',
+    'set': [
       0, 4, 7, 10, 1
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Seventh suspension four[19]",
-    "set": [
+    'name': 'Seventh suspension four[19]',
+    'set': [
       0, 5, 7, 10
     ],
-    "quality": "Suspended"
+    'quality': 'Suspended'
   },
   {
-    "name": "So What",
-    "set": [
+    'name': 'So What',
+    'set': [
       0, 5, 10, 3, 7
     ],
-    "quality": "Bitonal"
+    'quality': 'Bitonal'
   },
   {
-    "name": "Suspended 2nd",
-    "set": [
+    'name': 'Suspended 2nd',
+    'set': [
       0, 2, 7
     ],
-    "quality": "Indeterminate"
+    'quality': 'Indeterminate'
   },
   {
-    "name": "Suspended 4th",
-    "set": [
+    'name': 'Suspended 4th',
+    'set': [
       0, 5, 7
     ],
-    "quality": "Indeterminate"
+    'quality': 'Indeterminate'
   },
   {
-    "name": "Thirteenth flat ninth[11]",
-    "set": [
+    'name': 'Thirteenth flat ninth[11]',
+    'set': [
       0, 4, 7, 10, 1, 5, 9
     ],
-    "quality": "Major"
+    'quality': 'Major'
   },
   {
-    "name": "Thirteenth flat ninth flat fifth[11]",
-    "set": [
+    'name': 'Thirteenth flat ninth flat fifth[11]',
+    'set': [
       0, 4, 6, 10, 1, 5, 9
     ],
-    "quality": "M3+d5"
+    'quality': 'M3+d5'
   },
   {
-    "name": "Tristan",
-    "set": [
+    'name': 'Tristan',
+    'set': [
       0, 3, 6, 10
     ],
-    "quality": "Predominant"
+    'quality': 'Predominant'
   },
   {
-    "name": "Viennese trichord",
-    "set": [
+    'name': 'Viennese trichord',
+    'set': [
       0, 1, 6
     ],
-    "quality": "Atonal"
+    'quality': 'Atonal'
   },
   {
-    "name": "Viennese trichord (alt)",
-    "set": [
+    'name': 'Viennese trichord (alt)',
+    'set': [
       0, 6, 7
     ],
-    "quality": "Atonal"
+    'quality': 'Atonal'
   }
 ]

@@ -8,8 +8,8 @@ class AddButton extends Component {
       open: false
     }
   }
-	render() {
-		return (
+  render () {
+    return (
       <div
         onClick={() => {
           this.setState({open: !this.state.open})
@@ -26,14 +26,14 @@ class AddButton extends Component {
                   value: item
                 })
               }}
-              class="add-item-option"
+              class='add-item-option'
               >{item}</button>
           ))
-          : <button class="add-item-toggle">+</button>
+          : <button class='add-item-toggle'>+</button>
         }
       </div>
-		);
-	}
+    )
+  }
 }
 
 export default connect()(AddButton)

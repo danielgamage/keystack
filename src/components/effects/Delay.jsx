@@ -1,12 +1,6 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
-import { audioEffectNodes } from '../../utils/audio'
-
-import { line, curveCatmullRom } from 'd3-shape'
-import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
-import { axisBottom, axisLeft } from 'd3-axis'
-import { select } from 'd3-selection'
 import { format } from 'd3-format'
 
 import Item from '../Item.jsx'
@@ -42,7 +36,6 @@ const parameters = [
 class Delay extends Component {
   constructor (props) {
     super(props)
-
   }
   render () {
     return (

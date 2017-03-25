@@ -9,8 +9,8 @@ class StatusBar extends Component {
   constructor (props) {
     super(props)
   }
-	render() {
-		return (
+  render () {
+    return (
       <div>
         <div
           onClick={() => {
@@ -18,7 +18,7 @@ class StatusBar extends Component {
           }}
           >
           <Icon
-            class="icon"
+            class='icon'
             src={downloadIcon}
             />
         </div>
@@ -28,13 +28,13 @@ class StatusBar extends Component {
           }}
           >
           <Icon
-            class="icon"
+            class='icon'
             src={uploadIcon}
             />
         </div>
       </div>
-		);
-	}
+    )
+  }
 }
 
 export default connect()(StatusBar)

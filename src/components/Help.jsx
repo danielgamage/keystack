@@ -4,17 +4,17 @@ const keyboardRows = [
   {
     color: 'black',
     keys: [
-      { key: `Q`, disabled: true  },
+      { key: `Q`, disabled: true },
       { key: `W`, disabled: false },
       { key: `E`, disabled: false },
-      { key: `R`, disabled: true  },
+      { key: `R`, disabled: true },
       { key: `T`, disabled: false },
       { key: `Y`, disabled: false },
       { key: `U`, disabled: false },
-      { key: `I`, disabled: true  },
+      { key: `I`, disabled: true },
       { key: `O`, disabled: false },
       { key: `P`, disabled: false },
-      { key: `[`, disabled: true  },
+      { key: `[`, disabled: true },
       { key: `]`, disabled: false }
     ]
   },
@@ -43,15 +43,15 @@ class Icon extends Component {
       active: false
     }
   }
-	render() {
-		return (
+  render () {
+    return (
       <div>
         <button
-          title={`${this.state.active ? 'Open' : 'Close' } Help Panel`}
+          title={`${this.state.active ? 'Open' : 'Close'} Help Panel`}
           onClick={(e) => {
             this.setState({ active: !this.state.active })
           }}
-          class="button help-button"
+          class='button help-button'
           >
           ?
         </button>
@@ -59,24 +59,24 @@ class Icon extends Component {
           <h2>Help</h2>
           <section>
             <h3>octave</h3>
-            <kbd title="z shifts octave down">z</kbd>/<kbd title="x shifts octave up">x</kbd>
+            <kbd title='z shifts octave down'>z</kbd>/<kbd title='x shifts octave up'>x</kbd>
           </section>
           <section>
             <h3>notes</h3>
-            <div class="keyboard">
-                {keyboardRows.map(row => (
-                  <div class={`row ${row.color}`}>
-                    {row.keys.map(key => (
-                      <kbd disabled={key.disabled}>{key.key}</kbd>
+            <div class='keyboard'>
+              {keyboardRows.map(row => (
+                <div class={`row ${row.color}`}>
+                  {row.keys.map(key => (
+                    <kbd disabled={key.disabled}>{key.key}</kbd>
                     ))}
-                  </div>
+                </div>
                 ))}
             </div>
           </section>
         </div>
       </div>
-		);
-	}
+    )
+  }
 }
 
 export default Icon

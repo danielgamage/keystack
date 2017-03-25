@@ -5,14 +5,14 @@ import NumericInput from '../NumericInput.jsx'
 import Item from '../Item.jsx'
 
 class Transpose extends Component {
-	render() {
-		return (
-      <Item type="midi" item={this.props.data}>
-        <div class="flex-container">
+  render () {
+    return (
+      <Item type='midi' item={this.props.data}>
+        <div class='flex-container'>
           <NumericInput
-            label="Transpose"
+            label='Transpose'
             showLabel={false}
-            class="tri small right"
+            class='tri small right'
             id={`pan-${this.props.data.id}`}
             min={-48}
             max={48}
@@ -23,13 +23,13 @@ class Transpose extends Component {
             action={{
               type: 'UPDATE_MIDI_ITEM',
               id: this.props.data.id,
-              property: "value"
+              property: 'value'
             }}
             />
         </div>
       </Item>
-		)
-	}
+    )
+  }
 }
 
 export default connect()(Transpose)

@@ -13,7 +13,6 @@ import { compressSample } from '../../utils/compressor'
 import Item from '../Item.jsx'
 import NumericInput from '../NumericInput.jsx'
 
-
 const viewBoxWidth = 256
 const viewBoxHeight = 256
 
@@ -27,8 +26,8 @@ const y = scaleLinear()
   .range([viewBoxHeight, 0])
   .clamp(true)
 const compressionCurve = line()
-  .x((d) => x(d.x) )
-  .y((d) => y(d.y) )
+  .x((d) => x(d.x))
+  .y((d) => y(d.y))
   .curve(curveBundle.beta(1))
 
 const params = {
@@ -84,16 +83,16 @@ class Compressor extends Component {
         .tickFormat('')
       )
       .selectAll('*')
-        .attr('vector-effect', 'non-scaling-stroke');
+        .attr('vector-effect', 'non-scaling-stroke')
     const gridY = select(`#vis-${this.props.data.id} .grid-y`)
       .call(yAxis
         .tickSize(viewBoxWidth)
         .tickFormat('')
       )
       .selectAll('*')
-        .attr('vector-effect', 'non-scaling-stroke');
+        .attr('vector-effect', 'non-scaling-stroke')
   }
-	render() {
+  render () {
     const points = [
       -100,
       this.props.data.threshold - (this.props.data.knee / 2),
@@ -101,7 +100,7 @@ class Compressor extends Component {
       this.props.data.threshold + (this.props.data.knee / 2),
       0
     ].map(x => ({x: x, y: compressSample(x, this.props.data.threshold, this.props.data.ratio, this.props.data.knee)}))
-		return (
+    return (
       <Item type='audio' item={this.props.data}>
         <div className='compressor-container'>
           <div class='vis'>
@@ -166,8 +165,8 @@ class Compressor extends Component {
           </div>
         </div>
       </Item>
-		)
-	}
+    )
+  }
 }
 
 export default connect()(Compressor)

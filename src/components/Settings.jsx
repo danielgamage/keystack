@@ -1,6 +1,5 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
-import NumericInput from './NumericInput.jsx'
 
 import AddButton from './AddButton.jsx'
 
@@ -20,32 +19,32 @@ import DisableNotes from './midi/DisableNotes.jsx'
 import { midiEffectSchema, instrumentSchema, audioEffectSchema } from '../reducers/schema'
 
 const MidiEffectsByName = {
-  "Transpose": Transpose,
-  "Chord": Chord,
-  "DisableNotes": DisableNotes
+  'Transpose': Transpose,
+  'Chord': Chord,
+  'DisableNotes': DisableNotes
 }
 const InstrumentsByName = {
-  "KeySynth": KeySynth,
-  "Sampler": Sampler
+  'KeySynth': KeySynth,
+  'Sampler': Sampler
 }
 const AudioEffectsByName = {
-  "Filter": Filter,
-  "StereoPanner": StereoPanner,
-  "Compressor": Compressor,
-  "Delay": Delay,
-  "Distortion": Distortion
+  'Filter': Filter,
+  'StereoPanner': StereoPanner,
+  'Compressor': Compressor,
+  'Delay': Delay,
+  'Distortion': Distortion
 }
 
 const insertHRs = (arr) => {
   const length = arr.length
-  for (let i=1; i < length; i++) {
-    arr.splice(length - i, 0, <hr/>)
+  for (let i = 1; i < length; i++) {
+    arr.splice(length - i, 0, <hr />)
   }
   return arr
 }
 
 class Settings extends Component {
-	render () {
+  render () {
     const midiEffects = this.props.midiEffects.map(effect => {
       const ComponentName = MidiEffectsByName[effect.midiEffectType]
       return (<ComponentName data={effect} />)
@@ -58,28 +57,28 @@ class Settings extends Component {
       const ComponentName = AudioEffectsByName[effect.audioEffectType]
       return (<ComponentName data={effect} />)
     })
-		return (
-      <div class="settings">
-        <section class="settings-section">
-          <h3 class="settings-title">Midi Effects</h3>
+    return (
+      <div class='settings'>
+        <section class='settings-section'>
+          <h3 class='settings-title'>Midi Effects</h3>
           {insertHRs(midiEffects)}
-          <AddButton schema={midiEffectSchema} action={'ADD_MIDI_ITEM'}/>
+          <AddButton schema={midiEffectSchema} action={'ADD_MIDI_ITEM'} />
         </section>
-        <hr class="section-splitter"/>
-        <section class="settings-section">
-          <h3 class="settings-title">Instruments</h3>
+        <hr class='section-splitter' />
+        <section class='settings-section'>
+          <h3 class='settings-title'>Instruments</h3>
           {insertHRs(instruments)}
-          <AddButton schema={instrumentSchema} action={'ADD_INSTRUMENT_ITEM'}/>
+          <AddButton schema={instrumentSchema} action={'ADD_INSTRUMENT_ITEM'} />
         </section>
-        <hr class="section-splitter"/>
-        <section class="settings-section">
-          <h3 class="settings-title">Audio Effects</h3>
+        <hr class='section-splitter' />
+        <section class='settings-section'>
+          <h3 class='settings-title'>Audio Effects</h3>
           {insertHRs(audioEffects)}
-          <AddButton schema={audioEffectSchema} action={'ADD_AUDIO_ITEM'}/>
+          <AddButton schema={audioEffectSchema} action={'ADD_AUDIO_ITEM'} />
         </section>
       </div>
-		);
-	}
+    )
+  }
 }
 
 function mapStateToProps (state) {

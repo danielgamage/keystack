@@ -6,7 +6,7 @@ import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'
 
 class Settings extends Component {
-	render() {
+  render () {
     const envelope = this.props.envelope
 
     const log10 = (v) => Math.log10(v + 1)
@@ -46,14 +46,13 @@ class Settings extends Component {
       .x((d) => x(d.x))
       .y((d) => y(d.y))
 
-
-		return (
+    return (
       <section class='envelope'>
         <svg class='vis-path' viewBox={`0 0 32 ${viewBoxHeight}`}>
           <linearGradient id='EnvelopeGradient' x1='0' x2='0' y1='0' y2={viewBoxHeight} gradientUnits='userSpaceOnUse'>
-            <stop offset='0%' stop-color='#59595b'/>
-            <stop offset='80%' stop-color='#47494b'/>
-            <stop offset='100%' stop-color='#444649'/>
+            <stop offset='0%' stop-color='#59595b' />
+            <stop offset='80%' stop-color='#47494b' />
+            <stop offset='100%' stop-color='#444649' />
           </linearGradient>
           <path
             vector-effect='non-scaling-stroke'
@@ -129,19 +128,19 @@ class Settings extends Component {
               max={el.max}
               step={el.step}
               unit={el.unit}
-							displayValue={format(el.format)(envelope[el.name])}
+              displayValue={format(el.format)(envelope[el.name])}
               value={envelope[el.name]}
-							action={{
-								type: 'UPDATE_VOLUME_ENVELOPE',
+              action={{
+                type: 'UPDATE_VOLUME_ENVELOPE',
                 id: this.props.instrument.id,
-								key: el.name
-							}}
+                key: el.name
+              }}
               />
           ))}
         </div>
       </section>
-		);
-	}
+    )
+  }
 }
 
 export default connect()(Settings)

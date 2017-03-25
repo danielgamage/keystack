@@ -6,18 +6,18 @@ export const freqForIndex = (index) => {
 }
 
 export const singleOctave = [
-  { noteName: "C",  black: false, },
-  { noteName: "C#", black: true,  },
-  { noteName: "D",  black: false, },
-  { noteName: "D#", black: true,  },
-  { noteName: "E",  black: false, },
-  { noteName: "F",  black: false, },
-  { noteName: "F#", black: true,  },
-  { noteName: "G",  black: false, },
-  { noteName: "G#", black: true,  },
-  { noteName: "A",  black: false, },
-  { noteName: "A#", black: true,  },
-  { noteName: "B",  black: false, }
+  { noteName: 'C', black: false },
+  { noteName: 'C#', black: true },
+  { noteName: 'D', black: false },
+  { noteName: 'D#', black: true },
+  { noteName: 'E', black: false },
+  { noteName: 'F', black: false },
+  { noteName: 'F#', black: true },
+  { noteName: 'G', black: false },
+  { noteName: 'G#', black: true },
+  { noteName: 'A', black: false },
+  { noteName: 'A#', black: true },
+  { noteName: 'B', black: false }
 ]
 
 export const getNoteIndexForMIDI = (code) => {

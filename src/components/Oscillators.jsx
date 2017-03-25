@@ -19,8 +19,8 @@ const waves = {
 }
 
 class Oscillators extends Component {
-	render() {
-		return (
+  render () {
+    return (
       <section class='controls'>
         {this.props.oscillators.map((osc, i) => (
           <div class={`osc osc-${i}`}>
@@ -31,10 +31,10 @@ class Oscillators extends Component {
                   class='delete-osc'
                   onClick={() => {
                     this.props.dispatch({
-                      id: this.props.instrument.id,
-                      type: 'DELETE_OSC',
-                      index: i
-                    })
+                    id: this.props.instrument.id,
+                    type: 'DELETE_OSC',
+                    index: i
+                  })
                   }}
                   >Delete</button>
               </span>
@@ -47,14 +47,14 @@ class Oscillators extends Component {
                     value={type}
                     checked={(osc.type === type)}
                     onClick={(e) => {
-                      this.props.dispatch({
-                        id: this.props.instrument.id,
-                        type: 'UPDATE_OSC',
-                        property: 'type',
-                        value: type,
-                        index: i
-                      })
-                    }}
+                    this.props.dispatch({
+                    id: this.props.instrument.id,
+                    type: 'UPDATE_OSC',
+                    property: 'type',
+                    value: type,
+                    index: i
+                  })
+                  }}
                     />
                   <Icon
                     class='icon icon--wave'
@@ -124,8 +124,8 @@ class Oscillators extends Component {
           }}
           >Add Oscillator</button>
       </section>
-		);
-	}
+    )
+  }
 }
 
 export default connect()(Oscillators)

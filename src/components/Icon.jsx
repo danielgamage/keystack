@@ -10,7 +10,7 @@ class Icon extends Component {
       </svg>`
     }
   }
-  componentWillMount() {
+  componentWillMount () {
     fetch(this.props.src).then(data => {
       return data.text()
     }).then(data => {
@@ -19,14 +19,14 @@ class Icon extends Component {
       })
     })
   }
-	render() {
-		return (
+  render () {
+    return (
       <div
         {...this.props}
         dangerouslySetInnerHTML={{__html: this.state.image}}
         />
-		);
-	}
+    )
+  }
 }
 
 export default Icon

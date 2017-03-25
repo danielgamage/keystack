@@ -8,7 +8,6 @@ import { scaleLinear, scaleLog } from 'd3-scale'
 
 import { range } from 'd3-array'
 
-
 class NumericInput extends Component {
   constructor (props) {
     super(props)
