@@ -1,8 +1,6 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 
-import AddButton from './AddButton.jsx'
-
 import KeySynth from './instruments/KeySynth.jsx'
 import Sampler from './instruments/Sampler.jsx'
 
@@ -44,6 +42,12 @@ const insertHRs = (arr) => {
 }
 
 class Settings extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      add: null
+    }
+  }
   render () {
     const midiEffects = this.props.midiEffects.map(effect => {
       const ComponentName = MidiEffectsByName[effect.midiEffectType]
@@ -58,24 +62,78 @@ class Settings extends Component {
       return (<ComponentName data={effect} />)
     })
     return (
-      <div class='settings'>
-        <section class='settings-section'>
-          <h3 class='settings-title'>Midi Effects</h3>
-          {insertHRs(midiEffects)}
-          <AddButton schema={midiEffectSchema} action={'ADD_MIDI_ITEM'} />
-        </section>
-        <hr class='section-splitter' />
-        <section class='settings-section'>
-          <h3 class='settings-title'>Instruments</h3>
-          {insertHRs(instruments)}
-          <AddButton schema={instrumentSchema} action={'ADD_INSTRUMENT_ITEM'} />
-        </section>
-        <hr class='section-splitter' />
-        <section class='settings-section'>
-          <h3 class='settings-title'>Audio Effects</h3>
-          {insertHRs(audioEffects)}
-          <AddButton schema={audioEffectSchema} action={'ADD_AUDIO_ITEM'} />
-        </section>
+      <div class={`${this.state.add !== null ? 'add-open' : '' } settings`}>
+        <div class='settings-container settings-container-add'>
+          <div class='settings-inner-container'>
+            {this.state.add !== null
+              ? Object.keys(this.state.add).map(item => (
+                <button
+                  onClick={() => {
+                    this.props.dispatch({
+                      type: this.state.action,
+                      value: item
+                    })
+                  }}
+                  class='add-item-option'
+                  >{item}</button>
+              ))
+              : ''
+            }
+          </div>
+        </div>
+        <div
+          class='settings-container settings-container-main'
+          onClick={(e) => {
+            this.setState({
+              add: null,
+              action: null
+            })
+          }}
+          >
+          <div class='settings-inner-container'>
+            <section class='settings-section'>
+              <h3 class='settings-title'>Midi Effects</h3>
+              {insertHRs(midiEffects)}
+              <button
+                class='add-button button'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  this.setState({
+                    add: midiEffectSchema,
+                    action: 'ADD_MIDI_ITEM'
+                  })
+                }}>+</button>
+            </section>
+            <hr class='section-splitter' />
+            <section class='settings-section'>
+              <h3 class='settings-title'>Instruments</h3>
+              {insertHRs(instruments)}
+              <button
+                class='add-button button'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  this.setState({
+                    add: instrumentSchema,
+                    action: 'ADD_INSTRUMENT_ITEM'
+                  })
+                }}>+</button>
+            </section>
+            <hr class='section-splitter' />
+            <section class='settings-section'>
+              <h3 class='settings-title'>Audio Effects</h3>
+              {insertHRs(audioEffects)}
+              <button
+                class='add-button button'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  this.setState({
+                    add: audioEffectSchema,
+                    action: 'ADD_AUDIO_ITEM'
+                  })
+                }}>+</button>
+            </section>
+          </div>
+        </div>
       </div>
     )
   }

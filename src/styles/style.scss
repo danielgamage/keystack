@@ -49,23 +49,32 @@ svg {
 .settings {
   display: flex;
   flex-flow: column;
-  overflow: scroll;
   background-color: $grey-0;
   color: $grey-6;
   border-radius: $radius;
-  padding: 2rem;
   width: 26rem;
+  &.add-open {
+    .settings-container-add {
+      height: 20rem;
+      box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
+    }
+  }
+  .settings-container {
+    overflow: scroll;
+    transition: height 0.2s ease, max-height 0.2s ease, box-shadow 0.2s ease;
+  }
+  .settings-container-add {
+    height: 0;
+  }
+  .settings-inner-container {
+    padding: 2rem;
+  }
   .settings-section{
     position: relative;
   }
   .settings-title {
-    position: absolute;
-    transform: rotate(90deg);
-    left: -0.5rem;
-    margin: 0;
-    top: 0;
-    transform-origin: top left;
     @extend %sc;
+    margin: 0;
     color: $grey-2;
   }
   .item {
@@ -97,19 +106,13 @@ svg {
       margin: 2rem -2rem;
     }
   }
-  .add-item {
+  .add-button {
     @extend %sc;
-    padding: 0.5rem 2rem;
-    margin: 0 -2rem;
-    border-radius: $radius;
-    background-color: $grey-0;
-    &:hover,
-    &.open {
-      background-color: $grey-1;
-    }
+    width: 5rem;
   }
   .add-item-option {
     display: block;
+    margin-bottom: 0.25rem;
     &:hover {
       color: $orange-bright;
     }
