@@ -159,10 +159,6 @@
 .filter-phase {
   stroke: $grey-1;
 }
-.flex-container {
-  display: flex;
-  flex-flow: row wrap;
-}
 .envelope {
   .vis-path {
     fill: unset;
@@ -185,8 +181,13 @@
     }
   }
 }
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: -1rem;
+}
 .fader {
-  margin: 0 0 1rem 0;
+  margin: 1rem 0 0 0;
   &.small {
     svg {
       width: 1.2rem;

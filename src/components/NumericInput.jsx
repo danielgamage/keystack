@@ -42,7 +42,7 @@ class NumericInput extends Component {
     this.initialX = e.pageX || e.touches[0].pageX
     this.mouseDownX = e.pageX || e.touches[0].pageX
     this.mouseDownY = e.pageY || e.touches[0].pageY
-    this.element.classList.add('active')
+    this.containerElement.classList.add('active')
     document.addEventListener('mousemove', this.onDrag)
     document.addEventListener('mouseup', this.onMouseUp)
     document.addEventListener('touchmove', this.onDrag)
@@ -53,9 +53,9 @@ class NumericInput extends Component {
     const currentMouseDownX = e.pageX || e.touches[0].pageX
     const currentMouseDownY = e.pageY || e.touches[0].pageY
     if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
-      document.querySelector(`#${this.props.id}`).focus()
+      this.inputElement.focus()
     }
-    this.element.classList.remove('active')
+    this.containerElement.classList.remove('active')
     document.removeEventListener('mousemove', this.onDrag)
     document.removeEventListener('mouseup', this.onMouseUp)
     document.removeEventListener('touchmove', this.onDrag)
@@ -134,11 +134,12 @@ class NumericInput extends Component {
     return (
       <div
         class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}
-        ref={(c) => this.element = c}>
+        ref={(c) => this.containerElement = c}
+        title={this.props.showLabel === false && this.props.label} >
         <label
+          id={`${this.props.id}-input`}
           htmlFor={this.props.id}
           class={`ControlTitle`}
-          title={this.props.label}
           >
           {this.props.showLabel !== false &&
             <span class='label-text'>{this.props.label}</span>
@@ -147,6 +148,7 @@ class NumericInput extends Component {
         <svg
           viewBox='0 0 32 32'
           class={`draggable`}
+          aria-labelledby={`${this.props.id}-input`}
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
           >
@@ -189,8 +191,9 @@ class NumericInput extends Component {
             <span class='suffix'>{this.props.unit}</span>
           </output>
           <input
+            ref={i => this.inputElement = i}
             class={this.state.showInput && 'active'}
-            id={this.props.id}
+            id={`${this.props.id}-input`}
             type='number'
             disabled={this.props.disabled}
             inputMode='numeric'
