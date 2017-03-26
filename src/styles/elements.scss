@@ -1,0 +1,51 @@
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+}
+
+body {
+  font-family: $sans;
+  background: $grey-6;
+  color: $grey-0;
+  &.cursor--lr,
+  &.cursor--lr label {
+    cursor: ew-resize !important;
+    user-select: none;
+  }
+}
+#root {
+  margin: auto;
+  padding: 2rem;
+  max-width: 52rem;
+}
+h1 {
+  margin-top: 0;
+}
+.app {
+  display: flex;
+}
+svg:not(:root) {
+  overflow: visible;
+}
+svg {
+  display: block;
+  width: 100%;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+line, path {
+  stroke: inherit;
+  stroke-width: inherit;
+  stroke-linecap: inherit;
+  stroke-linejoin: inherit;
+}

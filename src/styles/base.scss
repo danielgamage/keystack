@@ -21,18 +21,3 @@ $radius: 0.2rem;
   word-spacing: 0.1em;
   line-height: 1rem;
 }
-
-svg:not(:root) {
-  overflow: visible;
-}
-svg {
-  stroke-width: 2px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-line, path {
-  stroke: inherit;
-  stroke-width: inherit;
-  stroke-linecap: inherit;
-  stroke-linejoin: inherit;
-}

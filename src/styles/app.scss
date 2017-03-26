@@ -1,0 +1,97 @@
+
+// --------
+// Keystack
+// --------
+
+#chart {
+  margin-bottom: 2rem;
+  svg {
+    width: 100%;
+    stroke-linecap: butt;
+  }
+}
+.play-area {
+  margin-right: 2rem;
+  width: calc(100% - 26rem);
+}
+.info-section {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.section-icon {
+  margin-right: 0.5rem;
+}
+.icon--eye{
+  transform: translateY(-0.5rem);
+  flex: 0;
+  .icon--eye--fill {
+    fill: $grey-1;
+    stroke: none;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: 0.5s ease;
+  }
+  &.on {
+    .icon--eye--fill {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+.icon--midi{
+  transform: translateY(-0.5rem);
+  &.on {
+    .icon--midi--black {
+      fill: $grey-1;
+    }
+  }
+}
+.viewer {
+  margin-bottom: 0.5rem;
+}
+.note-viewer {
+  font-weight: 700;
+  // font-size: 0.8rem;
+}
+.chord-viewer {
+  line-height: 1.5;
+}
+.empty {
+  color: $grey-5;
+}
+.notes {
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+.chord {
+  margin-right: 0.5rem;
+}
+
+.axis {
+  & text {
+    font-size: 13px;
+    fill: $grey-0;
+  }
+}
+text.title {
+  font-size: 24px;
+}
+circle.tick {
+  fill: $grey-5;
+  stroke-dasharray: 2 3;
+}
+path.spiral {
+  fill: none;
+  stroke-width: 14px;
+  transition: 0.3s ease-out;
+  &.black {
+    stroke: $grey-0;
+  }
+  &.white {
+    stroke: $grey-6;
+  }
+  &.on {
+    transition: 0s ease;
+    stroke: $orange;
+  }
+}

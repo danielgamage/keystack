@@ -1,0 +1,69 @@
+
+// ----
+// Help
+// ----
+
+.help-button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 11;
+}
+.help-container {
+  display: none;
+  background: $grey-6;
+  border-radius: $radius;
+  box-shadow: 0 0 2rem transparentize($grey-0, 0.8);
+  padding: 1rem;
+  right: 2rem;
+  bottom: 2rem;
+  position: absolute;
+  z-index: 10;
+  justify-content: flex-start;
+  &.active {
+    display: flex;
+  }
+  section {
+    margin-right: 2rem;
+  }
+}
+kbd {
+  font-family: inherit;
+  text-transform: uppercase;
+  background: $grey-0;
+  color: $grey-5;
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 0.6rem;
+  line-height: 1rem;
+  border-radius: $radius;
+  display: inline-block;
+  padding: 0.2rem;
+  text-align: center;
+}
+.keyboard {
+  .row {
+    display: flex;
+    justify-content: center;
+    kbd {
+      border-width: 1px;
+      border-style: solid;
+      margin: 0.1rem;
+      &[disabled] {
+        opacity: 0.2;
+      }
+    }
+    &.black {
+      kbd {
+        border-color: $grey-0;
+      }
+    }
+    &.white {
+      kbd {
+        color: $grey-0;
+        background: $grey-6;
+        border-color: $grey-4;
+      }
+    }
+  }
+}
