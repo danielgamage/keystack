@@ -76,9 +76,8 @@ class Filter extends Component {
       .domain([this.minHz, this.maxHz])
       .range([0, this.viewBoxWidth])
     this.y = scaleLinear()
-      .domain([-1, 3])
+      .domain([-6, 6])
       .range([this.viewBoxHeight, 0])
-      .clamp(true)
     this.envelopePath = line()
       .x((d) => this.x(d.x))
       .y((d) => this.y(d.y))
@@ -126,8 +125,8 @@ class Filter extends Component {
       magResponseOutput,
       phaseResponseOutput
     )
-    const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
-    const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: response}))
+    const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: 10.0 * Math.log10(response)}))
+    const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: 10 * response}))
 
     return (
       <Item type='audio' item={this.props.data}
@@ -148,17 +147,24 @@ class Filter extends Component {
           </select>
         </div>}>
         <svg class='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}>
+          <defs>
+            <clipPath id='cut-off'>
+              <rect x='0' y='0' width={this.viewBoxWidth} height={this.viewBoxHeight} />
+            </clipPath>
+          </defs>
           <g class='grid grid-x' />
           <g class='grid grid-y' />
           <path
             class='filter-phase'
             vector-effect='non-scaling-stroke'
             d={this.envelopePath(phasePoints)}
+            clip-path='url(#cut-off)'
             />
           <path
             class='filter-magnitude'
             vector-effect='non-scaling-stroke'
             d={this.envelopePath(magnitudePoints)}
+            clip-path='url(#cut-off)'
             />
           <g
             class='graph-axis axis-x'
