@@ -102,7 +102,7 @@ class Settings extends Component {
                     add: midiEffectSchema,
                     action: 'ADD_MIDI_ITEM'
                   })
-                }}>+</button>
+                }}>+ Add</button>
             </section>
             <hr class='section-splitter' />
             <section class='settings-section'>
@@ -116,7 +116,7 @@ class Settings extends Component {
                     add: instrumentSchema,
                     action: 'ADD_INSTRUMENT_ITEM'
                   })
-                }}>+</button>
+                }}>+ Add</button>
             </section>
             <hr class='section-splitter' />
             <section class='settings-section'>
@@ -130,7 +130,7 @@ class Settings extends Component {
                     add: audioEffectSchema,
                     action: 'ADD_AUDIO_ITEM'
                   })
-                }}>+</button>
+                }}>+ Add</button>
             </section>
           </div>
         </div>
