@@ -8,13 +8,16 @@
   width: 26rem;
   &.add-open {
     .settings-container-add {
-      height: 20rem;
+      height: 12rem;
       box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
     }
   }
   .settings-container {
     overflow: scroll;
     transition: height 0.2s ease, max-height 0.2s ease, box-shadow 0.2s ease;
+  }
+  .settings-container-main {
+    flex: 1 1 1rem;
   }
   .settings-container-add {
     height: 0;
