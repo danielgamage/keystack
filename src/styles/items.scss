@@ -104,9 +104,6 @@
   text-transform: lowercase;
   color: $orange-bright;
 }
-.hide-input {
-  display: none;
-}
 .icon {
   display: inline-block;
   width: 2rem;
@@ -246,9 +243,9 @@
     position: relative;
     flex: 1;
     height: 1rem;
-    @extend %sc;
     input,
     output {
+      @extend %sc;
       opacity: 0;
       &.active {
         opacity: 1;

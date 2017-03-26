@@ -18,8 +18,20 @@ input, optgroup, select, textarea {
   }
 }
 
+%hidden-but-focusable {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  display: block;
+  opacity: 0;
+}
+
 button {
   @extend %button;
+}
+.hide-input {
+  @extend %hidden-but-focusable;
 }
 .delete-osc {
   display: inline-block;
@@ -111,27 +123,27 @@ button {
   margin: 0 0.2rem;
   padding: 0.5rem;
   input {
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    opacity: 0;
+    @extend %hidden-but-focusable;
   }
   &.black {
     margin-right: -0.8rem;
     margin-left: -0.8rem;
     top: -1.7rem;
   }
+  input:focus + .checkbox-replacement {
+    border-color: $grey-4;
+  }
   .checkbox-check {
     position: absolute;
     left: 50%;
     top: 50%;
 
-    width: 0.25rem;
-    height: 0.25rem;
+    width: 0.5rem;
+    height: 0.5rem;
     background-color: $grey-6;
     border-radius: 0.5rem;
-    transform: translate(-50%, -50%) scale(0.8,0.8);
+    transform: translate(-50%, -50%) scale(0.7,0.7);
+    transition: 0.2s ease;
     opacity: 0;
     &.active {
       transform: translate(-50%, -50%) scale(1,1);
