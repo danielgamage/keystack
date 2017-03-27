@@ -45,9 +45,9 @@ class NoteHUD extends Component {
               }</div>
             <div class='viewer chord-viewer'>{
                 matches.length > 0
-                ? matches.map(match => (
+                ? matches.map((match, i, arr) => (
                   <span class='chord'>
-                    <span class='match'>{match.chord} <span class='quality'>{match.quality}</span></span>
+                    <span class='match'>{match.chord}</span>
                   </span>
                 ))
                 : <span class='empty'>Matched chords will appear here.</span>
