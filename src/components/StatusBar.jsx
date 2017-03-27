@@ -14,25 +14,27 @@ class StatusBar extends Component {
   render () {
     return (
       <div class="status-bar">
-        <div
-          onClick={() => {
-            saveProject()
-          }}
-          >
-          <Icon
-            class='icon'
-            src={downloadIcon}
-            />
-        </div>
-        <div
-          onClick={() => {
-            loadProject()
-          }}
-          >
-          <Icon
-            class='icon'
-            src={uploadIcon}
-            />
+        <div class="file-operations">
+          <div
+            onClick={() => {
+              saveProject()
+            }}
+            >
+            <Icon
+              class='icon'
+              src={downloadIcon}
+              />
+          </div>
+          <div
+            onClick={() => {
+              loadProject()
+            }}
+            >
+            <Icon
+              class='icon'
+              src={uploadIcon}
+              />
+          </div>
         </div>
         <MIDI />
         <Help />

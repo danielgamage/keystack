@@ -10,9 +10,6 @@
 }
 .help-container {
   display: none;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  align-content: flex-start;
   background: $grey-6;
   border-radius: $radius;
   box-shadow: 0 0 2rem transparentize($grey-0, 0.8);
@@ -25,12 +22,14 @@
   transform: translate(-50%, -50%);
   position: absolute;
   z-index: 10;
-  justify-content: flex-start;
   &.active {
-    display: flex;
+    display: block;
   }
   section {
     margin-right: 2rem;
+  }
+  .flex-container {
+    margin: 2rem 0;
   }
   .title {
     width: 100%;

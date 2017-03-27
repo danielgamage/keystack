@@ -50,7 +50,7 @@ class Help extends Component {
     return (
       <div>
         <div
-          title={`${this.state.active ? 'Open' : 'Close'} Help Panel`}
+          title={`${this.state.active ? 'Close' : 'Open'} Help Panel`}
           onClick={(e) => {
             this.setState({ active: !this.state.active })
           }}
@@ -62,22 +62,32 @@ class Help extends Component {
         </div>
         <div class={`help-container ${this.state.active ? 'active' : ''}`}>
           <h2 class='title'>Help</h2>
-          <section>
-            <h3>octave</h3>
-            <kbd title='z shifts octave down'>z</kbd>/<kbd title='x shifts octave up'>x</kbd>
-          </section>
-          <section>
-            <h3>notes</h3>
-            <div class='keyboard'>
-              {keyboardRows.map(row => (
-                <div class={`row ${row.color}`}>
-                  {row.keys.map(key => (
-                    <kbd disabled={key.disabled}>{key.key}</kbd>
-                    ))}
-                </div>
-                ))}
-            </div>
-          </section>
+          <div class='flex-container'>
+            <section>
+              <h3>octave</h3>
+              <kbd title='z shifts octave down'>z</kbd>/<kbd title='x shifts octave up'>x</kbd>
+            </section>
+            <section>
+              <h3>notes</h3>
+              <div class='keyboard'>
+                {keyboardRows.map(row => (
+                  <div class={`row ${row.color}`}>
+                    {row.keys.map(key => (
+                      <kbd disabled={key.disabled}>{key.key}</kbd>
+                      ))}
+                  </div>
+                  ))}
+              </div>
+            </section>
+          </div>
+          <button
+            class='button'
+            onClick={(e) => {
+              this.setState({ active: !this.state.active })
+            }}
+            >
+            {`${this.state.active ? 'Close' : 'Open'} Help Panel`}
+          </button>
         </div>
       </div>
     )

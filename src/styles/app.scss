@@ -43,9 +43,14 @@ body {
   display: flex;
   background-color: $grey-5;
   border-radius: $radius;
-}
-.inputs {
-  display: flex;
+  .file-operations {
+    display: flex;
+    width: calc(50% + 1rem)
+  }
+  .inputs {
+    display: flex;
+    width: calc(50% - 3rem)
+  }
 }
 .play-area {
   grid-column-start: left-start;
