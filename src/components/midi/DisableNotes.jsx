@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Item from '../Item.jsx'
 
@@ -7,9 +7,9 @@ class DisableNotes extends Component {
   render () {
     return (
       <Item type='midi' item={this.props.data}>
-        <div class='piano-checkboxes'>
+        <div className='piano-checkboxes'>
           {this.props.data.value.map((el, i) => (
-            <label class={`replaced-checkbox ${[1, 3, 6, 8, 10].includes(i) ? 'black' : 'white'}`}>
+            <label key={i} className={`replaced-checkbox ${[1, 3, 6, 8, 10].includes(i) ? 'black' : 'white'}`}>
               <input
                 checked={this.props.data.value[i]}
                 type='checkbox'
@@ -22,8 +22,8 @@ class DisableNotes extends Component {
                   })
                 }}
                 />
-              <div class='checkbox-replacement'>
-                <div class={`checkbox-check ${this.props.data.value[i] ? 'active' : ''}`} />
+              <div className='checkbox-replacement'>
+                <div className={`checkbox-check ${this.props.data.value[i] ? 'active' : ''}`} />
               </div>
             </label>
           ))}

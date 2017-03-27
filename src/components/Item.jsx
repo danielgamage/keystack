@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { bindKeyboardEvents, unbindKeyboardEvents } from '../main.js'
 
 class Item extends Component {
@@ -12,7 +12,7 @@ class Item extends Component {
         onClick={() => {
           // this.setState({selected: !this.state.selected})
         }}
-        class={`item item-${this.props.type}`}
+        className={`item item-${this.props.type}`}
         >
         <header>
           <h3
@@ -31,11 +31,11 @@ class Item extends Component {
               })
             }}
             contentEditable
-            class='title item-title'
+            className='title item-title'
             >{this.props.item.name}</h3>
           {this.props.headerChildren}
           <button
-            class='button'
+            className='button'
             onClick={() => {
               this.props.dispatch({
                 type: `REMOVE_${this.props.type.toUpperCase()}_ITEM`,
@@ -46,7 +46,7 @@ class Item extends Component {
             Delete
           </button>
         </header>
-        <div class='item-body'>
+        <div className='item-body'>
           {this.props.children}
         </div>
       </div>

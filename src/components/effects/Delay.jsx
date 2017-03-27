@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { format } from 'd3-format'
 
@@ -40,11 +40,11 @@ class Delay extends Component {
   render () {
     return (
       <Item type='audio' item={this.props.data}>
-        <div class='flex-container'>
+        <div className='flex-container'>
           {parameters.map(param => (
             <NumericInput
               label={param.name}
-              class='tri'
+              className='tri'
               id={param.name}
               min={param.min}
               max={param.max}

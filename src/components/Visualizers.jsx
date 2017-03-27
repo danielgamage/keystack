@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import NoteHUD from './visualizers/NoteHUD.jsx'
 import RadialKeys from './visualizers/RadialKeys.jsx'
@@ -14,13 +14,13 @@ class App extends Component {
   }
   render () {
     return (
-      <div class='play-area'>
+      <div className='play-area'>
         <button
           title={'Change where visualizers read notes from: pre or post-FX'}
           onClick={() => {
             this.setState({midiReadPosition: this.state.midiReadPosition === 'input' ? 'output' : 'input'})
           }}
-          class='button input-output-switch'>
+          className='button input-output-switch'>
           {this.state.midiReadPosition}
         </button>
 

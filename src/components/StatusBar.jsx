@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { saveProject, loadProject } from '../utils/store'
 import MIDI from './MIDI.jsx'
 import Help from './Help.jsx'
@@ -13,27 +13,27 @@ class StatusBar extends Component {
   }
   render () {
     return (
-      <div class="status-bar">
-        <div class="file-operations">
+      <div className="status-bar">
+        <div className="file-operations">
           <button
-            class='button--status'
+            className='button--status'
             onClick={() => {
               saveProject()
             }}
             >
             <Icon
-              class='icon'
+              className='icon'
               src={downloadIcon}
               />
           </button>
           <button
-            class='button--status'
+            className='button--status'
             onClick={() => {
               loadProject()
             }}
             >
             <Icon
-              class='icon'
+              className='icon'
               src={uploadIcon}
               />
           </button>

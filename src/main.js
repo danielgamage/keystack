@@ -8,8 +8,9 @@ import { keys } from './utils'
 import { stopNote, startNote } from './utils/notes'
 import keySteps from './data/keySteps'
 
-import { h, render } from 'preact'
-import { Provider } from 'preact-redux'
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 import { store } from './utils/store'
 
 import App from './components/App.jsx'
@@ -20,11 +21,12 @@ import './styles/style.scss'
 // Redux
 //
 
-render((
+render(
   <Provider store={store}>
     <App />
-  </Provider>
-), document.querySelector('#root'))
+  </Provider>,
+  document.querySelector('#root')
+)
 
 //
 // Keyboard

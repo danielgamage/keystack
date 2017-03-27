@@ -1,8 +1,8 @@
 // TODO:
 // - make <input> invisible unless focused and show <output> with unit
 
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
 
@@ -133,35 +133,35 @@ class NumericInput extends Component {
 
     return (
       <div
-        class={`control fader ${this.props.class} ${this.props.disabled ? 'disabled' : ''}`}
+        className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
         ref={(c) => this.containerElement = c}
         title={this.props.showLabel === false && this.props.label} >
         <label
           id={`${this.props.id}-input`}
           htmlFor={this.props.id}
-          class={`ControlTitle`}
+          className={`ControlTitle`}
           >
           {this.props.showLabel !== false &&
-            <span class='label-text'>{this.props.label}</span>
+            <span className='label-text'>{this.props.label}</span>
           }
         </label>
         <svg
           viewBox='0 0 32 32'
-          class={`draggable`}
+          className={`draggable`}
           aria-labelledby={`${this.props.id}-input`}
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
           >
           <circle
-            vector-effect='non-scaling-stroke'
-            class='fader-knob'
+            vectorEffect='non-scaling-stroke'
+            className='fader-knob'
             cx={16}
             cy={16}
             r='10'
             />
           <path
-            vector-effect='non-scaling-stroke'
-            class='fader-track'
+            vectorEffect='non-scaling-stroke'
+            className='fader-track'
             transform='translate(16, 16)'
             d={arcPath({
               innerRadius: 14,
@@ -171,8 +171,8 @@ class NumericInput extends Component {
             })}
             />
           <path
-            vector-effect='non-scaling-stroke'
-            class='fader-value'
+            vectorEffect='non-scaling-stroke'
+            className='fader-value'
             transform='translate(16, 16)'
             d={arcPath({
               innerRadius: 14,
@@ -184,15 +184,15 @@ class NumericInput extends Component {
         </svg>
         <div className='input-output'>
           <output
-            for={this.props.id}
-            class={!this.state.showInput && 'active'}
+            htmlFor={this.props.id}
+            className={!this.state.showInput && 'active'}
             >
             {this.props.displayValue !== undefined ? this.props.displayValue : this.props.value}
-            <span class='suffix'>{this.props.unit}</span>
+            <span className='suffix'>{this.props.unit}</span>
           </output>
           <input
             ref={i => this.inputElement = i}
-            class={this.state.showInput && 'active'}
+            className={this.state.showInput && 'active'}
             id={`${this.props.id}-input`}
             type='number'
             disabled={this.props.disabled}

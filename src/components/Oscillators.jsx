@@ -1,9 +1,6 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
-import chords from '../data/chords'
-import Midi from './MIDI.jsx'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import NumericInput from './NumericInput.jsx'
-import Envelope from './Envelope.jsx'
 import Icon from './Icon.jsx'
 
 import sawtoothIcon from '../images/wave-sawtooth.svg'
@@ -21,27 +18,27 @@ const waves = {
 class Oscillators extends Component {
   render () {
     return (
-      <section class='controls'>
+      <section className='controls'>
         {this.props.oscillators.map((osc, i) => (
-          <div class={`osc osc-${i}`}>
+          <div className={`osc osc-${i}`}>
             <div className='wave'>
-              <span class='title'>
+              <span className='title'>
                 {`OSC ${i}`}
                 <button
-                  class='button delete-osc'
+                  className='button delete-osc'
                   onClick={() => {
                     this.props.dispatch({
-                    id: this.props.instrument.id,
-                    type: 'DELETE_OSC',
-                    index: i
-                  })
+                      id: this.props.instrument.id,
+                      type: 'DELETE_OSC',
+                      index: i
+                    })
                   }}
                   >Delete</button>
               </span>
               {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
                 <label title={type}>
                   <input
-                    class='hide-input'
+                    className='hide-input'
                     name={`osc-${this.props.instrument.id}-${i}`}
                     type='radio'
                     value={type}
@@ -57,7 +54,7 @@ class Oscillators extends Component {
                   }}
                     />
                   <Icon
-                    class='icon icon--wave'
+                    className='icon icon--wave'
                     src={waves[type]}
                     />
                 </label>
@@ -65,7 +62,7 @@ class Oscillators extends Component {
             </div>
             <NumericInput
               label='tune'
-              class='small'
+              className='small'
               id={`detune-${i}`}
               min='-50'
               max='50'
@@ -82,7 +79,7 @@ class Oscillators extends Component {
               />
             <NumericInput
               label='pitch'
-              class='small'
+              className='small'
               id={`pitch-${i}`}
               min='-48'
               max='48'
@@ -99,7 +96,7 @@ class Oscillators extends Component {
               />
             <NumericInput
               label='vol'
-              class='small'
+              className='small'
               id={`volume-${i}`}
               min='0'
               max='1'
@@ -115,7 +112,7 @@ class Oscillators extends Component {
           </div>
         ))}
         <button
-          class='button add-osc'
+          className='button add-osc'
           onClick={() => {
             this.props.dispatch({
               id: this.props.instrument.id,

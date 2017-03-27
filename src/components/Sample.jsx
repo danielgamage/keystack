@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { line, curveBundle } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
@@ -35,10 +35,10 @@ class Sample extends Component {
     const loopEndX = this.props.instrument.loopEnd / sample.duration * viewBoxWidth
     console.log(sample.name)
     return (
-      <section class='sample'>
+      <section className='sample'>
         <svg
           ref={(c) => this.element = c}
-          class={`vis-path ${sample.name === null ? 'empty' : ''}`}
+          className={`vis-path ${sample.name === null ? 'empty' : ''}`}
           id={`vis-${this.props.instrument.id}`}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
           onDragOver={(e) => {
@@ -56,27 +56,27 @@ class Sample extends Component {
             loadSample(e, instrument.id)
           }}>
           <path
-            class='waveform'
-            vector-effect='non-scaling-stroke'
+            className='waveform'
+            vectorEffect='non-scaling-stroke'
             d={waveform(sample.waveform)}
             />
-          <rect vector-effect='non-scaling-stroke' class='inactive-cover' x={loopEndX} y='0' height={viewBoxHeight} width={viewBoxWidth - loopEndX} />
-          <rect vector-effect='non-scaling-stroke' class='frame' x='0' y='0' height={viewBoxHeight} width={viewBoxWidth} />
-          <polygon vector-effect='non-scaling-stroke' class='start-marker-flag' points='0,0 0,8 6,0' />
-          <line vector-effect='non-scaling-stroke' class='start-marker' x1='0' y1={viewBoxHeight} x2='0' y2='0' />
-          <rect vector-effect='non-scaling-stroke' class='loop-bar' x={loopStartX} y='0' height='8' width={loopEndX - loopStartX} />
-          <line vector-effect='non-scaling-stroke' class='loop-marker' x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2='0' />
-          <line vector-effect='non-scaling-stroke' class='loop-marker' x1={loopEndX} y1={viewBoxHeight} x2={loopEndX} y2='0' />
-          <text class='sample-text empty-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
+          <rect vectorEffect='non-scaling-stroke' className='inactive-cover' x={loopEndX} y='0' height={viewBoxHeight} width={viewBoxWidth - loopEndX} />
+          <rect vectorEffect='non-scaling-stroke' className='frame' x='0' y='0' height={viewBoxHeight} width={viewBoxWidth} />
+          <polygon vectorEffect='non-scaling-stroke' className='start-marker-flag' points='0,0 0,8 6,0' />
+          <line vectorEffect='non-scaling-stroke' className='start-marker' x1='0' y1={viewBoxHeight} x2='0' y2='0' />
+          <rect vectorEffect='non-scaling-stroke' className='loop-bar' x={loopStartX} y='0' height='8' width={loopEndX - loopStartX} />
+          <line vectorEffect='non-scaling-stroke' className='loop-marker' x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2='0' />
+          <line vectorEffect='non-scaling-stroke' className='loop-marker' x1={loopEndX} y1={viewBoxHeight} x2={loopEndX} y2='0' />
+          <text className='sample-text empty-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
             No sample added
           </text>
-          <text class='sample-text drop-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
+          <text className='sample-text drop-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
             Drop file Here
           </text>
         </svg>
         <div className='sample-info'>
-          <span class='name'>{sample.name}</span>
-          <span class='size'>{sample.size != null && `${format('.2')(sample.size / 1024 / 1024)}mb`}</span>
+          <span className='name'>{sample.name}</span>
+          <span className='size'>{sample.size != null && `${format('.2')(sample.size / 1024 / 1024)}mb`}</span>
         </div>
         <div className='flex-container'>
           {[
@@ -87,7 +87,7 @@ class Sample extends Component {
               label={`Loop ${el.name}`}
               unit='s'
               format='.3s'
-              class='small quad'
+              className='small quad'
               id={`loop-${el.name}`}
               min={el.min}
               max={el.max}
@@ -102,7 +102,7 @@ class Sample extends Component {
           ))}
           <NumericInput
             label='Pitch'
-            class='small quad'
+            className='small quad'
             id='sample-pitch'
             min={0}
             max={88}
@@ -118,7 +118,7 @@ class Sample extends Component {
           <NumericInput
             label='Detune'
             unit=' ct'
-            class='small quad'
+            className='small quad'
             id='sample-detune'
             min={-50}
             max={50}

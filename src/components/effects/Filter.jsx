@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { audioEffectNodes } from '../../utils/audio'
 
@@ -142,40 +142,41 @@ class Filter extends Component {
             }}
             >
             {filterTypes.map(type => (
-              <option value={type.name}>{type.name}</option>
+              <option key={type.name} value={type.name}>{type.name}</option>
             ))}
           </select>
         </div>}>
-        <svg class='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}>
+        <svg className='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}>
           <defs>
             <clipPath id='cut-off'>
               <rect x='0' y='0' width={this.viewBoxWidth} height={this.viewBoxHeight} />
             </clipPath>
           </defs>
-          <g class='grid grid-x' />
-          <g class='grid grid-y' />
+          <g className='grid grid-x' />
+          <g className='grid grid-y' />
           <path
-            class='filter-phase'
-            vector-effect='non-scaling-stroke'
+            className='filter-phase'
+            vectorEffect='non-scaling-stroke'
             d={this.envelopePath(phasePoints)}
-            clip-path='url(#cut-off)'
+            clipPath='url(#cut-off)'
             />
           <path
-            class='filter-magnitude'
-            vector-effect='non-scaling-stroke'
+            className='filter-magnitude'
+            vectorEffect='non-scaling-stroke'
             d={this.envelopePath(magnitudePoints)}
-            clip-path='url(#cut-off)'
+            clipPath='url(#cut-off)'
             />
           <g
-            class='graph-axis axis-x'
+            className='graph-axis axis-x'
             transform={`translate(0,${this.viewBoxHeight})`}
             />
         </svg>
-        <div class='flex-container'>
+        <div className='flex-container'>
           {parameters.map(param => (
             <NumericInput
+              key={param.name}
               label={param.name}
-              class='quad'
+              className='quad'
               disabled={!filterTypes.find(el => el.name === this.props.data.type)[param.name]}
               id={param.name}
               min={param.min}

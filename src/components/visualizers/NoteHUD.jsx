@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Settings from '../Settings.jsx'
 import Icon from '../Icon.jsx'
@@ -23,10 +23,10 @@ class NoteHUD extends Component {
       matches = matchChords([...this.props.notes[this.props.midiReadPosition]])
     }
     return (
-      <div class='note-hud info-section'>
-        <div class='section-icon'>
+      <div className='note-hud info-section'>
+        <div className='section-icon'>
           <Icon
-            class={`icon icon--eye ${this.state.showHUD && 'on'}`}
+            className={`icon icon--eye ${this.state.showHUD && 'on'}`}
             onClick={() => {
               this.setState({showHUD: !this.state.showHUD})
             }}
@@ -36,21 +36,21 @@ class NoteHUD extends Component {
         {(this.state.showHUD === true) &&
         <div>
           <div>
-            <div class='viewer note-viewer'>{
+            <div className='viewer note-viewer'>{
                 this.props.notes[this.props.midiReadPosition].length > 0
                 ? this.props.notes[this.props.midiReadPosition].map(el => (
-                  <span class='notes'>{el.note}<sub>{el.octave}</sub></span>
+                  <span className='notes'>{el.note}<sub>{el.octave}</sub></span>
                 ))
-                : <span class='empty'>Notes will appear here.</span>
+                : <span className='empty'>Notes will appear here.</span>
               }</div>
-            <div class='viewer chord-viewer'>{
+            <div className='viewer chord-viewer'>{
                 matches.length > 0
                 ? matches.map((match, i, arr) => (
-                  <span class='chord'>
-                    <span class='root'>{match.root}</span><span class='name'>{match.name}</span>
+                  <span className='chord'>
+                    <span className='root'>{match.root}</span><span className='name'>{match.name}</span>
                   </span>
                 ))
-                : <span class='empty'>Matched chords will appear here.</span>
+                : <span className='empty'>Matched chords will appear here.</span>
               }</div>
           </div>
         </div>

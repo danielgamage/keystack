@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import KeySynth from './instruments/KeySynth.jsx'
 import Sampler from './instruments/Sampler.jsx'
@@ -62,9 +62,9 @@ class Settings extends Component {
       return (<ComponentName key={`${effect.midiEffectType}-${i}`} data={effect} />)
     })
     return (
-      <div class={`${this.state.add !== null ? 'add-open' : '' } settings`}>
-        <div class='settings-container settings-container-add'>
-          <div class='settings-inner-container'>
+      <div className={`${this.state.add !== null ? 'add-open' : '' } settings`}>
+        <div className='settings-container settings-container-add'>
+          <div className='settings-inner-container'>
             {this.state.add !== null
               ? Object.keys(this.state.add).map(item => (
                 <button
@@ -74,7 +74,7 @@ class Settings extends Component {
                       value: item
                     })
                   }}
-                  class='button add-item-option'
+                  className='button add-item-option'
                   >{item}</button>
               ))
               : ''
@@ -82,7 +82,7 @@ class Settings extends Component {
           </div>
         </div>
         <div
-          class='settings-container settings-container-main'
+          className='settings-container settings-container-main'
           onClick={(e) => {
             this.setState({
               add: null,
@@ -90,12 +90,12 @@ class Settings extends Component {
             })
           }}
           >
-          <div class='settings-inner-container'>
-            <section class='settings-section'>
-              <h3 class='settings-title'>Midi Effects</h3>
+          <div className='settings-inner-container'>
+            <section className='settings-section'>
+              <h3 className='settings-title'>Midi Effects</h3>
               {insertHRs(midiEffects)}
               <button
-                class='add-button button'
+                className='add-button button'
                 onClick={(e) => {
                   e.stopPropagation()
                   this.setState({
@@ -104,12 +104,12 @@ class Settings extends Component {
                   })
                 }}>+ Add</button>
             </section>
-            <hr class='section-splitter' />
-            <section class='settings-section'>
-              <h3 class='settings-title'>Instruments</h3>
+            <hr className='section-splitter' />
+            <section className='settings-section'>
+              <h3 className='settings-title'>Instruments</h3>
               {insertHRs(instruments)}
               <button
-                class='add-button button'
+                className='add-button button'
                 onClick={(e) => {
                   e.stopPropagation()
                   this.setState({
@@ -118,12 +118,12 @@ class Settings extends Component {
                   })
                 }}>+ Add</button>
             </section>
-            <hr class='section-splitter' />
-            <section class='settings-section'>
-              <h3 class='settings-title'>Audio Effects</h3>
+            <hr className='section-splitter' />
+            <section className='settings-section'>
+              <h3 className='settings-title'>Audio Effects</h3>
               {insertHRs(audioEffects)}
               <button
-                class='add-button button'
+                className='add-button button'
                 onClick={(e) => {
                   e.stopPropagation()
                   this.setState({

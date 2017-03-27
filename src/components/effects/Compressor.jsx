@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { line, curveBundle } from 'd3-shape'
 import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
@@ -103,31 +103,31 @@ class Compressor extends Component {
     return (
       <Item type='audio' item={this.props.data}>
         <div className='compressor-container'>
-          <div class='vis'>
-            <svg class='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-              <g class='grid grid-x' />
-              <g class='grid grid-y'
+          <div className='vis'>
+            <svg className='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+              <g className='grid grid-x' />
+              <g className='grid grid-y'
                 transform={`translate(${viewBoxWidth},0)`}
                 />
               <path
-                vector-effect='non-scaling-stroke'
+                vectorEffect='non-scaling-stroke'
                 d={compressionCurve(points)}
                 />
               {points.map(point => (
                 <circle
-                  vector-effect='non-scaling-stroke'
-                  class='dot'
+                  vectorEffect='non-scaling-stroke'
+                  className='dot'
                   cx={x(point.x)}
                   cy={y(point.y)}
                   r='4'
                   />
               ))}
             </svg>
-            <div class='flex-container'>
+            <div className='flex-container'>
               {['attack', 'release'].map((el, i) => (
                 <NumericInput
                   label={el}
-                  class='tri small right'
+                  className='tri small right'
                   id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                   min={params[el].min}
                   max={params[el].max}

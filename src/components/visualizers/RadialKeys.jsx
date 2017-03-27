@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { store } from '../../utils/store'
 import { startNote, stopNote } from '../../utils/notes'
 

@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import NumericInput from '../NumericInput.jsx'
 import Item from '../Item.jsx'
@@ -8,11 +8,11 @@ class Transpose extends Component {
   render () {
     return (
       <Item type='midi' item={this.props.data}>
-        <div class='flex-container'>
+        <div className='flex-container'>
           <NumericInput
             label='Transpose'
             showLabel={false}
-            class='tri small right'
+            className='tri small right'
             id={`pan-${this.props.data.id}`}
             min={-48}
             max={48}

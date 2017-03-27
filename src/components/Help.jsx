@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 import Icon from './Icon.jsx'
 
 import helpIcon from '../images/help.svg'
@@ -50,31 +50,31 @@ class Help extends Component {
     return (
       <div>
         <button
-          class='button--status'
+          className='button--status'
           title={`${this.state.active ? 'Close' : 'Open'} Help Panel`}
           onClick={(e) => {
             this.setState({ active: !this.state.active })
           }}
           >
           <Icon
-            class={`icon icon--help`}
+            className={`icon icon--help`}
             src={helpIcon}
             />
         </button>
-        <div class={`help-container ${this.state.active ? 'active' : ''}`}>
-          <h2 class='title'>Help</h2>
-          <div class='flex-container'>
+        <div className={`help-container ${this.state.active ? 'active' : ''}`}>
+          <h2 className='title'>Help</h2>
+          <div className='flex-container'>
             <section>
               <h3>octave</h3>
               <kbd title='z shifts octave down'>z</kbd>/<kbd title='x shifts octave up'>x</kbd>
             </section>
             <section>
               <h3>notes</h3>
-              <div class='keyboard'>
+              <div className='keyboard'>
                 {keyboardRows.map(row => (
-                  <div class={`row ${row.color}`}>
+                  <div key={row.color} className={`row ${row.color}`}>
                     {row.keys.map(key => (
-                      <kbd disabled={key.disabled}>{key.key}</kbd>
+                      <kbd key={key.key} disabled={key.disabled}>{key.key}</kbd>
                       ))}
                   </div>
                   ))}
@@ -82,7 +82,7 @@ class Help extends Component {
             </section>
           </div>
           <button
-            class='button'
+            className='button'
             onClick={(e) => {
               this.setState({ active: !this.state.active })
             }}

@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Settings from './Settings.jsx'
 import Help from './Help.jsx'
@@ -9,7 +9,7 @@ import Visualizers from './Visualizers.jsx'
 class App extends Component {
   render () {
     return (
-      <div class='app'>
+      <div className='app'>
         <StatusBar />
         <main>
           <Visualizers />

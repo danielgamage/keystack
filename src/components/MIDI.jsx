@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Icon from './Icon.jsx'
 
 import { stopNote, startNote } from '../utils/notes'
@@ -98,21 +98,21 @@ class Settings extends Component {
   render () {
     const hasMidi = this.props.midi.inputs.length > 0
     return (
-      <div class='inputs'>
-        <div class='section-icon'>
+      <div className='inputs'>
+        <div className='section-icon'>
           <Icon
-            class={`icon icon--midi ${hasMidi && 'on'}`}
+            className={`icon icon--midi ${hasMidi && 'on'}`}
             src={midiIcon}
             />
         </div>
         {this.props.midi.supports
           ? this.props.midi.inputs.map(el => (
-            <div class='viewer'>
-              <span class='midi-manufacturer'>{el.manufacturer}</span>
-              <span class='midi-name'>{el.name}</span>
+            <div className='viewer'>
+              <span className='midi-manufacturer'>{el.manufacturer}</span>
+              <span className='midi-name'>{el.name}</span>
             </div>
           ))
-           : <div class='viewer'>
+           : <div className='viewer'>
             Your browser does not support MIDI
           </div>
         }

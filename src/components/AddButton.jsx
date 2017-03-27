@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class AddButton extends Component {
   constructor (props) {
@@ -14,7 +14,7 @@ class AddButton extends Component {
         onClick={() => {
           this.setState({open: !this.state.open})
         }}
-        class={`add-item ${(this.state.open === true) ? 'open' : 'closed'}`}
+        className={`add-item ${(this.state.open === true) ? 'open' : 'closed'}`}
         >
         {this.state.open
           ? Object.keys(this.props.schema).map(item => (
@@ -26,10 +26,10 @@ class AddButton extends Component {
                   value: item
                 })
               }}
-              class='add-item-option'
+              className='add-item-option'
               >{item}</button>
           ))
-          : <button class='add-item-toggle'>+</button>
+          : <button className='add-item-toggle'>+</button>
         }
       </div>
     )

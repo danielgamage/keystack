@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import { connect } from 'preact-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import NumericInput from './NumericInput.jsx'
 import { line } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
@@ -47,22 +47,22 @@ class Settings extends Component {
       .y((d) => y(d.y))
 
     return (
-      <section class='envelope'>
-        <svg class='vis-path' viewBox={`0 0 32 ${viewBoxHeight}`}>
+      <section className='envelope'>
+        <svg className='vis-path' viewBox={`0 0 32 ${viewBoxHeight}`}>
           <linearGradient id='EnvelopeGradient' x1='0' x2='0' y1='0' y2={viewBoxHeight} gradientUnits='userSpaceOnUse'>
-            <stop offset='0%' stop-color='#59595b' />
-            <stop offset='80%' stop-color='#47494b' />
-            <stop offset='100%' stop-color='#444649' />
+            <stop offset='0%' stopColor='#59595b' />
+            <stop offset='80%' stopColor='#47494b' />
+            <stop offset='100%' stopColor='#444649' />
           </linearGradient>
           <path
-            vector-effect='non-scaling-stroke'
+            vectorEffect='non-scaling-stroke'
             d={envelopePath([{x: 0, y: 0}, ...points]) /* Add in an extra point at the start so the fill doesn't break when init !=0 */}
             fill='url(#EnvelopeGradient)'
             />
           {points.map(point => (
             <circle
-              vector-effect='non-scaling-stroke'
-              class='dot'
+              vectorEffect='non-scaling-stroke'
+              className='dot'
               cx={x(point.x)}
               cy={y(point.y)}
               r='0.3'
@@ -122,7 +122,7 @@ class Settings extends Component {
           ].map(el => (
             <NumericInput
               label={el.name}
-              class='tri'
+              className='tri'
               id={el.name}
               min={el.min}
               max={el.max}
