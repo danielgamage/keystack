@@ -15,6 +15,8 @@ const matchChords = (notes) => {
     )).map(chord => {
       matches.push({
         chord: `${arr[loopIndex].note} ${chord.name}`,
+        name: chord.name,
+        root: arr[loopIndex].note,
         quality: chord.quality
       })
     })

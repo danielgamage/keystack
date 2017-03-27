@@ -109,7 +109,11 @@ body {
   margin-right: 0.25rem;
 }
 .chord {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  .root {
+    font-weight: 700;
+    margin-right: 0.2em;
+  }
 }
 
 .axis {

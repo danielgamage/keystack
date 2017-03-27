@@ -47,7 +47,7 @@ class NoteHUD extends Component {
                 matches.length > 0
                 ? matches.map((match, i, arr) => (
                   <span class='chord'>
-                    <span class='match'>{match.chord}</span>
+                    <span class='root'>{match.root}</span><span class='name'>{match.name}</span>
                   </span>
                 ))
                 : <span class='empty'>Matched chords will appear here.</span>

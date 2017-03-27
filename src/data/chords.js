@@ -393,13 +393,6 @@ export default [
     'quality': 'M3+d5'
   },
   {
-    'name': 'Tristan',
-    'set': [
-      0, 3, 6, 10
-    ],
-    'quality': 'Predominant'
-  },
-  {
     'name': 'Viennese trichord',
     'set': [
       0, 1, 6
