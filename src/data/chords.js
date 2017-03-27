@@ -7,7 +7,7 @@ export default [
     'quality': 'Augmented'
   },
   {
-    'name': 'Augmented eleventh[1]',
+    'name': 'Augmented eleventh',
     'set': [
       0, 4, 7, 10, 2, 6
     ],
@@ -134,7 +134,7 @@ export default [
     'quality': 'Major'
   },
   {
-    'name': 'Hendrix/Augmented ninth[9]',
+    'name': 'Hendrix/Augmented ninth',
     'set': [
       0, 4, 7, 10, 3
     ],
@@ -197,7 +197,7 @@ export default [
     'quality': 'Major'
   },
   {
-    'name': 'Major sixth ninth ("6 add 9",[11] Nine six,[12] 6/9)',
+    'name': 'Major sixth ninth',
     'set': [
       0, 4, 7, 9, 2
     ],
@@ -260,7 +260,7 @@ export default [
     'quality': 'Minor'
   },
   {
-    'name': 'Minor sixth ninth (6/9)',
+    'name': 'Minor sixth ninth',
     'set': [
       0, 3, 7, 9, 2
     ],
@@ -295,14 +295,14 @@ export default [
     'quality': 'Major'
   },
   {
-    'name': 'Ninth augmented fifth[11][13]',
+    'name': 'Ninth augmented fifth',
     'set': [
       0, 4, 8, 10, 2
     ],
     'quality': 'Augmented'
   },
   {
-    'name': 'Ninth flat fifth[11]',
+    'name': 'Ninth flat fifth',
     'set': [
       0, 4, 6, 10, 2
     ],
@@ -337,21 +337,21 @@ export default [
     'quality': 'Indeterminate'
   },
   {
-    'name': 'Seven six[16]',
+    'name': 'Seven six',
     'set': [
       0, 4, 7, 9, 10
     ],
     'quality': 'Major'
   },
   {
-    'name': 'Seventh flat nine[18]',
+    'name': 'Seventh flat nine',
     'set': [
       0, 4, 7, 10, 1
     ],
     'quality': 'Major'
   },
   {
-    'name': 'Seventh suspension four[19]',
+    'name': 'Seventh suspension four',
     'set': [
       0, 5, 7, 10
     ],
@@ -379,14 +379,14 @@ export default [
     'quality': 'Indeterminate'
   },
   {
-    'name': 'Thirteenth flat ninth[11]',
+    'name': 'Thirteenth flat ninth',
     'set': [
       0, 4, 7, 10, 1, 5, 9
     ],
     'quality': 'Major'
   },
   {
-    'name': 'Thirteenth flat ninth flat fifth[11]',
+    'name': 'Thirteenth flat ninth flat fifth',
     'set': [
       0, 4, 6, 10, 1, 5, 9
     ],
