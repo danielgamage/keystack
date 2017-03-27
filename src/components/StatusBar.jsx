@@ -15,7 +15,8 @@ class StatusBar extends Component {
     return (
       <div class="status-bar">
         <div class="file-operations">
-          <div
+          <button
+            class='button--status'
             onClick={() => {
               saveProject()
             }}
@@ -24,8 +25,9 @@ class StatusBar extends Component {
               class='icon'
               src={downloadIcon}
               />
-          </div>
-          <div
+          </button>
+          <button
+            class='button--status'
             onClick={() => {
               loadProject()
             }}
@@ -34,7 +36,7 @@ class StatusBar extends Component {
               class='icon'
               src={uploadIcon}
               />
-          </div>
+          </button>
         </div>
         <MIDI />
         <Help />

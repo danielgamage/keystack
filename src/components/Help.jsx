@@ -49,7 +49,8 @@ class Help extends Component {
   render () {
     return (
       <div>
-        <div
+        <button
+          class='button--status'
           title={`${this.state.active ? 'Close' : 'Open'} Help Panel`}
           onClick={(e) => {
             this.setState({ active: !this.state.active })
@@ -59,7 +60,7 @@ class Help extends Component {
             class={`icon icon--help`}
             src={helpIcon}
             />
-        </div>
+        </button>
         <div class={`help-container ${this.state.active ? 'active' : ''}`}>
           <h2 class='title'>Help</h2>
           <div class='flex-container'>

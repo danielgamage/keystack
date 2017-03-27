@@ -74,7 +74,7 @@ class Settings extends Component {
                       value: item
                     })
                   }}
-                  class='add-item-option'
+                  class='button add-item-option'
                   >{item}</button>
               ))
               : ''

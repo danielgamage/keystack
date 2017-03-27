@@ -20,7 +20,7 @@ class App extends Component {
           onClick={() => {
             this.setState({midiReadPosition: this.state.midiReadPosition === 'input' ? 'output' : 'input'})
           }}
-          class='input-output-switch'>
+          class='button input-output-switch'>
           {this.state.midiReadPosition}
         </button>
 

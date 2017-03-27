@@ -28,7 +28,7 @@ class Oscillators extends Component {
               <span class='title'>
                 {`OSC ${i}`}
                 <button
-                  class='delete-osc'
+                  class='button delete-osc'
                   onClick={() => {
                     this.props.dispatch({
                     id: this.props.instrument.id,
@@ -115,7 +115,7 @@ class Oscillators extends Component {
           </div>
         ))}
         <button
-          class='add-osc'
+          class='button add-osc'
           onClick={() => {
             this.props.dispatch({
               id: this.props.instrument.id,
