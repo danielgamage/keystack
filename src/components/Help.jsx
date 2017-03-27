@@ -1,4 +1,7 @@
 import { h, Component } from 'preact'
+import Icon from './Icon.jsx'
+
+import helpIcon from '../images/help.svg'
 
 const keyboardRows = [
   {
@@ -36,7 +39,7 @@ const keyboardRows = [
   }
 ]
 
-class Icon extends Component {
+class Help extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -46,17 +49,19 @@ class Icon extends Component {
   render () {
     return (
       <div>
-        <button
+        <div
           title={`${this.state.active ? 'Open' : 'Close'} Help Panel`}
           onClick={(e) => {
             this.setState({ active: !this.state.active })
           }}
-          class='button help-button'
           >
-          ?
-        </button>
+          <Icon
+            class={`icon icon--help`}
+            src={helpIcon}
+            />
+        </div>
         <div class={`help-container ${this.state.active ? 'active' : ''}`}>
-          <h2>Help</h2>
+          <h2 class='title'>Help</h2>
           <section>
             <h3>octave</h3>
             <kbd title='z shifts octave down'>z</kbd>/<kbd title='x shifts octave up'>x</kbd>
@@ -79,4 +84,4 @@ class Icon extends Component {
   }
 }
 
-export default Icon
+export default Help

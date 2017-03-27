@@ -98,7 +98,7 @@ class Settings extends Component {
   render () {
     const hasMidi = this.props.midi.inputs.length > 0
     return (
-      <div class='inputs info-section'>
+      <div class='inputs'>
         <div class='section-icon'>
           <Icon
             class={`icon icon--midi ${hasMidi && 'on'}`}

@@ -1,4 +1,3 @@
-
 // ----
 // Help
 // ----
@@ -11,12 +10,19 @@
 }
 .help-container {
   display: none;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: flex-start;
   background: $grey-6;
   border-radius: $radius;
   box-shadow: 0 0 2rem transparentize($grey-0, 0.8);
-  padding: 1rem;
-  right: 2rem;
-  bottom: 2rem;
+  padding: 2rem;
+  width: calc(100% - 8rem);
+  max-width: 48rem;
+  height: calc(100% - 8rem);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   position: absolute;
   z-index: 10;
   justify-content: flex-start;
@@ -25,6 +31,9 @@
   }
   section {
     margin-right: 2rem;
+  }
+  .title {
+    width: 100%;
   }
 }
 kbd {

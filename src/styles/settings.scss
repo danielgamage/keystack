@@ -1,11 +1,9 @@
-
 .settings {
   display: flex;
   flex-flow: column;
   background-color: $grey-0;
   color: $grey-6;
   border-radius: $radius;
-  width: 26rem;
   &.add-open {
     .settings-container-add {
       height: 12rem;

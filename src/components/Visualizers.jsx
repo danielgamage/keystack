@@ -26,7 +26,6 @@ class App extends Component {
 
         <RadialKeys midiReadPosition={this.state.midiReadPosition} />
         <NoteHUD midiReadPosition={this.state.midiReadPosition} />
-        <Midi />
       </div>
     )
   }
