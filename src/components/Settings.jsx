@@ -49,17 +49,17 @@ class Settings extends Component {
     }
   }
   render () {
-    const midiEffects = this.props.midiEffects.map(effect => {
+    const midiEffects = this.props.midiEffects.map((effect, i) => {
       const ComponentName = MidiEffectsByName[effect.midiEffectType]
-      return (<ComponentName data={effect} />)
+      return (<ComponentName key={`${effect.midiEffectType}-${i}`} data={effect} />)
     })
-    const instruments = this.props.instruments.map(instrument => {
+    const instruments = this.props.instruments.map((instrument, i) => {
       const ComponentName = InstrumentsByName[instrument.type]
-      return (<ComponentName data={instrument} />)
+      return (<ComponentName key={`${instrument.midiEffectType}-${i}`} data={instrument} />)
     })
-    const audioEffects = this.props.audioEffects.map(effect => {
+    const audioEffects = this.props.audioEffects.map((effect, i) => {
       const ComponentName = AudioEffectsByName[effect.audioEffectType]
-      return (<ComponentName data={effect} />)
+      return (<ComponentName key={`${effect.midiEffectType}-${i}`} data={effect} />)
     })
     return (
       <div class={`${this.state.add !== null ? 'add-open' : '' } settings`}>
