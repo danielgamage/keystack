@@ -11,8 +11,10 @@ class App extends Component {
     return (
       <div class='app'>
         <StatusBar />
-        <Visualizers />
-        <Settings />
+        <main>
+          <Visualizers />
+          <Settings />
+        </main>
       </div>
     )
   }
