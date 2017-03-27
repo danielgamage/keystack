@@ -1,0 +1,7 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+  <path vector-effect="non-scaling-stroke" d="M4,16c0,0,5.4-9,12-9s12,9,12,9
+  	s-5.4,9-12,9S4,16,4,16z"/>
+  <circle vector-effect="non-scaling-stroke" cx="16" cy="16" r="5"/>
+  <circle vector-effect="non-scaling-stroke" class="icon--eye--fill" cx="16" cy="16" r="5"/>
+</svg>
