@@ -5,6 +5,9 @@ import { bindKeyboardEvents, unbindKeyboardEvents } from '../main.js'
 class Item extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      titleFocus: false
+    }
     this.getDragIndex = this.getDragIndex.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleMouseUp = this.handleMouseUp.bind(this)
@@ -50,7 +53,6 @@ class Item extends Component {
       property: 'dragging',
       value: false
     })
-    console.log('this.props.index', this.props.index)
     this.props.dispatch({
       type: `MOVE_${this.props.type.toUpperCase()}_ITEM`,
       oldIndex: this.props.index,
@@ -75,24 +77,48 @@ class Item extends Component {
             document.addEventListener('mouseleave', this.handleMouseUp)
           }}
           >
-          <h3
-            onFocus={() => {
-              unbindKeyboardEvents()
-            }}
-            onBlur={() => {
-              bindKeyboardEvents()
-            }}
-            onInput={(e) => {
-              this.props.dispatch({
-                type: `UPDATE_${this.props.type.toUpperCase()}_ITEM`,
-                id: this.props.item.id,
-                property: 'name',
-                value: e.target.textContent
-              })
-            }}
-            className='title item-title'
-            >{this.props.item.name}</h3>
-          {this.props.headerChildren}
+          <div className='title item-title'>
+            <h3
+              onMouseDown={(e) => {
+                this.mouseDownX = e.pageX
+                this.mouseDownY = e.pageY
+              }}
+              onMouseUp={(e) => {
+                if (this.mouseDownX === e.pageX && this.mouseDownY === e.pageY) {
+                  this.titleInput.focus()
+                }
+              }}
+              className={this.state.titleFocus ? '' : 'active'}
+              >{this.props.item.name}</h3>
+            <input
+              ref={t => this.titleInput = t}
+              className={this.state.titleFocus ? 'active' : ''}
+              onFocus={() => {
+                this.setState({
+                  titleFocus: true
+                })
+                unbindKeyboardEvents()
+              }}
+              onBlur={() => {
+                this.setState({
+                  titleFocus: false
+                })
+                bindKeyboardEvents()
+              }}
+              onInput={(e) => {
+                this.props.dispatch({
+                  type: `UPDATE_${this.props.type.toUpperCase()}_ITEM`,
+                  id: this.props.item.id,
+                  property: 'name',
+                  value: e.target.value
+                })
+              }}
+              type='text'
+              value={this.props.item.name} />
+          </div>
+          <div className='aux'>
+            {this.props.headerChildren}
+          </div>
           <button
             className='button'
             onClick={() => {
