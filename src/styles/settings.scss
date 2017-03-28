@@ -15,10 +15,6 @@
     .settings-title {
       opacity: 0;
     }
-    .item {
-      max-height: 3rem;
-      overflow: hidden;
-    }
   }
   .settings-container {
     overflow: scroll;
@@ -36,17 +32,24 @@
   .settings-section{
     position: relative;
   }
+  .add-button,
+  .settings-title {
+    transition: opacity 0.2s ease;
+  }
   .settings-title {
     @extend %sc;
     margin: 0;
     color: $grey-2;
   }
   .item {
-    max-height: 40rem;
-    transition: 0.4s ease max-height;
+    overflow: hidden;
+    transition: height 0.3s ease, background 0.4s ease;
     margin: 0 -2rem;
     padding: 1rem 2rem;
-    &.selected {
+    background-color: $grey-0;
+    &.selected,
+    &.dragging {
+      background-color: $grey-1;
       background-color: $grey-1;
     }
     header {
@@ -88,6 +91,9 @@
     }
     section {
       margin-bottom: 1rem;
+    }
+    .item-body {
+      transition: opacity 0.2s ease;
     }
   }
   hr {
