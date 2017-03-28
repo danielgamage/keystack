@@ -16,7 +16,7 @@
       opacity: 0;
     }
     .item {
-      height: 3rem;
+      max-height: 3rem;
       overflow: hidden;
     }
   }
@@ -42,6 +42,8 @@
     color: $grey-2;
   }
   .item {
+    max-height: 40rem;
+    transition: 0.4s ease max-height;
     margin: 0 -2rem;
     padding: 1rem 2rem;
     &.selected {
