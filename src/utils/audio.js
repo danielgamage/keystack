@@ -25,28 +25,30 @@ let currentEffects
 function handleChange () {
   let previousEffects = currentEffects
   currentEffects = store.getState().audioEffects
-  if (previousEffects && currentEffects.length !== previousEffects.length) {
-    // disconnect and remove unused
-    audioEffectNodes.map((el, i, arr) => {
-      el.exit.disconnect()
-      if (!currentEffects.some(effect => el.id === effect.id)) {
-        audioEffectNodes.splice(i, 1)
-      }
-    })
-    // add new
-    currentEffects.map((effect, i, arr) => {
-      if (!audioEffectNodes.some(el => el.id === effect.id)) {
-        createEffect[effect.audioEffectType](effect)
-      }
-    })
-    // connect
-    currentEffects.map((el, i, arr) => {
-      if (i !== arr.length - 1) {
-        audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
-      } else {
-        audioEffectNodes[i].exit.connect(masterVolume)
-      }
-    })
+  if (previousEffects) {
+    if (currentEffects.length !== previousEffects.length || !currentEffects.every((effect, i) => previousEffects[i].id === effect.id)) {
+      // disconnect and remove unused
+      audioEffectNodes.map((el, i, arr) => {
+        el.exit.disconnect()
+        if (!currentEffects.some(effect => el.id === effect.id)) {
+          audioEffectNodes.splice(i, 1)
+        }
+      })
+      // add new
+      currentEffects.map((effect, i, arr) => {
+        if (!audioEffectNodes.some(el => el.id === effect.id)) {
+          createEffect[effect.audioEffectType](effect)
+        }
+      })
+      // connect
+      currentEffects.map((el, i, arr) => {
+        if (i !== arr.length - 1) {
+          audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
+        } else {
+          audioEffectNodes[i].exit.connect(masterVolume)
+        }
+      })
+    }
   }
   currentEffects.map(effect => {
     setProps[effect.audioEffectType](audioEffectNodes.find(el => el.id === effect.id), effect)
