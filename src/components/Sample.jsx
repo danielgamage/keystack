@@ -67,10 +67,10 @@ class Sample extends Component {
           <rect vectorEffect='non-scaling-stroke' className='loop-bar' x={loopStartX} y='0' height='8' width={loopEndX - loopStartX} />
           <line vectorEffect='non-scaling-stroke' className='loop-marker' x1={loopStartX} y1={viewBoxHeight} x2={loopStartX} y2='0' />
           <line vectorEffect='non-scaling-stroke' className='loop-marker' x1={loopEndX} y1={viewBoxHeight} x2={loopEndX} y2='0' />
-          <text className='sample-text empty-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
+          <text className='sample-text empty-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} textAnchor='middle' alignmentBaseline='middle'>
             No sample added
           </text>
-          <text className='sample-text drop-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} text-anchor='middle' alignment-baseline='middle'>
+          <text className='sample-text drop-text' x={viewBoxWidth / 2} y={viewBoxHeight / 2} textAnchor='middle' alignmentBaseline='middle'>
             Drop file Here
           </text>
         </svg>
