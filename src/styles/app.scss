@@ -42,11 +42,12 @@ body {
   border-radius: $radius;
   .file-operations {
     display: flex;
-    width: calc(50% + 1rem)
+    width: calc(50% + 1rem);
   }
   .inputs {
     display: flex;
-    width: calc(50% - 3rem)
+    width: calc(50% - 3rem);
+    align-items: center;
   }
 }
 .play-area,

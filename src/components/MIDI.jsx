@@ -112,8 +112,8 @@ class Settings extends Component {
               <span className='midi-name'>{el.name}</span>
             </div>
           ))
-           : <div className='viewer'>
-            Your browser does not support MIDI
+           : <div>
+            No MIDI support
           </div>
         }
       </div>
