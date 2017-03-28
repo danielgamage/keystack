@@ -73,6 +73,7 @@ class Settings extends Component {
           {[
             {
               name: 'initial',
+              label: 'init',
               unit: '',
               format: '',
               min: 0,
@@ -81,6 +82,7 @@ class Settings extends Component {
             },
             {
               name: 'peak',
+              label: 'peak',
               unit: '',
               format: '',
               min: 0,
@@ -89,6 +91,7 @@ class Settings extends Component {
             },
             {
               name: 'sustain',
+              label: 'sus',
               unit: '',
               format: '',
               min: 0,
@@ -97,6 +100,7 @@ class Settings extends Component {
             },
             {
               name: 'attack',
+              label: 'att',
               unit: 's',
               format: '0.3s',
               min: 0,
@@ -105,6 +109,7 @@ class Settings extends Component {
             },
             {
               name: 'decay',
+              label: 'dec',
               unit: 's',
               format: '0.3s',
               min: 0,
@@ -113,6 +118,7 @@ class Settings extends Component {
             },
             {
               name: 'release',
+              label: 'rel',
               unit: 's',
               format: '0.3s',
               min: 0,

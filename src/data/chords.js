@@ -141,13 +141,6 @@ export default [
     'quality': 'Mixed'
   },
   {
-    'name': 'Leading-tone',
-    'set': [
-      0, 3, 6
-    ],
-    'quality': 'Diminished'
-  },
-  {
     'name': 'Lydian',
     'set': [
       0, 4, 7, 11, 6
