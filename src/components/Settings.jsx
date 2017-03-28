@@ -33,10 +33,17 @@ const AudioEffectsByName = {
   'Distortion': Distortion
 }
 
-const insertHRs = (arr) => {
+const insertHRs = (arr, type) => {
   const length = arr.length
-  for (let i = 1; i < length; i++) {
-    arr.splice(length - i, 0, <hr />)
+  for (let i = 0; i <= length; i++) {
+    arr.splice(
+      length - i,
+      0,
+      <hr
+        key={`${type}-${length - i}`}
+        className={`${type} ${type}-${length - i} ${(i === length || i === 0) ? 'edge' : ''}`}
+        />
+    )
   }
   return arr
 }
@@ -49,20 +56,22 @@ class Settings extends Component {
     }
   }
   render () {
-    const midiEffects = this.props.midiEffects.map((effect, i) => {
-      const ComponentName = MidiEffectsByName[effect.midiEffectType]
-      return (<ComponentName key={`${effect.midiEffectType}-${i}`} data={effect} />)
-    })
-    const instruments = this.props.instruments.map((instrument, i) => {
-      const ComponentName = InstrumentsByName[instrument.type]
-      return (<ComponentName key={`${instrument.midiEffectType}-${i}`} data={instrument} />)
-    })
-    const audioEffects = this.props.audioEffects.map((effect, i) => {
-      const ComponentName = AudioEffectsByName[effect.audioEffectType]
-      return (<ComponentName key={`${effect.midiEffectType}-${i}`} data={effect} />)
-    })
+    const items = {
+      midi: this.props.midiEffects.map((effect, i) => {
+        const ComponentName = MidiEffectsByName[effect.midiEffectType]
+        return (<ComponentName key={`${effect.midiEffectType}-${i}`} index={i} data={effect} />)
+      }),
+      instrument: this.props.instruments.map((instrument, i) => {
+        const ComponentName = InstrumentsByName[instrument.type]
+        return (<ComponentName key={`${instrument.midiEffectType}-${i}`} index={i} data={instrument} />)
+      }),
+      audio: this.props.audioEffects.map((effect, i) => {
+        const ComponentName = AudioEffectsByName[effect.audioEffectType]
+        return (<ComponentName key={`${effect.midiEffectType}-${i}`} index={i} data={effect} />)
+      })
+    }
     return (
-      <div className={`${this.state.add !== null ? 'add-open' : '' } settings`}>
+      <div className={`${this.state.add !== null ? 'add-open' : ''} ${this.props.view.dragging ? 'dragging' : ''} settings`}>
         <div className='settings-container settings-container-add'>
           <div className='settings-inner-container'>
             {this.state.add !== null
@@ -91,47 +100,25 @@ class Settings extends Component {
           }}
           >
           <div className='settings-inner-container'>
-            <section className='settings-section'>
-              <h3 className='settings-title'>Midi Effects</h3>
-              {insertHRs(midiEffects)}
-              <button
-                className='add-button button'
-                onClick={(e) => {
-                  e.stopPropagation()
-                  this.setState({
-                    add: midiEffectSchema,
-                    action: 'ADD_MIDI_ITEM'
-                  })
-                }}>+ Add</button>
-            </section>
-            <hr className='section-splitter' />
-            <section className='settings-section'>
-              <h3 className='settings-title'>Instruments</h3>
-              {insertHRs(instruments)}
-              <button
-                className='add-button button'
-                onClick={(e) => {
-                  e.stopPropagation()
-                  this.setState({
-                    add: instrumentSchema,
-                    action: 'ADD_INSTRUMENT_ITEM'
-                  })
-                }}>+ Add</button>
-            </section>
-            <hr className='section-splitter' />
-            <section className='settings-section'>
-              <h3 className='settings-title'>Audio Effects</h3>
-              {insertHRs(audioEffects)}
-              <button
-                className='add-button button'
-                onClick={(e) => {
-                  e.stopPropagation()
-                  this.setState({
-                    add: audioEffectSchema,
-                    action: 'ADD_AUDIO_ITEM'
-                  })
-                }}>+ Add</button>
-            </section>
+            {[
+              {schema: midiEffectSchema, type: 'midi', title: 'Midi Effects'},
+              {schema: instrumentSchema, type: 'instrument', title: 'Instruments'},
+              {schema: audioEffectSchema, type: 'audio', title: 'Audio Effects'}
+            ].map(el => (
+              <section className={`settings-section settings-section--${el.type}`}>
+                <h3 className='settings-title'>{el.title}</h3>
+                {insertHRs(items[el.type], el.type)}
+                <button
+                  className='add-button button'
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    this.setState({
+                      add: el.schema,
+                      action: `ADD_${el.type.toUpperCase()}_ITEM`
+                    })
+                  }}>+ Add</button>
+              </section>
+            ))}
           </div>
         </div>
       </div>
@@ -143,7 +130,8 @@ function mapStateToProps (state) {
   return {
     instruments: state.instruments,
     audioEffects: state.audioEffects,
-    midiEffects: state.midiEffects
+    midiEffects: state.midiEffects,
+    view: state.view
   }
 }
 

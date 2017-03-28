@@ -129,7 +129,7 @@ class Filter extends Component {
     const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: 10 * response}))
 
     return (
-      <Item type='audio' item={this.props.data}
+      <Item type='audio' index={this.props.index} item={this.props.data}
         headerChildren={<div className='select'>
           <select
             onChange={(e) => {

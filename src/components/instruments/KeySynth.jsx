@@ -8,7 +8,7 @@ import Item from '../Item.jsx'
 class KeySynth extends Component {
   render () {
     return (
-      <Item type='instrument' item={this.props.data}>
+      <Item type='instrument' index={this.props.index} item={this.props.data}>
         <Oscillators instrument={this.props.data} oscillators={this.props.data.oscillators} />
         <Envelope instrument={this.props.data} envelope={this.props.data.envelope} />
       </Item>

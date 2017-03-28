@@ -101,7 +101,7 @@ class Compressor extends Component {
       0
     ].map(x => ({x: x, y: compressSample(x, this.props.data.threshold, this.props.data.ratio, this.props.data.knee)}))
     return (
-      <Item type='audio' item={this.props.data}>
+      <Item type='audio' index={this.props.index} item={this.props.data}>
         <div className='compressor-container'>
           <div className='vis'>
             <svg className='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>

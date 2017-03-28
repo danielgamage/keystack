@@ -39,7 +39,7 @@ class Delay extends Component {
   }
   render () {
     return (
-      <Item type='audio' item={this.props.data}>
+      <Item type='audio' index={this.props.index} item={this.props.data}>
         <div className='flex-container'>
           {parameters.map(param => (
             <NumericInput

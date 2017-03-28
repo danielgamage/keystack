@@ -6,7 +6,7 @@ import Item from '../Item.jsx'
 class DisableNotes extends Component {
   render () {
     return (
-      <Item type='midi' item={this.props.data}>
+      <Item type='midi' index={this.props.index} item={this.props.data}>
         <div className='piano-checkboxes'>
           {this.props.data.value.map((el, i) => (
             <label key={i} className={`replaced-checkbox ${[1, 3, 6, 8, 10].includes(i) ? 'black' : 'white'}`}>
