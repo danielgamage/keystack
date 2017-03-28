@@ -70,7 +70,6 @@ class Item extends Component {
         >
         <header
           onMouseDown={(e) => {
-            this.mouseDown = true
             document.addEventListener('mousemove', this.handleDrag)
             document.addEventListener('mouseup', this.handleMouseUp)
             document.addEventListener('mouseleave', this.handleMouseUp)
@@ -91,7 +90,6 @@ class Item extends Component {
                 value: e.target.textContent
               })
             }}
-            contentEditable
             className='title item-title'
             >{this.props.item.name}</h3>
           {this.props.headerChildren}

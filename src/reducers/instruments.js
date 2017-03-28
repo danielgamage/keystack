@@ -63,6 +63,11 @@ const instruments = (state = defaultState, action) => {
         instrumentSchema[action.value]()
         // ...state.slice(action.index, state.length)
       ]
+    case 'MOVE_INSTRUMENT_ITEM':
+      let newState = [...state]
+      let oldItems = newState.splice(action.oldIndex, 1)
+      newState.splice((action.newIndex > action.oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
+      return newState
     case 'REMOVE_INSTRUMENT_ITEM':
       return [...state].filter(el => el.id !== action.id)
     default:

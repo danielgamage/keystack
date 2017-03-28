@@ -39,6 +39,11 @@ const audioEffects = (state = defaultState, action) => {
         ...state,
         audioEffectSchema[action.value]()
       ]
+    case 'MOVE_AUDIO_ITEM':
+      let newState = [...state]
+      let oldItems = newState.splice(action.oldIndex, 1)
+      newState.splice((action.newIndex > action.oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
+      return newState
     case 'REMOVE_AUDIO_ITEM':
       return [...state].filter(el => el.id !== action.id)
     default:
