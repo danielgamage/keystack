@@ -1,30 +1,43 @@
 import { store } from './store'
-import transposeSample from './transposeSample'
-import { setProps, createEffect } from './audioEffects'
+import getDevicesOfType from './getDevicesOfType'
+import { setProps, createEffect } from '../pipeline/audioEffects'
 
 export let audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 var masterVolume = audioCtx.createGain()
 masterVolume.gain.value = 0.2
 masterVolume.connect(audioCtx.destination)
 
+let initialState = store.getState()
+
 export let audioEffectNodes = []
-store.getState().audioEffects.map(effect => {
-  createEffect[effect.audioEffectType](effect)
+initialState.tracks.map((track, trackIndex, trackArray) => {
+  track.devices
+    .map(el => initialState.devices[el])
+    .filter(el => el.deviceType === 'audio')
+    .map((device, deviceIndex, deviceArray) => {
+      createEffect[device.devicePrototype](device)
+    })
 })
 
 // initial connections
-store.getState().audioEffects.map((el, i, arr) => {
-  if (i !== arr.length - 1) {
-    audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
-  } else {
-    audioEffectNodes[i].exit.connect(masterVolume)
-  }
+initialState.tracks.map((track, trackIndex, trackArray) => {
+  track.devices
+    .map(el => initialState.devices[el])
+    .filter(el => el.deviceType === 'audio')
+    .map((device, deviceIndex, deviceArray) => {
+      if (deviceIndex !== deviceArray.length - 1) {
+        audioEffectNodes[deviceIndex].exit.connect(audioEffectNodes[deviceIndex + 1].entry)
+      } else {
+        audioEffectNodes[deviceIndex].exit.connect(masterVolume)
+      }
+    })
 })
 
 let currentEffects
 function handleChange () {
-  let previousEffects = currentEffects
-  currentEffects = store.getState().audioEffects
+  const previousEffects = currentEffects
+  const state = store.getState()
+  currentEffects = getDevicesOfType(state, state.tracks[0].devices, 'audio')
   if (previousEffects) {
     if (currentEffects.length !== previousEffects.length || !currentEffects.every((effect, i) => previousEffects[i].id === effect.id)) {
       // disconnect and remove unused
@@ -51,18 +64,10 @@ function handleChange () {
     }
   }
   currentEffects.map(effect => {
-    setProps[effect.audioEffectType](audioEffectNodes.find(el => el.id === effect.id), effect)
+    setProps[effect.devicePrototype](audioEffectNodes.find(el => el.id === effect.id), effect)
   })
 }
 let unsubscribe = store.subscribe(handleChange)
-
-var oscillators = {}
-var samples = {}
-const minVolume = 0.00001
-
-export const shiftFrequencyByStep = (frequency, step) => {
-  return frequency * (2 ** (step / 12))
-}
 
 let myBuffer = null
 let bufferChannelData
@@ -102,104 +107,5 @@ const readSample = (file) => {
       resolve(reader.result)
     }, false)
     reader.readAsArrayBuffer(file)
-  })
-}
-
-export const playInstrument = (notes) => {
-  const state = store.getState()
-  state.instruments.map(instrument => {
-    const envelope = instrument.envelope
-    switch (instrument.type) {
-      case `KeySynth`:
-        notes.map(note => {
-          var noteVolume = audioCtx.createGain()
-          noteVolume.gain.value = envelope.initial
-          noteVolume.connect(audioEffectNodes[0].entry)
-
-          const initializedOscillators = instrument.oscillators.map(el => {
-            const osc = audioCtx.createOscillator()
-            osc.frequency.value = shiftFrequencyByStep(note.frequency, el.pitch)
-            osc.detune.value = el.detune
-            osc.type = el.type
-
-            var oscVolume = audioCtx.createGain()
-            oscVolume.gain.value = el.volume
-
-            osc.connect(oscVolume)
-            oscVolume.connect(noteVolume)
-
-            osc.start(audioCtx.currentTime)
-            return osc
-          })
-
-          oscillators[note.index] = {
-            oscillators: initializedOscillators,
-            volume: noteVolume
-          }
-
-          noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
-          noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
-        })
-        break
-      case `Sampler`:
-        if (myBuffer !== null) {
-          notes.map(note => {
-            let source = audioCtx.createBufferSource()
-            var noteVolume = audioCtx.createGain()
-            noteVolume.gain.value = envelope.initial
-            noteVolume.connect(audioEffectNodes[0].entry)
-
-            source.buffer = myBuffer
-            source.playbackRate.value = transposeSample(note.index + 27 - instrument.pitch)
-            source.loop = instrument.loop
-            source.loopStart = instrument.loopStart
-            source.loopEnd = instrument.loopEnd
-            source.connect(noteVolume)
-            source.start(audioCtx.currentTime)
-
-            samples[note.index] = {
-              instance: source,
-              volume: noteVolume
-            }
-
-            noteVolume.gain.linearRampToValueAtTime(Math.max(envelope.peak, minVolume), audioCtx.currentTime + envelope.attack)
-            noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
-          })
-        }
-        break
-    }
-  })
-}
-
-export const stopInstrument = (notes) => {
-  const state = store.getState()
-  state.instruments.map(instrument => {
-    const envelope = instrument.envelope
-    switch (instrument.type) {
-      case `KeySynth`:
-        notes.map(note => {
-          oscillators[note.index].oscillators.forEach((oscillator) => {
-            oscillator.stop(audioCtx.currentTime + envelope.release)
-          })
-
-          oscillators[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
-          // oscillators[note.index].volume.gain.setValueAtTime(oscillators[note.index].volume.gain.value, audioCtx.currentTime)
-          oscillators[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
-          oscillators[note.index] = null
-        })
-        break
-      case `Sampler`:
-        if (myBuffer !== null) {
-          notes.map(note => {
-            samples[note.index].instance.stop(audioCtx.currentTime + envelope.release)
-
-            samples[note.index].volume.gain.cancelScheduledValues(audioCtx.currentTime)
-            // samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
-            samples[note.index].volume.gain.exponentialRampToValueAtTime(minVolume, audioCtx.currentTime + envelope.release)
-            samples[note.index] = null
-          })
-        }
-        break
-    }
   })
 }

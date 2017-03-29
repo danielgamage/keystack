@@ -1,137 +1,160 @@
 import generateID from '../utils/generateID'
 
-// ------------
-// MIDI Effects
-// ------------
+const schema = {
 
-export const midiEffectSchema = {
-  Transpose: () => ({
-    id: generateID(),
-    name: `Transpose`,
-    midiEffectType: `Transpose`,
-    value: 0
-  }),
-  Chord: () => ({
-    id: generateID(),
-    name: `Chord`,
-    midiEffectType: `Chord`,
-    value: [
-      0, 0, 0,
-      0, 0, 0
-    ]
-  }),
-  DisableNotes: () => ({
-    id: generateID(),
-    name: `Disable Notes`,
-    midiEffectType: `DisableNotes`,
-    value: [
-      true, true, true, true,
-      true, true, true, true,
-      true, true, true, true
-    ]
-  })
-}
+  // ------------
+  // MIDI Effects
+  // ------------
 
-// -----------
-// Instruments
-// -----------
+  midi: {
+    Transpose: () => ({
+      id: generateID(),
+      name: `Transpose`,
+      deviceType: `midi`,
+      devicePrototype: `Transpose`,
+      value: 0
+    }),
+    Chord: () => ({
+      id: generateID(),
+      name: `Chord`,
+      deviceType: `midi`,
+      devicePrototype: `Chord`,
+      value: [
+        0, 0, 0,
+        0, 0, 0
+      ]
+    }),
+    DisableNotes: () => ({
+      id: generateID(),
+      name: `Disable Notes`,
+      deviceType: `midi`,
+      devicePrototype: `DisableNotes`,
+      value: [
+        true, true, true, true,
+        true, true, true, true,
+        true, true, true, true
+      ]
+    })
+  },
 
-export const instrumentSchema = {
-  KeySynth: () => ({
-    id: generateID(),
-    name: `KeySynth`,
-    type: `KeySynth`,
-    oscillators: [
-      {
-        type: 'sine',
-        volume: 0.8,
-        detune: 0,
-        pitch: 0
+  // -----------
+  // Instruments
+  // -----------
+
+  instrument: {
+    KeySynth: () => ({
+      id: generateID(),
+      name: `KeySynth`,
+      deviceType: `instrument`,
+      devicePrototype: `KeySynth`,
+      oscillators: [
+        {
+          type: 'sine',
+          volume: 0.8,
+          detune: 0,
+          pitch: 0
+        }
+      ],
+      envelope: {
+        initial: 0,
+        peak: 1,
+        sustain: 0.1,
+        attack: 0.01,
+        decay: 0.5,
+        release: 1
       }
-    ],
-    envelope: {
-      initial: 0,
-      peak: 1,
-      sustain: 0.1,
-      attack: 0.01,
-      decay: 0.5,
-      release: 1
-    }
-  }),
-  Sampler: () => ({
-    id: generateID(),
-    name: `Sampler`,
-    type: `Sampler`,
-    volume: 0.8,
-    detune: 0,
-    pitch: 27,
-    loop: true,
-    loopStart: 0,
-    loopEnd: 0,
-    sample: {
-      buffer: null,
-      name: null,
-      size: null,
-      type: null,
-      waveform: [0, 0]
-    },
-    envelope: {
-      initial: 0,
-      peak: 1,
-      sustain: 0.1,
-      attack: 0.01,
-      decay: 0.5,
-      release: 1
-    }
-  })
+    }),
+    Sampler: () => ({
+      id: generateID(),
+      name: `Sampler`,
+      deviceType: `instrument`,
+      devicePrototype: `Sampler`,
+      volume: 0.8,
+      detune: 0,
+      pitch: 27,
+      loop: true,
+      loopStart: 0,
+      loopEnd: 0,
+      sample: {
+        buffer: null,
+        name: null,
+        size: null,
+        type: null,
+        waveform: [0, 0]
+      },
+      envelope: {
+        initial: 0,
+        peak: 1,
+        sustain: 0.1,
+        attack: 0.01,
+        decay: 0.5,
+        release: 1
+      }
+    })
+  },
+
+  // -------------
+  // Audio Effects
+  // -------------
+
+  audio: {
+    Filter: () => ({
+      id: generateID(),
+      name: `Filter`,
+      deviceType: `audio`,
+      devicePrototype: `Filter`,
+      type: `lowpass`,
+      frequency: 600,
+      q: 0.5,
+      gain: 0,
+      mix: 100
+    }),
+    Delay: () => ({
+      id: generateID(),
+      name: `Delay`,
+      deviceType: `audio`,
+      devicePrototype: `Delay`,
+      mix: 20,
+      delay: 0.5,
+      feedback: 30
+    }),
+    Distortion: () => ({
+      id: generateID(),
+      name: `Distortion`,
+      deviceType: `audio`,
+      devicePrototype: `Distortion`,
+      amount: 300,
+      oversample: '2x',
+      mix: 100
+    }),
+    // StereoPanner: () => ({
+    //   id: generateID(),
+    //   name:   `Stereo Panner`,
+    //   deviceType: `audio`,
+    //   devicePrototype: `StereoPanner`,
+    //   pan: 0
+    // }),
+    Compressor: () => ({
+      id: generateID(),
+      name: `Compressor`,
+      deviceType: `audio`,
+      devicePrototype: `Compressor`,
+      attack: 0.003,
+      knee: 30,
+      ratio: 12,
+      release: 0.25,
+      threshold: -24,
+      mix: 100
+    })
+  }
 }
 
-// -------------
-// Audio Effects
-// -------------
+export const defaultDevices = [
+  schema.midi.Transpose(),
+  schema.midi.Chord(),
+  schema.midi.DisableNotes(),
+  schema.instrument.KeySynth(),
+  schema.audio.Filter()
+]
 
-export const audioEffectSchema = {
-  Filter: () => ({
-    id: generateID(),
-    name: `Filter`,
-    audioEffectType: `Filter`,
-    type: `lowpass`,
-    frequency: 600,
-    q: 0.5,
-    gain: 0,
-    mix: 100
-  }),
-  Delay: () => ({
-    id: generateID(),
-    name: `Delay`,
-    audioEffectType: `Delay`,
-    mix: 20,
-    delay: 0.5,
-    feedback: 30
-  }),
-  Distortion: () => ({
-    id: generateID(),
-    name: `Distortion`,
-    audioEffectType: `Distortion`,
-    amount: 300,
-    oversample: '2x',
-    mix: 100
-  }),
-  // StereoPanner: () => ({
-  //   id: generateID(),
-  //   name:   `Stereo Panner`,
-  //   audioEffectType: `StereoPanner`,
-  //   pan: 0
-  // }),
-  Compressor: () => ({
-    id: generateID(),
-    name: `Compressor`,
-    audioEffectType: `Compressor`,
-    attack: 0.003,
-    knee: 30,
-    ratio: 12,
-    release: 0.25,
-    threshold: -24,
-    mix: 100
-  })
-}
+export default schema

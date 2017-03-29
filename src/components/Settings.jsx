@@ -1,3 +1,5 @@
+// RENAME: TrackDevices.jsx
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -16,23 +18,25 @@ import Transpose from './midi/Transpose.jsx'
 import Chord from './midi/Chord.jsx'
 import DisableNotes from './midi/DisableNotes.jsx'
 
-import { midiEffectSchema, instrumentSchema, audioEffectSchema } from '../reducers/schema'
+import schema from '../reducers/schema'
 
-const MidiEffectsByName = {
-  'Transpose': Transpose,
-  'Chord': Chord,
-  'DisableNotes': DisableNotes
-}
-const InstrumentsByName = {
-  'KeySynth': KeySynth,
-  'Sampler': Sampler
-}
-const AudioEffectsByName = {
-  'Filter': Filter,
-  'StereoPanner': StereoPanner,
-  'Compressor': Compressor,
-  'Delay': Delay,
-  'Distortion': Distortion
+const devicesByName = {
+  midi: {
+    'Transpose': Transpose,
+    'Chord': Chord,
+    'DisableNotes': DisableNotes
+  },
+  instrument: {
+    'KeySynth': KeySynth,
+    'Sampler': Sampler
+  },
+  audio: {
+    'Filter': Filter,
+    'StereoPanner': StereoPanner,
+    'Compressor': Compressor,
+    'Delay': Delay,
+    'Distortion': Distortion
+  }
 }
 
 const customEnterAnimation = {
@@ -65,47 +69,41 @@ class Settings extends Component {
     }
   }
   render () {
-    const items = {
-      midi: this.props.midiEffects.map((effect, i) => {
-        const ComponentName = MidiEffectsByName[effect.midiEffectType]
-        return (<ComponentName key={effect.id} index={i} dragging={this.props.view.dragging} data={effect} />)
-      }),
-      instrument: this.props.instruments.map((instrument, i) => {
-        const ComponentName = InstrumentsByName[instrument.type]
-        return (<ComponentName key={instrument.id} index={i} dragging={this.props.view.dragging} data={instrument} />)
-      }),
-      audio: this.props.audioEffects.map((effect, i) => {
-        const ComponentName = AudioEffectsByName[effect.audioEffectType]
-        return (<ComponentName key={effect.id} index={i} dragging={this.props.view.dragging} data={effect} />)
-      })
-    }
     const chain = [
-      {schema: midiEffectSchema, type: 'midi', title: 'Midi Effects'},
-      {schema: instrumentSchema, type: 'instrument', title: 'Instruments'},
-      {schema: audioEffectSchema, type: 'audio', title: 'Audio Effects'}
-    ].map(el => (
-      <FlipMove
-        duration={200}
-        easing="ease"
-        typeName="section"
-        className={`settings-section settings-section--${el.type}`}
-        staggerDurationBy={20}
-        enterAnimation={customEnterAnimation}
-        leaveAnimation={customLeaveAnimation} >
-        <h3 key='title' className='settings-title'>{el.title}</h3>
-        {insertHRs(items[el.type], el.type, true)}
-        <button
-          key='button'
-          className='add-button button'
-          onClick={(e) => {
-            e.stopPropagation()
-            this.setState({
-              add: el.schema,
-              action: `ADD_${el.type.toUpperCase()}_ITEM`
-            })
-          }}>+ Add</button>
-      </FlipMove>
-    ))
+      {type: 'midi', title: 'Midi Effects'},
+      {type: 'instrument', title: 'Instruments'},
+      {type: 'audio', title: 'Audio Effects'}
+    ].map(el => {
+      const devices = this.props.devices
+        .filter(device => el.type === device.deviceType)
+        .map((device, i) => {
+          const ComponentName = devicesByName[device.deviceType][device.devicePrototype]
+          return (<ComponentName key={device.id} index={i} dragging={this.props.view.dragging} data={device} />)
+        })
+      return (
+        <FlipMove
+          duration={200}
+          easing='ease'
+          typeName='section'
+          className={`settings-section settings-section--${el.type}`}
+          staggerDurationBy={20}
+          enterAnimation={customEnterAnimation}
+          leaveAnimation={customLeaveAnimation} >
+          <h3 key='title' className='settings-title'>{el.title}</h3>
+          {insertHRs(devices, el.type, true)}
+          <button
+            key='button'
+            className='add-button button'
+            onClick={(e) => {
+              e.stopPropagation()
+              this.setState({
+                add: schema[el.type],
+                action: `ADD_DEVICE`
+              })
+            }}>+ Add</button>
+        </FlipMove>
+      )
+    })
     return (
       <div className={`${this.state.add !== null ? 'add-open' : ''} ${this.props.view.dragging ? 'dragging' : ''} settings`}>
         <div className='settings-container settings-container-add'>
@@ -146,9 +144,7 @@ class Settings extends Component {
 
 function mapStateToProps (state) {
   return {
-    instruments: state.instruments,
-    audioEffects: state.audioEffects,
-    midiEffects: state.midiEffects,
+    devices: state.tracks[0].devices.map(el => state.devices[el]),
     view: state.view
   }
 }

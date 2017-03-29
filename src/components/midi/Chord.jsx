@@ -22,8 +22,9 @@ class Chord extends Component {
               unit=' st'
               value={this.props.data.value[i]}
               action={{
-                type: 'UPDATE_MIDI_VALUE_ARRAY',
+                type: 'UPDATE_DEVICE_ARRAY',
                 id: this.props.data.id,
+                property: 'value',
                 index: i
               }}
               />

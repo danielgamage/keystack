@@ -1,4 +1,4 @@
-import { audioCtx, audioEffectNodes } from './audio.js'
+import { audioCtx, audioEffectNodes } from '../utils/audio.js'
 
 export const mix = (dry, wet, mix) => {
   dry.gain.value = 1.0 - (mix / 100)
@@ -66,12 +66,12 @@ export const createEffect = {
     effectObj.entry.connect(effectObj.dry)
     effectObj.dry.connect(effectObj.exit)
 
-    setProps[effect.audioEffectType](effectObj, effect)
+    setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   },
   // StereoPanner: (effect) => {
   //   const stereoPanner = audioCtx.createStereoPanner()
-  //   setProps[effect.audioEffectType](stereoPanner, effect)
+  //   setProps[effect.devicePrototype](stereoPanner, effect)
   //   audioEffectNodes[effect.id] = stereoPanner
   // },
   Compressor: (effect) => {
@@ -90,7 +90,7 @@ export const createEffect = {
     effectObj.entry.connect(effectObj.dry)
     effectObj.dry.connect(effectObj.exit)
 
-    setProps[effect.audioEffectType](effectObj, effect)
+    setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   },
   Delay: (effect) => {
@@ -112,7 +112,7 @@ export const createEffect = {
     effectObj.entry.connect(effectObj.dry)
     effectObj.dry.connect(effectObj.exit)
 
-    setProps[effect.audioEffectType](effectObj, effect)
+    setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   },
   Distortion: (effect) => {
@@ -131,7 +131,7 @@ export const createEffect = {
     effectObj.entry.connect(effectObj.dry)
     effectObj.dry.connect(effectObj.exit)
 
-    setProps[effect.audioEffectType](effectObj, effect)
+    setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   }
 }

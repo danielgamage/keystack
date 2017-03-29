@@ -1,5 +1,5 @@
 import { store } from './store'
-import { startMIDIChain } from './midiEffects'
+import { startMIDIChain } from '../pipeline/midiEffects'
 
 export const startNote = (note) => {
   // prevent sticky keys

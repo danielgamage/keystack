@@ -1,6 +1,7 @@
-import { store } from './store'
+import { store } from '../utils/store'
 import { keys } from '../utils'
-import { playInstrument, stopInstrument } from './audio'
+import getDevicesOfType from '../utils/getDevicesOfType'
+import { playInstrument, stopInstrument } from './instruments'
 
 export const processMIDI = {
   Transpose: (notes, effect, effectIndex, effectsArray, oldState) => {
@@ -32,7 +33,7 @@ export const processMIDI = {
 export const nextInMIDIChain = (notes, effect, effectIndex, effectsArray, oldState) => {
   if ((effectsArray.length - 1) !== effectIndex) {
     const nextIndex = effectIndex + 1
-    processMIDI[effectsArray[nextIndex].midiEffectType]([...new Set(notes)], effectsArray[nextIndex], nextIndex, effectsArray, oldState)
+    processMIDI[effectsArray[nextIndex].devicePrototype]([...new Set(notes)], effectsArray[nextIndex], nextIndex, effectsArray, oldState)
   } else {
     sendMIDIOut([...new Set(notes)], oldState)
   }
@@ -41,8 +42,9 @@ export const nextInMIDIChain = (notes, effect, effectIndex, effectsArray, oldSta
 export const startMIDIChain = (oldState) => {
   const state = store.getState()
   const notes = state.notes.input
-  if (state.midiEffects.length > 0) {
-    processMIDI[state.midiEffects[0].midiEffectType](notes, state.midiEffects[0], 0, state.midiEffects, oldState)
+  const midiDevices = getDevicesOfType(state, state.tracks[0].devices, 'midi')
+  if (midiDevices.length > 0) {
+    processMIDI[midiDevices[0].devicePrototype](notes, midiDevices[0], 0, midiDevices, oldState)
   } else {
     sendMIDIOut(notes, oldState)
   }

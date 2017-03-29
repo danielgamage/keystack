@@ -21,7 +21,7 @@ class Transpose extends Component {
             displayValue={this.props.data.value}
             value={this.props.data.value}
             action={{
-              type: 'UPDATE_MIDI_ITEM',
+              type: 'UPDATE_DEVICE',
               id: this.props.data.id,
               property: 'value'
             }}

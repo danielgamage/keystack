@@ -15,8 +15,9 @@ class DisableNotes extends Component {
                 type='checkbox'
                 onChange={(e) => {
                   this.props.dispatch({
-                    type: 'UPDATE_MIDI_VALUE_ARRAY',
+                    type: 'UPDATE_DEVICE_ARRAY',
                     id: this.props.data.id,
+                    property: 'value',
                     index: i,
                     value: e.target.checked
                   })
