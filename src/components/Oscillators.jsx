@@ -44,14 +44,14 @@ class Oscillators extends Component {
                     value={type}
                     checked={(osc.type === type)}
                     onClick={(e) => {
-                    this.props.dispatch({
-                    id: this.props.instrument.id,
-                    type: 'UPDATE_OSC',
-                    property: 'type',
-                    value: type,
-                    index: i
-                  })
-                  }}
+                      this.props.dispatch({
+                        id: this.props.instrument.id,
+                        type: 'UPDATE_OSC',
+                        property: 'type',
+                        value: type,
+                        index: i
+                      })
+                    }}
                     />
                   <Icon
                     className='icon icon--wave'

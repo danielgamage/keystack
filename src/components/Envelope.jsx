@@ -127,7 +127,7 @@ class Settings extends Component {
             }
           ].map(el => (
             <NumericInput
-              label={el.nameg}
+              label={el.name}
               className='tri'
               id={el.name}
               min={el.min}

@@ -136,7 +136,7 @@ class Compressor extends Component {
                   displayValue={format(params[el].format)(this.props.data[el])}
                   value={this.props.data[el]}
                   action={{
-                    type: 'UPDATE_AUDIO_ITEM',
+                    type: 'UPDATE_DEVICE',
                     id: this.props.data.id,
                     property: el
                   }}
@@ -156,7 +156,7 @@ class Compressor extends Component {
                 displayValue={format(params[el].format)(this.props.data[el])}
                 value={this.props.data[el]}
                 action={{
-                  type: 'UPDATE_AUDIO_ITEM',
+                  type: 'UPDATE_DEVICE',
                   id: this.props.data.id,
                   property: el
                 }}

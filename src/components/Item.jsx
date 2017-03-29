@@ -61,7 +61,8 @@ class Item extends Component {
       value: false
     })
     this.props.dispatch({
-      type: `MOVE_${this.props.type.toUpperCase()}_ITEM`,
+      type: `MOVE_DEVICE`,
+
       oldIndex: this.props.index,
       newIndex: index
     })

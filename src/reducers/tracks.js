@@ -10,45 +10,20 @@ const defaultState = [
   }
 ]
 
-const synth = (state, action) => {
+const track = (state, action) => {
   let newState
   switch (action.type) {
-    case 'UPDATE_VOLUME_ENVELOPE':
-      newState = { ...state }
-      newState.envelope[action.key] = action.value
-      return newState
-    case 'ADD_OSC':
-      newState = { ...state }
-      newState.oscillators[newState.oscillators.length] = {
-        type: 'sine',
-        volume: 1,
-        detune: 0,
-        pitch: 0
-      }
-      return newState
-    case 'DELETE_OSC':
-      return {
-        ...state,
-        oscillators: [...state.oscillators].filter((el, i) => (i !== action.index))
-      }
-    case 'UPDATE_OSC':
-      newState = { ...state }
-      newState.oscillators[action.index][action.property] = action.value
-      return newState
-    case 'UPDATE_SAMPLE':
-      newState = { ...state }
-      newState.sample = action.value
-      return newState
-    case 'UPDATE_INSTRUMENT_ITEM':
-      newState = { ...state }
-      newState[action.property] = action.value
-      return newState
+    case 'MOVE_DEVICE':
+      let newState = [...state.devices]
+      let oldItems = newState.splice(action.oldIndex, 1)
+      newState.splice((action.newIndex > action.oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
+      return {...state, devices: newState}
     default:
       return state
   }
 }
 
-const instruments = (state = defaultState, action) => {
+const tracks = (state = defaultState, action) => {
   switch (action.type) {
     case 'UPDATE_TRACK':
       return [...state].map(instrument => {
@@ -64,11 +39,8 @@ const instruments = (state = defaultState, action) => {
         instrumentSchema[action.value]()
         // ...state.slice(action.index, state.length)
       ]
-    case 'MOVE_TRACK':
-      let newState = [...state]
-      let oldItems = newState.splice(action.oldIndex, 1)
-      newState.splice((action.newIndex > action.oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
-      return newState
+    case 'MOVE_DEVICE':
+      return [track(state[0], action)]
     case 'REMOVE_TRACK':
       return [...state].filter(el => el.id !== action.id)
     default:
@@ -76,4 +48,4 @@ const instruments = (state = defaultState, action) => {
   }
 }
 
-export default instruments
+export default tracks

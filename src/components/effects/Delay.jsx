@@ -54,7 +54,7 @@ class Delay extends Component {
               displayValue={format(param.format)(this.props.data[param.name])}
               value={this.props.data[param.name]}
               action={{
-                type: 'UPDATE_AUDIO_ITEM',
+                type: 'UPDATE_DEVICE',
                 id: this.props.data.id,
                 property: param.name
               }}

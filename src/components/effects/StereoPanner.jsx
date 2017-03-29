@@ -18,7 +18,7 @@ class StereoPanner extends Component {
             step={0.01}
             value={this.props.data['pan']}
             action={{
-              type: 'UPDATE_AUDIO_ITEM',
+              type: 'UPDATE_DEVICE',
               id: this.props.data.id,
               property: 'pan'
             }}

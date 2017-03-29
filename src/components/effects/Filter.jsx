@@ -134,7 +134,7 @@ class Filter extends Component {
           <select
             onChange={(e) => {
               this.props.dispatch({
-                type: 'UPDATE_AUDIO_ITEM',
+                type: 'UPDATE_DEVICE',
                 id: this.props.data.id,
                 property: 'type',
                 value: e.target.value
@@ -187,7 +187,7 @@ class Filter extends Component {
               displayValue={format(param.format)(this.props.data[param.name])}
               value={this.props.data[param.name]}
               action={{
-                type: 'UPDATE_AUDIO_ITEM',
+                type: 'UPDATE_DEVICE',
                 id: this.props.data.id,
                 property: param.name
               }}
