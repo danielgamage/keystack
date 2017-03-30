@@ -81,6 +81,9 @@ class Help extends Component {
               </div>
             </section>
           </div>
+          <div>
+            <a className='button' href='https://github.com/danielgamage/keystack'>Keystack on GitHub</a>
+          </div>
           <button
             className='button'
             onClick={(e) => {
