@@ -69,6 +69,11 @@ const devices = (state = defaultState, action) => {
           [action.property]: action.value
         }
       }
+    case 'CREATE_DEVICE':
+      return {
+        ...state,
+        [action.id]: schema[action.deviceType][action.value]()
+      }
     default:
       return state
   }

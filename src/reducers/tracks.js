@@ -13,11 +13,24 @@ const defaultState = [
 const track = (state, action) => {
   let newState
   switch (action.type) {
+    case 'ADD_DEVICE_TO_TRACK':
+      return {
+        ...state,
+        devices: [
+          ...state.devices,
+          action.id
+        ]
+      }
     case 'MOVE_DEVICE':
       let newState = [...state.devices]
       let oldItems = newState.splice(action.oldIndex, 1)
       newState.splice((action.newIndex > action.oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
       return {...state, devices: newState}
+    case 'REMOVE_DEVICE':
+      return {
+        ...state,
+        devices: [...state.devices].filter(id => id !== action.id)
+      }
     default:
       return state
   }
@@ -39,7 +52,9 @@ const tracks = (state = defaultState, action) => {
         instrumentSchema[action.value]()
         // ...state.slice(action.index, state.length)
       ]
+    case 'ADD_DEVICE_TO_TRACK':
     case 'MOVE_DEVICE':
+    case 'REMOVE_DEVICE':
       return [track(state[0], action)]
     case 'REMOVE_TRACK':
       return [...state].filter(el => el.id !== action.id)

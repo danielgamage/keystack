@@ -131,12 +131,12 @@ class Item extends Component {
             className='button'
             onClick={() => {
               this.props.dispatch({
-                type: `REMOVE_${this.props.type.toUpperCase()}_ITEM`,
+                type: `REMOVE_DEVICE`,
                 id: this.props.item.id
               })
             }}
             >
-            Delete
+            Remove
           </button>
         </header>
         <div className='item-body'>

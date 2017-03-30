@@ -33,7 +33,7 @@ class Oscillators extends Component {
                       index: i
                     })
                   }}
-                  >Delete</button>
+                  >Remove</button>
               </span>
               {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
                 <label title={type}>

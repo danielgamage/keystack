@@ -7,15 +7,15 @@ const schema = {
   // ------------
 
   midi: {
-    Transpose: () => ({
-      id: generateID(),
+    Transpose: (argsID) => ({
+      id: argsID || generateID(),
       name: `Transpose`,
       deviceType: `midi`,
       devicePrototype: `Transpose`,
       value: 0
     }),
-    Chord: () => ({
-      id: generateID(),
+    Chord: (argsID) => ({
+      id: argsID || generateID(),
       name: `Chord`,
       deviceType: `midi`,
       devicePrototype: `Chord`,
@@ -24,8 +24,8 @@ const schema = {
         0, 0, 0
       ]
     }),
-    DisableNotes: () => ({
-      id: generateID(),
+    DisableNotes: (argsID) => ({
+      id: argsID || generateID(),
       name: `Disable Notes`,
       deviceType: `midi`,
       devicePrototype: `DisableNotes`,
@@ -42,8 +42,8 @@ const schema = {
   // -----------
 
   instrument: {
-    KeySynth: () => ({
-      id: generateID(),
+    KeySynth: (argsID) => ({
+      id: argsID || generateID(),
       name: `KeySynth`,
       deviceType: `instrument`,
       devicePrototype: `KeySynth`,
@@ -64,8 +64,8 @@ const schema = {
         release: 1
       }
     }),
-    Sampler: () => ({
-      id: generateID(),
+    Sampler: (argsID) => ({
+      id: argsID || generateID(),
       name: `Sampler`,
       deviceType: `instrument`,
       devicePrototype: `Sampler`,
@@ -98,8 +98,8 @@ const schema = {
   // -------------
 
   audio: {
-    Filter: () => ({
-      id: generateID(),
+    Filter: (argsID) => ({
+      id: argsID || generateID(),
       name: `Filter`,
       deviceType: `audio`,
       devicePrototype: `Filter`,
@@ -109,8 +109,8 @@ const schema = {
       gain: 0,
       mix: 100
     }),
-    Delay: () => ({
-      id: generateID(),
+    Delay: (argsID) => ({
+      id: argsID || generateID(),
       name: `Delay`,
       deviceType: `audio`,
       devicePrototype: `Delay`,
@@ -118,8 +118,8 @@ const schema = {
       delay: 0.5,
       feedback: 30
     }),
-    Distortion: () => ({
-      id: generateID(),
+    Distortion: (argsID) => ({
+      id: argsID || generateID(),
       name: `Distortion`,
       deviceType: `audio`,
       devicePrototype: `Distortion`,
@@ -127,15 +127,15 @@ const schema = {
       oversample: '2x',
       mix: 100
     }),
-    // StereoPanner: () => ({
-    //   id: generateID(),
+    // StereoPanner: (argsID) => ({
+    //   id: argsID || generateID(),
     //   name:   `Stereo Panner`,
     //   deviceType: `audio`,
     //   devicePrototype: `StereoPanner`,
     //   pan: 0
     // }),
-    Compressor: () => ({
-      id: generateID(),
+    Compressor: (argsID) => ({
+      id: argsID || generateID(),
       name: `Compressor`,
       deviceType: `audio`,
       devicePrototype: `Compressor`,

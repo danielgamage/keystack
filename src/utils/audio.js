@@ -50,7 +50,7 @@ function handleChange () {
       // add new
       currentEffects.map((effect, i, arr) => {
         if (!audioEffectNodes.some(el => el.id === effect.id)) {
-          createEffect[effect.audioEffectType](effect)
+          createEffect[effect.devicePrototype](effect)
         }
       })
       // connect

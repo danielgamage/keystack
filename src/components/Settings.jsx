@@ -1,9 +1,10 @@
 // RENAME: TrackDevices.jsx
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import FlipMove from 'react-flip-move'
+
+import generateID from '../utils/generateID'
 
 import KeySynth from './instruments/KeySynth.jsx'
 import Sampler from './instruments/Sampler.jsx'
@@ -97,8 +98,7 @@ class Settings extends Component {
             onClick={(e) => {
               e.stopPropagation()
               this.setState({
-                add: schema[el.type],
-                action: `ADD_DEVICE`
+                add: el.type
               })
             }}>+ Add</button>
         </FlipMove>
@@ -109,12 +109,21 @@ class Settings extends Component {
         <div className='settings-container settings-container-add'>
           <div className='settings-inner-container'>
             {this.state.add !== null
-              ? Object.keys(this.state.add).map(item => (
+              ? Object.keys(schema[this.state.add]).map(item => (
                 <button
                   onClick={() => {
+                    console.log(this.state.add)
+                    const id = generateID()
                     this.props.dispatch({
-                      type: this.state.action,
-                      value: item
+                      type: 'CREATE_DEVICE',
+                      deviceType: this.state.add,
+                      value: item,
+                      id: id
+                    })
+                    this.props.dispatch({
+                      type: 'ADD_DEVICE_TO_TRACK',
+                      track: 0,
+                      id: id
                     })
                   }}
                   className='button add-item-option'
