@@ -106,15 +106,15 @@ class Settings extends Component {
             />
         </div>
         {this.props.midi.supports
-          ? this.props.midi.inputs.map(el => (
-            <div className='viewer'>
-              <span className='midi-manufacturer'>{el.manufacturer}</span>
-              <span className='midi-name'>{el.name}</span>
-            </div>
-          ))
-           : <div>
-            No MIDI support
-          </div>
+          ? hasMidi
+            ? this.props.midi.inputs.map(el => (
+              <div className='viewer'>
+                <span className='midi-manufacturer'>{el.manufacturer}</span>
+                <span className='midi-name'>{el.name}</span>
+              </div>
+            ))
+            : <div>No MIDI connected</div>
+          : <div>No MIDI support</div>
         }
       </div>
     )
