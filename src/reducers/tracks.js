@@ -10,6 +10,15 @@ const defaultState = [
   }
 ]
 
+// const sortDevices = (array) => {
+//   const vals = {
+//     midi: 0,
+//     instrument: 1,
+//     audio: 2
+//   }
+//   return array.sort((a, b) => a - b)
+// }
+
 const track = (state, action) => {
   let newState
   switch (action.type) {
@@ -22,9 +31,13 @@ const track = (state, action) => {
         ]
       }
     case 'MOVE_DEVICE':
+      console.log(action)
+      console.log(state.devices)
+      let oldIndex = state.devices.indexOf(action.id)
       let newState = [...state.devices]
-      let oldItems = newState.splice(action.oldIndex, 1)
-      newState.splice((action.newIndex > action.oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
+      let oldItems = newState.splice(oldIndex, 1)
+      newState.splice((action.newIndex > oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
+      console.log(newState)
       return {...state, devices: newState}
     case 'REMOVE_DEVICE':
       return {

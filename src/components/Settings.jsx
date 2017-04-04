@@ -79,7 +79,7 @@ class Settings extends Component {
         .filter(device => el.type === device.deviceType)
         .map((device, i) => {
           const ComponentName = devicesByName[device.deviceType][device.devicePrototype]
-          return (<ComponentName key={device.id} index={i} dragging={this.props.view.dragging} data={device} />)
+          return (<ComponentName key={device.id} dragging={this.props.view.dragging} data={device} />)
         })
       return (
         <FlipMove

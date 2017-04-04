@@ -15,7 +15,7 @@ class Item extends Component {
     this.turnOffHR = this.turnOffHR.bind(this)
   }
   getDragIndex (e) {
-    const items = [...document.querySelectorAll(`.item-${this.props.type}`)]
+    const items = [...document.querySelectorAll(`.item`)]
     let dragIndex
     if (items.some((box, i) => { // use some to return as soon as a match is found
       dragIndex = i
@@ -32,7 +32,7 @@ class Item extends Component {
     e.preventDefault()
     const index = this.getDragIndex(e)
     const curHR = document.querySelector(`hr.active`)
-    const newHR = document.querySelector(`.${this.props.type}-${index}`)
+    const newHR = index === [...document.querySelectorAll(`.item`)] ? [...document.querySelectorAll(`.item`)][index].nextSibling : [...document.querySelectorAll(`.item`)][index].previousSibling
     this.setState({
       draggingItem: true
     })
@@ -60,10 +60,10 @@ class Item extends Component {
       property: 'dragging',
       value: false
     })
+    console.log(this.props)
     this.props.dispatch({
       type: `MOVE_DEVICE`,
-
-      oldIndex: this.props.index,
+      id: this.props.item.id,
       newIndex: index
     })
   }
