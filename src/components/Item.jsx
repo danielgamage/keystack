@@ -115,7 +115,7 @@ class Item extends Component {
               }}
               onInput={(e) => {
                 this.props.dispatch({
-                  type: `UPDATE_${this.props.type.toUpperCase()}_ITEM`,
+                  type: `UPDATE_DEVICE`,
                   id: this.props.item.id,
                   property: 'name',
                   value: e.target.value
