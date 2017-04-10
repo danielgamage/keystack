@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Settings from './Settings.jsx'
+import TrackSettings from './TrackSettings.jsx'
 import Help from './Help.jsx'
 import StatusBar from './StatusBar.jsx'
 import Visualizers from './Visualizers.jsx'
@@ -13,7 +13,7 @@ class App extends Component {
         <StatusBar />
         <main>
           <Visualizers />
-          <Settings />
+          <TrackSettings />
         </main>
       </div>
     )

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Settings from '../Settings.jsx'
 import Icon from '../Icon.jsx'
 import matchChords from '../../utils/matchChords'
 import eyeIcon from '../../images/eye.svg'
@@ -18,7 +17,6 @@ class NoteHUD extends Component {
   }
   render () {
     let matches = []
-    let root
     if (this.state.showHUD === true && this.props.notes[this.props.midiReadPosition].length > 0) {
       matches = matchChords([...this.props.notes[this.props.midiReadPosition]])
     }
