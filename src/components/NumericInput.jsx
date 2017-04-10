@@ -1,12 +1,7 @@
-// TODO:
-// - make <input> invisible unless focused and show <output> with unit
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
-
-import { range } from 'd3-array'
 
 class NumericInput extends Component {
   constructor (props) {
@@ -16,6 +11,9 @@ class NumericInput extends Component {
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.getMultiplier = this.getMultiplier.bind(this)
+    this.shiftValue = this.shiftValue.bind(this)
     this.scale = this.scale.bind(this)
     this.unscale = this.unscale.bind(this)
     this.onDrag = this.onDrag.bind(this)
@@ -76,11 +74,33 @@ class NumericInput extends Component {
     }
     return value
   }
-  onDrag (e) {
-    let value = this.props.value || 0
-    let movement
+  handleKeyDown (e) {
+    let direction
+    if (e.keyCode === 38 || e.keyCode === 40) {
+      if (e.keyCode === 38) { // up
+        e.preventDefault()
+        direction = 1
+      }
+      if (e.keyCode === 40) { // down
+        e.preventDefault()
+        direction = -1
+      }
 
-    value = this.scale(value)
+      const multiplier = this.getMultiplier(e)
+
+      const value = this.shiftValue(direction * multiplier)
+
+      this.updateStore(value, 'value')
+    }
+  }
+  getMultiplier (e) {
+    if (e.altKey && e.shiftKey) return 100
+    if (e.shiftKey) return 10
+    if (e.altKey) return 0.1
+    else return 1
+  }
+  onDrag (e) {
+    let movement
 
     if (e.movementX !== undefined) {
       movement = e.movementX
@@ -94,14 +114,23 @@ class NumericInput extends Component {
       }
     }
 
+    const value = this.shiftValue(movement)
+
+    this.updateStore(value, 'value')
+  }
+  shiftValue (amount) {
+    let value = this.props.value || 0
+
+    value = this.scale(value)
+
     let step = this.props.step || 1
-    value = (movement * (step || 1)) + value
+    value = (amount * (step || 1)) + value
     value = this.unscale(value)
     value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
     value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
     value = Math.round(value * 100) / 100
 
-    this.updateStore(value, 'value')
+    return value
   }
   onChange (e) {
     const value = parseFloat(e.target.value)
@@ -203,6 +232,7 @@ class NumericInput extends Component {
             step={this.props.step}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
+            onKeyDown={this.handleKeyDown}
             defaultValue={this.props.defaultValue}
             onChange={this.onChange.bind(this)}
             />
