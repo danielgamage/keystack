@@ -9,10 +9,10 @@ class Item extends Component {
       titleFocus: false,
       draggingItem: false
     }
+    this.index = 0
     this.getDragIndex = this.getDragIndex.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleMouseUp = this.handleMouseUp.bind(this)
-    this.turnOffHR = this.turnOffHR.bind(this)
   }
   getDragIndex (e) {
     const items = [...document.querySelectorAll(`.item`)]
@@ -21,7 +21,7 @@ class Item extends Component {
       dragIndex = i
       const bounds = box.getBoundingClientRect()
       const midline = bounds.top + (bounds.height / 2)
-      return e.pageY < (bounds.top + (bounds.height / 2))
+      return e.pageY < midline
     })) {
       return dragIndex
     } else {
@@ -31,26 +31,28 @@ class Item extends Component {
   handleDrag (e) {
     e.preventDefault()
     const index = this.getDragIndex(e)
-    const curHR = document.querySelector(`hr.active`)
-    const newHR = index === [...document.querySelectorAll(`.item`)] ? [...document.querySelectorAll(`.item`)][index].nextSibling : [...document.querySelectorAll(`.item`)][index].previousSibling
+
     this.setState({
       draggingItem: true
     })
-    if (newHR !== curHR) {
-      this.turnOffHR()
-      newHR.classList.add(`active`)
+    if (index !== this.index) {
       this.props.dispatch({
         type: 'UPDATE_VIEW',
         property: 'dragging',
         value: true
       })
+      this.props.dispatch({
+        type: `MOVE_DEVICE`,
+        id: this.props.item.id,
+        newIndex: index
+      })
     }
+    this.index = index
   }
   handleMouseUp (e) {
     document.removeEventListener('mousemove', this.handleDrag)
     document.removeEventListener('mouseup', this.handleMouseUp)
     document.removeEventListener('mouseleave', this.handleMouseUp)
-    this.turnOffHR()
     const index = this.getDragIndex(e)
     this.setState({
       draggingItem: false
@@ -60,18 +62,11 @@ class Item extends Component {
       property: 'dragging',
       value: false
     })
-    console.log(this.props)
     this.props.dispatch({
       type: `MOVE_DEVICE`,
       id: this.props.item.id,
       newIndex: index
     })
-  }
-  turnOffHR () {
-    const activeHR = document.querySelector(`hr.active`)
-    if (activeHR) {
-      activeHR.classList.remove(`active`)
-    }
   }
   render () {
     return (

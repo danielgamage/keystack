@@ -20,7 +20,6 @@ const defaultState = [
 // }
 
 const track = (state, action) => {
-  let newState
   switch (action.type) {
     case 'ADD_DEVICE_TO_TRACK':
       return {
@@ -31,13 +30,10 @@ const track = (state, action) => {
         ]
       }
     case 'MOVE_DEVICE':
-      console.log(action)
-      console.log(state.devices)
       let oldIndex = state.devices.indexOf(action.id)
       let newState = [...state.devices]
       let oldItems = newState.splice(oldIndex, 1)
       newState.splice((action.newIndex > oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
-      console.log(newState)
       return {...state, devices: newState}
     case 'REMOVE_DEVICE':
       return {

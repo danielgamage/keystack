@@ -107,10 +107,6 @@
     &.big {
       margin: 2rem -2rem;
     }
-    &.active {
-      opacity: 1;
-      border-color: $grey-4;
-    }
   }
   .add-button {
     @extend %sc;
