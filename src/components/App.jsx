@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import TrackSettings from './TrackSettings.jsx'
-import Help from './Help.jsx'
 import StatusBar from './StatusBar.jsx'
 import Visualizers from './Visualizers.jsx'
 

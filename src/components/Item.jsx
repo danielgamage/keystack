@@ -7,7 +7,7 @@ class Item extends Component {
     super(props)
     this.state = {
       titleFocus: false,
-      draggingItem: false
+      dragging: false
     }
     this.index = 0
     this.getDragIndex = this.getDragIndex.bind(this)
@@ -32,9 +32,12 @@ class Item extends Component {
     e.preventDefault()
     const index = this.getDragIndex(e)
 
-    this.setState({
-      draggingItem: true
-    })
+    if (!this.state.dragging) {
+      document.body.classList.add('cursor--move')
+      this.setState({
+        dragging: true
+      })
+    }
     if (index !== this.index) {
       this.props.dispatch({
         type: 'UPDATE_VIEW',
@@ -53,25 +56,20 @@ class Item extends Component {
     document.removeEventListener('mousemove', this.handleDrag)
     document.removeEventListener('mouseup', this.handleMouseUp)
     document.removeEventListener('mouseleave', this.handleMouseUp)
-    const index = this.getDragIndex(e)
+    document.body.classList.remove('cursor--move')
     this.setState({
-      draggingItem: false
+      dragging: false
     })
     this.props.dispatch({
       type: 'UPDATE_VIEW',
       property: 'dragging',
       value: false
     })
-    this.props.dispatch({
-      type: `MOVE_DEVICE`,
-      id: this.props.item.id,
-      newIndex: index
-    })
   }
   render () {
     return (
       <div
-        className={`item item-${this.props.type} ${this.state.draggingItem ? 'dragging' : ''}`}
+        className={`item item-${this.props.type} ${this.state.dragging ? 'dragging' : ''}`}
         >
         <header
           onMouseDown={(e) => {

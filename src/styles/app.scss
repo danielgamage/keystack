@@ -26,6 +26,9 @@ body {
     cursor: ew-resize !important;
     user-select: none;
   }
+  &.cursor--move {
+    cursor: move !important;
+  }
 }
 #chart {
   margin-bottom: 2rem;
