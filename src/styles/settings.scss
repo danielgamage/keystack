@@ -25,6 +25,8 @@
   }
   .settings-container-add {
     height: 0;
+    position: relative;
+    z-index: 1;
   }
   .settings-inner-container {
     padding: 2rem;
@@ -292,6 +294,7 @@
     input,
     output {
       @extend %sc;
+      display: block;
       opacity: 0;
       &.active {
         opacity: 1;
