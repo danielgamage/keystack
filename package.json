@@ -14,7 +14,9 @@
     "build": "npm run clean && NODE_ENV=production npm run webpack && npm run copy",
     "deploy": "gh-pages -d build",
     "lint": "standard",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "d3": "^4.7.2",
@@ -49,6 +51,7 @@
     "style-loader": "^0.13.2",
     "svg-inline-loader": "^0.7.1",
     "webpack": "^2.2.1",
-    "webpack-dev-middleware": "^1.2.0"
+    "webpack-dev-middleware": "^1.2.0",
+    "@storybook/react": "^3.2.3"
   }
 }
