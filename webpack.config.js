@@ -41,9 +41,10 @@ module.exports = {
         query: {
           plugins: [
             'transform-runtime',
-            'transform-decorators-legacy'
+            'transform-decorators-legacy',
+            'transform-react-jsx'
           ],
-          presets: ['es2015', 'stage-0']
+          presets: ['es2015', 'stage-0', 'react']
         }
       },
       {
