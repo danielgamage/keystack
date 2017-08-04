@@ -14,6 +14,15 @@ export default {
     'sans': `'Alegreya Sans', sans-serif`,
     'sc': `'Alegreya Sans SC', sans-serif`,
 
+    'sc_mixin': `
+      font-family: 'Alegreya Sans SC', sans-serif;
+      text-transform: lowercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      word-spacing: 0.1em;
+      line-height: 1rem;
+    `,
+
     // appearance
     'radius': `0.2rem`,
 

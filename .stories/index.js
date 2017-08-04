@@ -20,10 +20,9 @@ storiesOf('NumericInput', module)
     })
     return (
       <div>
-        {freqSlider}
         <NumericInput
           label='tune'
-          className='small'
+          small={boolean('Small', false)}
           min={min}
           max={max}
           step='1'

@@ -2,6 +2,90 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
+import styled from 'styled-components'
+
+import vars from '../variables.js'
+
+export const Fader = styled.div`
+  margin: 1rem 0 0 0;
+  &.right {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    svg {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
+  &.disabled {
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  label {
+    display: block;
+    width: 100%;
+
+    ${vars.sc_mixin}
+  }
+  svg {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+    width: ${props => props.small ? '1.2rem' : '3rem'};
+    height: ${props => props.small ? '1.2rem' : '3rem'};
+    &:hover {
+      .fader-knob {
+        opacity: 1;
+      }
+    }
+  }
+  &.active {
+    .fader-knob {
+      opacity: 1;
+    }
+  }
+  .fader-knob {
+    transition: 0.2s ease;
+    fill: ${vars.grey_1};
+    opacity: 0;
+  }
+  .fader-track {
+    stroke: ${vars.grey_1};
+  }
+  .fader-value {
+    stroke: ${vars.grey_6};
+  }
+  .input-output {
+    position: relative;
+    flex: 1;
+    height: 1rem;
+    input,
+    output {
+      ${vars.sc_mixin}
+      display: block;
+      opacity: 0;
+      &.active {
+        opacity: 1;
+      }
+    }
+    input {
+      position: absolute;
+      padding: 0.3rem 0.5rem;
+      top: -0.3rem;
+      left: -0.5rem;
+      bottom: -0.3rem;
+      right: -0.5rem;
+    }
+  }
+  input {
+    display: block;
+    appearance: none;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    flex: 1;
+  }
+`
 
 class NumericInput extends Component {
   constructor (props) {
@@ -161,7 +245,8 @@ class NumericInput extends Component {
     var arcPath = arc()
 
     return (
-      <div
+      <Fader
+        {...this.props}
         className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
         ref={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''} >
@@ -237,7 +322,7 @@ class NumericInput extends Component {
             onChange={this.onChange.bind(this)}
             />
         </div>
-      </div>
+      </Fader>
     )
   }
 }
