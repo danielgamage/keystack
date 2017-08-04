@@ -17,10 +17,9 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       debug: true
     }),
-    new ExtractTextPlugin('dist/style.css')
   ],
   module: {
-    loaders: [
+    rules: [
       // add your custom loaders.
       {
         loader: 'babel-loader',
@@ -42,13 +41,7 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader', // creates style nodes from JS strings
-          use: [
-            'css-loader', // translates CSS into CommonJS
-            'sass-loader' // compiles Sass to CSS
-          ]
-        })
+        loaders: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.svg$/,
