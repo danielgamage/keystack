@@ -7,6 +7,7 @@ import { text, boolean, color, number } from '@storybook/addon-knobs'
 
 import NumericInput from '../src/components/NumericInput'
 import Button from '../src/components/forms/Button'
+import Kbd from '../src/components/elements/Kbd'
 
 storiesOf('NumericInput', module)
   .add('solo', () => {
@@ -44,5 +45,12 @@ storiesOf('Button', module)
   .add('basic', () => {
     return (
       <Button onClick={action('clicked')}>{text('Button text', 'Input')}</Button>
+    )
+  })
+
+storiesOf('Kbd', module)
+  .add('basic', () => {
+    return (
+      <Kbd>{text('Key text', 'A')}</Kbd>
     )
   })
