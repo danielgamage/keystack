@@ -5,15 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { text, boolean, color, number } from '@storybook/addon-knobs'
 
-import { Button, Welcome } from '@storybook/react/demo';
-
 import NumericInput from '../src/components/NumericInput'
-
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>);
+import Button from '../src/components/forms/Button'
 
 storiesOf('NumericInput', module)
   .add('solo', () => {
@@ -48,10 +41,9 @@ storiesOf('NumericInput', module)
     )
   });
 
-storiesOf('Input', module)
-  .add('ine', () => {
-    let textValue = text('singular', 'hi')
+storiesOf('Button', module)
+  .add('basic', () => {
     return (
-      <input type='text' value={textValue} onChange={(e) => {textValue = text('singular', e.target.value)}} />
+      <Button onClick={action('clicked')}>{text('Button text', 'Input')}</Button>
     )
   })
