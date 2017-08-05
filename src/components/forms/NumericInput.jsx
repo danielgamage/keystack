@@ -4,7 +4,7 @@ import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
 import styled from 'styled-components'
 
-import vars from '../variables.js'
+import vars from '@/variables'
 
 export const Fader = styled.div`
   margin: 1rem 0 0 0;
@@ -104,7 +104,6 @@ class NumericInput extends Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.updateStore = this.updateStore.bind(this)
     this.initialX = 0
     this.mouseDownX = 0
     this.mouseDownY = 0
@@ -174,7 +173,7 @@ class NumericInput extends Component {
 
       const value = this.shiftValue(direction * multiplier)
 
-      this.updateStore(value, 'value')
+      this.props.onUpdate(value, 'value')
     }
   }
   getMultiplier (e) {
@@ -200,7 +199,7 @@ class NumericInput extends Component {
 
     const value = this.shiftValue(movement)
 
-    this.updateStore(value, 'value')
+    this.props.onUpdate(value, 'value')
   }
   shiftValue (amount) {
     let value = this.props.value || 0
@@ -218,13 +217,7 @@ class NumericInput extends Component {
   }
   onChange (e) {
     const value = parseFloat(e.target.value)
-    this.updateStore(value)
-  }
-  updateStore (v) {
-    this.props.dispatch({
-      ...this.props.action,
-      value: v
-    })
+    this.props.onUpdate(value)
   }
   angle (value) {
     const scale = this.props.scale || 1
@@ -327,4 +320,4 @@ class NumericInput extends Component {
   }
 }
 
-export default connect()(NumericInput)
+export default NumericInput

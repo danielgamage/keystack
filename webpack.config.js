@@ -7,6 +7,10 @@ var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var packageJSON = require('./package.json')
 
+function resolve (dir) {
+  return path.resolve(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: [
     './src/main'
@@ -26,6 +30,13 @@ module.exports = {
   ],
 
   devtool: __DEV__ ? 'eval' : 'nosources-source-map',
+
+  resolve: {
+    extensions: [".js", ".jsx", ".json"],
+    alias: {
+      '@': resolve('src'),
+    },
+  },
 
   module: {
     rules: [

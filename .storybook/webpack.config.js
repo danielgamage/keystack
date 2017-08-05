@@ -11,6 +11,10 @@ var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var packageJSON = require('../package.json')
 
+function resolve (dir) {
+  return path.resolve(__dirname, '..', dir)
+}
+
 module.exports = {
   plugins: [
     // your custom plugins
@@ -18,6 +22,14 @@ module.exports = {
       debug: true
     }),
   ],
+
+  resolve: {
+    extensions: [".js", ".jsx", ".json"],
+    alias: {
+      '@': resolve('src'),
+    },
+  },
+
   module: {
     rules: [
       // add your custom loaders.

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Icon from './Icon.jsx'
 
-import { stopNote, startNote } from '../utils/notes'
-import { keys, noteForIndex, getNoteIndexForMIDI } from '../utils'
+import { Icon } from '@/components'
 
-import midiIcon from '../images/midi.svg'
+import { stopNote, startNote } from '@/utils/notes'
+import { keys, noteForIndex, getNoteIndexForMIDI } from '@/utils'
+
+import midiIcon from '@/images/midi.svg'
 
 class Settings extends Component {
   constructor (props) {

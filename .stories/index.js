@@ -5,9 +5,11 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { text, boolean, color, number } from '@storybook/addon-knobs'
 
-import NumericInput from '../src/components/NumericInput'
-import Button from '../src/components/forms/Button'
-import Kbd from '../src/components/elements/Kbd'
+import {
+  NumericInput,
+  Button,
+  Kbd,
+} from '@/components'
 
 storiesOf('NumericInput', module)
   .add('solo', () => {
