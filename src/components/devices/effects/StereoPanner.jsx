@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Item from '../Item.jsx'
-import NumericInput from '../NumericInput.jsx'
+import {
+  NumericInput,
+  Item,
+} from '@/components'
 
 class StereoPanner extends Component {
   render () {

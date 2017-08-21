@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import NumericInput from '../NumericInput.jsx'
-import Item from '../Item.jsx'
+import {
+  NumericInput,
+  Item,
+} from '@/components'
 
 class Transpose extends Component {
   render () {

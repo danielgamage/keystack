@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Sample from '../Sample.jsx'
-import Envelope from '../Envelope.jsx'
-import Item from '../Item.jsx'
+import {
+  Sample,
+  Envelope,
+  Item,
+} from '@/components'
 
 class Sampler extends Component {
   render () {

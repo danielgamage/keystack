@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveProject, loadProject } from '../utils/store'
-import MIDI from './MIDI.jsx'
-import Help from './Help.jsx'
-import Icon from './Icon.jsx'
-import downloadIcon from '../images/download.svg'
-import uploadIcon from '../images/upload.svg'
+import { saveProject, loadProject } from '@/utils/store'
+import {
+  Midi,
+  Help,
+  Icon,
+} from '@/components'
+import downloadIcon from '@/images/download.svg'
+import uploadIcon from '@/images/upload.svg'
 
 class StatusBar extends Component {
   constructor (props) {
@@ -38,7 +40,7 @@ class StatusBar extends Component {
               />
           </button>
         </div>
-        <MIDI />
+        <Midi />
         <Help />
       </div>
     )

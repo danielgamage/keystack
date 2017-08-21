@@ -5,10 +5,12 @@ import { line, curveBundle } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'
 
-import NumericInput from './NumericInput.jsx'
+import {
+  NumericInput,
+} from '@/components'
 
-import { keys } from '../utils'
-import { loadSample } from '../utils/audio'
+import { keys } from '@/utils'
+import { loadSample } from '@/utils/audio'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 64

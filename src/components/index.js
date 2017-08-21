@@ -35,7 +35,30 @@
 export {default as Icon} from './elements/Icon'
 export {default as Kbd} from './elements/Kbd'
 
+export {default as Compressor} from './devices/effects/Compressor'
+export {default as Delay} from './devices/effects/Delay'
+export {default as Distortion} from './devices/effects/Distortion'
+export {default as Filter} from './devices/effects/Filter'
+export {default as StereoPanner} from './devices/effects/StereoPanner'
+
+export {default as KeySynth} from './devices/instruments/KeySynth'
+export {default as Sample} from './devices/instruments/Sample'
+export {default as Sampler} from './devices/instruments/Sampler'
+
+export {default as Chord} from './devices/midi/Chord'
+export {default as DisableNotes} from './devices/midi/DisableNotes'
+export {default as Transpose} from './devices/midi/Transpose'
+
+export {default as AddButton} from './forms/AddButton'
 export {default as Button} from './forms/Button'
 export {default as NumericInput} from './forms/NumericInput'
 
-export {default as MIDI} from './ui/MIDI'
+export {default as NoteHUD} from './visualizers/NoteHUD'
+export {default as RadialKeys} from './visualizers/RadialKeys'
+
+export {default as Help} from './app/Help'
+export {default as Midi} from './app/Midi'
+export {default as StatusBar} from './app/StatusBar'
+export {default as TrackSettings} from './app/TrackSettings'
+export {default as Visualizers} from './app/Visualizers'
+export {default as App} from './app/App'

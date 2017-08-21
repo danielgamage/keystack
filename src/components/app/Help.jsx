@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Icon from './Icon.jsx'
+import { Icon } from '@/components'
 
-import helpIcon from '../images/help.svg'
+import helpIcon from '@/images/help.svg'
 
 const keyboardRows = [
   {

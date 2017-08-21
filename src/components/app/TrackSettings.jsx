@@ -4,22 +4,24 @@ import { connect } from 'react-redux'
 
 import FlipMove from 'react-flip-move'
 
-import generateID from '../utils/generateID'
+import generateID from '@/utils/generateID'
 
-import KeySynth from './instruments/KeySynth.jsx'
-import Sampler from './instruments/Sampler.jsx'
+import {
+  KeySynth,
+  Sampler,
 
-import Filter from './effects/Filter.jsx'
-import StereoPanner from './effects/StereoPanner.jsx'
-import Compressor from './effects/Compressor.jsx'
-import Delay from './effects/Delay.jsx'
-import Distortion from './effects/Distortion.jsx'
+  Filter,
+  StereoPanner,
+  Compressor,
+  Delay,
+  Distortion,
 
-import Transpose from './midi/Transpose.jsx'
-import Chord from './midi/Chord.jsx'
-import DisableNotes from './midi/DisableNotes.jsx'
+  Transpose,
+  Chord,
+  DisableNotes,
+} from '@/components'
 
-import schema from '../reducers/schema'
+import schema from '@/reducers/schema'
 
 const devicesByName = {
   midi: {

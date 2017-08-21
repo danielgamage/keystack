@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NumericInput from './NumericInput.jsx'
-import Icon from './Icon.jsx'
+import {
+  NumericInput,
+  Icon,
+} from '@/components'
 
-import sawtoothIcon from '../images/wave-sawtooth.svg'
-import squareIcon from '../images/wave-square.svg'
-import triangleIcon from '../images/wave-triangle.svg'
-import sineIcon from '../images/wave-sine.svg'
+import sawtoothIcon from '@/images/wave-sawtooth.svg'
+import squareIcon from '@/images/wave-square.svg'
+import triangleIcon from '@/images/wave-triangle.svg'
+import sineIcon from '@/images/wave-sine.svg'
 
 const waves = {
   'sawtooth': sawtoothIcon,

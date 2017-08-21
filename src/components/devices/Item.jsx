@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindKeyboardEvents, unbindKeyboardEvents } from '../main.js'
+import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
 
 class Item extends Component {
   constructor (props) {

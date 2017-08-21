@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NumericInput from './NumericInput.jsx'
+import { NumericInput } from '@/components'
 import { line } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Icon from '../Icon.jsx'
-import matchChords from '../../utils/matchChords'
-import eyeIcon from '../../images/eye.svg'
+import {
+  Icon,
+} from '@/components'
+
+import matchChords from '@/utils/matchChords'
+import eyeIcon from '@/images/eye.svg'
 
 class NoteHUD extends Component {
   constructor (props) {
