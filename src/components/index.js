@@ -35,6 +35,14 @@
 export {default as Icon} from './elements/Icon'
 export {default as Kbd} from './elements/Kbd'
 
+export {default as AddButton} from './forms/AddButton'
+export {default as Button} from './forms/Button'
+export {default as NumericInput} from './forms/NumericInput'
+
+export {default as Item} from './devices/Item'
+export {default as Envelope} from './devices/Envelope'
+export {default as Oscillators} from './devices/Oscillators'
+
 export {default as Compressor} from './devices/effects/Compressor'
 export {default as Delay} from './devices/effects/Delay'
 export {default as Distortion} from './devices/effects/Distortion'
@@ -48,10 +56,6 @@ export {default as Sampler} from './devices/instruments/Sampler'
 export {default as Chord} from './devices/midi/Chord'
 export {default as DisableNotes} from './devices/midi/DisableNotes'
 export {default as Transpose} from './devices/midi/Transpose'
-
-export {default as AddButton} from './forms/AddButton'
-export {default as Button} from './forms/Button'
-export {default as NumericInput} from './forms/NumericInput'
 
 export {default as NoteHUD} from './visualizers/NoteHUD'
 export {default as RadialKeys} from './visualizers/RadialKeys'
