@@ -1,3 +1,7 @@
+import keySteps from '@/data/keySteps'
+import { keys } from '@/utils'
+import { stopNote, startNote } from '@/utils/notes'
+
 //
 // Keyboard
 //

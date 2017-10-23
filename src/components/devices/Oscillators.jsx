@@ -22,7 +22,7 @@ class Oscillators extends Component {
     return (
       <section className='controls'>
         {this.props.oscillators.map((osc, i) => (
-          <div className={`osc osc-${i}`}>
+          <div className={`osc osc-${i}`} key={i}>
             <div className='wave'>
               <span className='title'>
                 {`OSC ${i}`}
@@ -38,14 +38,17 @@ class Oscillators extends Component {
                   >Remove</button>
               </span>
               {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
-                <label title={type}>
+                <label
+                  title={type}
+                  key={type}
+                >
                   <input
                     className='hide-input'
                     name={`osc-${this.props.instrument.id}-${i}`}
                     type='radio'
                     value={type}
                     checked={(osc.type === type)}
-                    onClick={(e) => {
+                    onChange={(e) => {
                       this.props.dispatch({
                         id: this.props.instrument.id,
                         type: 'UPDATE_OSC',

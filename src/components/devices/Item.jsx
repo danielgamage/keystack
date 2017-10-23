@@ -106,7 +106,7 @@ class Item extends Component {
                 })
                 bindKeyboardEvents()
               }}
-              onInput={(e) => {
+              onChange={(e) => {
                 this.props.dispatch({
                   type: `UPDATE_DEVICE`,
                   id: this.props.item.id,

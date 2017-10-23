@@ -91,7 +91,8 @@ class TrackSettings extends Component {
           className={`settings-section settings-section--${el.type}`}
           staggerDurationBy={20}
           enterAnimation={customEnterAnimation}
-          leaveAnimation={customLeaveAnimation} >
+          leaveAnimation={customLeaveAnimation}
+        >
           <h3 key='title' className='settings-title'>{el.title}</h3>
           {insertHRs(devices, el.type, true)}
           <button
@@ -114,7 +115,6 @@ class TrackSettings extends Component {
               ? Object.keys(schema[this.state.add]).map(item => (
                 <button
                   onClick={() => {
-                    console.log(this.state.add)
                     const id = generateID()
                     this.props.dispatch({
                       type: 'CREATE_DEVICE',
@@ -128,6 +128,7 @@ class TrackSettings extends Component {
                       id: id
                     })
                   }}
+                  key={item}
                   className='button add-item-option'
                   >{item}</button>
               ))

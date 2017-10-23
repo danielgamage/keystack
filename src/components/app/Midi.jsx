@@ -8,7 +8,7 @@ import { keys, noteForIndex, getNoteIndexForMIDI } from '@/utils'
 
 import midiIcon from '@/images/midi.svg'
 
-class Settings extends Component {
+class Midi extends Component {
   constructor (props) {
     super(props)
     this.onMIDIMessage = this.onMIDIMessage.bind(this)
@@ -126,4 +126,4 @@ function mapStateToProps (state) {
   return { midi: state.midi }
 }
 
-export default connect(mapStateToProps)(Settings)
+export default connect(mapStateToProps)(Midi)
