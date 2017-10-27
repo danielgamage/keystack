@@ -8,7 +8,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var packageJSON = require('./package.json')
 
 function resolve (dir) {
-  return path.resolve(__dirname, '..', dir)
+  return path.resolve(__dirname, '.', dir)
 }
 
 module.exports = {
