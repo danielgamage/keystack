@@ -138,10 +138,13 @@ class Envelope extends Component {
               unit={el.unit}
               displayValue={format(el.format)(envelope[el.name])}
               value={envelope[el.name]}
-              action={{
-                type: 'UPDATE_VOLUME_ENVELOPE',
-                id: this.props.instrument.id,
-                key: el.name
+              onInput={(event) => {
+                this.props.dispatch({
+                  type: 'UPDATE_VOLUME_ENVELOPE',
+                  id: this.props.instrument.id,
+                  key: el.name,
+                  value: event
+                })
               }}
               />
           ))}

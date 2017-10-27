@@ -95,10 +95,13 @@ class Sample extends Component {
               max={el.max}
               step='0.01'
               value={this.props.instrument[`loop${el.name}`]}
-              action={{
-                id: this.props.instrument.id,
-                type: 'UPDATE_INSTRUMENT_ITEM',
-                property: `loop${el.name}`
+              onInput={(event) => {
+                this.props.dispatch({
+                  id: this.props.instrument.id,
+                  type: 'UPDATE_INSTRUMENT_ITEM',
+                  property: `loop${el.name}`,
+                  value: event
+                })
               }}
               />
           ))}
@@ -111,12 +114,15 @@ class Sample extends Component {
             step={1}
             displayValue={keys[this.props.instrument.pitch].note + keys[this.props.instrument.pitch].octave}
             value={this.props.instrument.pitch}
-            action={{
-              id: this.props.instrument.id,
-              type: 'UPDATE_INSTRUMENT_ITEM',
-              property: 'pitch'
+            onInput={(event) => {
+              this.props.dispatch({
+                id: this.props.instrument.id,
+                type: 'UPDATE_INSTRUMENT_ITEM',
+                property: 'pitch',
+                value: event
+              })
             }}
-              />
+            />
           <NumericInput
             label='Detune'
             unit=' ct'
@@ -126,12 +132,15 @@ class Sample extends Component {
             max={50}
             step={0.1}
             value={this.props.instrument.detune}
-            action={{
-              id: this.props.instrument.id,
-              type: 'UPDATE_INSTRUMENT_ITEM',
-              property: 'detune'
+            onInput={(event) => {
+              this.props.dispatch({
+                id: this.props.instrument.id,
+                type: 'UPDATE_INSTRUMENT_ITEM',
+                property: 'detune',
+                value: event
+              })
             }}
-              />
+            />
         </div>
       </section>
     )

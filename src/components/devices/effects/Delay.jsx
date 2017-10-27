@@ -55,10 +55,13 @@ class Delay extends Component {
               unit={param.unit}
               displayValue={format(param.format)(this.props.data[param.name])}
               value={this.props.data[param.name]}
-              action={{
-                type: 'UPDATE_DEVICE',
-                id: this.props.data.id,
-                property: param.name
+              onInput={(event) => {
+                this.props.dispatch({
+                  type: 'UPDATE_DEVICE',
+                  id: this.props.data.id,
+                  property: param.name,
+                  value: event,
+                })
               }}
               />
           ))}

@@ -69,49 +69,58 @@ class Oscillators extends Component {
               label='tune'
               className='small'
               id={`detune-${i}`}
-              min='-50'
-              max='50'
-              step='1'
+              min={-50}
+              max={50}
+              step={1}
               unit=' ct'
               displayValue={osc.detune}
               value={osc.detune}
-              action={{
-                id: this.props.instrument.id,
-                type: 'UPDATE_OSC',
-                index: i,
-                property: 'detune'
+              onInput={(event) => {
+                this.props.dispatch({
+                  id: this.props.instrument.id,
+                  type: 'UPDATE_OSC',
+                  index: i,
+                  property: 'detune',
+                  value: event,
+                })
               }}
               />
             <NumericInput
               label='pitch'
               className='small'
               id={`pitch-${i}`}
-              min='-48'
-              max='48'
-              step='1'
+              min={-48}
+              max={48}
+              step={1}
               unit=' st'
               displayValue={osc.pitch}
               value={osc.pitch}
-              action={{
-                id: this.props.instrument.id,
-                type: 'UPDATE_OSC',
-                index: i,
-                property: 'pitch'
+              onInput={(event) => {
+                this.props.dispatch({
+                  id: this.props.instrument.id,
+                  type: 'UPDATE_OSC',
+                  index: i,
+                  property: 'pitch',
+                  value: event,
+                })
               }}
               />
             <NumericInput
               label='vol'
               className='small'
               id={`volume-${i}`}
-              min='0'
-              max='1'
-              step='0.01'
+              min={0}
+              max={1}
+              step={0.01}
               value={osc.volume}
-              action={{
-                id: this.props.instrument.id,
-                type: 'UPDATE_OSC',
-                index: i,
-                property: 'volume'
+              onInput={(event) => {
+                this.props.dispatch({
+                  id: this.props.instrument.id,
+                  type: 'UPDATE_OSC',
+                  index: i,
+                  property: 'volume',
+                  value: event,
+                })
               }}
               />
           </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import {
   NumericInput,
   Item,
@@ -22,10 +21,13 @@ class Transpose extends Component {
             unit={` st`}
             displayValue={this.props.data.value}
             value={this.props.data.value}
-            action={{
-              type: 'UPDATE_DEVICE',
-              id: this.props.data.id,
-              property: 'value'
+            onInput={(event) => {
+              this.props.dispatch({
+                type: 'UPDATE_DEVICE',
+                id: this.props.data.id,
+                property: 'value',
+                value: event
+              })
             }}
             />
         </div>

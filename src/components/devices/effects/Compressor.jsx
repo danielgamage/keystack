@@ -137,11 +137,12 @@ class Compressor extends Component {
                   unit={params[el].unit}
                   displayValue={format(params[el].format)(this.props.data[el])}
                   value={this.props.data[el]}
-                  onUpdate={(v) => {
+                  onInput={(event) => {
                     this.props.dispatch({
                       type: 'UPDATE_DEVICE',
                       id: this.props.data.id,
-                      property: el
+                      property: el,
+                      value: event,
                     })
                   }}
                   />
@@ -159,11 +160,12 @@ class Compressor extends Component {
                 unit={params[el].unit}
                 displayValue={format(params[el].format)(this.props.data[el])}
                 value={this.props.data[el]}
-                onUpdate={(v) => {
+                onInput={(event) => {
                   this.props.dispatch({
                     type: 'UPDATE_DEVICE',
                     id: this.props.data.id,
-                    property: el
+                    property: el,
+                    value: event,
                   })
                 }}
                 />
