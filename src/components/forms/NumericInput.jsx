@@ -242,7 +242,7 @@ class NumericInput extends Component {
       <Fader
         {...this.props}
         className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
-        ref={(c) => this.containerElement = c}
+        innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''} >
         <label
           id={`${this.props.id}-input`}
