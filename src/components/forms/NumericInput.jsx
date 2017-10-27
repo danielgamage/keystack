@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
@@ -318,6 +319,28 @@ class NumericInput extends Component {
       </Fader>
     )
   }
+}
+
+NumericInput.propTypes = {
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  showLabel: PropTypes.bool,
+  label: PropTypes.string,
+  id: PropTypes.string,
+
+  value: PropTypes.number,
+  displayValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  unit: PropTypes.string,
+
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  scale: PropTypes.number,
+
+  onUpdate: PropTypes.func,
 }
 
 export default NumericInput
