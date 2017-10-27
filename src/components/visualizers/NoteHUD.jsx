@@ -40,7 +40,7 @@ class NoteHUD extends Component {
             <div className='viewer note-viewer'>{
                 this.props.notes[this.props.midiReadPosition].length > 0
                 ? this.props.notes[this.props.midiReadPosition].map(el => (
-                  <span key={el.note} className='notes'>{el.note}<sub>{el.octave}</sub></span>
+                  <span key={el.note + el.octave} className='notes'>{el.note}<sub>{el.octave}</sub></span>
                 ))
                 : <span className='empty'>Notes will appear here.</span>
               }</div>
