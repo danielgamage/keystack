@@ -15,9 +15,11 @@ class RadialKeys extends Component {
   constructor (props) {
     super(props)
     this.interact = this.interact.bind(this)
+    this.unBind = this.unBind.bind(this)
     this.radialNoteOn = this.radialNoteOn.bind(this)
     this.radialNoteOff = this.radialNoteOff.bind(this)
   }
+
   componentDidMount () {
     var width = 400,
       height = 400,
@@ -108,11 +110,14 @@ class RadialKeys extends Component {
     radialKeys.addEventListener('mousedown', this.interact)
     radialKeys.addEventListener('touchstart', this.interact)
   }
+
   interact (event) {
     if ([...event.target.classList].includes('spiral')) {
       this.radialNoteOn(event)
     }
+
     event.preventDefault()
+
     ;[...document.querySelectorAll('.spiral')].map((el, i) => {
       el.addEventListener('mousemove', this.radialNoteOn)
       el.addEventListener('mouseleave', this.radialNoteOff)
@@ -121,21 +126,31 @@ class RadialKeys extends Component {
       el.addEventListener('touchcancel', this.radialNoteOff)
       el.addEventListener('touchend', this.radialNoteOff)
     })
+
     window.addEventListener('mouseup', this.unBind)
+    window.addEventListener('mouseleave', this.unBind)
     window.addEventListener('touchend', this.unBind)
   }
+
   unBind (event) {
     ;[...document.querySelectorAll('.spiral')].map((el, i) => {
       el.removeEventListener('mousemove', this.radialNoteOn)
       el.removeEventListener('mouseleave', this.radialNoteOff)
+      el.removeEventListener('mouseup', this.radialNoteOff)
+      el.removeEventListener('touchmove', this.radialNoteOn)
+      el.removeEventListener('touchcancel', this.radialNoteOff)
+      el.removeEventListener('touchend', this.radialNoteOff)
     })
   }
+
   radialNoteOn (e) {
     startNote(keys[e.target.getAttribute('data-index')])
   }
+
   radialNoteOff (e) {
     stopNote(keys[e.target.getAttribute('data-index')])
   }
+
   componentWillReceiveProps (nextProps) {
     [...document.querySelectorAll(`.spiral.on`)].map(note => {
       note.classList.remove('on')
@@ -145,6 +160,7 @@ class RadialKeys extends Component {
         .classList.add('on')
     })
   }
+
   render () {
     return (
       <div id='chart' />
