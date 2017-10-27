@@ -174,7 +174,7 @@ class NumericInput extends Component {
 
       const value = this.shiftValue(direction * multiplier)
 
-      this.props.onUpdate(value, 'value')
+      this.props.onInput(value, 'value')
     }
   }
   getMultiplier (e) {
@@ -200,7 +200,7 @@ class NumericInput extends Component {
 
     const value = this.shiftValue(movement)
 
-    this.props.onUpdate(value, 'value')
+    this.props.onInput(value, 'value')
   }
   shiftValue (amount) {
     let value = this.props.value || 0
@@ -218,7 +218,7 @@ class NumericInput extends Component {
   }
   onChange (e) {
     const value = parseFloat(e.target.value)
-    this.props.onUpdate(value)
+    this.props.onInput(value)
   }
   angle (value) {
     const scale = this.props.scale || 1
@@ -340,7 +340,7 @@ NumericInput.propTypes = {
   step: PropTypes.number,
   scale: PropTypes.number,
 
-  onUpdate: PropTypes.func,
+  onInput: PropTypes.func,
 }
 
 export default NumericInput
