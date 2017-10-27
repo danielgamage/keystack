@@ -109,34 +109,44 @@ class NumericInput extends Component {
     this.mouseDownX = 0
     this.mouseDownY = 0
   }
+
   handleFocus (e) {
     this.setState({
       showInput: true
     })
   }
+
   handleBlur (e) {
     this.setState({
       showInput: false
     })
   }
+
   onMouseDown (e) {
     e.preventDefault()
+
     this.initialX = e.pageX || e.touches[0].pageX
     this.mouseDownX = e.pageX || e.touches[0].pageX
     this.mouseDownY = e.pageY || e.touches[0].pageY
+
     this.containerElement.classList.add('active')
+
     document.addEventListener('mousemove', this.onDrag)
     document.addEventListener('mouseup', this.onMouseUp)
     document.addEventListener('touchmove', this.onDrag)
     document.addEventListener('touchend', this.onMouseUp)
+
     document.body.classList.add('cursor--lr')
   }
+
   onMouseUp (e) {
     const currentMouseDownX = e.pageX || e.touches[0].pageX
     const currentMouseDownY = e.pageY || e.touches[0].pageY
+
     if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
       this.inputElement.focus()
     }
+
     this.containerElement.classList.remove('active')
     document.removeEventListener('mousemove', this.onDrag)
     document.removeEventListener('mouseup', this.onMouseUp)
@@ -144,6 +154,7 @@ class NumericInput extends Component {
     document.removeEventListener('touchend', this.onMouseUp)
     document.body.classList.remove('cursor--lr')
   }
+
   scale (value) {
     const scale = this.props.scale || 1
     if (scale !== 1) {
@@ -151,6 +162,7 @@ class NumericInput extends Component {
     }
     return value
   }
+
   unscale (value) {
     const scale = this.props.scale || 1
     if (scale !== 1) {
@@ -158,6 +170,7 @@ class NumericInput extends Component {
     }
     return value
   }
+
   handleKeyDown (e) {
     let direction
     if (e.keyCode === 38 || e.keyCode === 40) {
@@ -174,15 +187,17 @@ class NumericInput extends Component {
 
       const value = this.shiftValue(direction * multiplier)
 
-      this.props.onInput(value, 'value')
+      this.props.onInput(value)
     }
   }
+
   getMultiplier (e) {
     if (e.altKey && e.shiftKey) return 100
     if (e.shiftKey) return 10
     if (e.altKey) return 0.1
     else return 1
   }
+
   onDrag (e) {
     let movement
 
@@ -200,11 +215,11 @@ class NumericInput extends Component {
 
     const value = this.shiftValue(movement)
 
-    this.props.onInput(value, 'value')
+    this.props.onInput(value)
   }
+
   shiftValue (amount) {
     let value = this.props.value || 0
-
     value = this.scale(value)
 
     let step = this.props.step || 1
@@ -216,13 +231,16 @@ class NumericInput extends Component {
 
     return value
   }
+
   onChange (e) {
     const value = parseFloat(e.target.value)
     this.props.onInput(value)
   }
+
   angle (value) {
     const scale = this.props.scale || 1
     let angle
+
     if (scale !== 1) {
       angle = scaleLog()
         .domain([this.props.min, this.props.max])
@@ -233,8 +251,10 @@ class NumericInput extends Component {
         .domain([this.props.min, this.props.max])
         .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
     }
+
     return angle(value)
   }
+
   render () {
     var arcPath = arc()
 
