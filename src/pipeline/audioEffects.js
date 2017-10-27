@@ -26,14 +26,17 @@ export const setProps = {
     effect.filter.gain.value = state.gain
     mix(effect.dry, effect.wet, state.mix)
   },
+
   Distortion: (effect, state) => {
     effect.distortion.curve = makeDistortionCurve(state.amount)
     effect.distortion.oversample = state.oversample
     mix(effect.dry, effect.wet, state.mix)
   },
+
   // StereoPanner: (effect, state) => {
   //   effect.pan.value = state.pan
   // },
+
   Compressor: (effect, state) => {
     effect.compressor.attack.value = state.attack
     effect.compressor.knee.value = state.knee
@@ -42,6 +45,7 @@ export const setProps = {
     effect.compressor.threshold.value = state.threshold
     mix(effect.dry, effect.wet, state.mix)
   },
+
   Delay: (effect, state) => {
     effect.delay.delayTime.value = state.delay
     effect.feedback.gain.value = state.feedback / 100
@@ -69,11 +73,13 @@ export const createEffect = {
     setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   },
+
   // StereoPanner: (effect) => {
   //   const stereoPanner = audioCtx.createStereoPanner()
   //   setProps[effect.devicePrototype](stereoPanner, effect)
   //   audioEffectNodes[effect.id] = stereoPanner
   // },
+
   Compressor: (effect) => {
     const effectObj = {
       id: effect.id,
@@ -93,6 +99,7 @@ export const createEffect = {
     setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   },
+
   Delay: (effect) => {
     let effectObj = {
       id: effect.id,
@@ -115,6 +122,7 @@ export const createEffect = {
     setProps[effect.devicePrototype](effectObj, effect)
     audioEffectNodes.push(effectObj)
   },
+
   Distortion: (effect) => {
     let effectObj = {
       id: effect.id,

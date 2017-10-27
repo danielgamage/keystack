@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import NoteHUD from './visualizers/NoteHUD.jsx'
-import RadialKeys from './visualizers/RadialKeys.jsx'
-import Midi from './MIDI.jsx'
+import {
+  NoteHUD,
+  RadialKeys,
+} from '@/components'
 
-class App extends Component {
+class Visualizers extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -35,4 +36,4 @@ function mapStateToProps (state) {
   return { textBoxes: state.textBoxes, view: state.view }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(Visualizers)

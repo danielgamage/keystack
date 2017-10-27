@@ -4,22 +4,24 @@ import { connect } from 'react-redux'
 
 import FlipMove from 'react-flip-move'
 
-import generateID from '../utils/generateID'
+import generateID from '@/utils/generateID'
 
-import KeySynth from './instruments/KeySynth.jsx'
-import Sampler from './instruments/Sampler.jsx'
+import {
+  KeySynth,
+  Sampler,
 
-import Filter from './effects/Filter.jsx'
-import StereoPanner from './effects/StereoPanner.jsx'
-import Compressor from './effects/Compressor.jsx'
-import Delay from './effects/Delay.jsx'
-import Distortion from './effects/Distortion.jsx'
+  Filter,
+  StereoPanner,
+  Compressor,
+  Delay,
+  Distortion,
 
-import Transpose from './midi/Transpose.jsx'
-import Chord from './midi/Chord.jsx'
-import DisableNotes from './midi/DisableNotes.jsx'
+  Transpose,
+  Chord,
+  DisableNotes,
+} from '@/components'
 
-import schema from '../reducers/schema'
+import schema from '@/reducers/schema'
 
 const devicesByName = {
   midi: {
@@ -89,7 +91,8 @@ class TrackSettings extends Component {
           className={`settings-section settings-section--${el.type}`}
           staggerDurationBy={20}
           enterAnimation={customEnterAnimation}
-          leaveAnimation={customLeaveAnimation} >
+          leaveAnimation={customLeaveAnimation}
+        >
           <h3 key='title' className='settings-title'>{el.title}</h3>
           {insertHRs(devices, el.type, true)}
           <button
@@ -112,7 +115,6 @@ class TrackSettings extends Component {
               ? Object.keys(schema[this.state.add]).map(item => (
                 <button
                   onClick={() => {
-                    console.log(this.state.add)
                     const id = generateID()
                     this.props.dispatch({
                       type: 'CREATE_DEVICE',
@@ -126,6 +128,7 @@ class TrackSettings extends Component {
                       id: id
                     })
                   }}
+                  key={item}
                   className='button add-item-option'
                   >{item}</button>
               ))

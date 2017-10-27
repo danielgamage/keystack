@@ -1,7 +1,92 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
+import styled from 'styled-components'
+
+import vars from '@/variables'
+
+export const Fader = styled.div`
+  margin: 1rem 0 0 0;
+  &.right {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    svg {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
+  &.disabled {
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  label {
+    display: block;
+    width: 100%;
+
+    ${vars.sc_mixin}
+  }
+  svg {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+    width: ${props => props.small ? '1.2rem' : '3rem'};
+    height: ${props => props.small ? '1.2rem' : '3rem'};
+    &:hover {
+      .fader-knob {
+        opacity: 1;
+      }
+    }
+  }
+  &.active {
+    .fader-knob {
+      opacity: 1;
+    }
+  }
+  .fader-knob {
+    transition: 0.2s ease;
+    fill: ${vars.grey_1};
+    opacity: 0;
+  }
+  .fader-track {
+    stroke: ${vars.grey_1};
+  }
+  .fader-value {
+    stroke: ${vars.grey_6};
+  }
+  .input-output {
+    position: relative;
+    flex: 1;
+    height: 1rem;
+    input,
+    output {
+      ${vars.sc_mixin}
+      display: block;
+      opacity: 0;
+      &.active {
+        opacity: 1;
+      }
+    }
+    input {
+      position: absolute;
+      padding: 0.3rem 0.5rem;
+      top: -0.3rem;
+      left: -0.5rem;
+      bottom: -0.3rem;
+      right: -0.5rem;
+    }
+  }
+  input {
+    display: block;
+    appearance: none;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    flex: 1;
+  }
+`
 
 class NumericInput extends Component {
   constructor (props) {
@@ -20,39 +105,48 @@ class NumericInput extends Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.updateStore = this.updateStore.bind(this)
     this.initialX = 0
     this.mouseDownX = 0
     this.mouseDownY = 0
   }
+
   handleFocus (e) {
     this.setState({
       showInput: true
     })
   }
+
   handleBlur (e) {
     this.setState({
       showInput: false
     })
   }
+
   onMouseDown (e) {
     e.preventDefault()
+
     this.initialX = e.pageX || e.touches[0].pageX
     this.mouseDownX = e.pageX || e.touches[0].pageX
     this.mouseDownY = e.pageY || e.touches[0].pageY
+
     this.containerElement.classList.add('active')
+
     document.addEventListener('mousemove', this.onDrag)
     document.addEventListener('mouseup', this.onMouseUp)
     document.addEventListener('touchmove', this.onDrag)
     document.addEventListener('touchend', this.onMouseUp)
+
     document.body.classList.add('cursor--lr')
   }
+
   onMouseUp (e) {
     const currentMouseDownX = e.pageX || e.touches[0].pageX
     const currentMouseDownY = e.pageY || e.touches[0].pageY
+
     if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
       this.inputElement.focus()
     }
+
     this.containerElement.classList.remove('active')
     document.removeEventListener('mousemove', this.onDrag)
     document.removeEventListener('mouseup', this.onMouseUp)
@@ -60,6 +154,7 @@ class NumericInput extends Component {
     document.removeEventListener('touchend', this.onMouseUp)
     document.body.classList.remove('cursor--lr')
   }
+
   scale (value) {
     const scale = this.props.scale || 1
     if (scale !== 1) {
@@ -67,6 +162,7 @@ class NumericInput extends Component {
     }
     return value
   }
+
   unscale (value) {
     const scale = this.props.scale || 1
     if (scale !== 1) {
@@ -74,6 +170,7 @@ class NumericInput extends Component {
     }
     return value
   }
+
   handleKeyDown (e) {
     let direction
     if (e.keyCode === 38 || e.keyCode === 40) {
@@ -90,15 +187,17 @@ class NumericInput extends Component {
 
       const value = this.shiftValue(direction * multiplier)
 
-      this.updateStore(value, 'value')
+      this.props.onInput(value)
     }
   }
+
   getMultiplier (e) {
     if (e.altKey && e.shiftKey) return 100
     if (e.shiftKey) return 10
     if (e.altKey) return 0.1
     else return 1
   }
+
   onDrag (e) {
     let movement
 
@@ -116,11 +215,11 @@ class NumericInput extends Component {
 
     const value = this.shiftValue(movement)
 
-    this.updateStore(value, 'value')
+    this.props.onInput(value)
   }
+
   shiftValue (amount) {
     let value = this.props.value || 0
-
     value = this.scale(value)
 
     let step = this.props.step || 1
@@ -132,19 +231,16 @@ class NumericInput extends Component {
 
     return value
   }
+
   onChange (e) {
     const value = parseFloat(e.target.value)
-    this.updateStore(value)
+    this.props.onInput(value)
   }
-  updateStore (v) {
-    this.props.dispatch({
-      ...this.props.action,
-      value: v
-    })
-  }
+
   angle (value) {
     const scale = this.props.scale || 1
     let angle
+
     if (scale !== 1) {
       angle = scaleLog()
         .domain([this.props.min, this.props.max])
@@ -155,15 +251,18 @@ class NumericInput extends Component {
         .domain([this.props.min, this.props.max])
         .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
     }
+
     return angle(value)
   }
+
   render () {
     var arcPath = arc()
 
     return (
-      <div
+      <Fader
+        {...this.props}
         className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
-        ref={(c) => this.containerElement = c}
+        innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''} >
         <label
           id={`${this.props.id}-input`}
@@ -237,9 +336,31 @@ class NumericInput extends Component {
             onChange={this.onChange.bind(this)}
             />
         </div>
-      </div>
+      </Fader>
     )
   }
 }
 
-export default connect()(NumericInput)
+NumericInput.propTypes = {
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  showLabel: PropTypes.bool,
+  label: PropTypes.string,
+  id: PropTypes.string,
+
+  value: PropTypes.number,
+  displayValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  unit: PropTypes.string,
+
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  scale: PropTypes.number,
+
+  onInput: PropTypes.func,
+}
+
+export default NumericInput

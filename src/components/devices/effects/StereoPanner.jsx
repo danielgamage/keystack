@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Item from '../Item.jsx'
-import NumericInput from '../NumericInput.jsx'
+import {
+  NumericInput,
+  Item,
+} from '@/components'
 
 class StereoPanner extends Component {
   render () {
@@ -17,10 +19,13 @@ class StereoPanner extends Component {
             max={1}
             step={0.01}
             value={this.props.data['pan']}
-            action={{
-              type: 'UPDATE_DEVICE',
-              id: this.props.data.id,
-              property: 'pan'
+            onInput={(event) => {
+              this.props.dispatch({
+                type: 'UPDATE_DEVICE',
+                id: this.props.data.id,
+                property: 'pan',
+                value: event
+              })
             }}
             />
         </div>

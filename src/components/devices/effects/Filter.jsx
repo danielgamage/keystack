@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { audioEffectNodes } from '../../utils/audio'
+import { audioEffectNodes } from '@/utils/audio'
 
 import { line, curveCatmullRom } from 'd3-shape'
 import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
@@ -9,8 +9,10 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import { select } from 'd3-selection'
 import { format } from 'd3-format'
 
-import Item from '../Item.jsx'
-import NumericInput from '../NumericInput.jsx'
+import {
+  NumericInput,
+  Item,
+} from '@/components'
 
 const filterTypes = [
   { name: 'lowpass', frequency: true, q: true, gain: false, mix: true },
@@ -186,10 +188,13 @@ class Filter extends Component {
               unit={param.unit}
               displayValue={format(param.format)(this.props.data[param.name])}
               value={this.props.data[param.name]}
-              action={{
-                type: 'UPDATE_DEVICE',
-                id: this.props.data.id,
-                property: param.name
+              onInput={(event) => {
+                this.props.dispatch({
+                  type: 'UPDATE_DEVICE',
+                  id: this.props.data.id,
+                  property: param.name,
+                  value: event,
+                })
               }}
               />
           ))}

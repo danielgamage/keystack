@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Icon from '../Icon.jsx'
-import matchChords from '../../utils/matchChords'
-import eyeIcon from '../../images/eye.svg'
+import {
+  Icon,
+} from '@/components'
+
+import matchChords from '@/utils/matchChords'
+import eyeIcon from '@/images/eye.svg'
 
 class NoteHUD extends Component {
   constructor (props) {
@@ -37,14 +40,14 @@ class NoteHUD extends Component {
             <div className='viewer note-viewer'>{
                 this.props.notes[this.props.midiReadPosition].length > 0
                 ? this.props.notes[this.props.midiReadPosition].map(el => (
-                  <span className='notes'>{el.note}<sub>{el.octave}</sub></span>
+                  <span key={el.note + el.octave} className='notes'>{el.note}<sub>{el.octave}</sub></span>
                 ))
                 : <span className='empty'>Notes will appear here.</span>
               }</div>
             <div className='viewer chord-viewer'>{
                 matches.length > 0
                 ? matches.map((match, i, arr) => (
-                  <span className='chord'>
+                  <span key={match.name} className='chord'>
                     <span className='root'>{match.root}</span><span className='name'>{match.name}</span>
                   </span>
                 ))

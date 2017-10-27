@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
 
-import TrackSettings from './TrackSettings.jsx'
-import StatusBar from './StatusBar.jsx'
-import Visualizers from './Visualizers.jsx'
+import {
+  TrackSettings,
+  StatusBar,
+  Visualizers,
+} from '@/components'
 
 class App extends Component {
+  componentDidMount () {
+    bindKeyboardEvents()
+  }
+
+  componentWillUnmount () {
+    unbindKeyboardEvents()
+  }
+
   render () {
     return (
       <div className='app'>

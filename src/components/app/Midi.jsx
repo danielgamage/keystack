@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Icon from './Icon.jsx'
 
-import { stopNote, startNote } from '../utils/notes'
-import { keys, noteForIndex, getNoteIndexForMIDI } from '../utils'
+import { Icon } from '@/components'
 
-import midiIcon from '../images/midi.svg'
+import { stopNote, startNote } from '@/utils/notes'
+import { keys, noteForIndex, getNoteIndexForMIDI } from '@/utils'
 
-class Settings extends Component {
+import midiIcon from '@/images/midi.svg'
+
+class Midi extends Component {
   constructor (props) {
     super(props)
     this.onMIDIMessage = this.onMIDIMessage.bind(this)
@@ -125,4 +126,4 @@ function mapStateToProps (state) {
   return { midi: state.midi }
 }
 
-export default connect(mapStateToProps)(Settings)
+export default connect(mapStateToProps)(Midi)

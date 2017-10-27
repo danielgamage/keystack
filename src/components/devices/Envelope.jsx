@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NumericInput from './NumericInput.jsx'
+import { NumericInput } from '@/components'
 import { line } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'
 
-class Settings extends Component {
+class Envelope extends Component {
   render () {
     const envelope = this.props.envelope
 
@@ -62,6 +62,7 @@ class Settings extends Component {
           {points.map(point => (
             <circle
               vectorEffect='non-scaling-stroke'
+              key={`${point.x}-${point.y}`}
               className='dot'
               cx={x(point.x)}
               cy={y(point.y)}
@@ -128,6 +129,7 @@ class Settings extends Component {
           ].map(el => (
             <NumericInput
               label={el.name}
+              key={el.name}
               className='tri'
               id={el.name}
               min={el.min}
@@ -136,10 +138,13 @@ class Settings extends Component {
               unit={el.unit}
               displayValue={format(el.format)(envelope[el.name])}
               value={envelope[el.name]}
-              action={{
-                type: 'UPDATE_VOLUME_ENVELOPE',
-                id: this.props.instrument.id,
-                key: el.name
+              onInput={(event) => {
+                this.props.dispatch({
+                  type: 'UPDATE_VOLUME_ENVELOPE',
+                  id: this.props.instrument.id,
+                  key: el.name,
+                  value: event
+                })
               }}
               />
           ))}
@@ -149,4 +154,4 @@ class Settings extends Component {
   }
 }
 
-export default connect()(Settings)
+export default connect()(Envelope)

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import NumericInput from '../NumericInput.jsx'
-import Item from '../Item.jsx'
+import {
+  NumericInput,
+  Item,
+} from '@/components'
 
 class Chord extends Component {
   render () {
@@ -21,11 +23,14 @@ class Chord extends Component {
               step={1}
               unit=' st'
               value={this.props.data.value[i]}
-              action={{
-                type: 'UPDATE_DEVICE_ARRAY',
-                id: this.props.data.id,
-                property: 'value',
-                index: i
+              onInput={(event) => {
+                this.props.dispatch({
+                  type: 'UPDATE_DEVICE_ARRAY',
+                  id: this.props.data.id,
+                  property: 'value',
+                  index: i,
+                  value: event,
+                })
               }}
               />
           ))}

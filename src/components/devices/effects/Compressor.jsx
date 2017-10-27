@@ -7,11 +7,13 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import { select } from 'd3-selection'
 import { format } from 'd3-format'
 
-import { audioEffectNodes } from '../../utils/audio'
-import { compressSample } from '../../utils/compressor'
+import { audioEffectNodes } from '@/utils/audio'
+import { compressSample } from '@/utils/compressor'
 
-import Item from '../Item.jsx'
-import NumericInput from '../NumericInput.jsx'
+import {
+  NumericInput,
+  Item,
+} from '@/components'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 256
@@ -135,10 +137,13 @@ class Compressor extends Component {
                   unit={params[el].unit}
                   displayValue={format(params[el].format)(this.props.data[el])}
                   value={this.props.data[el]}
-                  action={{
-                    type: 'UPDATE_DEVICE',
-                    id: this.props.data.id,
-                    property: el
+                  onInput={(event) => {
+                    this.props.dispatch({
+                      type: 'UPDATE_DEVICE',
+                      id: this.props.data.id,
+                      property: el,
+                      value: event,
+                    })
                   }}
                   />
               ))}
@@ -155,10 +160,13 @@ class Compressor extends Component {
                 unit={params[el].unit}
                 displayValue={format(params[el].format)(this.props.data[el])}
                 value={this.props.data[el]}
-                action={{
-                  type: 'UPDATE_DEVICE',
-                  id: this.props.data.id,
-                  property: el
+                onInput={(event) => {
+                  this.props.dispatch({
+                    type: 'UPDATE_DEVICE',
+                    id: this.props.data.id,
+                    property: el,
+                    value: event,
+                  })
                 }}
                 />
             ))}

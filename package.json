@@ -14,20 +14,26 @@
     "build": "npm run clean && NODE_ENV=production npm run webpack && npm run copy",
     "deploy": "gh-pages -d build",
     "lint": "standard",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "d3": "^4.7.2",
     "normalize-opentype.css": "^0.2.4",
     "normalize.css": "^5.0.0",
+    "prop-types": "^15.6.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-flip-move": "^2.9.1",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
+    "styled-components": "^2.1.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "@storybook/addon-knobs": "^3.2.0",
+    "@storybook/react": "^3.2.3",
     "babel-core": "^6.1.2",
     "babel-loader": "^6.1.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -35,6 +41,7 @@
     "babel-plugin-transform-runtime": "^6.1.2",
     "babel-preset-es2015": "^6.1.2",
     "babel-preset-stage-0": "^6.1.2",
+    "babel-preset-react": "^6.1.2",
     "browser-sync": "^2.8.0",
     "bs-fullscreen-message": "^1.0.0",
     "css-loader": "^0.27.3",

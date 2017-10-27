@@ -21,13 +21,15 @@ body {
   font-family: $sans;
   background: $grey-6;
   color: $grey-0;
-  &.cursor--lr,
-  &.cursor--lr label {
-    cursor: ew-resize !important;
-    user-select: none;
-  }
-  &.cursor--move {
-    cursor: move !important;
+
+  &.cursor--lr { cursor: ew-resize }
+  &.cursor--move { cursor: move }
+
+  &[class^='cursor--'] {
+    & * {
+      user-select: none;
+      pointer-events: none;
+    }
   }
 }
 #chart {

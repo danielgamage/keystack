@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindKeyboardEvents, unbindKeyboardEvents } from '../main.js'
+import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
 
 class Item extends Component {
   constructor (props) {
@@ -106,7 +106,7 @@ class Item extends Component {
                 })
                 bindKeyboardEvents()
               }}
-              onInput={(e) => {
+              onChange={(e) => {
                 this.props.dispatch({
                   type: `UPDATE_DEVICE`,
                   id: this.props.item.id,
