@@ -16,6 +16,7 @@ export const playInstrument = (notes) => {
   const instruments = getDevicesOfType(state, state.tracks[0].devices, 'instrument')
   instruments.map(instrument => {
     const envelope = instrument.envelope
+
     switch (instrument.devicePrototype) {
       case `KeySynth`:
         notes.map(note => {
@@ -48,6 +49,7 @@ export const playInstrument = (notes) => {
           noteVolume.gain.exponentialRampToValueAtTime(Math.max(envelope.sustain, minVolume), audioCtx.currentTime + envelope.attack + envelope.decay)
         })
         break
+
       case `Sampler`:
         if (myBuffer !== null) {
           notes.map(note => {
@@ -83,6 +85,7 @@ export const stopInstrument = (notes) => {
   const instruments = getDevicesOfType(state, state.tracks[0].devices, 'instrument')
   instruments.map(instrument => {
     const envelope = instrument.envelope
+
     switch (instrument.devicePrototype) {
       case `KeySynth`:
         notes.map(note => {
@@ -96,6 +99,7 @@ export const stopInstrument = (notes) => {
           oscillators[note.index] = null
         })
         break
+
       case `Sampler`:
         if (myBuffer !== null) {
           notes.map(note => {

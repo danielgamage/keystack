@@ -9,8 +9,12 @@ export const processMIDI = {
       const value = parseInt(note.index) + parseInt(effect.value)
       return keys[value]
     })
+
     nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
   },
+
+  //
+
   Chord: (notes, effect, effectIndex, effectsArray, oldState) => {
     const value = notes.map(note => {
       return [...new Set(effect.value)].map(tone => {
@@ -20,12 +24,17 @@ export const processMIDI = {
     }).reduce((acc, cur) => {
       return acc.concat(cur)
     }, [])
+
     nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
   },
+
+  //
+
   DisableNotes: (notes, effect, effectIndex, effectsArray, oldState) => {
     const value = notes.filter(note => (
       effect.value[(note.index + 9) % 12]
     ))
+
     nextInMIDIChain(value, effect, effectIndex, effectsArray, oldState)
   }
 }
