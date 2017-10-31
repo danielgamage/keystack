@@ -41,6 +41,7 @@ export {default as NumericInput} from './forms/NumericInput'
 
 export {default as Item} from './devices/Item'
 export {default as Envelope} from './devices/Envelope'
+export {default as Waveform} from './devices/Waveform'
 export {default as Oscillators} from './devices/Oscillators'
 
 export {default as Compressor} from './devices/effects/Compressor'

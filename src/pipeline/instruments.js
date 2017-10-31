@@ -83,6 +83,7 @@ export const playInstrument = (notes) => {
 export const stopInstrument = (notes) => {
   const state = store.getState()
   const instruments = getDevicesOfType(state, state.tracks[0].devices, 'instrument')
+
   instruments.map(instrument => {
     const envelope = instrument.envelope
 
