@@ -1,9 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import { NumericInput } from '@/components'
 import { line } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'
+import vars from '@/variables'
+
+export const EnvelopeElement = styled.div`
+  .background-grid {
+    stroke-dasharray: 2, 6;
+    stroke: ${vars.grey_1};
+  }
+
+  .dot {
+    fill: ${vars.grey_0}
+  }
+`
 
 class Envelope extends Component {
   render () {
@@ -47,18 +60,35 @@ class Envelope extends Component {
       .y((d) => y(d.y))
 
     return (
-      <section className='envelope'>
+      <EnvelopeElement>
         <svg className='vis-path' viewBox={`0 0 32 ${viewBoxHeight}`}>
-          <linearGradient id='EnvelopeGradient' x1='0' x2='0' y1='0' y2={viewBoxHeight} gradientUnits='userSpaceOnUse'>
+          {/* <linearGradient id='EnvelopeGradient' x1='0' x2='0' y1='0' y2={viewBoxHeight} gradientUnits='userSpaceOnUse'>
             <stop offset='0%' stopColor='#59595b' />
             <stop offset='80%' stopColor='#47494b' />
             <stop offset='100%' stopColor='#444649' />
-          </linearGradient>
+          </linearGradient> */}
+
+          {points.filter((el, i, arr) => (
+            i !== 0 &&
+            i !== arr.length - 1
+          )).map(point => (
+            <line
+              vectorEffect='non-scaling-stroke'
+              key={`${point.x}-${point.y}`}
+              className='background-grid'
+              x1={x(point.x)}
+              x2={x(point.x)}
+              y1={0}
+              y2={viewBoxHeight}
+            />
+          ))}
+
           <path
             vectorEffect='non-scaling-stroke'
             d={envelopePath([{x: 0, y: 0}, ...points]) /* Add in an extra point at the start so the fill doesn't break when init !=0 */}
             fill='url(#EnvelopeGradient)'
-            />
+          />
+
           {points.map(point => (
             <circle
               vectorEffect='non-scaling-stroke'
@@ -149,7 +179,7 @@ class Envelope extends Component {
               />
           ))}
         </div>
-      </section>
+      </EnvelopeElement>
     )
   }
 }
