@@ -51,6 +51,16 @@ export const EchoContainer = styled.div`
   .handle{
     fill:#444649;stroke:#B3B3B3;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;
   }
+
+  .graph-axis {
+    line, path {
+      stroke: ${vars.grey_1};
+    }
+    text {
+      font-size: 10px;
+      fill: ${vars.grey_2};
+    }
+  }
 `
 
 class Echo extends Component {
@@ -154,9 +164,15 @@ class Echo extends Component {
       .domain([0, (delayCount * this.props.delayTime)])
       .range([64, 256 - 48])
 
+    const formatSeconds = format('.1r')
+
     const xAxis = axisBottom()
       .scale(x)
-      .ticks(3, 's')
+      .ticks(5)
+      .tickFormat(d => formatSeconds(d) + 's')
+      .tickSizeOuter([4])
+      .tickSizeInner([2])
+
     const axis = select(`.axis-x`)
       .call(xAxis.tickSize('5'))
       .selectAll('*')
@@ -212,7 +228,7 @@ class Echo extends Component {
 
           <g
             className='graph-axis axis-x'
-            transform={`translate(32,128)`}
+            transform={`translate(32,116)`}
           />
         </svg>
       </EchoContainer>
