@@ -124,6 +124,7 @@ class NumericInput extends Component {
 
   onMouseDown (e) {
     e.preventDefault()
+    e.target.requestPointerLock()
 
     this.initialX = e.pageX || e.touches[0].pageX
     this.mouseDownX = e.pageX || e.touches[0].pageX
@@ -140,6 +141,7 @@ class NumericInput extends Component {
   }
 
   onMouseUp (e) {
+    document.exitPointerLock()
     const currentMouseDownX = e.pageX || e.touches[0].pageX
     const currentMouseDownY = e.pageY || e.touches[0].pageY
 
