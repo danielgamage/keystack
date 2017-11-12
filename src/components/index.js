@@ -34,10 +34,12 @@
 
 export {default as Icon} from './elements/Icon'
 export {default as Kbd} from './elements/Kbd'
+export {default as HiddenInput} from './elements/HiddenInput'
 
 export {default as AddButton} from './forms/AddButton'
 export {default as Button} from './forms/Button'
 export {default as NumericInput} from './forms/NumericInput'
+export {default as Switch} from './forms/Switch'
 
 export {default as Item} from './devices/Item'
 export {default as Envelope} from './devices/Envelope'

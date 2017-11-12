@@ -1,24 +1,58 @@
 export default {
     // colors
-    grey_6: `#fdfcfb`,
-    grey_5: `#e8e9eb`,
-    grey_4: `#cdd1d3`,
-    grey_3: `#b3b3b3`,
-    grey_2: `#7c7c7f`,
-    grey_1: `#5a5a5f`,
+    grey_7: `#FDFCFB`,
+    grey_6: `#E8E9EB`,
+    grey_5: `#CDD1D3`,
+    grey_4: `#949496`,
+    grey_3: `#87878B`,
+    grey_2: `#7C7C7F`,
+    grey_1: `#5A5A5F`,
     grey_0: `#444649`,
+
     orange: `#ff9800`,
     orange_bright: `#ffa850`,
 
+    accents: {
+      orange: {
+        dark: `#FF9800`,
+        light: `#FFA850`,
+      },
+      magenta: {
+        dark: `#F067AB`,
+        light: `#FF89C4`,
+      },
+      red: {
+        dark: `#F6736A`,
+        light: `#FF9089`,
+      },
+      aqua: {
+        dark: `#1AD3CC`,
+        light: `#4BF0EA`,
+      },
+      blue: {
+        dark: `#67A0FA`,
+        light: `#90BBFF`,
+      },
+      purple: {
+        dark: `#9B7FF2`,
+        light: `#BBA5FF`,
+      },
+      green: {
+        dark: `#7DD35B`,
+        light: `#A3F582`,
+      },
+    },
+
     // fonts
-    'sans': `'Alegreya Sans', sans-serif`,
-    'sc': `'Alegreya Sans SC', sans-serif`,
+    'sans': `'Source Sans Pro', sans-serif`,
+    'sc': `'Source Sans Pro', sans-serif`,
 
     'sc_mixin': `
-      font-family: 'Alegreya Sans SC', sans-serif;
-      text-transform: lowercase;
+      font-family: 'Source Sans Pro', sans-serif;
+      text-transform: uppercase;
+      font-weight: 600;
       font-size: 0.8rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.2em;
       word-spacing: 0.1em;
       line-height: 1rem;
     `,
