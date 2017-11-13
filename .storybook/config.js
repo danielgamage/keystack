@@ -9,7 +9,7 @@ function loadStories () {
 }
 
 addDecorator(withKnobsOptions({
-  debounce: { wait: 5000, leading: true }, // Same as lodash debounce.
+  // debounce: { wait: 200, leading: true }, // Same as lodash debounce.
   timestamps: true // Doesn't emit events while user is typing.
 }))
 
