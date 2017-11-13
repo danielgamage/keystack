@@ -33,6 +33,7 @@
 // export default demos
 
 export {default as Icon} from './elements/Icon'
+export {default as Text} from './elements/Text'
 export {default as Kbd} from './elements/Kbd'
 export {default as HiddenInput} from './elements/HiddenInput'
 
