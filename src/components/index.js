@@ -40,6 +40,7 @@ export {default as AddButton} from './forms/AddButton'
 export {default as Button} from './forms/Button'
 export {default as NumericInput} from './forms/NumericInput'
 export {default as Switch} from './forms/Switch'
+export {default as SwitchWithOptions} from './forms/SwitchWithOptions'
 
 export {default as Item} from './devices/Item'
 export {default as Envelope} from './devices/Envelope'
