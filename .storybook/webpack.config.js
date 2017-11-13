@@ -46,7 +46,8 @@ module.exports = {
           plugins: [
             'transform-runtime',
             'transform-decorators-legacy',
-            'transform-react-jsx'
+            'transform-react-jsx',
+            'transform-react-jsx-source'
           ],
           presets: ['es2015', 'stage-0', 'react']
         }

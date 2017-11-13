@@ -2,6 +2,7 @@
   "presets": ["es2015", "react"],
   "plugins": [
     ["transform-decorators-legacy"],
-    ["transform-react-jsx"]
+    ["transform-react-jsx"],
+    ["transform-react-jsx-source"]
   ]
 }
