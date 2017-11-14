@@ -1,6 +1,5 @@
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobsOptions } from '@storybook/addon-knobs'
-import '../src/styles/global.sass'
 
 const req = require.context('../.stories', true, /\.js$/)
 
