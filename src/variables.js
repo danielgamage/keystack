@@ -17,30 +17,34 @@ export default {
         dark: `#FF9800`,
         light: `#FFA850`,
       },
-      magenta: {
-        dark: `#F067AB`,
-        light: `#FF89C4`,
-      },
       red: {
         dark: `#F6736A`,
         light: `#FF9089`,
       },
-      aqua: {
-        dark: `#1AD3CC`,
-        light: `#4BF0EA`,
-      },
-      blue: {
-        dark: `#67A0FA`,
-        light: `#90BBFF`,
+      magenta: {
+        dark: `#F067AB`,
+        light: `#FF89C4`,
       },
       purple: {
         dark: `#9B7FF2`,
         light: `#BBA5FF`,
       },
+      blue: {
+        dark: `#67A0FA`,
+        light: `#90BBFF`,
+      },
+      aqua: {
+        dark: `#1AD3CC`,
+        light: `#4BF0EA`,
+      },
       green: {
         dark: `#7DD35B`,
         light: `#A3F582`,
       },
+      yellow: {
+        dark: `#FFE953`,
+        light: `#FFF89A`,
+      }
     },
 
     // fonts
