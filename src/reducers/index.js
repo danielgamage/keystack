@@ -4,13 +4,15 @@ import devices from './devices'
 import notes from './notes'
 import midi from './midi'
 import view from './view'
+import preferences from './preferences'
 
 const keystackApp = combineReducers({
-  tracks: tracks,
-  devices: devices,
-  notes: notes,
-  midi: midi,
-  view: view
+  tracks,
+  devices,
+  notes,
+  midi,
+  view,
+  preferences,
 })
 
 const rootReducer = (state, action) => {
