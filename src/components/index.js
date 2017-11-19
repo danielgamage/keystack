@@ -67,6 +67,7 @@ export {default as RadialKeys} from './visualizers/RadialKeys'
 export {default as Echo} from './visualizers/Echo'
 
 export {default as Help} from './app/Help'
+export {default as ThemeSettings} from './app/ThemeSettings'
 export {default as Midi} from './app/Midi'
 export {default as StatusBar} from './app/StatusBar'
 export {default as TrackSettings} from './app/TrackSettings'

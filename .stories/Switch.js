@@ -25,7 +25,6 @@ class Wrapper extends Component {
   }
 
   render () {
-    console.log('render echo.js')
     return (
       <div>
         <Switch
@@ -64,6 +63,10 @@ class WrapperWithOptions extends Component {
         <SwitchWithOptions
           value={this.state.value}
           options={this.state.options}
+          orientation={boolean('row', true)
+            ? 'row'
+            : 'column'
+          }
           onInput={this.updateValue.bind(this)}
         />
       </div>

@@ -8,7 +8,6 @@ export const StyledH1 = styled.h1`
   font-family: 'Source Sans Pro';
   font-weight: 400;
   font-size: 36px;
-  color: #7C7C7F;
   letter-spacing: -1.44px;
 `
 
@@ -16,7 +15,6 @@ export const StyledH2 = styled.h2`
   font-family: 'Source Sans Pro';
   font-weight: 700;
   font-size: 18px;
-  color: #5A5A5F;
   letter-spacing: -0.72px;
 `
 
@@ -24,7 +22,6 @@ export const StyledH3 = styled.h3`
   font-family: 'Source Sans Pro';
   font-weight: 700;
   font-size: 10px;
-  color: #7C7C7F;
   letter-spacing: 2px;
   line-height: 14px;
   text-transform: uppercase;
@@ -33,7 +30,6 @@ export const StyledH3 = styled.h3`
 export const StyledValue = styled.span`
   font-family: SourceCodePro-Medium;
   font-size: 10px;
-  color: #444649;
 `
 
 export const StyledFlourish = styled.span`
@@ -41,7 +37,6 @@ export const StyledFlourish = styled.span`
   font-weight: 900;
   font-style: italic;
   font-size: 32px;
-  color: #7C7C7C;
 `
 
 

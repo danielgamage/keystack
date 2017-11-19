@@ -166,7 +166,8 @@ Switch.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     dark: PropTypes.bool,
-  }))
+  })),
+  onInput: PropTypes.func,
 }
 
 Switch.defaultProps = {

@@ -3,12 +3,17 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {
   Switch,
+  Text,
 } from '@/components'
 
 import vars from '@/variables'
 
 export const Container = styled.div`
   width: 212px;
+  display: ${props => props.orientation === 'row'
+    ? 'flex'
+    : 'block'
+  };
 
   .switch {
     margin: 0 8px
@@ -18,35 +23,41 @@ export const Container = styled.div`
     display: flex;
     padding: 0 8px;
   }
+
+  .option {
+    margin: 0;
+    line-height: 16px;
+  }
 `
 
 class SwitchWithOptions extends React.Component {
   render () {
     return (
-      <Container>
-        {this.props.orientation === 'column'
+      <Container {...this.props} orientation={this.props.orientation}>
+        {this.props.orientation === 'row'
           ? ([
-            <div className='option'>
+            <Text type='h3' className='option'>
               {this.props.options[0].value}
-            </div>,
+            </Text>,
 
             <Switch
               className='switch'
               style={{ flex: '1 1 auto' }}
+              onInput={this.props.onInput.bind(this)}
               {...this.props}
             />,
 
-            <div className='option'>
+            <Text type='h3' className='option'>
               {this.props.options[1].value}
-            </div>
+            </Text>
           ])
 
           : ([
             <div className='options'>
               {this.props.options.map(el => (
-                <div className="option">
+                <Text type='h3' className="option">
                   {el.value}
-                </div>
+                </Text>
               ))}
             </div>,
 
@@ -68,7 +79,8 @@ SwitchWithOptions.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     dark: PropTypes.bool,
-  }))
+  })),
+  onInput: PropTypes.func,
 }
 
 SwitchWithOptions.defaultProps = {
