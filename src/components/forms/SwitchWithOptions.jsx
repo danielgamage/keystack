@@ -27,16 +27,31 @@ export const Container = styled.div`
   .option {
     margin: 0;
     line-height: 16px;
+    cursor: pointer;
+    user-select: none;
   }
 `
 
 class SwitchWithOptions extends React.Component {
+  constructor (props) {
+    super(props)
+    this.updateValue = this.updateValue.bind(this)
+  }
+
+  updateValue (value) {
+    this.props.onInput(value)
+  }
+
   render () {
     return (
       <Container {...this.props} orientation={this.props.orientation}>
         {this.props.orientation === 'row'
           ? ([
-            <Text type='h3' className='option'>
+            <Text
+              type='h3'
+              className='option'
+              onClick={() => this.updateValue(this.props.options[0].value)}
+            >
               {this.props.options[0].value}
             </Text>,
 
@@ -47,7 +62,11 @@ class SwitchWithOptions extends React.Component {
               {...this.props}
             />,
 
-            <Text type='h3' className='option'>
+            <Text
+              type='h3'
+              className='option'
+              onClick={() => this.updateValue(this.props.options[1].value)}
+            >
               {this.props.options[1].value}
             </Text>
           ])
@@ -55,7 +74,11 @@ class SwitchWithOptions extends React.Component {
           : ([
             <div className='options'>
               {this.props.options.map(el => (
-                <Text type='h3' className="option">
+                <Text
+                  type='h3'
+                  className='option'
+                  onClick={() => this.updateValue(el.value)}
+                >
                   {el.value}
                 </Text>
               ))}

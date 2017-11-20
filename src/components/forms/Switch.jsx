@@ -50,6 +50,15 @@ export const Container = styled.label`
         : vars.grey_2
       };
       border-radius: 5px;
+      cursor: pointer;
+
+      &.is-active,
+      &:hover {
+        background: ${props => props.valueObject.strong
+          ? vars.grey_6
+          : vars.grey_3
+        };
+      }
     }
   }
 `
@@ -64,6 +73,7 @@ class Switch extends React.Component {
     this.hasMoved = false
 
     this.state = {
+      isActive: false,
       value: 'Simple',
       options: [{
         value: 'Simple',
@@ -78,6 +88,8 @@ class Switch extends React.Component {
 
   onMouseDown (e) {
     e.preventDefault()
+
+    this.setState({isActive: true})
 
     this.containerBox = this.containerElement.getBoundingClientRect()
     this.initialX = e.pageX || e.touches[0].pageX
@@ -126,6 +138,8 @@ class Switch extends React.Component {
     window.removeEventListener('touchend', this.onMouseUp)
     window.removeEventListener('mouseleave', this.onMouseUp)
     window.removeEventListener('blur', this.onMouseUp)
+
+    this.setState({isActive: false})
   }
 
   render () {
@@ -153,7 +167,7 @@ class Switch extends React.Component {
           ref={(c) => this.containerElement = c}
         >
           <div className='foreground'>
-            <div className='foreground-circle' />
+            <div className={'foreground-circle ' + (this.state.isActive && 'is-active')} />
           </div>
         </div>
       </Container>
