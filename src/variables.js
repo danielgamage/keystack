@@ -35,15 +35,15 @@ export default {
       },
       aqua: {
         dark: `#1AD3CC`,
-        light: `#4BF0EA`,
+        light: `#7BE4E0`,
       },
       green: {
         dark: `#7DD35B`,
-        light: `#A3F582`,
+        light: `#A8F489`,
       },
       yellow: {
-        dark: `#FFE953`,
-        light: `#FFF89A`,
+        dark: `#FFD149`,
+        light: `#FFEA77`,
       }
     },
 
