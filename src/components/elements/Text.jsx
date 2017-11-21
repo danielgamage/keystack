@@ -4,21 +4,21 @@ import styled from 'styled-components'
 import vars from '../../variables.js'
 console.log('hi1')
 
-export const StyledH1 = styled.h1`
+export const StyledH1 = styled.div`
   font-family: 'Source Sans Pro';
   font-weight: 400;
   font-size: 36px;
   letter-spacing: -1.44px;
 `
 
-export const StyledH2 = styled.h2`
+export const StyledH2 = styled.div`
   font-family: 'Source Sans Pro';
   font-weight: 700;
   font-size: 18px;
   letter-spacing: -0.72px;
 `
 
-export const StyledH3 = styled.h3`
+export const StyledH3 = styled.div`
   font-family: 'Source Sans Pro';
   font-weight: 700;
   font-size: 10px;
@@ -27,12 +27,15 @@ export const StyledH3 = styled.h3`
   text-transform: uppercase;
 `
 
-export const StyledValue = styled.span`
-  font-family: SourceCodePro-Medium;
-  font-size: 10px;
+export const StyledValue = styled.div`
+  font-family: 'Source Code Pro';
+  font-weight: 500;
+  font-size: 12px;
+  white-space: nowrap;
+  line-height: 1;
 `
 
-export const StyledFlourish = styled.span`
+export const StyledFlourish = styled.div`
   font-family: 'Source Sans Pro';
   font-weight: 900;
   font-style: italic;
