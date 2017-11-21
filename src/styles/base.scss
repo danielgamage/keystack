@@ -8,15 +8,15 @@ $grey-0: #444649;
 $orange: #FF9800;
 $orange-bright: #FFA850;
 
-$sans: 'Alegreya Sans', sans-serif;
-$sc: 'Alegreya Sans SC', sans-serif;
+$sans: 'Source Sans Pro', sans-serif;
+$sc: 'Source Sans Pro', sans-serif;
 
 $radius: 0.2rem;
 
 %sc {
   font-family: $sc;
   text-transform: lowercase;
-  font-size: 0.8rem;
+  // font-size: 0.8rem;
   letter-spacing: 0.1em;
   word-spacing: 0.1em;
   line-height: 1rem;

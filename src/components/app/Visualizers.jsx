@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import {
   NoteHUD,
   RadialKeys,
+
+  Button,
 } from '@/components'
 
 class Visualizers extends Component {
@@ -16,14 +18,15 @@ class Visualizers extends Component {
   render () {
     return (
       <div className='play-area'>
-        <button
+        <Button
           title={'Change where visualizers read notes from: pre or post-FX'}
           onClick={() => {
             this.setState({midiReadPosition: this.state.midiReadPosition === 'input' ? 'output' : 'input'})
           }}
-          className='button input-output-switch'>
+          className='button input-output-switch'
+        >
           {this.state.midiReadPosition}
-        </button>
+        </Button>
 
         <RadialKeys midiReadPosition={this.state.midiReadPosition} />
         <NoteHUD midiReadPosition={this.state.midiReadPosition} />

@@ -5,6 +5,10 @@ import { arc } from 'd3-shape'
 import { scaleLinear, scaleLog } from 'd3-scale'
 import styled from 'styled-components'
 
+import {
+  Text
+} from '@/components'
+
 import vars from '@/variables'
 
 export const Fader = styled.div`
@@ -30,7 +34,7 @@ export const Fader = styled.div`
   }
   svg {
     display: block;
-    margin: 0.5rem 0 0.2rem;
+    margin: 0.4rem 0 0.2rem;
     width: ${props => props.small ? '1.2rem' : '3rem'};
     height: ${props => props.small ? '1.2rem' : '3rem'};
     &:hover {
@@ -61,20 +65,20 @@ export const Fader = styled.div`
     height: 1rem;
     input,
     output {
-      ${vars.sc_mixin}
       display: block;
-      opacity: 0;
-      &.active {
-        opacity: 1;
-      }
     }
     input {
       position: absolute;
-      padding: 0.3rem 0.5rem;
+      padding: 5px 0.5rem;
       top: -0.3rem;
       left: -0.5rem;
       bottom: -0.3rem;
       right: -0.5rem;
+      height: 22px;
+      opacity: ${props => props.showInput ? 1 : 0};
+    }
+    output {
+      opacity: ${props => props.showInput ? 0 : 1};
     }
   }
   input {
@@ -271,32 +275,38 @@ class NumericInput extends Component {
     return (
       <Fader
         {...this.props}
+        showInput={this.state.showInput}
         className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
         innerRef={(c) => this.containerElement = c}
-        title={this.props.showLabel === false ? this.props.label : ''} >
+        title={this.props.showLabel === false ? this.props.label : ''}
+      >
         <label
           id={`${this.props.id}-input`}
           htmlFor={this.props.id}
           className={`ControlTitle`}
           >
           {this.props.showLabel !== false &&
-            <span className='label-text'>{this.props.label}</span>
+            <Text type='h3'>
+              {this.props.label}
+            </Text>
           }
         </label>
+
         <svg
           viewBox='0 0 32 32'
           className={`draggable`}
           aria-labelledby={`${this.props.id}-input`}
           onMouseDown={this.onMouseDown.bind(this)}
           onTouchStart={this.onMouseDown.bind(this)}
-          >
+        >
           <circle
             vectorEffect='non-scaling-stroke'
             className='fader-knob'
             cx={16}
             cy={16}
             r='10'
-            />
+          />
+
           <path
             vectorEffect='non-scaling-stroke'
             className='fader-track'
@@ -307,7 +317,8 @@ class NumericInput extends Component {
               startAngle: this.angle(this.props.min),
               endAngle: this.angle(this.props.max)
             })}
-            />
+          />
+
           <path
             vectorEffect='non-scaling-stroke'
             className='fader-value'
@@ -318,33 +329,33 @@ class NumericInput extends Component {
               startAngle: this.angle(this.props.min),
               endAngle: this.angle(this.props.value)
             })}
-            />
+          />
         </svg>
+
         <div className='input-output'>
-          <output
-            htmlFor={this.props.id}
-            className={!this.state.showInput && 'active'}
-            >
-            {this.props.displayValue !== undefined ? this.props.displayValue : this.props.value}
-            <span className='suffix'>{this.props.unit}</span>
-          </output>
-          <input
-            ref={i => this.inputElement = i}
-            className={this.state.showInput && 'active'}
-            id={`${this.props.id}-input`}
-            type='number'
-            disabled={this.props.disabled}
-            inputMode='numeric'
-            min={this.props.min}
-            max={this.props.max}
-            value={this.props.value}
-            step={this.props.step}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            onKeyDown={this.handleKeyDown}
-            defaultValue={this.props.defaultValue}
-            onChange={this.onChange.bind(this)}
+          <Text type='value'>
+            <output htmlFor={this.props.id}>
+              {this.props.displayValue !== undefined ? this.props.displayValue : this.props.value}
+              <span className='suffix'>{this.props.unit}</span>
+            </output>
+
+            <input
+              ref={i => this.inputElement = i}
+              id={`${this.props.id}-input`}
+              type='number'
+              disabled={this.props.disabled}
+              inputMode='numeric'
+              min={this.props.min}
+              max={this.props.max}
+              value={this.props.value}
+              step={this.props.step}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              onKeyDown={this.handleKeyDown}
+              defaultValue={this.props.defaultValue}
+              onChange={this.onChange.bind(this)}
             />
+          </Text>
         </div>
       </Fader>
     )

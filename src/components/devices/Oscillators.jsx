@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import {
   NumericInput,
   Icon,
+  Text,
+  Button,
 } from '@/components'
 
 import sawtoothIcon from '@/images/wave-sawtooth.svg'
@@ -24,9 +26,9 @@ class Oscillators extends Component {
         {this.props.oscillators.map((osc, i) => (
           <div className={`osc osc-${i}`} key={i}>
             <div className='wave'>
-              <span className='title'>
+              <Text type='h3'>
                 {`OSC ${i}`}
-                <button
+                <Button
                   className='button delete-osc'
                   onClick={() => {
                     this.props.dispatch({
@@ -35,8 +37,8 @@ class Oscillators extends Component {
                       index: i
                     })
                   }}
-                  >Remove</button>
-              </span>
+                >Remove</Button>
+              </Text>
               {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
                 <label
                   title={type}
@@ -125,7 +127,7 @@ class Oscillators extends Component {
               />
           </div>
         ))}
-        <button
+        <Button
           className='button add-osc'
           onClick={() => {
             this.props.dispatch({
@@ -133,7 +135,7 @@ class Oscillators extends Component {
               type: 'ADD_OSC'
             })
           }}
-          >Add Oscillator</button>
+        >Add Oscillator</Button>
       </section>
     )
   }

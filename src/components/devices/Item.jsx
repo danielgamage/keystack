@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
+import {
+  Button,
+  Text,
+} from '@/components'
 
 class Item extends Component {
   constructor (props) {
@@ -70,16 +74,17 @@ class Item extends Component {
     return (
       <div
         className={`item item-${this.props.type} ${this.state.dragging ? 'dragging' : ''}`}
-        >
+      >
         <header
           onMouseDown={(e) => {
             document.addEventListener('mousemove', this.handleDrag)
             document.addEventListener('mouseup', this.handleMouseUp)
             document.addEventListener('mouseleave', this.handleMouseUp)
           }}
-          >
+        >
           <div className='title item-title'>
-            <h3
+            <Text
+              type='h2'
               onMouseDown={(e) => {
                 this.mouseDownX = e.pageX
                 this.mouseDownY = e.pageY
@@ -90,7 +95,8 @@ class Item extends Component {
                 }
               }}
               className={this.state.titleFocus ? '' : 'active'}
-              >{this.props.item.name}</h3>
+            >{this.props.item.name}</Text>
+
             <input
               ref={t => this.titleInput = t}
               className={this.state.titleFocus ? 'active' : ''}
@@ -120,17 +126,16 @@ class Item extends Component {
           <div className='aux'>
             {this.props.headerChildren}
           </div>
-          <button
-            className='button'
+          <Button
             onClick={() => {
               this.props.dispatch({
                 type: `REMOVE_DEVICE`,
                 id: this.props.item.id
               })
             }}
-            >
+          >
             Remove
-          </button>
+          </Button>
         </header>
         <div className='item-body'>
           {this.props.children}

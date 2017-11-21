@@ -3,11 +3,13 @@ import styled from 'styled-components'
 
 import vars from '@/variables'
 
-export const StyledButton = styled.button`
-  padding: 0.2rem 0.4rem 0.25rem;
-  border: 0;
+import {
+  Text,
+} from '@/components'
 
-  ${vars.sc_mixin}
+export const StyledButton = styled.button`
+  padding: 4px 8px 3px;
+  border: 0;
 
   background: ${vars.grey_1};
   color: ${vars.grey_6};
@@ -26,7 +28,9 @@ class Button extends React.Component {
   render () {
     return (
       <StyledButton {...this.props} type='button'>
-        {this.props.children}
+        <Text type='h3'>
+          {this.props.children}
+        </Text>
       </StyledButton>
     )
   }

@@ -287,37 +287,6 @@
   .fader-value {
     stroke: $grey-6;
   }
-  .input-output {
-    position: relative;
-    flex: 1;
-    height: 1rem;
-    input,
-    output {
-      @extend %sc;
-      display: block;
-      opacity: 0;
-      &.active {
-        opacity: 1;
-      }
-    }
-    input {
-      position: absolute;
-      padding: 0.3rem 0.5rem;
-      top: -0.3rem;
-      left: -0.5rem;
-      bottom: -0.3rem;
-      right: -0.5rem;
-    }
-  }
-  input {
-    display: block;
-    appearance: none;
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    flex: 1;
-  }
 }
 .draggable {
   cursor: ew-resize;

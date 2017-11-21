@@ -19,7 +19,12 @@ import {
   Transpose,
   Chord,
   DisableNotes,
+
+  Text,
+  Button,
 } from '@/components'
+
+import vars from '@/variables'
 
 import schema from '@/reducers/schema'
 
@@ -39,7 +44,7 @@ const devicesByName = {
     'Compressor': Compressor,
     'Delay': Delay,
     'Distortion': Distortion
-  }
+  },
 }
 
 const customEnterAnimation = {
@@ -93,17 +98,27 @@ class TrackSettings extends Component {
           enterAnimation={customEnterAnimation}
           leaveAnimation={customLeaveAnimation}
         >
-          <h3 key='title' className='settings-title'>{el.title}</h3>
+          <Text
+            type='h3'
+            key='title'
+            style={{color: vars.grey_4}}
+          >{el.title}</Text>
+
           {insertHRs(devices, el.type, true)}
-          <button
+
+          <Button
             key='button'
-            className='add-button button'
+            style={{
+              paddingLeft: '22px',
+              paddingRight: '24px',
+            }}
             onClick={(e) => {
               e.stopPropagation()
               this.setState({
                 add: el.type
               })
-            }}>+ Add</button>
+            }}
+          >+ Add</Button>
         </FlipMove>
       )
     })
