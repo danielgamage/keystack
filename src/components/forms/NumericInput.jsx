@@ -124,20 +124,28 @@ class NumericInput extends Component {
 
   onMouseDown (e) {
     e.preventDefault()
-    e.target.requestPointerLock()
 
-    this.initialX = e.pageX || e.touches[0].pageX
-    this.mouseDownX = e.pageX || e.touches[0].pageX
-    this.mouseDownY = e.pageY || e.touches[0].pageY
+    const isRightClick = (
+      e.button === 2 ||
+      e.ctrlKey
+    )
 
-    this.containerElement.classList.add('active')
+    if (!isRightClick) {
+      e.target.requestPointerLock()
 
-    document.addEventListener('mousemove', this.onDrag)
-    document.addEventListener('mouseup', this.onMouseUp)
-    document.addEventListener('touchmove', this.onDrag)
-    document.addEventListener('touchend', this.onMouseUp)
+      this.initialX = e.pageX || e.touches[0].pageX
+      this.mouseDownX = e.pageX || e.touches[0].pageX
+      this.mouseDownY = e.pageY || e.touches[0].pageY
 
-    document.body.classList.add('cursor--lr')
+      this.containerElement.classList.add('active')
+
+      document.addEventListener('mousemove', this.onDrag)
+      document.addEventListener('mouseup', this.onMouseUp)
+      document.addEventListener('touchmove', this.onDrag)
+      document.addEventListener('touchend', this.onMouseUp)
+
+      document.body.classList.add('cursor--lr')
+    }
   }
 
   onMouseUp (e) {
