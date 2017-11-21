@@ -10,6 +10,7 @@ import vars from '@/variables'
 export const EnvelopeElement = styled.div`
   .background-grid {
     stroke-dasharray: 2, 6;
+    stroke-width: 1px;
     stroke: ${vars.grey_1};
   }
 
@@ -153,7 +154,7 @@ class Envelope extends Component {
               unit: 's',
               format: '0.3s',
               min: 0,
-              max: 5,
+              max: 10,
               step: 0.01
             }
           ].map(el => (
