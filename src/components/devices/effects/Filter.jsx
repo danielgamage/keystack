@@ -27,6 +27,7 @@ const filterTypes = [
 
 const parameters = [
   { name: 'frequency',
+    label: 'freq',
     unit: 'hz',
     format: '.3s',
     min: 30,
@@ -177,7 +178,7 @@ class Filter extends Component {
           {parameters.map(param => (
             <NumericInput
               key={param.name}
-              label={param.name}
+              label={param.label || param.name}
               className='quad'
               disabled={!filterTypes.find(el => el.name === this.props.data.type)[param.name]}
               id={param.name}
