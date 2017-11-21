@@ -45,8 +45,8 @@ const parameters = [
   { name: 'gain',
     format: '',
     unit: 'dB',
-    min: -15,
-    max: 15,
+    min: -18,
+    max: 18,
     step: 0.1,
     scale: 1
   },
@@ -78,7 +78,7 @@ class Filter extends Component {
       .domain([this.minHz, this.maxHz])
       .range([0, this.viewBoxWidth])
     this.y = scaleLinear()
-      .domain([-6, 6])
+      .domain([-10, 10])
       .range([this.viewBoxHeight, 0])
     this.envelopePath = line()
       .x((d) => this.x(d.x))
