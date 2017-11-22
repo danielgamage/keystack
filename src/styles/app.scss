@@ -32,14 +32,6 @@ body {
     }
   }
 }
-#chart {
-  margin-bottom: 2rem;
-  svg {
-    width: 100%;
-    height: 100%;
-    stroke-linecap: butt;
-  }
-}
 .status-bar {
   height: 2rem;
   display: flex;
@@ -53,38 +45,5 @@ body {
     display: flex;
     width: calc(50% - 3rem);
     align-items: center;
-  }
-}
-.play-area,
-.settings {
-  width: calc((100% - 2rem) / 2)
-}
-
-.axis {
-  & text {
-    font-size: 13px;
-    fill: $grey-0;
-  }
-}
-text.title {
-  font-size: 24px;
-}
-circle.tick {
-  fill: $grey-5;
-  stroke-dasharray: 2 3;
-}
-path.spiral {
-  fill: none;
-  stroke-width: 14px;
-  transition: 0.3s ease-out;
-  &.black {
-    stroke: $grey-0;
-  }
-  &.white {
-    stroke: $grey-6;
-  }
-  &.on {
-    transition: 0s ease;
-    stroke: $orange;
   }
 }

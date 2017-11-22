@@ -10,6 +10,49 @@ import { radialLine } from 'd3-shape'
 import { range } from 'd3-array'
 
 import { keys, noteForIndex } from '@/utils'
+import styled from 'styled-components'
+import vars from '@/variables'
+
+const StyledRadialKeys = styled.div`
+  #chart {
+    margin-bottom: 2rem;
+    svg {
+      width: 100%;
+      height: 100%;
+      stroke-linecap: butt;
+    }
+  }
+  .play-area,
+  .settings {
+    width: calc((100% - 2rem) / 2)
+  }
+
+  .axis {
+    & text {
+      font-size: 13px;
+      fill: ${vars.grey_0};
+    }
+  }
+  circle.tick {
+    fill: ${vars.grey_1};
+    stroke-dasharray: 2 3;
+  }
+  path.spiral {
+    fill: none;
+    stroke-width: 14px;
+    transition: 0.3s ease-out;
+    &.black {
+      stroke: ${vars.grey_0};
+    }
+    &.white {
+      stroke: ${vars.grey_7};
+    }
+    &.on {
+      transition: 0s ease;
+      stroke: ${props => vars.accents[props.theme.accent].dark};
+    }
+  }
+`
 
 class RadialKeys extends Component {
   constructor (props) {
@@ -163,7 +206,9 @@ class RadialKeys extends Component {
 
   render () {
     return (
-      <div id='chart' />
+      <StyledRadialKeys>
+        <div id='chart' />
+      </StyledRadialKeys>
     )
   }
 }

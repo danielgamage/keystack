@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
-import { Icon } from '@/components'
+import { connect } from 'react-redux'
+
+import {
+  Icon,
+  ThemeSettings,
+} from '@/components'
 
 import helpIcon from '@/images/help.svg'
 
@@ -47,6 +52,7 @@ class Help extends Component {
     }
   }
   render () {
+    console.log(this.props)
     return (
       <div>
         <button
@@ -92,10 +98,26 @@ class Help extends Component {
             >
             {`${this.state.active ? 'Close' : 'Open'} Help Panel`}
           </button>
+          <ThemeSettings
+            prefs={this.props.theme}
+            onInput={(event) => {
+              this.props.dispatch({
+                type: 'UPDATE_THEME',
+                value: event
+              })
+            }}
+          />
         </div>
       </div>
     )
   }
 }
 
-export default Help
+
+function mapStateToProps (state) {
+  return {
+    theme: state.preferences.theme,
+  }
+}
+
+export default connect(mapStateToProps)(Help)

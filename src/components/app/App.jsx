@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
 
+import { ThemeProvider } from 'styled-components'
+
 import {
   TrackSettings,
   StatusBar,
@@ -19,15 +21,23 @@ class App extends Component {
 
   render () {
     return (
-      <div className='app'>
-        <StatusBar />
-        <main>
-          <Visualizers />
-          <TrackSettings />
-        </main>
-      </div>
+      <ThemeProvider theme={this.props.theme}>
+        <div className='app'>
+          <StatusBar />
+          <main>
+            <Visualizers />
+            <TrackSettings />
+          </main>
+        </div>
+      </ThemeProvider>
     )
   }
 }
 
-export default connect()(App)
+function mapStateToProps (state) {
+  return {
+    theme: state.preferences.theme,
+  }
+}
+
+export default connect(mapStateToProps)(App)
