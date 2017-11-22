@@ -23,6 +23,7 @@ const Palette = styled.div`
   width: 112px;
   margin: 16px 0;
   padding: 12px;
+  transition: background 0.2s, box-shadow 0.2s;
 
   background-color: ${props => props.lightness === 'dark'
     ? vars.grey_0
@@ -39,17 +40,34 @@ const Palette = styled.div`
   border-radius: 7px;
 `
 
-const Swatch = styled.div`
-  display: block;
+const Swatch = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 1rem;
   height: 1rem;
   margin-right: 8px;
+  border: 0;
   border-radius: 1rem;
-  transition: border 0.2s ease, background 0.2s ease;
+  padding: 0;
 
-  ${props => props.selected
-    ? css`border: 4px solid ${props => props.color};`
-    : css`background-color: ${props => props.color};`
+  transition: border 0.2s ease, background 0.2s ease;
+  background-color: ${props => props.color};
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    display: block;
+    background: ${props => props.lightness === 'dark'
+      ? vars.grey_0
+      : vars.grey_7
+    };
+    border-radius: 1rem;
+    width: 8px;
+    height: 8px;
+    transition: opacity 0.2s, transform 0.2s, background 0.2s;
+    transform: ${props => props.selected ? 'scale(1)' : 'scale(0.5)'};
+    opacity: ${props => props.selected ? 1 : 0}
   }
 
   &:nth-child(4n) {
@@ -112,8 +130,10 @@ class ThemeSettings extends Component {
         <Palette lightness={this.props.prefs.lightness}>
           {currentColors.map((color, i) => (
             <Swatch
+              lightness={this.props.prefs.lightness}
               color={color.hex}
               title={color.key}
+              tabIndex='0'
               selected={color.key === this.props.prefs.accent}
               index={i}
               onClick={() => {this.updateAccent(color.key)}}
