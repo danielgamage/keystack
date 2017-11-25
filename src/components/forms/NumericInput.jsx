@@ -354,6 +354,7 @@ class NumericInput extends Component {
               onKeyDown={this.handleKeyDown}
               defaultValue={this.props.defaultValue}
               onChange={this.onChange.bind(this)}
+              onInput={(e) => {e.stopPropagation()}}
             />
           </Text>
         </div>

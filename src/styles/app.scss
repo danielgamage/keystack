@@ -32,18 +32,3 @@ body {
     }
   }
 }
-.status-bar {
-  height: 2rem;
-  display: flex;
-  background-color: $grey-5;
-  border-radius: $radius;
-  .file-operations {
-    display: flex;
-    width: calc(50% + 1rem);
-  }
-  .inputs {
-    display: flex;
-    width: calc(50% - 3rem);
-    align-items: center;
-  }
-}

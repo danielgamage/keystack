@@ -9,13 +9,32 @@ import {
 import downloadIcon from '@/images/download.svg'
 import uploadIcon from '@/images/upload.svg'
 
+import styled from 'styled-components'
+import vars from '@/variables'
+
+const StyledStatusBar = styled.div`
+  height: 2rem;
+  display: flex;
+  background-color: ${vars.grey_6};
+  border-radius: ${vars.radius};
+  .file-operations {
+    display: flex;
+    width: calc(50% + 1rem);
+  }
+  .inputs {
+    display: flex;
+    width: calc(50% - 3rem);
+    align-items: center;
+  }
+`
+
 class StatusBar extends Component {
   constructor (props) {
     super(props)
   }
   render () {
     return (
-      <div className="status-bar">
+      <StyledStatusBar>
         <div className="file-operations">
           <button
             className='button--status'
@@ -42,7 +61,7 @@ class StatusBar extends Component {
         </div>
         <Midi />
         <Help />
-      </div>
+      </StyledStatusBar>
     )
   }
 }
