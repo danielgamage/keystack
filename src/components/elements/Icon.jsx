@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 import 'whatwg-fetch'
 
+import styled from 'styled-components'
+import vars from '@/variables.js'
+
+export const StyledIcon = styled.div`
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: ${vars.grey_1};
+  stroke-width: 2px;
+  stroke-linecap: round;
+  transition: 0.2s ease;
+`
+
 class Icon extends Component {
   constructor (props) {
     super(props)
@@ -21,10 +35,10 @@ class Icon extends Component {
   }
   render () {
     return (
-      <div
+      <StyledIcon
         {...this.props}
         dangerouslySetInnerHTML={{__html: this.state.image}}
-        />
+      />
     )
   }
 }

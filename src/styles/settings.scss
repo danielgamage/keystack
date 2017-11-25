@@ -151,23 +151,7 @@
   text-transform: lowercase;
   color: $orange-bright;
 }
-.icon {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  padding: 0.25rem;
-  fill: none;
-  stroke: $grey-1;
-  stroke-width: 2px;
-  stroke-linecap: round;
-  transition: 0.2s ease;
-}
-.icon--wave {
-  display: inline-block;
-}
-:checked + .icon {
-  stroke: $grey-6;
-}
+
 .vis-path {
   overflow: visible;
   margin: 1rem 0 2rem;
