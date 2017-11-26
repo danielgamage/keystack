@@ -6,6 +6,7 @@ import { format } from 'd3-format'
 import {
   NumericInput,
   Item,
+  Echo,
 } from '@/components'
 
 const parameters = [
@@ -39,13 +40,22 @@ class Delay extends Component {
   constructor (props) {
     super(props)
   }
+
   render () {
     return (
       <Item type='audio' index={this.props.index} item={this.props.data}>
+        <Echo
+          id={this.props.data.id}
+          feedback={this.props.data.feedback / 100}
+          delayTime={this.props.data.delay}
+          mix={this.props.data.mix / 100}
+          onInput={() => {}}
+        />
         <div className='flex-container'>
           {parameters.map(param => (
             <NumericInput
               label={param.name}
+              key={param.name}
               className='tri'
               id={param.name}
               min={param.min}

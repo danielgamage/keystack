@@ -15,7 +15,7 @@ const viewBoxWidth = 256
 const viewBoxHeight = 128
 
 export const EchoContainer = styled.div`
-  padding: 8px;
+  padding: 0 0 10%;
   background: ${vars.grey_0};
   border-radius: ${vars.radius};
 
@@ -31,30 +31,46 @@ export const EchoContainer = styled.div`
     fill: ${vars.grey_5}
   }
 
-  .st1, .st2 {
-    stroke: ${vars.orange};
+  .grid-line {
+    fill: none;
+    stroke: #5A5A5F;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 6;
+  }
+  .st1,
+  .st2 {
+    stroke: ${props => vars.accents[props.theme.accent].light};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+    fill: none;
 
     &.first {
-      stroke: ${vars.grey_5}
+      stroke: ${vars.grey_6}
     }
   }
-
-  .grid-line {
-    fill:none;stroke:#5A5A5F;stroke-width:1;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:6;
-  }
   .st1 {
-    opacity:0.3;fill:none;stroke:#FFA850;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;
+    opacity: 0.3;
   }
   .st2 {
-    fill:none;stroke:#FFA850;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
   }
   .handle{
-    fill:#444649;stroke:#B3B3B3;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;
+    fill: #B3B3B3;
+    stroke: #B3B3B3;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
   }
 
   .graph-axis {
     line, path {
       stroke: ${vars.grey_1};
+      stroke-width: 1px;
     }
     text {
       font-size: 10px;
