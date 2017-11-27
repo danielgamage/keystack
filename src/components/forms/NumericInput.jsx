@@ -118,6 +118,8 @@ class NumericInput extends Component {
     this.setState({
       showInput: true
     })
+
+    document.execCommand('selectall', null, false)
   }
 
   handleBlur (e) {
