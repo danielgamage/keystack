@@ -189,21 +189,22 @@ class NumericInput extends Component {
 
   handleKeyDown (e) {
     let direction
-    if (e.keyCode === 38 || e.keyCode === 40) {
-      if (e.keyCode === 38) { // up
+    switch (e.keyCode) {
+      case 38: // up
+      case 40: // down
         e.preventDefault()
-        direction = 1
-      }
-      if (e.keyCode === 40) { // down
-        e.preventDefault()
-        direction = -1
-      }
 
-      const multiplier = this.getMultiplier(e)
+        if (e.keyCode === 38) direction = 1
+        if (e.keyCode === 40) direction = -1
 
-      const value = this.shiftValue(direction * multiplier)
-
-      this.props.onInput(value)
+        const multiplier = this.getMultiplier(e)
+        const value = this.shiftValue(direction * multiplier)
+        this.props.onInput(value)
+        break
+      case 27: // esc
+      case 13: // enter
+        this.inputElement.blur()
+        break;
     }
   }
 
