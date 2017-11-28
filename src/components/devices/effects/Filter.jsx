@@ -12,17 +12,18 @@ import { format } from 'd3-format'
 import {
   NumericInput,
   Item,
+  Select,
 } from '@/components'
 
 const filterTypes = [
-  { name: 'lowpass', frequency: true, q: true, gain: false, mix: true },
-  { name: 'highpass', frequency: true, q: true, gain: false, mix: true },
-  { name: 'bandpass', frequency: true, q: true, gain: false, mix: true },
-  { name: 'lowshelf', frequency: true, q: false, gain: true, mix: true },
-  { name: 'highshelf', frequency: true, q: false, gain: true, mix: true },
-  { name: 'peaking', frequency: true, q: true, gain: true, mix: true },
-  { name: 'notch', frequency: true, q: true, gain: false, mix: true },
-  { name: 'allpass', frequency: true, q: true, gain: false, mix: true }
+  { name: 'lowpass', label: 'Low-pass', frequency: true, q: true, gain: false, mix: true },
+  { name: 'highpass', label: 'High-pass', frequency: true, q: true, gain: false, mix: true },
+  { name: 'bandpass', label: 'Band-pass', frequency: true, q: true, gain: false, mix: true },
+  { name: 'lowshelf', label: 'Low-shelf', frequency: true, q: false, gain: true, mix: true },
+  { name: 'highshelf', label: 'High-shelf', frequency: true, q: false, gain: true, mix: true },
+  { name: 'peaking', label: 'Peaking', frequency: true, q: true, gain: true, mix: true },
+  { name: 'notch', label: 'Notch', frequency: true, q: true, gain: false, mix: true },
+  { name: 'allpass', label: 'All-pass', frequency: true, q: true, gain: false, mix: true }
 ]
 
 const parameters = [
@@ -134,20 +135,21 @@ class Filter extends Component {
     return (
       <Item type='audio' index={this.props.index} item={this.props.data}
         headerChildren={<div className='select'>
-          <select
-            onChange={(e) => {
+          <Select
+            onUpdate={(e) => {
+              console.log('e', e)
               this.props.dispatch({
                 type: 'UPDATE_DEVICE',
                 id: this.props.data.id,
                 property: 'type',
-                value: e.target.value
+                value: e
               })
             }}
-            >
-            {filterTypes.map(type => (
-              <option key={type.name} value={type.name}>{type.name}</option>
-            ))}
-          </select>
+            options={filterTypes.map(type => ({
+              value: type.name,
+              label: type.label,
+            }))}
+          />
         </div>}>
         <svg className='vis-path' id={`vis-${this.props.data.id}`} viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}>
           <defs>
