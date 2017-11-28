@@ -13,6 +13,8 @@ import vars from '@/variables.js'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 128
+const marginLeft = 36
+const marginRight = 16
 
 export const EchoContainer = styled.div`
   padding: 0 0 10%;
@@ -37,7 +39,9 @@ export const EchoContainer = styled.div`
     stroke-width: 1;
     stroke-linecap: round;
     stroke-miterlimit: 10;
-    stroke-dasharray: 6;
+    &.weak {
+      stroke-dasharray: 6;
+    }
   }
   .st1,
   .st2 {
@@ -163,12 +167,12 @@ class Echo extends Component {
 
   setScales () {
     this.sizeScale = scaleLinear()
-      .domain([0, 128])
+      .domain([0, viewBoxHeight])
       .range([0.1, 1])
     this.delayCount = this.getDelayCount()
     this.xScale = scaleLinear()
       .domain([0, (this.delayCount * this.props.delayTime)])
-      .range([0, 256 - 28])
+      .range([0, viewBoxWidth - marginLeft - marginRight])
   }
 
   //
@@ -202,12 +206,12 @@ class Echo extends Component {
     const delays = Array(this.delayCount + 1).fill().map((el, i) => {
       if (i === 0) return {
         offset: 0,
-        size: this.sizeScale(128 * (1 - this.props.mix))
+        size: this.sizeScale(viewBoxHeight * (1 - this.props.mix))
       }
 
       else return {
         offset: this.xScale(i * this.props.delayTime),
-        size: this.sizeScale(128 * this.props.mix * (Math.pow(this.props.feedback, (i - 1))))
+        size: this.sizeScale(viewBoxHeight * this.props.mix * (Math.pow(this.props.feedback, (i - 1))))
       }
     }).reverse()
 
@@ -215,12 +219,38 @@ class Echo extends Component {
       <EchoContainer>
         <svg x="0px" y="0px" viewBox="0 0 256 128">
           <g>
+            {/* horizontal */}
+            <line
+              className="grid-line"
+              vectorEffect='non-scaling-stroke'
+              x1={0} y1={viewBoxHeight} x2={viewBoxWidth} y2={viewBoxHeight}
+            />
+            <line
+              className="grid-line"
+              vectorEffect='non-scaling-stroke'
+              x1={0} y1="0" x2={viewBoxWidth} y2="0"
+            />
+
+
+            {/* vertical */}
+            <line
+              className="grid-line"
+              vectorEffect='non-scaling-stroke'
+              x1={0} y1={0} x2={0} y2={viewBoxHeight}
+            />
+            <line
+              className="grid-line"
+              vectorEffect='non-scaling-stroke'
+              x1={viewBoxWidth} y1={0} x2={viewBoxWidth} y2={viewBoxHeight}
+            />
+
             {delays.map((el, i, arr) => (
-              <g transform={`translate(${el.offset} 0)`}>
+              <g transform={`translate(${el.offset} 0)`} key={i}>
                 <line
-                  className="grid-line"
+                  className="grid-line weak"
                   vectorEffect='non-scaling-stroke'
-                  x1="24" y1="0" x2="24" y2="128"
+                  x1={marginLeft} y1="0" x2={marginLeft} y2={viewBoxHeight}
+                  style={{opacity: (i * 0.8 / arr.length) + 0.2}}
                 />
               </g>
             ))}
@@ -228,23 +258,23 @@ class Echo extends Component {
 
           <g>
             {delays.map((el, i, arr) => (
-              <g transform={`translate(${el.offset} 0)`}>
+              <g transform={`translate(${el.offset} 0)`} key={i}>
                 <g>
                   <ellipse
                     className="handle"
                     vectorEffect='non-scaling-stroke'
-                    cx="24" cy="64" rx="1" ry="2.5"
+                    cx={marginLeft} cy={viewBoxHeight / 2} rx="1" ry="2.5"
                   />
                 </g>
 
                 <g
                   transform={`
-                    translate(24 64)
+                    translate(${marginLeft} ${viewBoxHeight / 2})
                     scale(${el.size})
-                    translate(-32 -64)
+                    translate(-32 -${viewBoxHeight / 2})
                   `}
                 >
-                	<path
+                  <path
                     className={"st1 " + (i == arr.length - 1 ? 'first' : '')}
                     vectorEffect='non-scaling-stroke'
                     d="M32,120C18.7,120,8,94.9,8,64S18.7,8,32,8"
@@ -262,7 +292,7 @@ class Echo extends Component {
           <g
             className='graph-axis axis-x'
             data-id={this.props.id}
-            transform={`translate(24,128)`}
+            transform={`translate(${marginLeft}, ${viewBoxHeight})`}
           />
         </svg>
       </EchoContainer>
