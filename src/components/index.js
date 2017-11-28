@@ -40,6 +40,7 @@ export {default as HiddenInput} from './elements/HiddenInput'
 export {default as AddButton} from './forms/AddButton'
 export {default as Button} from './forms/Button'
 export {default as NumericInput} from './forms/NumericInput'
+export {default as Select} from './forms/Select'
 export {default as Switch} from './forms/Switch'
 export {default as SwitchWithOptions} from './forms/SwitchWithOptions'
 
