@@ -9,8 +9,8 @@ export const StyledIcon = styled.div`
   width: 2rem;
   height: 2rem;
   fill: none;
-  stroke: ${vars.grey_1};
-  stroke-width: 2px;
+  ${'' /* stroke: ${vars.grey_1};
+  stroke-width: 2px; */}
   stroke-linecap: round;
   transition: 0.2s ease;
 `

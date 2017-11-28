@@ -4,7 +4,71 @@ import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
 import {
   Button,
   Text,
+  Icon,
 } from '@/components'
+import xIcon from '@/images/x.svg'
+
+import styled from 'styled-components'
+import vars from '@/variables'
+
+const StyledItem = styled.div`
+  overflow: hidden;
+  transition: height 0.3s ease, background 0.4s ease;
+  margin: 0 -2rem;
+  padding: 1rem 2rem;
+  background-color: ${vars.grey_0};
+  &.selected,
+  &.dragging {
+    background-color: ${vars.grey_1};
+    background-color: ${vars.grey_1};
+  }
+  header {
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    line-height: 1;
+    .title {
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      h3, input {
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 1;
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      h3 {
+        margin: 0;
+      }
+      input {
+        position: absolute;
+        padding: 0.5rem;
+        top: -0.5rem;
+        right: -0.5rem;
+        bottom: -0.5rem;
+        left: -0.5rem;
+        width: calc(100% + 1rem);
+        border: 0;
+        background: none;
+        color: inherit;
+        pointer-events: none;
+      }
+    }
+  }
+  .remove-button .icon rect {
+    fill: currentColor;
+  }
+  section {
+    margin-bottom: 1rem;
+  }
+  .item-body {
+    transition: opacity 0.2s ease;
+  }
+`
 
 class Item extends Component {
   constructor (props) {
@@ -72,7 +136,7 @@ class Item extends Component {
   }
   render () {
     return (
-      <div
+      <StyledItem
         className={`item item-${this.props.type} ${this.state.dragging ? 'dragging' : ''}`}
       >
         <header
@@ -127,6 +191,7 @@ class Item extends Component {
             {this.props.headerChildren}
           </div>
           <Button
+            className='remove-button'
             onClick={() => {
               this.props.dispatch({
                 type: `REMOVE_DEVICE`,
@@ -134,13 +199,17 @@ class Item extends Component {
               })
             }}
           >
-            Remove
+            <Icon
+              className='icon'
+              src={xIcon}
+              style={{width: '8px', height: '8px'}}
+            />
           </Button>
         </header>
         <div className='item-body'>
           {this.props.children}
         </div>
-      </div>
+      </StyledItem>
     )
   }
 }
