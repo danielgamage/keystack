@@ -251,7 +251,9 @@ class NumericInput extends Component {
 
   onChange (e) {
     const value = parseFloat(e.target.value)
-    this.props.onInput(value)
+    if (value) {
+      this.props.onInput(value)
+    }
   }
 
   angle (value) {
