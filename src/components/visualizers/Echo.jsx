@@ -12,8 +12,8 @@ import { format } from 'd3-format'
 import vars from '@/variables.js'
 
 const viewBoxWidth = 256
-const viewBoxHeight = 128
-const marginLeft = 36
+const viewBoxHeight = 64
+const marginLeft = 24
 const marginRight = 16
 
 export const EchoContainer = styled.div`
@@ -22,6 +22,8 @@ export const EchoContainer = styled.div`
   border-radius: ${vars.radius};
 
   svg {
+    width: 100%;
+    height: 100%;
     overflow: visible;
   }
 
@@ -217,7 +219,7 @@ class Echo extends Component {
 
     return (
       <EchoContainer>
-        <svg x="0px" y="0px" viewBox="0 0 256 128">
+        <svg x="0px" y="0px" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
           <g>
             {/* horizontal */}
             <line
@@ -270,8 +272,8 @@ class Echo extends Component {
                 <g
                   transform={`
                     translate(${marginLeft} ${viewBoxHeight / 2})
-                    scale(${el.size})
-                    translate(-32 -${viewBoxHeight / 2})
+                    scale(${el.size / 2})
+                    translate(-32 -${viewBoxHeight})
                   `}
                 >
                   <path
