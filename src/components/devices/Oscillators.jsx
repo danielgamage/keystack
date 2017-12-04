@@ -19,10 +19,30 @@ const waves = {
   'sine': sineIcon
 }
 
+import styled from 'styled-components'
+import vars from '@/variables'
+
+const StyledOscillators = styled.div`
+  margin-bottom: 1rem;
+
+  .icon--wave {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.25rem 0.5rem 0 0;
+
+    stroke: ${vars.grey_1};
+    fill: none;
+  }
+  & :checked + .icon {
+    stroke: ${props => vars.accents[props.theme.accent].dark};
+  }
+`
+
 class Oscillators extends Component {
   render () {
     return (
-      <section className='controls'>
+      <StyledOscillators>
         {this.props.oscillators.map((osc, i) => (
           <div className={`osc osc-${i}`} key={i}>
             <div className='wave'>
@@ -136,7 +156,7 @@ class Oscillators extends Component {
             })
           }}
         >Add Oscillator</Button>
-      </section>
+      </StyledOscillators>
     )
   }
 }

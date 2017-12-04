@@ -9,7 +9,7 @@ import {
 } from '@/components'
 
 import matchChords from '@/utils/matchChords'
-import eyeIcon from '@/images/eye.svg'
+import eyeIcon from '@/images/icon/eye.svg'
 
 const StyledNoteHUD = styled.div`
   display: flex;
@@ -21,23 +21,17 @@ const StyledNoteHUD = styled.div`
   .icon--eye{
     transform: translateY(-0.5rem);
     flex: 0;
-    .icon--eye--fill {
-      fill: ${vars.grey_1};
-      stroke: none;
-      opacity: 0;
-      transform: scale(0.5);
+    cursor: pointer;
+
+    circle, path {
+      fill: none;
+      stroke: ${vars.grey_1};
+    }
+    .pupil {
       transition: 0.5s ease;
     }
     &.on {
-      .icon--eye--fill {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  }
-  .icon--midi{
-    &.on {
-      .icon--midi--black {
+      .pupil {
         fill: ${vars.grey_1};
       }
     }
@@ -47,7 +41,6 @@ const StyledNoteHUD = styled.div`
   }
   .note-viewer {
     font-weight: 700;
-    // font-size: 0.8rem;
   }
   .chord-viewer {
     line-height: 1.5;

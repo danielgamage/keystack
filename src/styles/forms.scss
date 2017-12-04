@@ -33,12 +33,6 @@ input, optgroup, select, textarea {
   opacity: 0;
 }
 
-.button {
-  @extend %button;
-}
-.button--status {
-  @extend %button-reset;
-}
 .hide-input {
   @extend %hidden-but-focusable;
 }

@@ -6,8 +6,9 @@ import {
   Help,
   Icon,
 } from '@/components'
-import downloadIcon from '@/images/download.svg'
-import uploadIcon from '@/images/upload.svg'
+
+import downloadIcon from '@/images/icon/download.svg'
+import uploadIcon from '@/images/icon/upload.svg'
 
 import styled from 'styled-components'
 import vars from '@/variables'
@@ -18,8 +19,17 @@ const StyledStatusBar = styled.div`
   background-color: ${vars.grey_6};
   border-radius: ${vars.radius};
   .file-operations {
+    padding-left: 8px;
     display: flex;
     width: calc(50% + 1rem);
+  }
+  .button {
+    color: ${vars.grey_3};
+    & + .button {
+      margin-left: 8px
+    }
+
+    ${vars.mixins.button_reset}
   }
   .inputs {
     display: flex;
@@ -37,7 +47,7 @@ class StatusBar extends Component {
       <StyledStatusBar>
         <div className="file-operations">
           <button
-            className='button--status'
+            className='button'
             onClick={() => {
               saveProject()
             }}
@@ -45,10 +55,11 @@ class StatusBar extends Component {
             <Icon
               className='icon'
               src={downloadIcon}
-              />
+              scale={2}
+            />
           </button>
           <button
-            className='button--status'
+            className='button'
             onClick={() => {
               loadProject()
             }}
@@ -56,7 +67,8 @@ class StatusBar extends Component {
             <Icon
               className='icon'
               src={uploadIcon}
-              />
+              scale={2}
+            />
           </button>
         </div>
         <Midi />

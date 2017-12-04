@@ -6,7 +6,7 @@ import { Icon } from '@/components'
 import { stopNote, startNote } from '@/utils/notes'
 import { keys, noteForIndex, getNoteIndexForMIDI } from '@/utils'
 
-import midiIcon from '@/images/midi.svg'
+import midiIcon from '@/images/icon/keyboard.svg'
 
 class Midi extends Component {
   constructor (props) {
@@ -104,7 +104,7 @@ class Midi extends Component {
           <Icon
             className={`icon icon--midi ${hasMidi && 'on'}`}
             src={midiIcon}
-            />
+          />
         </div>
         {this.props.midi.supports
           ? hasMidi
