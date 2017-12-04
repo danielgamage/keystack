@@ -103,6 +103,7 @@ class NumericInput extends Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.getMultiplier = this.getMultiplier.bind(this)
     this.shiftValue = this.shiftValue.bind(this)
+    this.clampValue = this.clampValue.bind(this)
     this.scale = this.scale.bind(this)
     this.unscale = this.unscale.bind(this)
     this.onDrag = this.onDrag.bind(this)
@@ -242,16 +243,22 @@ class NumericInput extends Component {
     let step = this.props.step || 1
     value = (amount * (step || 1)) + value
     value = this.unscale(value)
-    value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
-    value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
+    value = this.clampValue(value)
     value = Math.round(value * 100) / 100
 
     return value
   }
 
+  clampValue (value) {
+    value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
+    value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
+    return value
+  }
+
   onChange (e) {
-    const value = parseFloat(e.target.value)
+    let value = parseFloat(e.target.value)
     if (value) {
+      value = this.clampValue(value)
       this.props.onInput(value)
     }
   }
