@@ -6,7 +6,7 @@ import {
   Text,
   Icon,
 } from '@/components'
-import xIcon from '@/images/x.svg'
+import xIcon from '@/images/icon/x.svg'
 
 import styled from 'styled-components'
 import vars from '@/variables'
@@ -59,8 +59,16 @@ const StyledItem = styled.div`
       }
     }
   }
-  .remove-button .icon rect {
+  .remove-button {
+    position: relative;
     fill: currentColor;
+    width: 18px;
+    .icon--x {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   section {
     margin-bottom: 1rem;
@@ -200,9 +208,9 @@ class Item extends Component {
             }}
           >
             <Icon
-              className='icon'
+              className='icon--x'
               src={xIcon}
-              style={{width: '8px', height: '8px'}}
+              scale={2}
             />
           </Button>
         </header>
