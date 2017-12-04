@@ -1,5 +1,9 @@
 export default {
+
+    //
     // colors
+    //
+
     grey_7: `#FDFCFB`,
     grey_6: `#E8E9EB`,
     grey_5: `#CDD1D3`,
@@ -47,9 +51,67 @@ export default {
       }
     },
 
+    //
     // fonts
+    //
+
     'sans': `'Source Sans Pro', sans-serif`,
     'sc': `'Source Sans Pro', sans-serif`,
+
+    //
+    // selectors
+    //
+
+    selectors: {
+      svg_elements: `line, rect, path, circle, polygon, polyline`,
+    },
+
+    //
+    // mixins
+    //
+
+    mixins: {
+      sc: `
+        font-family: 'Source Sans Pro', sans-serif;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        word-spacing: 0.1em;
+        line-height: 1rem;
+      `,
+
+      button_reset: `
+        line-height: 1;
+        padding: 0;
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        background: none;
+      `,
+
+      button: `
+        @extend %button-reset;
+        padding: 0.2rem 0.4rem 0.25rem;
+        background: $grey-1;
+        color: $grey-6;
+        border-radius: $radius;
+        @extend %sc;
+        &:hover,
+        &:focus {
+          background: $grey-2;
+        }
+      `,
+
+      hidden_but_focusable: `
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        display: block;
+        opacity: 0;
+      `,
+    },
 
     'sc_mixin': `
       font-family: 'Source Sans Pro', sans-serif;
