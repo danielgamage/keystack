@@ -34,7 +34,10 @@ const StyledRadialKeys = styled.div`
     }
   }
   circle.tick {
-    fill: ${vars.grey_1};
+    fill: ${props => props.theme.lightness === 'dark'
+      ? vars.grey_1
+      : vars.grey_6
+    };
     stroke-dasharray: 2 3;
   }
   path.spiral {
