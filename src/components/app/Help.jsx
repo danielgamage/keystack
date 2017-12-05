@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+import vars from '@/variables'
 
 import {
   Icon,
   ThemeSettings,
+  Kbd,
 } from '@/components'
 
-import helpIcon from '@/images/help.svg'
+import ReactPopover from 'react-popover'
+
+import helpIcon from '@/images/icon/help.svg'
 
 const keyboardRows = [
   {
@@ -44,71 +49,137 @@ const keyboardRows = [
   }
 ]
 
+const StyledHelpContainer = styled.div`
+  background: ${vars.grey_7};
+  border-radius: ${vars.radius};
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: calc(100vw - 8rem);
+  max-width: 32rem;
+  max-height: calc(100vh - 8rem);
+  z-index: 10;
+  section {
+    margin-right: 2rem;
+  }
+  .flex-container {
+    margin: 2rem 0;
+  }
+  .title {
+    width: 100%;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    kbd {
+      margin: 0.1rem;
+      &[disabled] {
+        opacity: 0.2;
+      }
+    }
+    &.black {
+      kbd {
+        border-color: ${vars.grey_0};
+      }
+    }
+    &.white {
+      kbd {
+        color: ${vars.grey_0};
+        background: ${vars.grey_6};
+        border-color: ${vars.grey_4};
+      }
+    }
+  }
+`
+const StyledHelp = styled.div`
+  .help-button {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 11;
+  }
+`
+
 class Help extends Component {
   constructor (props) {
     super(props)
     this.state = {
       active: false
     }
+
+    this.togglePopover = this.togglePopover.bind(this)
   }
+
+  togglePopover () {
+    this.setState({ active: !this.state.active })
+  }
+
   render () {
-    console.log(this.props)
     return (
-      <div>
-        <button
-          className='button--status'
-          title={`${this.state.active ? 'Close' : 'Open'} Help Panel`}
-          onClick={(e) => {
-            this.setState({ active: !this.state.active })
-          }}
-          >
-          <Icon
-            className={`icon icon--help`}
-            src={helpIcon}
-            />
-        </button>
-        <div className={`help-container ${this.state.active ? 'active' : ''}`}>
-          <h2 className='title'>Help</h2>
-          <div className='flex-container'>
-            <section>
-              <h3>octave</h3>
-              <kbd title='z shifts octave down'>z</kbd>/<kbd title='x shifts octave up'>x</kbd>
-            </section>
-            <section>
-              <h3>notes</h3>
-              <div className='keyboard'>
-                {keyboardRows.map(row => (
-                  <div key={row.color} className={`row ${row.color}`}>
-                    {row.keys.map(key => (
-                      <kbd key={key.key} disabled={key.disabled}>{key.key}</kbd>
+      <StyledHelp>
+        <ReactPopover
+          isOpen={this.state.active}
+          onOuterAction={() => this.togglePopover()}
+          place='below'
+          body={[
+            <StyledHelpContainer>
+              <h2 className='title'>Help</h2>
+              <div className='flex-container'>
+                <section>
+                  <h3>octave</h3>
+                  <Kbd title='z shifts octave down'>z</Kbd>/<Kbd title='x shifts octave up'>x</Kbd>
+                </section>
+                <section>
+                  <h3>notes</h3>
+                  <div className='keyboard'>
+                    {keyboardRows.map(row => (
+                      <div key={row.color} className={`row ${row.color}`}>
+                        {row.keys.map(key => (
+                          <Kbd key={key.key} disabled={key.disabled}>{key.key}</Kbd>
+                          ))}
+                      </div>
                       ))}
                   </div>
-                  ))}
+                </section>
               </div>
-            </section>
-          </div>
-          <div>
-            <a className='button' href='https://github.com/danielgamage/keystack'>Keystack on GitHub</a>
-          </div>
+              <div>
+                <a className='button' href='https://github.com/danielgamage/keystack'>Keystack on GitHub</a>
+              </div>
+              <button
+                className='button'
+                onClick={(e) => {
+                  this.togglePopover()
+                }}
+                >
+                {`${this.state.active ? 'Close' : 'Open'} Help Panel`}
+              </button>
+              <ThemeSettings
+                prefs={this.props.theme}
+                onInput={(event) => {
+                  this.props.dispatch({
+                    type: 'UPDATE_THEME',
+                    value: event
+                  })
+                }}
+              />
+            </StyledHelpContainer>
+          ]}
+        >
           <button
-            className='button'
+            className='button--status'
+            title={`${this.state.active ? 'Close' : 'Open'} Help Panel`}
             onClick={(e) => {
               this.setState({ active: !this.state.active })
             }}
-            >
-            {`${this.state.active ? 'Close' : 'Open'} Help Panel`}
+          >
+            <Icon
+              className={`icon icon--help`}
+              src={helpIcon}
+              scale={2}
+            />
           </button>
-          <ThemeSettings
-            prefs={this.props.theme}
-            onInput={(event) => {
-              this.props.dispatch({
-                type: 'UPDATE_THEME',
-                value: event
-              })
-            }}
-          />
-        </div>
-      </div>
+        </ReactPopover>
+      </StyledHelp>
     )
   }
 }
