@@ -40,7 +40,6 @@ class Wrapper extends Component {
   // }
 
   render () {
-    console.log('render echo.js')
     return (
       <div>
         <Echo
@@ -65,12 +64,12 @@ storiesOf('Echo', module)
         feedback={number('feedback', 0.5, {
           range: true,
           min: 0,
-          max: 1,
+          max: 0.98,
           step: 0.01,
         })}
         delayTime={number('delayTime', 0.5, {
           range: true,
-          min: 0,
+          min: 0.01,
           max: 10,
           step: 0.1,
         })}
