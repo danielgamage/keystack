@@ -6,6 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 import { text, boolean, color, number } from '@storybook/addon-knobs'
 
 import {
+  PeriodicWaveInput,
   Waveform,
 } from '@/components'
 
@@ -13,15 +14,7 @@ class Wrapper extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: [
-        1,
-        0.5,
-        0.2,
-        0.15,
-        0.11,
-        0.09,
-        0.08,
-      ]
+      value: Array(64).fill(1)
     }
   }
   updateValue (v) {
@@ -31,15 +24,21 @@ class Wrapper extends Component {
   }
   render () {
     return (
-      <Waveform
-        value={this.state.value}
-        onInput={this.updateValue.bind(this)}
-      />
+      <div>
+        <PeriodicWaveInput
+          value={this.state.value}
+          resolution={64}
+          onInput={this.updateValue.bind(this)}
+        />
+        <Waveform
+          value={this.state.value}
+        />
+      </div>
     )
   }
 }
 
-storiesOf('Waveform', module)
+storiesOf('PeriodicWaveInput', module)
   .add('basic', () => {
     return (
       <Wrapper />

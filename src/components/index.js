@@ -66,6 +66,7 @@ export {default as Transpose} from './devices/midi/Transpose'
 export {default as NoteHUD} from './visualizers/NoteHUD'
 export {default as RadialKeys} from './visualizers/RadialKeys'
 export {default as Echo} from './visualizers/Echo'
+export {default as Waveform} from './visualizers/Waveform'
 
 export {default as Help} from './app/Help'
 export {default as ThemeSettings} from './app/ThemeSettings'

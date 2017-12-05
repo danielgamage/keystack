@@ -36,6 +36,12 @@ class Waveform extends Component {
     this.mouseDown = this.mouseDown.bind(this)
     this.mouseUp = this.mouseUp.bind(this)
     this.drag = this.drag.bind(this)
+    this.setScales = this.setScales.bind(this)
+    this.generateWave = this.generateWave.bind(this)
+    this.setWaveform = this.setWaveform.bind(this)
+
+    this.setScales()
+    this.setBackground()
   }
 
   updateValue (index, value) {
@@ -64,23 +70,112 @@ class Waveform extends Component {
     const containerBox = this.containerElement.getBoundingClientRect()
 
     const itemIndex = this.clampToRange(
-      Math.floor(((e.clientX - containerBox.left) / containerBox.width) * this.props.value.length),
+      Math.floor(((e.clientX - containerBox.left) / containerBox.width) * this.props.resolution),
       0,
       this.props.value.length - 1,
     )
 
-    const value = this.clampToRange(
-      1 - (e.clientY - containerBox.top) / containerBox.height,
-      0,
-      1,
-    )
+    const selection = this.getSelectionForEvent(e)
 
-    this.updateValue(itemIndex, value)
+
+
+    if (this.matchesSelection(itemIndex, selection)) {
+      const value = this.clampToRange(
+        1 - (e.clientY - containerBox.top) / containerBox.height,
+        0,
+        1,
+      )
+
+      this.updateValue(itemIndex, value)
+    }
+  }
+
+  generateWave (type) {
+    let waveArray = Array(this.props.resolution).fill(0)
+
+    switch (type) {
+      case 'sine':
+        waveArray[0] = 1
+        break
+      case 'saw':
+        waveArray.map((el, i) => (
+          1 / ((i+1) * Math.PI)
+        ))
+      case 'square':
+        waveArray.map((el, i) => (
+          this.matchesSelection(i, 'odd')
+            ? 1 / ((i+1) * Math.PI)
+            : 0
+        ))
+      default:
+
+    }
+  }
+
+  setWaveform (type) {
+    this.props.onInput(
+      this.generateWave(type)
+    )
+  }
+
+  getSelectionForEvent (e) {
+    if (e.altKey) return 'odd'
+    if (e.shiftKey) return 'even'
+    return 'all'
+  }
+
+  matchesSelection (index, selection) {
+    switch (selection) {
+      case 'even':
+        return index % 2 === 0
+        break
+      case 'odd':
+        return (index + 1) % 2 === 0
+        break
+      default:
+        return true
+    }
+  }
+
+  setScales () {
+    this.y = scaleLinear()
+      .domain([0, 1])
+      .rangeRound([viewBoxHeight, 0])
+
+    this.x = scaleBand()
+      .domain(Array(this.props.resolution).fill().map((el, i) => i))
+      .rangeRound([0, viewBoxWidth])
+      .paddingInner(0.2)
+  }
+
+  setBackground () {
+    this.backgrounds = Array(this.props.resolution).fill().map((rect, i) => (
+      <rect
+        vectorEffect='non-scaling-stroke'
+        className='background'
+        x={this.x(i)}
+        y={0}
+        height={viewBoxHeight}
+        width={this.x.bandwidth()}
+      />
+    ))
+  }
+
+  min (a, b) {
+    return a < b
+      ? a
+      : b
+  }
+
+  max (a, b) {
+    return a > b
+      ? a
+      : b
   }
 
   clampToRange (value, min, max) {
-    return Math.min(
-      Math.max(
+    return this.min(
+      this.max(
         value,
         min
       ),
@@ -88,46 +183,49 @@ class Waveform extends Component {
     )
   }
 
-  render () {
-    const x = scaleBand()
-      .domain(this.props.value.map((el, i) => i))
-      .rangeRound([0, viewBoxWidth])
-      .paddingInner(0.1)
+  componentWillReceiveProps (nextProps) {
+    if (this.props.resolution !== nextProps.resolution) {
+      this.setScales()
+      this.setBackground()
+    }
+  }
 
-    const y = scaleLinear()
-      .domain([0, 1])
-      .rangeRound([viewBoxHeight, 0]);
+  render () {
+    const foregrounds = this.props.value.map((rect, i) => (
+      <rect
+        vectorEffect='non-scaling-stroke'
+        className='value'
+        x={this.x(i)}
+        y={this.y(rect)}
+        height={viewBoxHeight - this.y(rect)}
+        width={this.x.bandwidth()}
+      />
+    ))
+
+    const oscillators = ['sine', 'saw', 'square']
 
     return (
-      <WaveformContainer>
-        <svg
-          className='vis-path'
-          viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-          onMouseDown={this.mouseDown.bind(this)}
-          ref={(c) => this.containerElement = c}
-        >
-          {this.props.value.map((rect, i) => (
-            <rect
-              vectorEffect='non-scaling-stroke'
-              className='background'
-              x={x(i)}
-              y={0}
-              height={viewBoxHeight}
-              width={x.bandwidth()}
-            />
+      <div>
+        <WaveformContainer>
+          <svg
+            className='vis-path'
+            viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+            onMouseDown={this.mouseDown.bind(this)}
+            ref={(c) => this.containerElement = c}
+          >
+            {this.backgrounds}
+            {foregrounds}
+          </svg>
+        </WaveformContainer>
+        <div>
+          {oscillators.map(type => (
+            <button
+              title={type}
+              // onClick={this.setWaveform(type)}
+            >{type}</button>
           ))}
-          {this.props.value.map((rect, i) => (
-            <rect
-              vectorEffect='non-scaling-stroke'
-              className='value'
-              x={x(i)}
-              y={y(rect)}
-              height={viewBoxHeight - y(rect)}
-              width={x.bandwidth()}
-            />
-          ))}
-        </svg>
-      </WaveformContainer>
+        </div>
+      </div>
     )
   }
 }
