@@ -61,13 +61,23 @@ const StyledItem = styled.div`
   }
   .remove-button {
     position: relative;
-    fill: currentColor;
-    width: 18px;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    border-radius: 4rem;
     .icon--x {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      fill: ${vars.grey_5};
+    }
+    &:hover,
+    &:focus {
+      background-color: ${vars.accents.red.dark};
+      .icon--x {
+        fill: ${vars.grey_7};
+      }
     }
   }
   section {
@@ -154,9 +164,11 @@ class Item extends Component {
             document.addEventListener('mouseleave', this.handleMouseUp)
           }}
         >
-          <div className='title item-title'>
-            <Text
-              type='h2'
+          <Text
+            type='h2'
+            className='title item-title'
+          >
+            <div
               onMouseDown={(e) => {
                 this.mouseDownX = e.pageX
                 this.mouseDownY = e.pageY
@@ -167,7 +179,7 @@ class Item extends Component {
                 }
               }}
               className={this.state.titleFocus ? '' : 'active'}
-            >{this.props.item.name}</Text>
+            >{this.props.item.name}</div>
 
             <input
               ref={t => this.titleInput = t}
@@ -194,7 +206,7 @@ class Item extends Component {
               }}
               type='text'
               value={this.props.item.name} />
-          </div>
+          </Text>
           <div className='aux'>
             {this.props.headerChildren}
           </div>
@@ -206,11 +218,12 @@ class Item extends Component {
                 id: this.props.item.id
               })
             }}
+            title='remove device'
           >
             <Icon
               className='icon--x'
               src={xIcon}
-              scale={2}
+              scale={1.5}
             />
           </Button>
         </header>

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
-  <g fill="#949496" fill-rule="evenodd">
+  <g fill-rule="evenodd">
     <rect width="1" height="7" x="3" transform="rotate(45 3.5 3.5)"/>
     <rect width="7" height="1" y="3" transform="rotate(45 3.5 3.5)"/>
   </g>
