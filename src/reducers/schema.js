@@ -154,7 +154,8 @@ export const defaultDevices = [
   schema.midi.Chord(),
   schema.midi.DisableNotes(),
   schema.instrument.KeySynth(),
-  schema.audio.Filter()
+  schema.audio.Filter(),
+  schema.audio.Delay()
 ]
 
 export default schema
