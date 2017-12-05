@@ -15,7 +15,6 @@ export const StyledH2 = styled.div`
   font-family: 'Source Sans Pro';
   font-weight: 700;
   font-size: 18px;
-  letter-spacing: -0.72px;
 `
 
 export const StyledH3 = styled.div`
