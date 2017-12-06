@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="7" height="8" viewBox="0 0 7 8">
-  <g fill="#949496" fill-rule="evenodd">
-    <rect width="7" height="1" y="7" transform="matrix(1 0 0 -1 0 15)"/>
-    <g transform="matrix(1 0 0 -1 .5 6)">
-      <rect width="1" height="5" x="2.5"/>
-      <polygon points="3.646 2.025 4.646 2.025 4.646 6.268 3.646 6.268" transform="rotate(45 4.146 4.146)"/>
-      <polygon points="1.354 2.025 2.354 2.025 2.354 6.268 1.354 6.268" transform="scale(-1 1) rotate(45 0 -.328)"/>
-    </g>
-  </g>
-</svg>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 8"><title>upload</title><rect y="7" width="7" height="1"/><rect x="3" y="1" width="1" height="5"/><rect x="4.15" y="-0.27" width="1" height="4.24" transform="translate(0.05 3.83) rotate(-45)"/><rect x="0.23" y="1.35" width="4.24" height="1" transform="translate(-0.62 2.21) rotate(-45)"/></svg>

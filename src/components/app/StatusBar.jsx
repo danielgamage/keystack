@@ -4,6 +4,7 @@ import { saveProject, loadProject } from '@/utils/store'
 import {
   Midi,
   Help,
+  UserSettings,
   Icon,
 } from '@/components'
 
@@ -71,8 +72,12 @@ class StatusBar extends Component {
             />
           </button>
         </div>
+
         <Midi />
+
         <Help />
+
+        <UserSettings />
       </StyledStatusBar>
     )
   }

@@ -14,6 +14,8 @@ export const StyledPopover = styled.div`
   z-index: 2;
   pointer-events: none;
   opacity: 0;
+  border-radius: 4px;
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.2));
 
   &.is-open {
     opacity: 1;
@@ -22,7 +24,7 @@ export const StyledPopover = styled.div`
     }
   }
 
-  .container {
+  .popover-container {
     position: absolute;
     min-width: 24px;
     min-height: 24px;
@@ -31,24 +33,25 @@ export const StyledPopover = styled.div`
 
     background-color: ${vars.grey_7};
     overflow: auto;
+    pointer-events: auto;
   }
 
-  &.is-up .container {
+  &.is-up .popover-container {
     left: 50%;
     bottom: calc(100% + 14px);
   }
 
-  &.is-down .container {
+  &.is-down .popover-container {
     left: 50%;
     top: calc(100% + 14px);
   }
 
-  &.is-left .container {
+  &.is-left .popover-container {
     top: 50%;
     right: calc(100% + 14px);
   }
 
-  &.is-right .container {
+  &.is-right .popover-container {
     top: 50%;
     left: calc(100% + 14px);
   }
@@ -64,6 +67,7 @@ export const StyledPopover = styled.div`
 
     z-index: 1;
     pointer-events: auto;
+    fill: ${vars.grey_7};
   }
 
   &.is-up .arrow {
@@ -311,7 +315,6 @@ class Popover extends React.Component {
     console.log('setOffset', this.state.openDirection)
 
     if (['up', 'down'].includes(this.state.openDirection)) {
-      console.log('up/down')
       this.setState({
         horizontalOffset: this.getHorizontalOffset(),
         centeredHorizontalOffset: this.getCenteredHorizontalOffset(),
@@ -338,12 +341,19 @@ class Popover extends React.Component {
       ...(this.props.includeElements || [])
     ]
 
+    console.log({
+      includeElements: this.props.includeElements,
+      target: $event.target,
+      popoverElements,
+    })
+
     const clickedInside = popoverElements.some((el) => (
       el.contains($event.target) ||
       el === $event.target
     ))
 
     if (!clickedInside) {
+      console.log('clickedOutside')
       this.props.onClickOutside()
     }
   }
@@ -357,7 +367,6 @@ class Popover extends React.Component {
   //
 
   addOutsideClickListener () {
-    console.log('addOutsideClickListener')
     document.documentElement.addEventListener(
       'mousedown',
       this.clicked.bind(this),
@@ -398,7 +407,7 @@ class Popover extends React.Component {
           className={'popover' + ` is-${this.state.openDirection}` + ` ${this.props.isOpen && 'is-open'}`}
         >
           <div
-            className='container'
+            className='popover-container'
             ref={(e) => {this.containerElement = e}}
             style={{
               width: this.state.width,

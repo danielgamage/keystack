@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  <g fill-rule="evenodd">
-    <polygon points="7 0 7 11 3 11 3 0 4 0 4 10 6 10 6 0"/>
-    <polygon points="12 10 10 10 10 0 9 0 9 11 13 11 13 0 12 0"/>
-    <rect width="1" height="5" x="5" y="11"/>
-    <rect width="1" height="5" x="10" y="11"/>
-    <path d="M16,0 L16,16 L0,16 L0,0 L16,0 Z M15,1 L1,1 L1,15 L15,15 L15,1 L15,1 Z"/>
-  </g>
-  <g class='keys-black' opacity="0" fill-rule="evenodd">
-    <rect width="4" height="11" x="3"/>
-    <rect width="4" height="11" x="9"/>
-  </g>
-</svg>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><title>keyboard</title><path d="M15,1H1V15H15Zm1-1V16H0V0Z"/><rect x="10" y="11" width="1" height="5"/><rect x="5" y="11" width="1" height="5"/><polygon points="7 0 7 11 3 11 3 0 4 0 4 10 6 10 6 0 7 0" fill="none" fill-rule="evenodd"/><polygon points="12 10 10 10 10 0 9 0 9 11 13 11 13 0 12 0 12 10" fill="none" fill-rule="evenodd"/><rect x="3" width="4" height="11"/><rect x="9" width="4" height="11"/></svg>

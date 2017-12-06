@@ -11,7 +11,7 @@ import {
   Popover
 } from '@/components'
 
-import helpIcon from '@/images/icon/help.svg'
+import gearIcon from '@/images/icon/gear.svg'
 
 const keyboardRows = [
   {
@@ -49,9 +49,10 @@ const keyboardRows = [
   }
 ]
 
-const StyledHelp = styled.div`
+const StyledUserSettings = styled.div`
   position: relative;
   display: flex;
+  padding-right: 8px;
 
   .help-container {
     background: ${vars.grey_7};
@@ -59,7 +60,7 @@ const StyledHelp = styled.div`
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
     padding: 2rem;
     width: calc(100vw - 8rem);
-    max-width: 32rem;
+    max-width: 16rem;
     max-height: calc(100vh - 8rem);
     z-index: 10;
     section {
@@ -94,7 +95,7 @@ const StyledHelp = styled.div`
   }
 `
 
-class Help extends Component {
+class UserSettings extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -106,10 +107,11 @@ class Help extends Component {
   }
 
   togglePopover () {
-    this.setState({ isOpen: !this.state.isOpen })
+    this.setState({ active: !this.state.isOpen })
   }
 
   closePopover () {
+    console.log('closePopover')
     this.setState({
       isOpen: false
     })
@@ -117,18 +119,18 @@ class Help extends Component {
 
   render () {
     return (
-      <StyledHelp>
+      <StyledUserSettings>
         <button
           className='button'
-          title={`${this.state.isOpen ? 'Close' : 'Open'} Help Panel`}
+          title={`${this.state.isOpen ? 'Close' : 'Open'} UserSettings Panel`}
           onClick={(e) => {
             this.setState({ isOpen: !this.state.isOpen })
           }}
         >
           <Icon
             className={`icon icon--help`}
-            src={helpIcon}
-            scale={2}
+            src={gearIcon}
+            scale={1}
           />
         </button>
 
@@ -138,32 +140,20 @@ class Help extends Component {
           place='below'
         >
           <div className="help-container">
-            <Text type='h3'>Help</Text>
-            <div className='flex-container'>
-              <section>
-                <Text type='h2'>octave</Text>
-                <Kbd title='z shifts octave down'>z</Kbd>/<Kbd title='x shifts octave up'>x</Kbd>
-              </section>
-              <section>
-                <Text type='h2'>notes</Text>
-                <div className='keyboard'>
-                  {keyboardRows.map(row => (
-                    <div key={row.color} className={`row ${row.color}`}>
-                      {row.keys.map(key => (
-                        <Kbd key={key.key} disabled={key.disabled}>{key.key}</Kbd>
-                        ))}
-                    </div>
-                    ))}
-                </div>
-              </section>
-            </div>
+            <Text type='h3'>Settings</Text>
 
-            <div>
-              <a className='button' href='https://github.com/danielgamage/keystack'>Keystack on GitHub</a>
-            </div>
+            <ThemeSettings
+              prefs={this.props.theme}
+              onInput={(event) => {
+                this.props.dispatch({
+                  type: 'UPDATE_THEME',
+                  value: event
+                })
+              }}
+            />
           </div>
         </Popover>
-      </StyledHelp>
+      </StyledUserSettings>
     )
   }
 }
@@ -175,4 +165,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Help)
+export default connect(mapStateToProps)(UserSettings)

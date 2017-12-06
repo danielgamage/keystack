@@ -19,6 +19,7 @@ class Wrapper extends Component {
     }
 
     this.togglePopover = this.togglePopover.bind(this)
+    this.closePopover = this.closePopover.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -27,6 +28,12 @@ class Wrapper extends Component {
   togglePopover () {
     this.setState({
       isOpen: !this.state.isOpen
+    })
+  }
+
+  closePopover () {
+    this.setState({
+      isOpen: false
     })
   }
 
@@ -81,12 +88,14 @@ class Wrapper extends Component {
           <button
             onClick={this.togglePopover}
             checked={this.state.isOpen}
+            ref={(e) => this.buttonElement = e}
           >Open Popover</button>
         </div>
 
         <Popover
           isOpen={this.state.isOpen}
-          onClickOutside={this.togglePopover}
+          onClickOutside={this.closePopover}
+          includeElements={[this.buttonElement]}
         >
           Hi everyone it's me
         </Popover>
