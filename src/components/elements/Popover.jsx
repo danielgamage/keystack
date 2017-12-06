@@ -113,8 +113,6 @@ class Popover extends React.Component {
       containerLayout: null,
     }
 
-    this.componentDidMount = this.componentDidMount.bind(this)
-    this.componentWillUnmount = this.componentWillUnmount.bind(this)
     this.entered = this.entered.bind(this)
     this.leaved = this.leaved.bind(this)
     this.calcLayout = this.calcLayout.bind(this)
@@ -128,6 +126,8 @@ class Popover extends React.Component {
     this.getCenteredVerticalOffset = this.getCenteredVerticalOffset.bind(this)
     this.setOffset = this.setOffset.bind(this)
     this.resized = this.resized.bind(this)
+    this.getDirection = this.getDirection.bind(this)
+    this.clicked = this.clicked.bind(this)
     this.addOutsideClickListener = this.addOutsideClickListener.bind(this)
     this.removeOutsideClickListener = this.removeOutsideClickListener.bind(this)
     this.addResizeListener = this.addResizeListener.bind(this)
@@ -369,7 +369,7 @@ class Popover extends React.Component {
   addOutsideClickListener () {
     document.documentElement.addEventListener(
       'mousedown',
-      this.clicked.bind(this),
+      this.clicked,
       true
     )
   }
@@ -377,7 +377,7 @@ class Popover extends React.Component {
   removeOutsideClickListener () {
     document.documentElement.removeEventListener(
       'mousedown',
-      this.clicked.bind(this),
+      this.clicked,
       true
     )
   }
