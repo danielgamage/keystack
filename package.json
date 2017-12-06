@@ -28,6 +28,7 @@
     "react-flip-move": "2.9.x",
     "react-popover": "^0.5.4",
     "react-redux": "^5.x",
+    "react-transition-group": "^2.2.1",
     "redux": "^3.7.x",
     "styled-components": "^2.2.x",
     "whatwg-fetch": "^2.0.3"
