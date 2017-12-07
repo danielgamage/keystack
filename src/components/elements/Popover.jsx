@@ -381,6 +381,8 @@ class Popover extends React.Component {
         in={this.props.isOpen}
         onEnter={() => {this.entered()}}
         onExit={() => {this.leaved()}}
+        mountOnEnter={true}
+        unmountOnExit={true}
         timeout={{
           enter: 300,
           exit: 500,
