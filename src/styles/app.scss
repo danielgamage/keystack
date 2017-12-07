@@ -2,21 +2,13 @@
 // --------
 // Keystack
 // --------
-.app {
-  padding: 2rem;
-  max-width: 56rem;
-  margin: auto;
-  align-items: stretch;
-  align-content: stretch;
-  flex-flow: column;
-  justify-content: space-between;
-  display: flex;
-}
+
 main {
   height: calc(100% - 4rem);
   display: flex;
   justify-content: space-between;
 }
+
 body {
   font-family: $sans;
   background: $grey-6;

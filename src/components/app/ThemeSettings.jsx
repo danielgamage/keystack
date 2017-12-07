@@ -27,14 +27,14 @@ const Palette = styled.div`
 
   background-color: ${props => props.lightness === 'dark'
     ? vars.grey_0
-    : vars.grey_7
+    : vars.white
   };
   box-shadow: 0 0 0 1px ${props => props.lightness === 'dark'
     ? vars.grey_1
     : vars.grey_6
   } inset;
   color: ${props => props.lightness === 'dark'
-    ? vars.grey_7
+    ? vars.white
     : vars.grey_1
   };
   border-radius: 7px;
@@ -60,7 +60,7 @@ const Swatch = styled.button`
     display: block;
     background: ${props => props.lightness === 'dark'
       ? vars.grey_0
-      : vars.grey_7
+      : vars.white
     };
     border-radius: 1rem;
     width: 8px;

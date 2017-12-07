@@ -31,7 +31,7 @@ export const StyledPopover = styled.div`
     max-width: calc(100vw - 32px);
     max-height: calc(100vw - 32px);
 
-    background-color: ${vars.grey_7};
+    background-color: ${vars.white};
     overflow: auto;
     pointer-events: auto;
   }
@@ -67,7 +67,7 @@ export const StyledPopover = styled.div`
 
     z-index: 1;
     pointer-events: auto;
-    fill: ${vars.grey_7};
+    fill: ${vars.white};
   }
 
   &.is-up .arrow {

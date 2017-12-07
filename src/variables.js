@@ -4,7 +4,7 @@ export default {
     // colors
     //
 
-    grey_7: `#FDFCFB`,
+    white: `#FDFCFB`,
     grey_6: `#E8E9EB`,
     grey_5: `#CDD1D3`,
     grey_4: `#949496`,
@@ -12,6 +12,7 @@ export default {
     grey_2: `#7C7C7F`,
     grey_1: `#5A5A5F`,
     grey_0: `#444649`,
+    black: `#3A3B3E`,
 
     orange: `#ff9800`,
     orange_bright: `#ffa850`,

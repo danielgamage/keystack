@@ -48,7 +48,7 @@ const StyledRadialKeys = styled.div`
       stroke: ${vars.grey_0};
     }
     &.white {
-      stroke: ${vars.grey_7};
+      stroke: ${vars.white};
     }
     &.on {
       transition: 0s ease;

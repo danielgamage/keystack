@@ -76,7 +76,7 @@ const StyledItem = styled.div`
     &:focus {
       background-color: ${vars.accents.red.dark};
       .icon--x {
-        fill: ${vars.grey_7};
+        fill: ${vars.white};
       }
     }
   }

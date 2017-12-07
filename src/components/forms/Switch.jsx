@@ -46,7 +46,7 @@ export const Container = styled.label`
       width: 10px;
       height: 10px;
       background: ${props => props.valueObject.strong
-        ? vars.grey_7
+        ? vars.white
         : vars.grey_2
       };
       border-radius: 5px;

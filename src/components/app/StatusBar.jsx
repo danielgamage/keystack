@@ -17,7 +17,15 @@ import vars from '@/variables'
 const StyledStatusBar = styled.div`
   height: 2rem;
   display: flex;
-  background-color: ${vars.grey_6};
+  background-color: ${props => props.theme.lightness === 'light'
+    ? vars.grey_6
+    : vars.grey_1
+  };
+  color: ${props => props.theme.lightness === 'light'
+    ? vars.grey_3
+    : vars.grey_5
+  };
+
   border-radius: ${vars.radius};
   .file-operations {
     padding-left: 8px;
@@ -25,7 +33,7 @@ const StyledStatusBar = styled.div`
     width: calc(50% + 1rem);
   }
   .button {
-    color: ${vars.grey_3};
+    color: inherit;
     & + .button {
       margin-left: 8px
     }
