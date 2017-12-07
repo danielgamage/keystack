@@ -16,11 +16,16 @@ const StyledItem = styled.div`
   transition: height 0.3s ease, background 0.4s ease;
   margin: 0 -2rem;
   padding: 1rem 2rem;
-  background-color: ${vars.grey_0};
+  background-color: ${props => props.theme.lightness === 'light'
+    ? vars.grey_0
+    : vars.black
+  };
   &.selected,
   &.dragging {
-    background-color: ${vars.grey_1};
-    background-color: ${vars.grey_1};
+    background-color: ${props => props.theme.lightness === 'light'
+      ? vars.grey_1
+      : vars.grey_0
+    };
   }
   header {
     cursor: move;

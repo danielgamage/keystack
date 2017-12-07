@@ -18,7 +18,6 @@ const marginRight = 16
 
 export const EchoContainer = styled.div`
   padding: 0 0 10%;
-  background: ${vars.grey_0};
   border-radius: ${vars.radius};
 
   svg {

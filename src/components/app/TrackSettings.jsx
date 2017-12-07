@@ -24,9 +24,312 @@ import {
   Button,
 } from '@/components'
 
+import styled, { ThemeProvider } from 'styled-components'
 import vars from '@/variables'
 
 import schema from '@/reducers/schema'
+
+const StyledTrackSettings = styled.div`
+  display: flex;
+  flex-flow: column;
+  background-color: ${props => props.theme.lightness === 'light'
+    ? vars.grey_0
+    : vars.black
+  };
+  color: ${vars.grey_6};
+  border-radius: $radius;
+  &.add-open {
+    .settings-container-add {
+      height: 12rem;
+      box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
+    }
+  }
+  &.dragging {
+    .add-button,
+    .settings-title {
+      opacity: 0;
+    }
+  }
+  .settings-container {
+    overflow: scroll;
+    transition: height 0.2s ease, max-height 0.2s ease, box-shadow 0.2s ease;
+  }
+  .settings-container-main {
+    flex: 1 1 1rem;
+  }
+  .settings-container-add {
+    height: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .settings-inner-container {
+    padding: 2rem;
+  }
+  .settings-section{
+    position: relative;
+  }
+  .add-button,
+  .settings-title {
+    transition: opacity 0.2s ease;
+  }
+  .settings-title {
+    @extend %sc;
+    margin: 0;
+    color: ${vars.grey_2};
+  }
+  hr {
+    display: block;
+    border: 0;
+    border-top: 2px solid ${vars.grey_1};
+    margin: 0;
+    &.edge {
+      opacity: 0;
+    }
+    &.big {
+      margin: 2rem -2rem;
+    }
+  }
+  .add-button {
+    @extend %sc;
+    width: 5rem;
+  }
+  .add-item-option {
+    display: block;
+    margin-bottom: 0.25rem;
+    &:hover {
+      color: ${props => vars.accents[props.theme.accent].light};
+    }
+  }
+  .add-item-toggle {
+    width: 2rem;
+    margin: auto;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .osc {
+    display: flex;
+    line-height: 2rem;
+    .title {
+      margin-right: 1rem;
+      display: block;
+      @extend %sc;
+    }
+    .fader {
+      margin: 0 0 0 1rem;
+      flex: 1;
+    }
+  }
+
+  .midi-manufacturer {
+    margin-right: 0.5rem;
+  }
+  .midi-manufacturer {
+    font-family: $sc;
+    text-transform: lowercase;
+    color: $orange-bright;
+  }
+
+  .vis-path {
+    overflow: visible;
+    margin: 1rem 0 2rem;
+    stroke: ${vars.grey_4};
+    fill: none;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    .graph-axis,
+    .grid {
+      line,
+      path {
+        stroke-linecap: butt;
+        stroke-width: 1px;
+      }
+    }
+    .grid {
+      opacity: 0.5;
+      .domain {
+        display: none;
+      }
+      stroke: ${vars.grey_1};
+    }
+  }
+  .graph-axis {
+    font-family: unset;
+    font-size: 10px;
+    .tick {
+      fill: ${vars.grey_4};
+    }
+    text {
+      fill: ${vars.grey_4};
+      stroke: none;
+    }
+  }
+  .filter-phase {
+    stroke: ${vars.grey_1};
+  }
+  .envelope {
+    .vis-path {
+      padding: 0.5rem;
+      fill: unset;
+    }
+    .dot {
+      fill: ${vars.grey_0};
+    }
+  }
+  .compressor-container {
+    display: flex;
+    .vis {
+      margin-right: 2rem;
+    }
+    .vis-path {
+      margin: 0 0 1rem;
+    }
+    .flex-container {
+      .control {
+        width: 50%;
+      }
+    }
+  }
+  .flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: -1rem;
+  }
+  .fader {
+    margin: 1rem 0 0 0;
+    &.small {
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+    &.right {
+      display: flex;
+      align-items: center;
+      flex-flow: row wrap;
+      svg {
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+    }
+    &.disabled {
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    label {
+      display: block;
+      width: 100%;
+      @extend %sc;
+    }
+    svg {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+      width: 3rem;
+      height: 3rem;
+      &:hover {
+        .fader-knob {
+          opacity: 1;
+        }
+      }
+    }
+    &.active {
+      .fader-knob {
+        opacity: 1;
+      }
+    }
+    .fader-knob {
+      transition: 0.2s ease;
+      fill: ${vars.grey_1};
+      opacity: 0;
+    }
+    .fader-track {
+      stroke: ${vars.grey_1};
+    }
+    .fader-value {
+      stroke: ${vars.grey_6};
+    }
+  }
+  .draggable {
+    cursor: ew-resize;
+  }
+  .tri {
+    width: calc(100% / 3);
+  }
+  .quad {
+    width: calc(100% / 4);
+  }
+  .six {
+    width: calc(100% / 6);
+  }
+  input {
+    width: 100%;
+  }
+
+  .sample{
+    .frame,
+    .loop-bar,
+    .loop-marker,
+    .start-marker,
+    .start-marker-flag {
+      stroke-width: 1px;
+    }
+    .frame {
+      stroke: ${vars.grey_1};
+    }
+    .start-marker-flag {
+      fill: ${vars.grey_4};
+    }
+    .sample-text {
+      display: none;
+
+      ${vars.mixins.sc};
+
+      font-size: 0.6rem;
+      fill: ${vars.grey_4};
+      stroke: none;
+    }
+    .vis-path {
+      margin-bottom: 0.5rem;
+      &.empty {
+        .empty-text {
+          display: block;
+        }
+        .waveform {
+          stroke: ${vars.grey_1};
+        }
+      }
+      &.dragging {
+        background-color: ${vars.grey_1};
+        .drop-text {
+          display: block;
+        }
+        .empty-text {
+          display: none;
+        }
+      }
+    }
+    .inactive-cover {
+      fill: ${vars.grey_0};
+      stroke: ${vars.grey_0};
+      opacity: 0.9;
+    }
+  }
+  .sample-info {
+    ${vars.mixins.sc};
+
+    display: flex;
+    white-space: nowrap;
+    margin-bottom: 1rem;
+    .name {
+      overflow: scroll;
+    }
+    .size {
+      color: ${vars.grey_3};
+      margin-left: 1rem;
+    }
+  }
+`
 
 const devicesByName = {
   midi: {
@@ -123,7 +426,13 @@ class TrackSettings extends Component {
       )
     })
     return (
-      <div className={`${this.state.add !== null ? 'add-open' : ''} ${this.props.view.dragging ? 'dragging' : ''} settings`}>
+      <StyledTrackSettings
+        className={`
+          ${this.state.add !== null ? 'add-open' : ''}
+          ${this.props.view.dragging ? 'dragging' : ''}
+          settings
+        `}
+      >
         <div className='settings-container settings-container-add'>
           <div className='settings-inner-container'>
             {this.state.add !== null
@@ -164,7 +473,7 @@ class TrackSettings extends Component {
             {insertHRs(chain, 'big', false)}
           </div>
         </div>
-      </div>
+      </StyledTrackSettings>
     )
   }
 }
