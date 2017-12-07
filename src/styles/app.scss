@@ -9,6 +9,11 @@ main {
   justify-content: space-between;
 }
 
+html,
+body {
+  overflow: hidden;
+}
+
 body {
   font-family: $sans;
   background: $grey-6;
