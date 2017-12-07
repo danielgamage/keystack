@@ -141,7 +141,6 @@ class Popover extends React.Component {
 
   componentDidMount () {
     if (this.props.isOpen) {
-      console.log('onMount')
       this.entered()
     }
   }
@@ -156,8 +155,6 @@ class Popover extends React.Component {
   //
 
   entered () {
-    console.log('entered')
-
     this.calcLayout()
 
     this.addOutsideClickListener()
@@ -165,8 +162,6 @@ class Popover extends React.Component {
   }
 
   leaved () {
-    console.log('leaved')
-
     this.removeOutsideClickListener()
     this.removeResizeListener()
   }
@@ -176,7 +171,6 @@ class Popover extends React.Component {
   //
 
   calcLayout () {
-    console.log('calcLayout')
     this.setViewportLayout()
     this.setElementLayout()
     this.setContainerLayout()
@@ -216,8 +210,6 @@ class Popover extends React.Component {
 
   setElementLayout () {
     const rectangle = this.rootElement.getBoundingClientRect()
-
-    console.log(this.state, rectangle)
 
     this.elementLayout = {
       top: rectangle.top - this.viewportLayout.top,
@@ -300,30 +292,30 @@ class Popover extends React.Component {
   }
 
   getCenteredHorizontalOffset () {
-    if (['up', 'down'].includes(this.state.openDirection) && this.state.horizontalOffset !== null && this.containerLayout) {
-      return Math.floor(this.state.horizontalOffset - this.containerLayout.width / 2)
+    if (['up', 'down'].includes(this.state.openDirection) && this.horizontalOffset !== null && this.containerLayout) {
+      return Math.floor(this.horizontalOffset - this.containerLayout.width / 2)
     } else return 0
   }
 
   getCenteredVerticalOffset () {
-    if (['left', 'right'].includes(this.state.openDirection) && this.state.verticalOffset !== null && this.containerLayout) {
-      return Math.floor(this.state.verticalOffset - this.containerLayout.height / 2)
+    if (['left', 'right'].includes(this.state.openDirection) && this.verticalOffset !== null && this.containerLayout) {
+      return Math.floor(this.verticalOffset - this.containerLayout.height / 2)
     } else return 0
   }
 
   setOffset () {
-    console.log('setOffset', this.state.openDirection)
-
     if (['up', 'down'].includes(this.state.openDirection)) {
+      this.horizontalOffset = this.getHorizontalOffset()
+
       this.setState({
-        horizontalOffset: this.getHorizontalOffset(),
         centeredHorizontalOffset: this.getCenteredHorizontalOffset(),
         verticalOffset: 0,
         centeredVerticalOffset: 0,
       })
     } else if (['left', 'right'].includes(this.state.openDirection)) {
+      this.verticalOffset = this.getVerticalOffset()
+
       this.setState({
-        verticalOffset: this.getVerticalOffset(),
         centeredVerticalOffset: this.getCenteredVerticalOffset(),
         horizontalOffset: 0,
         centeredHorizontalOffset: 0,
@@ -341,19 +333,12 @@ class Popover extends React.Component {
       ...(this.props.includeElements || [])
     ]
 
-    console.log({
-      includeElements: this.props.includeElements,
-      target: $event.target,
-      popoverElements,
-    })
-
     const clickedInside = popoverElements.some((el) => (
       el.contains($event.target) ||
       el === $event.target
     ))
 
     if (!clickedInside) {
-      console.log('clickedOutside')
       this.props.onClickOutside()
     }
   }
