@@ -89,6 +89,13 @@ export const Fader = styled.div`
     border: none;
     padding: 0;
     flex: 1;
+
+    -moz-appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 `
 
