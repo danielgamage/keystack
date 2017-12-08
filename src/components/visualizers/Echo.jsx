@@ -74,12 +74,12 @@ export const EchoContainer = styled.div`
 
   .graph-axis {
     line, path {
-      stroke: ${vars.grey_1};
+      stroke: ${vars.grey_4};
       stroke-width: 1px;
     }
     text {
       font-size: 10px;
-      fill: ${vars.grey_2};
+      fill: ${vars.grey_4};
     }
   }
 `
