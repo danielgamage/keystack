@@ -173,9 +173,11 @@ class Filter extends Component {
     this.setParams = this.setParams.bind(this)
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.setParams()
+  }
 
+  componentDidMount () {
     const axis = select(`#vis-${this.props.data.id} .axis-x`)
       .call(this.xAxis.tickSize('5'))
       .selectAll('*')
