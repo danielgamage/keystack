@@ -230,17 +230,9 @@ class Filter extends Component {
       .range([0, 1])
       .clamp(true)
 
-    // console.log('x', {input_value: value})
-
     value = pixelScale(value)
 
-    // console.log('x', {percent_value: value})
-
-    // if (scale !== 1) {
     value = scale ** value
-    // }
-
-    // console.log('x', {scaled_value: value})
 
     const paramXScale = scalePow()
       .exponent(Math.E)
@@ -248,29 +240,20 @@ class Filter extends Component {
       .range([this.paramX.min, this.paramX.max])
       .clamp(true)
 
-    // console.log('x', {output_value: paramXScale(value)})
-    // console.log('x', '———————————')
-
     return paramXScale(value)
   }
 
   scaleY (value, scale) {
     const pixelScale = scaleLinear()
       .domain([this.canvasBox.top + this.canvasBox.height, this.canvasBox.top])
-      .range([0, 100])
+      .range([0, 1])
       .clamp(true)
 
     value = pixelScale(value)
 
-    // if (scale !== 1) {
-    //   value = scale ** value
-    // }
-
-    // console.log('y', {value})
-
     const paramYScale = scalePow()
       .exponent(this.paramY.scale)
-      .domain([1, 100 ** this.paramY.scale])
+      .domain([0, 1])
       .range([this.paramY.min, this.paramY.max])
       .clamp(true)
 
@@ -282,8 +265,6 @@ class Filter extends Component {
 
     const xValue = this.scaleX(e.pageX, this.paramX.scale)
     const yValue = this.scaleY(e.pageY, this.paramY.scale)
-
-    console.log({xValue, yValue})
 
     this.props.dispatch({
       type: 'UPDATE_DEVICE',
