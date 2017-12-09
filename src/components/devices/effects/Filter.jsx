@@ -225,22 +225,14 @@ class Filter extends Component {
   }
 
   scaleX (value, scale) {
-    const pixelScale = scaleLinear()
+    const paramScale = scaleLinear()
       .domain([this.canvasBox.left, this.canvasBox.left + this.canvasBox.width])
-      .range([0, 1])
+      .range([0, this.frequencyBars])
       .clamp(true)
 
-    value = pixelScale(value)
+    value = paramScale(value)
 
-    value = scale ** value
-
-    const paramXScale = scalePow()
-      .exponent(Math.E)
-      .domain([1, scale])
-      .range([this.paramX.min, this.paramX.max])
-      .clamp(true)
-
-    return paramXScale(value)
+    return this.mapFreq(value)
   }
 
   scaleY (value, scale) {
