@@ -168,9 +168,14 @@ class Filter extends Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
+    this.scaleX = this.scaleX.bind(this)
+    this.scaleY = this.scaleY.bind(this)
+    this.setParams = this.setParams.bind(this)
   }
 
   componentDidMount () {
+    this.setParams()
+
     const axis = select(`#vis-${this.props.data.id} .axis-x`)
       .call(this.xAxis.tickSize('5'))
       .selectAll('*')
@@ -196,23 +201,20 @@ class Filter extends Component {
   //
   //
 
-  onMouseDown (e) {
-    this.canvasBox = this.svgElement.getBoundingClientRect()
-
+  setParams () {
     this.paramX = parameters.find(el => 'frequency' === el.name)
     const currentYParamName = filterTypes.find(el => this.props.data.type === el.name).y
     this.paramY = parameters.find(el => currentYParamName === el.name)
+  }
 
-    this.paramXScale = scaleLog()
-      .base(10)
-      .domain([this.canvasBox.left + this.canvasBox.width, this.canvasBox.left])
-      .range([this.paramX.max, this.paramX.min])
-      .clamp(true)
+  //
+  //
+  //
 
-    this.paramYScale = scaleLinear()
-      .domain([this.canvasBox.top, this.canvasBox.top + this.canvasBox.height])
-      .range([this.paramY.max, this.paramY.min])
-      .clamp(true)
+  onMouseDown (e) {
+    this.canvasBox = this.svgElement.getBoundingClientRect()
+
+    this.setParams()
 
     window.addEventListener('mousemove', this.onMouseMove)
     window.addEventListener('mouseup', this.onMouseUp)
@@ -220,9 +222,66 @@ class Filter extends Component {
     this.onMouseMove(e)
   }
 
+  scaleX (value, scale) {
+    const pixelScale = scaleLinear()
+      .domain([this.canvasBox.left, this.canvasBox.left + this.canvasBox.width])
+      .range([0, 1])
+      .clamp(true)
+
+    // console.log('x', {input_value: value})
+
+    value = pixelScale(value)
+
+    // console.log('x', {percent_value: value})
+
+    // if (scale !== 1) {
+    value = scale ** value
+    // }
+
+    // console.log('x', {scaled_value: value})
+
+    const paramXScale = scalePow()
+      .exponent(Math.E)
+      .domain([1, scale])
+      .range([this.paramX.min, this.paramX.max])
+      .clamp(true)
+
+    // console.log('x', {output_value: paramXScale(value)})
+    // console.log('x', '———————————')
+
+    return paramXScale(value)
+  }
+
+  scaleY (value, scale) {
+    const pixelScale = scaleLinear()
+      .domain([this.canvasBox.top + this.canvasBox.height, this.canvasBox.top])
+      .range([0, 100])
+      .clamp(true)
+
+    value = pixelScale(value)
+
+    // if (scale !== 1) {
+    //   value = scale ** value
+    // }
+
+    // console.log('y', {value})
+
+    const paramYScale = scalePow()
+      .exponent(this.paramY.scale)
+      .domain([1, 100 ** this.paramY.scale])
+      .range([this.paramY.min, this.paramY.max])
+      .clamp(true)
+
+    return paramYScale(value)
+  }
+
   onMouseMove (e) {
-    const xValue = this.paramXScale(e.pageX)
-    const yValue = this.paramYScale(e.pageY)
+    e.preventDefault()
+
+    const xValue = this.scaleX(e.pageX, this.paramX.scale)
+    const yValue = this.scaleY(e.pageY, this.paramY.scale)
+
+    console.log({xValue, yValue})
 
     this.props.dispatch({
       type: 'UPDATE_DEVICE',
@@ -265,14 +324,23 @@ class Filter extends Component {
     const magnitudePoints = [...magResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: 10.0 * Math.log10(response)}))
     const phasePoints = [...phaseResponseOutput].map((response, i) => ({x: myFrequencyArray[i], y: 10 * response}))
 
+    let xValue = 0
+    if (this.paramX) {
+      const freqToPosition = scaleLog()
+        .domain([this.paramX.min, this.paramX.max])
+        .range([0, 100])
 
-    const xValue = this.paramX
-      ? this.props.data[this.paramX.name] / parameters.find(el => this.paramX.name === el.name).max * 100
-      : 0
+      xValue = freqToPosition(this.props.data[this.paramX.name])
+    }
 
-    const yValue = this.paramY
-      ? 100 - (this.props.data[this.paramY.name] / parameters.find(el => this.paramY.name === el.name).max * 100)
-      : 0
+    let yValue = 0
+    if (this.paramY) {
+      const yValueToPosition = scaleLog()
+        .domain([this.paramY.min, this.paramY.max])
+        .range([100, 0])
+
+      yValue = yValueToPosition(this.props.data[this.paramY.name])
+    }
 
     return (
       <Item
