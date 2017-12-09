@@ -244,20 +244,12 @@ class Filter extends Component {
   }
 
   scaleY (value, scale) {
-    const pixelScale = scaleLinear()
+    const paramScale = scaleLinear()
       .domain([this.canvasBox.top + this.canvasBox.height, this.canvasBox.top])
-      .range([0, 1])
-      .clamp(true)
-
-    value = pixelScale(value)
-
-    const paramYScale = scalePow()
-      .exponent(this.paramY.scale)
-      .domain([0, 1])
       .range([this.paramY.min, this.paramY.max])
       .clamp(true)
 
-    return paramYScale(value)
+    return paramScale(value)
   }
 
   onMouseMove (e) {
@@ -318,7 +310,7 @@ class Filter extends Component {
 
     let yValue = 0
     if (this.paramY) {
-      const yValueToPosition = scaleLog()
+      const yValueToPosition = scaleLinear()
         .domain([this.paramY.min, this.paramY.max])
         .range([100, 0])
 
