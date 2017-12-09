@@ -110,7 +110,7 @@ const parameters = [{
 }, {
   name: 'q',
   unit: '',
-  format: '',
+  format: '.2',
   min: 0.1,
   max: 18,
   step: 0.1,
