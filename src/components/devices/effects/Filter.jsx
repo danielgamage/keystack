@@ -209,21 +209,6 @@ class Filter extends Component {
     this.paramY = parameters.find(el => currentYParamName === el.name)
   }
 
-  //
-  //
-  //
-
-  onMouseDown (e) {
-    this.canvasBox = this.svgElement.getBoundingClientRect()
-
-    this.setParams()
-
-    window.addEventListener('mousemove', this.onMouseMove)
-    window.addEventListener('mouseup', this.onMouseUp)
-
-    this.onMouseMove(e)
-  }
-
   scaleX (value, scale) {
     const paramScale = scaleLinear()
       .domain([this.canvasBox.left, this.canvasBox.left + this.canvasBox.width])
@@ -242,6 +227,21 @@ class Filter extends Component {
       .clamp(true)
 
     return paramScale(value)
+  }
+
+  //
+  //
+  //
+
+  onMouseDown (e) {
+    this.canvasBox = this.svgElement.getBoundingClientRect()
+
+    this.setParams()
+
+    window.addEventListener('mousemove', this.onMouseMove)
+    window.addEventListener('mouseup', this.onMouseUp)
+
+    this.onMouseMove(e)
   }
 
   onMouseMove (e) {
