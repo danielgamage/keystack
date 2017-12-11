@@ -138,16 +138,25 @@ class Filter extends Component {
     super(props)
     this.viewBoxWidth = 256
     this.viewBoxHeight = 64
-    this.frequencyBars = 1024
+    this.frequencyBars = 512
     this.minHz = 30
     this.maxHz = 20000
 
-    this.mapFreq = scalePow()
-      .exponent(5)
-      .domain([0, this.frequencyBars])
-      .range([this.minHz, this.maxHz])
+    this.mapFreq = (value) => {
+      // this whole thing is the wrong math but works ¯\_(ツ)_/¯
+      const adjust = (input) => (
+        1.013 ** (input)
+      )
+
+      const scaler = scaleLinear()
+        .domain([adjust(0), adjust(this.frequencyBars - 1)])
+        .range([this.minHz, this.maxHz])
+
+      return scaler(adjust(value))
+    }
 
     this.x = scaleLog()
+      .base(10)
       .domain([this.minHz, this.maxHz])
       .range([0, this.viewBoxWidth])
     this.y = scaleLinear()
@@ -212,7 +221,7 @@ class Filter extends Component {
   scaleX (value, scale) {
     const paramScale = scaleLinear()
       .domain([this.canvasBox.left, this.canvasBox.left + this.canvasBox.width])
-      .range([0, this.frequencyBars])
+      .range([0, this.frequencyBars - 1])
       .clamp(true)
 
     value = paramScale(value)
@@ -318,7 +327,6 @@ class Filter extends Component {
           <div className='select'>
             <Select
               onUpdate={(e) => {
-                console.log('e', e)
                 this.props.dispatch({
                   type: 'UPDATE_DEVICE',
                   id: this.props.data.id,
