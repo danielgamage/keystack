@@ -26,6 +26,15 @@ import vars from '@/variables'
 const StyledOscillators = styled.div`
   margin-bottom: 1rem;
 
+  .oscillator-header {
+    display: flex;
+    align-items: center;
+
+    .text {
+      margin-right: 8px;
+    }
+  }
+
   .icon--wave {
     display: inline-block;
     width: 1.5rem;
@@ -47,8 +56,11 @@ class Oscillators extends Component {
         {this.props.oscillators.map((osc, i) => (
           <div className={`osc osc-${i}`} key={i}>
             <div className='wave'>
-              <Text type='h3'>
-                {`OSC ${i}`}
+              <header className='oscillator-header'>
+                <Text className='text' type='h3'>
+                  {`OSC ${i}`}
+                </Text>
+
                 <RemoveButton
                   onClick={() => {
                     this.props.dispatch({
@@ -58,7 +70,8 @@ class Oscillators extends Component {
                     })
                   }}
                 />
-              </Text>
+              </header>
+
               {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
                 <label
                   title={type}

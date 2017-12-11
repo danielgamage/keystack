@@ -28,7 +28,7 @@ const StyledItem = styled.div`
       : vars.grey_0
     };
   }
-  header {
+  .item-header {
     cursor: move;
     display: flex;
     justify-content: space-between;
@@ -164,6 +164,7 @@ class Item extends Component {
         className={`item item-${this.props.type} ${this.state.dragging ? 'dragging' : ''}`}
       >
         <header
+          className='item-header'
           onMouseDown={(e) => {
             document.addEventListener('mousemove', this.handleDrag)
             document.addEventListener('mouseup', this.handleMouseUp)
