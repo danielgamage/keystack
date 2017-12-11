@@ -55,7 +55,6 @@ const StyledUserSettings = styled.div`
   padding-right: 8px;
 
   .help-container {
-    background: ${vars.white};
     border-radius: ${vars.radius};
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
     padding: 2rem;

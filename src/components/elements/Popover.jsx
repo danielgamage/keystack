@@ -31,7 +31,10 @@ export const StyledPopover = styled.div`
     max-width: calc(100vw - 32px);
     max-height: calc(100vw - 32px);
 
-    background-color: ${vars.white};
+    background-color: ${props => props.theme.lightness === 'light'
+      ? vars.white
+      : vars.grey_0
+    };
     overflow: auto;
     pointer-events: auto;
   }
@@ -67,7 +70,10 @@ export const StyledPopover = styled.div`
 
     z-index: 1;
     pointer-events: auto;
-    fill: ${vars.white};
+    fill: ${props => props.theme.lightness === 'light'
+      ? vars.white
+      : vars.grey_0
+    };
   }
 
   &.is-up .arrow {

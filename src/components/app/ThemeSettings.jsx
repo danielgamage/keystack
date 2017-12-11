@@ -9,8 +9,6 @@ import {
 } from '@/components'
 
 const Container = styled.div`
-  color: ${vars.grey_1};
-
   .switch {
     width: 112px;
   }
