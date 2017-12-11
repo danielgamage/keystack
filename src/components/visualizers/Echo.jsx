@@ -14,7 +14,7 @@ import vars from '@/variables.js'
 const viewBoxWidth = 256
 const viewBoxHeight = 64
 const marginLeft = 24
-const marginRight = 16
+const marginRight = 24
 
 export const EchoContainer = styled.div`
   padding: 0 0 10%;
