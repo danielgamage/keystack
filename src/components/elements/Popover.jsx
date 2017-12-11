@@ -306,17 +306,21 @@ class Popover extends React.Component {
   setOffset () {
     if (['up', 'down'].includes(this.state.openDirection)) {
       this.horizontalOffset = this.getHorizontalOffset()
+      this.centeredHorizontalOffset = this.getCenteredHorizontalOffset()
 
       this.setState({
-        centeredHorizontalOffset: this.getCenteredHorizontalOffset(),
+        horizontalOffset: this.horizontalOffset,
+        centeredHorizontalOffset: this.centeredHorizontalOffset,
         verticalOffset: 0,
         centeredVerticalOffset: 0,
       })
     } else if (['left', 'right'].includes(this.state.openDirection)) {
       this.verticalOffset = this.getVerticalOffset()
+      this.centeredVerticalOffset = this.getCenteredVerticalOffset()
 
       this.setState({
-        centeredVerticalOffset: this.getCenteredVerticalOffset(),
+        verticalOffset: this.verticalOffset,
+        centeredVerticalOffset: this.centeredVerticalOffset,
         horizontalOffset: 0,
         centeredHorizontalOffset: 0,
       })
@@ -344,7 +348,7 @@ class Popover extends React.Component {
   }
 
   resized () {
-    this.setOffset()
+    this.calcLayout()
   }
 
   //
