@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   Icon,
+  RemoveButton,
 } from '@/components'
 import xIcon from '@/images/icon/x.svg'
 
@@ -215,22 +216,18 @@ class Item extends Component {
           <div className='aux'>
             {this.props.headerChildren}
           </div>
-          <Button
-            className='remove-button'
+          <RemoveButton
             onClick={() => {
               this.props.dispatch({
                 type: `REMOVE_DEVICE`,
                 id: this.props.item.id
               })
             }}
+            onMouseDown={(e) => {
+              e.stopPropagation()
+            }}
             title='remove device'
-          >
-            <Icon
-              className='icon--x'
-              src={xIcon}
-              scale={1.5}
-            />
-          </Button>
+          />
         </header>
         <div className='item-body'>
           {this.props.children}

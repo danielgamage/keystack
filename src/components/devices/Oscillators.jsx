@@ -5,6 +5,7 @@ import {
   Icon,
   Text,
   Button,
+  RemoveButton,
 } from '@/components'
 
 import sawtoothIcon from '@/images/wave-sawtooth.svg'
@@ -48,8 +49,7 @@ class Oscillators extends Component {
             <div className='wave'>
               <Text type='h3'>
                 {`OSC ${i}`}
-                <Button
-                  className='button delete-osc'
+                <RemoveButton
                   onClick={() => {
                     this.props.dispatch({
                       id: this.props.instrument.id,
@@ -57,7 +57,7 @@ class Oscillators extends Component {
                       index: i
                     })
                   }}
-                >Remove</Button>
+                />
               </Text>
               {['sawtooth', 'triangle', 'square', 'sine'].map((type, typeIndex) => (
                 <label
