@@ -6,10 +6,15 @@ const defaultState = {
 }
 
 const view = (state = defaultState, action) => {
+  let newState = {...state}
+
   switch (action.type) {
     case 'UPDATE_THEME':
-      let newState = {...state}
       newState.theme = action.value
+      return newState
+
+    case 'HYDRATE_USER_SETTINGS':
+      newState = action.value
       return newState
 
     default:

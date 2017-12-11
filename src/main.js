@@ -7,7 +7,7 @@ import { range } from 'd3-array'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { store } from './utils/store'
+import { store, getUserSettings, checkPreferences } from './utils/store'
 
 import {
   App
@@ -18,6 +18,9 @@ import './styles/style.scss'
 //
 // Redux
 //
+
+getUserSettings()
+let unsubscribe = store.subscribe(checkPreferences)
 
 render(
   <Provider store={store}>

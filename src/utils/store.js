@@ -35,3 +35,34 @@ const readFile = (file) => {
     reader.readAsText(file)
   })
 }
+
+//
+//
+//
+
+export const checkPreferences = () => {
+  const state = store.getState()
+  if (state.preferences) {
+    const prefs = JSON.stringify(state.preferences)
+    commitLocalStorage(prefs)
+  }
+}
+
+export const getUserSettings = () => {
+  if (localStorage['keystack-user-settings']) {
+    storeUserSettings(
+      JSON.parse(localStorage.getItem('keystack-user-settings'))
+    )
+  }
+}
+
+export const storeUserSettings = (settings) => {
+  store.dispatch({
+    type: 'HYDRATE_USER_SETTINGS',
+    value: settings,
+  })
+}
+
+export const commitLocalStorage = (preferences) => {
+  localStorage.setItem('keystack-user-settings', preferences)
+}
