@@ -373,6 +373,19 @@ class Filter extends Component {
               className='graph-axis axis-x'
               transform={`translate(0,${this.viewBoxHeight})`}
               />
+
+            {/* {[...myFrequencyArray].map(el => (
+              <line
+                x1={this.x(el)}
+                x2={this.x(el)}
+                y1={0}
+                y2={this.viewBoxHeight}
+                style={{
+                  strokeWidth: '1px'
+                }}
+              />
+            ))} */}
+
           </svg>
 
           <Icon
