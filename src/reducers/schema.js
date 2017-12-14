@@ -19,6 +19,8 @@ const schema = {
       name: `Chord`,
       deviceType: `midi`,
       devicePrototype: `Chord`,
+      inversionChance: 0,
+      inversionRange: 4,
       value: [
         0, 0, 0,
         0, 0, 0
