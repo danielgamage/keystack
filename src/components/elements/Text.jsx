@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import vars from '../../variables.js'
-console.log('hi1')
 
 export const StyledH1 = styled.div`
   font-family: 'Source Sans Pro';
@@ -41,6 +41,12 @@ export const StyledFlourish = styled.div`
   font-size: 32px;
 `
 
+export const StyledText = styled.div`
+  font-family: 'Source Sans Pro';
+  font-size: 12px;
+  line-height: 18px;
+`
+
 
 class Text extends React.Component {
   constructor(props) {
@@ -61,6 +67,9 @@ class Text extends React.Component {
     }, {
       type: 'flourish',
       component: StyledFlourish
+    }, {
+      type: 'text',
+      component: StyledText
     }]
   }
 
@@ -76,3 +85,11 @@ class Text extends React.Component {
 }
 
 export default Text
+
+Text.propTypes = {
+  type: PropTypes.string,
+}
+
+Text.defaultProps = {
+  type: 'text',
+}
