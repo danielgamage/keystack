@@ -34,6 +34,12 @@ const StyledApp = styled.div`
     display: flex;
   }
 
+  .play-area,
+  .settings {
+    flex: 0 0 auto;
+    width: calc((100% / 2) - 0.5rem);
+  }
+
 `
 
 class App extends Component {
