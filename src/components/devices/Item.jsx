@@ -13,7 +13,6 @@ import styled from 'styled-components'
 import vars from '@/variables'
 
 const StyledItem = styled.div`
-  overflow: hidden;
   transition: height 0.3s ease, background 0.4s ease;
   margin: 0 -2rem;
   padding: 1rem 2rem;
