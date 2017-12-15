@@ -246,12 +246,14 @@ export const chords = [
     'quality': 'Major'
   }, {
     'name': 'Minor',
+    'abbr': 'Min',
     'set': [
       0, 3, 7
     ],
     'quality': 'Minor'
   }, {
     'name': 'Minor 11th',
+    'abbr': 'Min11',
     'set': [
       0, 3, 7, 10, 2, 5
     ],
@@ -261,12 +263,14 @@ export const chords = [
     'quality': 'Minor'
   }, {
     'name': 'Minor major 7th',
+    'abbr': 'Min/Maj 7',
     'set': [
       0, 3, 7, 11
     ],
     'quality': 'Minor'
   }, {
     'name': 'Minor 9th',
+    'abbr': 'Min9',
     'set': [
       0, 3, 7, 10, 2
     ],
@@ -276,18 +280,21 @@ export const chords = [
     'quality': 'Minor'
   }, {
     'name': 'Minor 7th',
+    'abbr': 'Min7',
     'set': [
       0, 3, 7, 10
     ],
     'quality': 'Minor'
   }, {
     'name': 'Minor 6th',
+    'abbr': 'Min6',
     'set': [
       0, 3, 7, 9
     ],
     'quality': 'Minor'
   }, {
     'name': 'Minor 6th 9th',
+    'abbr': 'Min 6/9',
     'set': [
       0, 3, 7, 9, 2
     ],
@@ -297,6 +304,7 @@ export const chords = [
     'quality': 'Minor'
   }, {
     'name': 'Minor 13th',
+    'abbr': 'Min13',
     'set': [
       0, 3, 7, 10, 2, 5, 9
     ],
@@ -437,14 +445,14 @@ export const chords = [
     'quality': 'M3+d5'
   }, {
     'name': 'Viennese trichord',
-    'name': 'tri',
+    'abbr': 'tri',
     'set': [
       0, 1, 6
     ],
     'quality': 'Atonal'
   }, {
     'name': 'Viennese trichord (alt)',
-    'name': 'tri (alt)',
+    'abbr': 'tri (alt)',
     'set': [
       0, 6, 7
     ],
