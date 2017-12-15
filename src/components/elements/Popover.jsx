@@ -36,7 +36,7 @@ export const StyledPopover = styled.div`
     };
     overflow: auto;
     pointer-events: auto;
-    border-radius: 4px;
+    border-radius: ${vars.radius};
     overflow: auto;
   }
 

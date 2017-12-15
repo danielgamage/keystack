@@ -125,7 +125,7 @@ export default {
     `,
 
     // appearance
-    'radius': `0.2rem`,
+    'radius': `3px`,
 
     // media queries
     'vw-med': 'min-width: 36rem',

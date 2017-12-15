@@ -32,7 +32,7 @@ const StyledChordDevice = styled.div`
     flex-flow: row wrap;
     justify-content: space-between;
     height: 128px;
-    width: 212px;
+    width: calc(100% - 98px);
     margin: 0 0 8px 0;
     .pad {
       margin: 0 0 8px 0;
@@ -43,7 +43,7 @@ const StyledChordDevice = styled.div`
       height: 32px;
       overflow: hidden;
       background-color: ${vars.grey_1};
-      border-radius: 4px;
+      border-radius: ${vars.radius};
       cursor: pointer;
       &.active {
         background-color: ${props => vars.accents[props.theme.accent].dark}
@@ -59,12 +59,18 @@ const StyledChordDevice = styled.div`
     height: 200px
   }
 
+  .popover .popover-container {
+    width: 100%;
+  }
+  .popover .arrow {
+    fill: ${vars.grey_6};
+  }
   .chord-list {
     height: 128px;
     overflow-y: auto;
     padding: 12px 16px;
-    margin: 8px 0;
-    background-color: ${vars.black};
+    background-color: ${vars.grey_6};
+    color: ${vars.grey_0};
   }
 
   .chord-group-title {
