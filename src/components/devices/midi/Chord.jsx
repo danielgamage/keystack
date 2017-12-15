@@ -13,6 +13,14 @@ import {
 
 import {chords, groupedChords} from '@/data/chords'
 
+const isSameArray = (a, b) => {
+  return a.every((item, index) => (
+    a[index] === b[index]
+  )) && b.every((item, index) => (
+    b[index] === a[index]
+  ))
+}
+
 const StyledChordDevice = styled.div`
   .top {
     display: flex;
@@ -37,6 +45,9 @@ const StyledChordDevice = styled.div`
       background-color: ${vars.grey_1};
       border-radius: 4px;
       cursor: pointer;
+      &.active {
+        background-color: ${props => vars.accents[props.theme.accent].dark}
+      }
     }
   }
 
@@ -105,6 +116,10 @@ class Chord extends Component {
       chords.find(chord => fave === chord.name)
     ))
 
+    const currentChord = favorites.find(favorite => {
+      return isSameArray(favorite.naturalSet, this.props.data.value)
+    })
+
     return (
       <Item type='midi' index={this.props.index} item={this.props.data}>
         <StyledChordDevice>
@@ -112,7 +127,7 @@ class Chord extends Component {
             <div className='chord-pads'>
               {favorites.map(chord => (
                 <div
-                  className='pad'
+                  className={`pad ${ currentChord && currentChord.name === chord.name ? 'active' : '' }`}
                   onClick={() => {
                     this.setState({isPickerOpen: true})
                     this.props.dispatch({
