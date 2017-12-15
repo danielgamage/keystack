@@ -14,7 +14,6 @@ export const StyledPopover = styled.div`
   z-index: 2;
   pointer-events: none;
   opacity: 0;
-  border-radius: 4px;
   filter: drop-shadow(0 0 8px rgba(0,0,0,0.2));
 
   &.is-open {
@@ -37,6 +36,8 @@ export const StyledPopover = styled.div`
     };
     overflow: auto;
     pointer-events: auto;
+    border-radius: 4px;
+    overflow: auto;
   }
 
   &.is-up .popover-container {
