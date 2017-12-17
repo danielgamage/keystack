@@ -84,9 +84,9 @@ class NumericInput extends Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
     this.onChange = this.onChange.bind(this)
+
     this.initialX = 0
-    this.mouseDownX = 0
-    this.mouseDownY = 0
+    this.didMove = false
   }
 
   handleFocus (e) {
@@ -115,8 +115,6 @@ class NumericInput extends Component {
       e.target.requestPointerLock()
 
       this.initialX = e.pageX || e.touches[0].pageX
-      this.mouseDownX = e.pageX || e.touches[0].pageX
-      this.mouseDownY = e.pageY || e.touches[0].pageY
 
       this.containerElement.classList.add('active')
 
@@ -134,10 +132,11 @@ class NumericInput extends Component {
     const currentMouseDownX = e.pageX || e.touches[0].pageX
     const currentMouseDownY = e.pageY || e.touches[0].pageY
 
-    if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
+    if (!this.didMove) {
       this.vizElement.inputElement.focus()
     }
 
+    this.didMove = false
     this.containerElement.classList.remove('active')
     document.removeEventListener('mousemove', this.onDrag)
     document.removeEventListener('mouseup', this.onMouseUp)
@@ -192,6 +191,7 @@ class NumericInput extends Component {
 
   onDrag (e) {
     let movement
+    this.didMove = true
 
     if (e.movementX !== undefined) {
       movement = e.movementX
