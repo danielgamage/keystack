@@ -38,6 +38,7 @@ export {default as Kbd} from './elements/Kbd'
 export {default as Popover} from './elements/Popover'
 export {default as HiddenInput} from './elements/HiddenInput'
 
+export {default as TextInput} from './forms/TextInput'
 export {default as Button} from './forms/Button'
 export {default as AddButton} from './forms/AddButton'
 export {default as RemoveButton} from './forms/RemoveButton'

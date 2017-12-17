@@ -10,6 +10,7 @@ import {
   Text,
   Popover,
   Icon,
+  TextInput,
 } from '@/components'
 
 import refreshIcon from '@/images/icon/refresh.svg'
@@ -150,7 +151,7 @@ class Chord extends Component {
       this.setState({ filterText: null })
     }
     if (prevState.isPickerOpen === false && this.state.isPickerOpen === true) {
-      this.filterInputElement.focus()
+      this.filterInputElement.inputElement.focus()
     }
   }
 
@@ -244,8 +245,9 @@ class Chord extends Component {
                 className='chord-list-popover'
               >
                 <div className='chord-list'>
-                  <input type='text'
+                  <TextInput type='text'
                     ref={(e) => this.filterInputElement = e}
+                    placeholder='Search chords...'
                     onKeyUp={(e) => e.stopPropagation()}
                     onKeyDown={(e) => e.stopPropagation()}
                     onInput={(e) => {
