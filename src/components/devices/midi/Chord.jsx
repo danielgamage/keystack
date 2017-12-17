@@ -307,6 +307,7 @@ class Chord extends Component {
               <NumericInput
                 label='Chance'
                 className='numeric-input small'
+                viz='bar'
                 min={0}
                 max={100}
                 step={1}
@@ -325,6 +326,7 @@ class Chord extends Component {
               <NumericInput
                 label='Range'
                 className='numeric-input small'
+                viz='bar'
                 min={0}
                 max={4}
                 step={1}

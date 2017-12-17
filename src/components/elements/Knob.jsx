@@ -6,14 +6,12 @@ import { scaleLinear, scaleLog } from 'd3-scale'
 import styled from 'styled-components'
 
 import {
-  Text,
-  InputBar,
-  Knob,
+  Text
 } from '@/components'
 
 import vars from '@/variables'
 
-export const StyledNumericInput = styled.div`
+export const Knob = styled.div`
   margin: 12px 0 0 0;
   &.right {
     display: flex;
@@ -23,16 +21,6 @@ export const StyledNumericInput = styled.div`
       display: inline-block;
       margin-right: 0.5rem;
     }
-  }
-  &.disabled {
-    opacity: 0.1;
-    pointer-events: none;
-  }
-  label {
-    display: block;
-    width: 100%;
-
-    ${vars.sc_mixin}
   }
   svg {
     display: block;
@@ -63,6 +51,49 @@ export const StyledNumericInput = styled.div`
   }
   .fader-value {
     stroke: ${props => vars.accents[props.theme.accent][1]}
+  }
+  .input-output {
+    position: relative;
+    flex: 1;
+    height: 1rem;
+
+    .text-items {
+      position: relative;
+    }
+    input,
+    output {
+      display: block;
+    }
+    input {
+      position: absolute;
+      display: block;
+      width: calc(100% + 1rem);
+      border: none;
+      padding: 0;
+      flex: 1;
+
+      padding: 5px 0.5rem;
+      top: -0.3rem;
+      left: -0.5rem;
+      bottom: -0.3rem;
+      right: -0.5rem;
+      height: 22px;
+
+      opacity: ${props => props.showInput ? 1 : 0};
+      appearance: none;
+      background: none;
+      color: inherit;
+
+      -moz-appearance: textfield;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+    output {
+      opacity: ${props => props.showInput ? 0 : 1};
+    }
   }
 `
 
@@ -135,7 +166,7 @@ class NumericInput extends Component {
     const currentMouseDownY = e.pageY || e.touches[0].pageY
 
     if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
-      this.vizElement.inputElement.focus()
+      this.inputElement.focus()
     }
 
     this.containerElement.classList.remove('active')
@@ -255,62 +286,108 @@ class NumericInput extends Component {
     return angle(value)
   }
 
-  bar (value) {
-    const scale = this.props.scale || 1
-    let angle
-
-    if (scale !== 1) {
-      angle = scaleLog()
-        .domain([this.props.min, this.props.max])
-        .range([0, 100])
-        .base(scale)
-    } else {
-      angle = scaleLinear()
-        .domain([this.props.min, this.props.max])
-        .range([0, 100])
-    }
-
-    return angle(value)
-  }
-
   radiansToDegrees (value) {
     return value * 180 / Math.PI
   }
 
   render () {
-    const VizComponent = this.props.viz === 'knob'
-      ? Knob
-      : InputBar
+    var arcPath = arc()
+
+    const min = this.angle(this.props.min)
+    const max = this.angle(this.props.max)
+    const value = this.angle(this.props.value)
 
     return (
-      <StyledNumericInput
-        {...this.props}
+      <Knob
         showInput={this.state.showInput}
         className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
         innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''}
       >
-        <label
-          id={`${this.props.id}-input`}
-          htmlFor={this.props.id}
-          className={`ControlTitle`}
-          >
-          {this.props.showLabel !== false &&
-            <Text type='h3'>
-              {this.props.label}
-            </Text>
-          }
-        </label>
-
-        <VizComponent
-          {...this.props}
+        <svg
+          viewBox='0 0 32 32'
           className={`draggable`}
           aria-labelledby={`${this.props.id}-input`}
           onMouseDown={this.onMouseDown.bind(this)}
-          ref={(c) => this.vizElement = c}
           onTouchStart={this.onMouseDown.bind(this)}
-        />
-      </StyledNumericInput>
+        >
+          <circle
+            vectorEffect='non-scaling-stroke'
+            className='fader-knob'
+            cx={16}
+            cy={16}
+            r='10'
+          />
+
+          <path
+            vectorEffect='non-scaling-stroke'
+            className='fader-track'
+            transform='translate(16, 16)'
+            d={arcPath({
+              innerRadius: 14,
+              outerRadius: 14,
+              startAngle: min,
+              endAngle: max
+            })}
+          />
+
+          <path
+            vectorEffect='non-scaling-stroke'
+            className='fader-value'
+            transform='translate(16, 16)'
+            d={arcPath({
+              innerRadius: 14,
+              outerRadius: 14,
+              startAngle: min,
+              endAngle: value
+            })}
+          />
+
+          <line
+            className='fader-pointer'
+            x1='16'
+            y1='2'
+            x2='16'
+            y2='12'
+            vectorEffect='non-scaling-stroke'
+            transform={`rotate(${this.radiansToDegrees(value)} 16 16)`}
+          />
+        </svg>
+
+        <div
+          className='input-output'
+          onMouseDown={this.onMouseDown.bind(this)}
+          onTouchStart={this.onMouseDown.bind(this)}
+        >
+          <Text type='value' className='text-items'>
+            <output htmlFor={this.props.id}>
+              {this.props.displayValue !== undefined
+                ? this.props.displayValue
+                : this.props.value
+              }
+              <span className='suffix'>{this.props.unit}</span>
+            </output>
+
+            <input
+              ref={i => this.inputElement = i}
+              id={`${this.props.id}-input`}
+              type='number'
+              disabled={this.props.disabled}
+              inputMode='numeric'
+              min={this.props.min}
+              max={this.props.max}
+              value={this.props.value}
+              step={this.props.step}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              onKeyDown={this.handleKeyDown}
+              defaultValue={this.props.defaultValue}
+              onChange={this.onChange.bind(this)}
+              onInput={(e) => {e.stopPropagation()}}
+            />
+          </Text>
+        </div>
+      </Knob>
     )
   }
 }

@@ -251,9 +251,6 @@ const StyledTrackSettings = styled.div`
   .six {
     width: calc(100% / 6);
   }
-  input {
-    width: 100%;
-  }
 
   .sample{
     .frame,

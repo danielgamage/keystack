@@ -7,66 +7,68 @@ import styled from 'styled-components'
 
 import {
   Text,
-  InputBar,
   Knob,
 } from '@/components'
 
 import vars from '@/variables'
 
-export const StyledNumericInput = styled.div`
-  margin: 12px 0 0 0;
-  &.right {
-    display: flex;
-    align-items: center;
-    flex-flow: row wrap;
-    svg {
-      display: inline-block;
-      margin-right: 0.5rem;
-    }
-  }
-  &.disabled {
-    opacity: 0.1;
-    pointer-events: none;
-  }
-  label {
-    display: block;
-    width: 100%;
+export const StyledInputBar = styled.div`
+  position: relative;
+  flex: 1;
+  height: 1rem;
+  border: 1px solid ${vars.grey_2};
+  cursor: ew-resize;
 
-    ${vars.sc_mixin}
+  .text-items {
+    position: relative;
   }
-  svg {
+  input,
+  output {
     display: block;
-    margin: 0.4rem 0 0.2rem;
-    width: ${props => props.small ? '1.2rem' : '3rem'};
-    height: ${props => props.small ? '1.2rem' : '3rem'};
-    &:hover {
-      .fader-knob {
-        opacity: 1;
-      }
+    cursor: inherit;
+    text-align: center;
+  }
+  input {
+    position: absolute;
+    display: block;
+    width: calc(100% + 1rem);
+    border: none;
+    padding: 0;
+    flex: 1;
+
+    padding: 5px 0.5rem;
+    top: -0.3rem;
+    left: -0.5rem;
+    bottom: -0.3rem;
+    right: -0.5rem;
+    height: 22px;
+
+    opacity: ${props => props.showInput ? 1 : 0};
+    appearance: none;
+    background: none;
+    color: inherit;
+
+    -moz-appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
-  &.active {
-    .fader-knob {
-      opacity: 1;
-    }
+  output {
+    opacity: ${props => props.showInput ? 0 : 1};
   }
-  .fader-knob {
-    transition: 0.2s ease;
-    fill: ${vars.grey_2};
-    opacity: 0;
-  }
-  .fader-track {
-    stroke: ${vars.grey_2};
-  }
-  .fader-pointer {
-    stroke: ${vars.grey_7};
-  }
-  .fader-value {
-    stroke: ${props => vars.accents[props.theme.accent][1]}
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    opacity: 0.5;
+    background-color: ${props => vars.grey_2};
   }
 `
 
-class NumericInput extends Component {
+class InputBar extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -135,7 +137,7 @@ class NumericInput extends Component {
     const currentMouseDownY = e.pageY || e.touches[0].pageY
 
     if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
-      this.vizElement.inputElement.focus()
+      this.inputElement.focus()
     }
 
     this.containerElement.classList.remove('active')
@@ -237,24 +239,6 @@ class NumericInput extends Component {
     }
   }
 
-  angle (value) {
-    const scale = this.props.scale || 1
-    let angle
-
-    if (scale !== 1) {
-      angle = scaleLog()
-        .domain([this.props.min, this.props.max])
-        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
-        .base(scale)
-    } else {
-      angle = scaleLinear()
-        .domain([this.props.min, this.props.max])
-        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
-    }
-
-    return angle(value)
-  }
-
   bar (value) {
     const scale = this.props.scale || 1
     let angle
@@ -273,49 +257,56 @@ class NumericInput extends Component {
     return angle(value)
   }
 
-  radiansToDegrees (value) {
-    return value * 180 / Math.PI
-  }
-
   render () {
-    const VizComponent = this.props.viz === 'knob'
-      ? Knob
-      : InputBar
-
     return (
-      <StyledNumericInput
+      <StyledInputBar
         {...this.props}
         showInput={this.state.showInput}
-        className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
         innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''}
+        className='input-output'
+        onMouseDown={this.onMouseDown.bind(this)}
+        onTouchStart={this.onMouseDown.bind(this)}
       >
-        <label
-          id={`${this.props.id}-input`}
-          htmlFor={this.props.id}
-          className={`ControlTitle`}
-          >
-          {this.props.showLabel !== false &&
-            <Text type='h3'>
-              {this.props.label}
-            </Text>
-          }
-        </label>
-
-        <VizComponent
-          {...this.props}
-          className={`draggable`}
-          aria-labelledby={`${this.props.id}-input`}
-          onMouseDown={this.onMouseDown.bind(this)}
-          ref={(c) => this.vizElement = c}
-          onTouchStart={this.onMouseDown.bind(this)}
+        <div
+          className='progress-bar'
+          style={{
+            width: this.bar(this.props.value) + '%',
+          }}
         />
-      </StyledNumericInput>
+        <Text type='value' className='text-items'>
+          <output htmlFor={this.props.id}>
+            {this.props.displayValue !== undefined
+              ? this.props.displayValue
+              : this.props.value
+            }
+            <span className='suffix'>{this.props.unit}</span>
+          </output>
+
+          <input
+            ref={i => this.inputElement = i}
+            id={`${this.props.id}-input`}
+            type='number'
+            disabled={this.props.disabled}
+            inputMode='numeric'
+            min={this.props.min}
+            max={this.props.max}
+            value={this.props.value}
+            step={this.props.step}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeyDown}
+            defaultValue={this.props.defaultValue}
+            onChange={this.onChange.bind(this)}
+            onInput={(e) => {e.stopPropagation()}}
+          />
+        </Text>
+      </StyledInputBar>
     )
   }
 }
 
-NumericInput.propTypes = {
+InputBar.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   showLabel: PropTypes.bool,
@@ -341,7 +332,7 @@ NumericInput.propTypes = {
   onInput: PropTypes.func,
 }
 
-NumericInput.defaultProps = {
+InputBar.defaultProps = {
   showLabel: true,
   viz: 'knob',
 
@@ -350,4 +341,4 @@ NumericInput.defaultProps = {
   onInput: () => {},
 }
 
-export default NumericInput
+export default InputBar
