@@ -238,17 +238,6 @@ const StyledTrackSettings = styled.div`
         opacity: 1;
       }
     }
-    .fader-knob {
-      transition: 0.2s ease;
-      fill: ${vars.grey_1};
-      opacity: 0;
-    }
-    .fader-track {
-      stroke: ${vars.grey_1};
-    }
-    .fader-value {
-      stroke: ${vars.grey_6};
-    }
   }
   .draggable {
     cursor: ew-resize;

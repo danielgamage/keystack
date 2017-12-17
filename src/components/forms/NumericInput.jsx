@@ -50,14 +50,17 @@ export const Fader = styled.div`
   }
   .fader-knob {
     transition: 0.2s ease;
-    fill: ${vars.grey_1};
+    fill: ${vars.grey_2};
     opacity: 0;
   }
   .fader-track {
-    stroke: ${vars.grey_1};
+    stroke: ${vars.grey_2};
+  }
+  .fader-pointer {
+    stroke: ${vars.grey_7};
   }
   .fader-value {
-    stroke: ${vars.grey_6};
+    stroke: ${props => vars.accents[props.theme.accent].light}
   }
   .input-output {
     position: relative;
@@ -288,8 +291,16 @@ class NumericInput extends Component {
     return angle(value)
   }
 
+  radiansToDegrees (value) {
+    return value * 180 / Math.PI
+  }
+
   render () {
     var arcPath = arc()
+
+    const min = this.angle(this.props.min)
+    const max = this.angle(this.props.max)
+    const value = this.angle(this.props.value)
 
     return (
       <Fader
@@ -333,8 +344,8 @@ class NumericInput extends Component {
             d={arcPath({
               innerRadius: 14,
               outerRadius: 14,
-              startAngle: this.angle(this.props.min),
-              endAngle: this.angle(this.props.max)
+              startAngle: min,
+              endAngle: max
             })}
           />
 
@@ -345,9 +356,19 @@ class NumericInput extends Component {
             d={arcPath({
               innerRadius: 14,
               outerRadius: 14,
-              startAngle: this.angle(this.props.min),
-              endAngle: this.angle(this.props.value)
+              startAngle: min,
+              endAngle: value
             })}
+          />
+
+          <line
+            className='fader-pointer'
+            x1='16'
+            y1='2'
+            x2='16'
+            y2='12'
+            vectorEffect='non-scaling-stroke'
+            transform={`rotate(${this.radiansToDegrees(value)} 16 16)`}
           />
         </svg>
 
