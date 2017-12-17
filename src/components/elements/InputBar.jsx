@@ -76,19 +76,6 @@ class InputBar extends Component {
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.getMultiplier = this.getMultiplier.bind(this)
-    this.shiftValue = this.shiftValue.bind(this)
-    this.clampValue = this.clampValue.bind(this)
-    this.scale = this.scale.bind(this)
-    this.unscale = this.unscale.bind(this)
-    this.onDrag = this.onDrag.bind(this)
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseUp = this.onMouseUp.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.initialX = 0
-    this.mouseDownX = 0
-    this.mouseDownY = 0
   }
 
   handleFocus (e) {
@@ -103,140 +90,6 @@ class InputBar extends Component {
     this.setState({
       showInput: false
     })
-  }
-
-  onMouseDown (e) {
-    e.preventDefault()
-
-    const isRightClick = (
-      e.button === 2 ||
-      e.ctrlKey
-    )
-
-    if (!isRightClick) {
-      e.target.requestPointerLock()
-
-      this.initialX = e.pageX || e.touches[0].pageX
-      this.mouseDownX = e.pageX || e.touches[0].pageX
-      this.mouseDownY = e.pageY || e.touches[0].pageY
-
-      this.containerElement.classList.add('active')
-
-      document.addEventListener('mousemove', this.onDrag)
-      document.addEventListener('mouseup', this.onMouseUp)
-      document.addEventListener('touchmove', this.onDrag)
-      document.addEventListener('touchend', this.onMouseUp)
-
-      document.body.classList.add('cursor--lr')
-    }
-  }
-
-  onMouseUp (e) {
-    document.exitPointerLock()
-    const currentMouseDownX = e.pageX || e.touches[0].pageX
-    const currentMouseDownY = e.pageY || e.touches[0].pageY
-
-    if (this.mouseDownX === currentMouseDownX && this.mouseDownY === currentMouseDownY) {
-      this.inputElement.focus()
-    }
-
-    this.containerElement.classList.remove('active')
-    document.removeEventListener('mousemove', this.onDrag)
-    document.removeEventListener('mouseup', this.onMouseUp)
-    document.removeEventListener('touchmove', this.onDrag)
-    document.removeEventListener('touchend', this.onMouseUp)
-    document.body.classList.remove('cursor--lr')
-  }
-
-  scale (value) {
-    const scale = this.props.scale || 1
-    if (scale !== 1) {
-      value = Math.log(value) / Math.log(scale)
-    }
-    return value
-  }
-
-  unscale (value) {
-    const scale = this.props.scale || 1
-    if (scale !== 1) {
-      value = scale ** value
-    }
-    return value
-  }
-
-  handleKeyDown (e) {
-    let direction
-    switch (e.keyCode) {
-      case 38: // up
-      case 40: // down
-        e.preventDefault()
-
-        if (e.keyCode === 38) direction = 1
-        if (e.keyCode === 40) direction = -1
-
-        const multiplier = this.getMultiplier(e)
-        const value = this.shiftValue(direction * multiplier)
-        this.props.onInput(value)
-        break
-      case 27: // esc
-      case 13: // enter
-        this.inputElement.blur()
-        break;
-    }
-  }
-
-  getMultiplier (e) {
-    if (e.altKey && e.shiftKey) return 100
-    if (e.shiftKey) return 10
-    if (e.altKey) return 0.1
-    else return 1
-  }
-
-  onDrag (e) {
-    let movement
-
-    if (e.movementX !== undefined) {
-      movement = e.movementX
-    } else {
-      if (e.pageX !== undefined) {
-        movement = e.pageX - this.initialX
-        this.initialX = e.pageX
-      } else {
-        movement = e.touches[0].pageX - this.initialX
-        this.initialX = e.touches[0].pageX
-      }
-    }
-
-    const value = this.shiftValue(movement)
-
-    this.props.onInput(value)
-  }
-
-  shiftValue (amount) {
-    let value = this.props.value || 0
-    value = this.scale(value)
-
-    let step = this.props.step || 1
-    value = (amount * (step || 1)) + value
-    value = this.unscale(value)
-    value = this.clampValue(value)
-    value = Math.round(value * 100) / 100
-
-    return value
-  }
-
-  clampValue (value) {
-    value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
-    value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
-    return value
-  }
-
-  onChange (e) {
-    let value = parseFloat(e.target.value)
-    if (value) {
-      value = this.clampValue(value)
-      this.props.onInput(value)
-    }
   }
 
   bar (value) {
@@ -265,8 +118,6 @@ class InputBar extends Component {
         innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''}
         className='input-output'
-        onMouseDown={this.onMouseDown.bind(this)}
-        onTouchStart={this.onMouseDown.bind(this)}
       >
         <div
           className='progress-bar'
@@ -295,9 +146,8 @@ class InputBar extends Component {
             step={this.props.step}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
-            onKeyDown={this.handleKeyDown}
             defaultValue={this.props.defaultValue}
-            onChange={this.onChange.bind(this)}
+            onChange={this.props.onInput}
             onInput={(e) => {e.stopPropagation()}}
           />
         </Text>

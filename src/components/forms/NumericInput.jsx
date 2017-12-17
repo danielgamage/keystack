@@ -309,6 +309,7 @@ class NumericInput extends Component {
           onMouseDown={this.onMouseDown.bind(this)}
           ref={(c) => this.vizElement = c}
           onTouchStart={this.onMouseDown.bind(this)}
+          onKeyDown={this.handleKeyDown}
         />
       </StyledNumericInput>
     )
