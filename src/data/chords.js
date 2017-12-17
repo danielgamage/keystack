@@ -104,7 +104,7 @@ export const chords = [
     'quality': 'Major'
   }, {
     'name': 'Major 13th',
-    'abbr': 'Major13',
+    'abbr': 'Maj13',
     'set': [
       0, 4, 7, 10, 2, 5, 9
     ],
@@ -138,25 +138,11 @@ export const chords = [
     'quality': 'Atonal'
   }, {
     'name': 'Half-diminished 7th',
+    'name': 'Min7♭5',
     'set': [
       0, 3, 6, 10
     ],
     'quality': 'Diminished'
-  }, {
-    'name': 'Harmonic 7th',
-    'set': [
-      0, 4, 7, 10
-    ],
-    'quality': 'Major'
-  }, {
-    'name': 'Hendrix/Augmented 9th',
-    'set': [
-      0, 4, 7, 10, 3
-    ],
-    'naturalSet': [
-      0, 4, 7, 10, 15
-    ],
-    'quality': 'Mixed'
   }, {
     'name': 'Lydian',
     'set': [
@@ -335,6 +321,7 @@ export const chords = [
     'quality': 'Major'
   }, {
     'name': '9th augmented 5th',
+    'abbr': '9aug5',
     'set': [
       0, 4, 8, 10, 2
     ],
@@ -344,6 +331,7 @@ export const chords = [
     'quality': 'Augmented'
   }, {
     'name': '9th flat 5th',
+    'abbr': '9♭5',
     'set': [
       0, 4, 6, 10, 2
     ],
@@ -381,12 +369,14 @@ export const chords = [
     'quality': 'Indeterminate'
   }, {
     'name': 'Seven six',
+    'abbr': '7/6',
     'set': [
       0, 4, 7, 9, 10
     ],
     'quality': 'Major'
   }, {
     'name': '7th flat nine',
+    'abbr': '7♭9',
     'set': [
       0, 4, 7, 10, 1
     ],
@@ -396,6 +386,7 @@ export const chords = [
     'quality': 'Major'
   }, {
     'name': '7th suspension four',
+    'abbr': '7sus4',
     'set': [
       0, 5, 7, 10
     ],
