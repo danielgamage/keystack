@@ -97,7 +97,7 @@ const StyledTrackSettings = styled.div`
     display: block;
     margin-bottom: 0.25rem;
     &:hover {
-      color: ${props => vars.accents[props.theme.accent].light};
+      color: ${props => vars.accents[props.theme.accent][1]};
     }
   }
   .add-item-toggle {

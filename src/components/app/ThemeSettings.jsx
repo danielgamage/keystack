@@ -21,7 +21,6 @@ const Palette = styled.div`
   width: 112px;
   margin: 16px 0;
   padding: 12px;
-  transition: background 0.2s, box-shadow 0.2s;
 
   background-color: ${props => props.lightness === 'dark'
     ? vars.grey_0
@@ -49,7 +48,6 @@ const Swatch = styled.button`
   border-radius: 1rem;
   padding: 0;
 
-  transition: border 0.2s ease, background 0.2s ease;
   background-color: ${props => props.color};
   cursor: pointer;
 
@@ -63,7 +61,7 @@ const Swatch = styled.button`
     border-radius: 1rem;
     width: 8px;
     height: 8px;
-    transition: opacity 0.2s, transform 0.2s, background 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
     transform: ${props => props.selected ? 'scale(1)' : 'scale(0.5)'};
     opacity: ${props => props.selected ? 1 : 0}
   }
@@ -117,8 +115,8 @@ class ThemeSettings extends Component {
     const currentColors = colorOptions.map((el, i) => ({
       ...el,
       hex: this.props.prefs.lightness === 'dark'
-        ? el.light
-        : el.dark
+        ? el[1]
+        : el[0]
     }))
 
     return (

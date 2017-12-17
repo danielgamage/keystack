@@ -46,7 +46,7 @@ export const EchoContainer = styled.div`
   }
   .st1,
   .st2 {
-    stroke: ${props => vars.accents[props.theme.accent].light};
+    stroke: ${props => vars.accents[props.theme.accent][1]};
     stroke-width: 2;
     stroke-linecap: round;
     stroke-miterlimit: 10;

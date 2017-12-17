@@ -52,7 +52,7 @@ const StyledChordDevice = styled.div`
       border-radius: ${vars.radius};
       cursor: pointer;
       &.active {
-        background-color: ${props => vars.accents[props.theme.accent].light};
+        background-color: ${props => vars.accents[props.theme.accent][1]};
         color: ${vars.grey_0};
       }
       &.open-index {

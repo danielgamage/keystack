@@ -52,7 +52,7 @@ const StyledRadialKeys = styled.div`
     }
     &.on {
       transition: 0s ease;
-      stroke: ${props => vars.accents[props.theme.accent].dark};
+      stroke: ${props => vars.accents[props.theme.accent][0]};
     }
   }
 `

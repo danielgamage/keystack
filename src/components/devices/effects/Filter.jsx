@@ -26,7 +26,7 @@ const StyledFilter = styled.div`
 
   .icon--crosshair {
     position: absolute;
-    fill: ${props => vars.accents[props.theme.accent].light};
+    fill: ${props => vars.accents[props.theme.accent][1]};
     pointer-events: none;
     transform: translate(-50%, -50%);
   }

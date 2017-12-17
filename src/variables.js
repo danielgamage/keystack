@@ -5,6 +5,7 @@ export default {
     //
 
     white: `#FDFCFB`,
+    grey_7: `#F2F1F0`,
     grey_6: `#E8E9EB`,
     grey_5: `#CDD1D3`,
     grey_4: `#949496`,
@@ -18,38 +19,46 @@ export default {
     orange_bright: `#ffa850`,
 
     accents: {
-      orange: {
-        dark: `#FF9800`,
-        light: `#FFA850`,
-      },
-      red: {
-        dark: `#F6736A`,
-        light: `#FF9089`,
-      },
-      magenta: {
-        dark: `#F067AB`,
-        light: `#FF89C4`,
-      },
-      purple: {
-        dark: `#9B7FF2`,
-        light: `#BBA5FF`,
-      },
-      blue: {
-        dark: `#67A0FA`,
-        light: `#90BBFF`,
-      },
-      aqua: {
-        dark: `#1AD3CC`,
-        light: `#7BE4E0`,
-      },
-      green: {
-        dark: `#7DD35B`,
-        light: `#A8F489`,
-      },
-      yellow: {
-        dark: `#FFD149`,
-        light: `#FFEA77`,
-      }
+      orange: [
+        `#FF9800`,
+        `#FFA850`,
+        `#FFD4AE`,
+      ],
+      red: [
+        `#F6736A`,
+        `#FF7E7B`,
+        `#FFC5C5`,
+      ],
+      magenta: [
+        `#F067AB`,
+        `#FF89C4`,
+        `#FFCCE7`,
+      ],
+      purple: [
+        `#9B7FF2`,
+        `#BBA5FF`,
+        `#D4CAFF`,
+      ],
+      blue: [
+        `#67A0FA`,
+        `#90BBFF`,
+        `#B8D5FF`,
+      ],
+      aqua: [
+        `#1AD3CC`,
+        `#7BE4E0`,
+        `#C7F9F4`,
+      ],
+      green: [
+        `#7DD35B`,
+        `#A8F489`,
+        `#CAF9B2`,
+      ],
+      yellow: [
+        `#FFD149`,
+        `#FFEA77`,
+        `#FFEEA4`,
+      ],
     },
 
     //

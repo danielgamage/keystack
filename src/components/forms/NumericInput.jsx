@@ -60,7 +60,7 @@ export const Fader = styled.div`
     stroke: ${vars.grey_7};
   }
   .fader-value {
-    stroke: ${props => vars.accents[props.theme.accent].light}
+    stroke: ${props => vars.accents[props.theme.accent][1]}
   }
   .input-output {
     position: relative;
