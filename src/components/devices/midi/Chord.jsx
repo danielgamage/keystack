@@ -53,7 +53,10 @@ const StyledChordDevice = styled.div`
       border-radius: ${vars.radius};
       cursor: pointer;
       &.active {
-        background-color: ${props => vars.accents[props.theme.accent].dark}
+        background-color: ${props => vars.accents[props.theme.accent].dark};
+      }
+      &.open-index {
+        box-shadow: 0 0 0 1px ${vars.white} inset;
       }
     }
     .swap-button {
@@ -77,10 +80,6 @@ const StyledChordDevice = styled.div`
     padding-left: 16px;
   }
 
-  .chord-list-popover {
-    height: 200px
-  }
-
   .popover .popover-container {
     width: 100%;
   }
@@ -88,7 +87,7 @@ const StyledChordDevice = styled.div`
     fill: ${vars.grey_6};
   }
   .chord-list {
-    height: 128px;
+    height: 144px;
     overflow-y: auto;
     padding: 12px 16px;
     background-color: ${vars.grey_6};
@@ -148,7 +147,10 @@ class Chord extends Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (prevState.isPickerOpen === true && this.state.isPickerOpen === false) {
-      this.setState({ filterText: null })
+      this.setState({
+        filterText: null,
+        openIndex: null,
+      })
     }
     if (prevState.isPickerOpen === false && this.state.isPickerOpen === true) {
       this.filterInputElement.inputElement.focus()
@@ -189,7 +191,11 @@ class Chord extends Component {
                   ? (
                     <div
                       key={i}
-                      className={`pad ${ currentChord && currentChord.name === chord.name ? 'active' : '' }`}
+                      className={`
+                        pad
+                        ${currentChord && currentChord.name === chord.name ? 'active' : ''}
+                        ${this.state.openIndex === i ? 'open-index' : ''}
+                      `}
                       onClick={() => {
                         this.props.dispatch({
                           type: 'UPDATE_DEVICE',
@@ -222,7 +228,10 @@ class Chord extends Component {
                   : (
                     <div
                       key={i}
-                      className={`pad`}
+                      className={`
+                        pad
+                        ${this.state.openIndex === i ? 'open-index' : ''}
+                      `}
                       onClick={() => {
                         this.setState({
                           isPickerOpen: true,
