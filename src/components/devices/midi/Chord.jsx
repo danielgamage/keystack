@@ -46,14 +46,14 @@ const StyledChordDevice = styled.div`
       justify-content: center;
       width: calc((100% / 4) - (6px * 3 / 4));
       height: 32px;
-      overflow: hidden;
       text-overflow: ellipsis;
       text-align: center;
       background-color: ${vars.grey_1};
       border-radius: ${vars.radius};
       cursor: pointer;
       &.active {
-        background-color: ${props => vars.accents[props.theme.accent].dark};
+        background-color: ${props => vars.accents[props.theme.accent].light};
+        color: ${vars.grey_0};
       }
       &.open-index {
         box-shadow: 0 0 0 1px ${vars.white} inset;
@@ -61,18 +61,20 @@ const StyledChordDevice = styled.div`
     }
     .swap-button {
       position: absolute;
-      top: 3px;
-      right: 3px;
-      width: 11px;
-      height: 11px;
-      background: ${vars.grey_0};
-      border-radius: ${vars.radius};
+      top: -3px;
+      right: -3px;
+      width: 13px;
+      height: 13px;
+      background: ${vars.grey_2};
+      box-shadow: 0 0 0 1px ${vars.grey_0};
+      color: ${vars.white};
+      border-radius: 50%;
     }
     .swap-icon {
       display: block;
       position: absolute;
-      top: 2px;
-      left: 2px;
+      top: 3px;
+      left: 3px;
     }
   }
 
@@ -87,7 +89,7 @@ const StyledChordDevice = styled.div`
     fill: ${vars.grey_6};
   }
   .chord-list {
-    height: 144px;
+    height: 192px;
     overflow-y: auto;
     padding: 12px 16px;
     background-color: ${vars.grey_6};
@@ -251,6 +253,7 @@ class Chord extends Component {
                 onClickOutside={() => {
                   this.setState({isPickerOpen: false})
                 }}
+                viewport={document.querySelector('.settings-inner-container')}
                 className='chord-list-popover'
               >
                 <div className='chord-list'>
