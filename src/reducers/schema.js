@@ -106,7 +106,7 @@ const schema = {
       deviceType: `audio`,
       devicePrototype: `Filter`,
       type: `lowpass`,
-      frequency: 600,
+      frequency: 8000,
       q: 0.5,
       gain: 0,
       mix: 100
@@ -152,9 +152,7 @@ const schema = {
 }
 
 export const defaultDevices = [
-  schema.midi.Transpose(),
   schema.midi.Chord(),
-  schema.midi.DisableNotes(),
   schema.instrument.KeySynth(),
   schema.audio.Filter(),
   schema.audio.Delay()

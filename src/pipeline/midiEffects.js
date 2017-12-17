@@ -17,7 +17,6 @@ export const processMIDI = {
   //
 
   Chord: (notes, newNotes, effect, effectIndex, effectsArray, oldState) => {
-    console.log(newNotes)
     const value = notes.map(note => {
       return [...new Set(effect.value)].map(tone => {
         let newTone = parseInt(note.index) + parseInt(tone)
