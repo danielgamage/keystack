@@ -93,7 +93,7 @@ class Sample extends Component {
               id={`loop-${el.name}`}
               min={el.min}
               max={el.max}
-              step='0.01'
+              steps={{default: 0.01, shiftKey: 0.1}}
               value={this.props.instrument[`loop${el.name}`]}
               onInput={(event) => {
                 this.props.dispatch({
@@ -111,7 +111,6 @@ class Sample extends Component {
             id='sample-pitch'
             min={0}
             max={88}
-            step={1}
             displayValue={keys[this.props.instrument.pitch].note + keys[this.props.instrument.pitch].octave}
             value={this.props.instrument.pitch}
             onInput={(event) => {
@@ -130,7 +129,7 @@ class Sample extends Component {
             id='sample-detune'
             min={-50}
             max={50}
-            step={0.1}
+            steps={{default: 0.1, shiftKey: 1, altShiftKey: 10}}
             value={this.props.instrument.detune}
             onInput={(event) => {
               this.props.dispatch({

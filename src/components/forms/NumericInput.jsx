@@ -183,10 +183,10 @@ class NumericInput extends Component {
   }
 
   getMultiplier (e) {
-    if (e.altKey && e.shiftKey) return 100
-    if (e.shiftKey) return 10
-    if (e.altKey) return 0.1
-    else return 1
+    if (e.altKey && e.shiftKey) return this.props.modifiers.altShiftKey || 100
+    if (e.shiftKey) return this.props.modifiers.shiftKey || 10
+    if (e.altKey) return this.props.modifiers.altKey || 0.1
+    else return this.props.steps.default || 1
   }
 
   onDrag (e) {
@@ -346,7 +346,7 @@ NumericInput.defaultProps = {
   showLabel: true,
   viz: 'knob',
 
-  step: 1,
+  steps: {},
 
   onInput: () => {},
 }

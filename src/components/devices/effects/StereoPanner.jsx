@@ -17,7 +17,7 @@ class StereoPanner extends Component {
             id={`pan-${this.props.data.id}`}
             min={-1}
             max={1}
-            step={0.01}
+            steps={{default: 0.01, shiftKey: 0.1, altShiftKey: 1}}
             value={this.props.data['pan']}
             onInput={(event) => {
               this.props.dispatch({

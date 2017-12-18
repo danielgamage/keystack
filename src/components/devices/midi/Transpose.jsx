@@ -17,7 +17,7 @@ class Transpose extends Component {
             id={`pan-${this.props.data.id}`}
             min={-48}
             max={48}
-            step={1}
+            steps={{default: 1, shiftKey: 12, altKey: 1}}
             unit={` st`}
             displayValue={this.props.data.value}
             value={this.props.data.value}

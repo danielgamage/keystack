@@ -147,7 +147,7 @@ class InputBar extends Component {
             min={this.props.min}
             max={this.props.max}
             value={this.props.value}
-            step={this.props.step}
+            step={this.props.steps.default || 1}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             defaultValue={this.props.defaultValue}
@@ -180,7 +180,7 @@ InputBar.propTypes = {
 
   min: PropTypes.number,
   max: PropTypes.number,
-  step: PropTypes.number,
+  steps: PropTypes.object,
   scale: PropTypes.number,
 
   onInput: PropTypes.func,
@@ -190,7 +190,7 @@ InputBar.defaultProps = {
   showLabel: true,
   viz: 'knob',
 
-  step: 1,
+  steps: {},
 
   onInput: () => {},
 }

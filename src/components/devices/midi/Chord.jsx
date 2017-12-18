@@ -310,7 +310,6 @@ class Chord extends Component {
                 viz='bar'
                 min={0}
                 max={100}
-                step={1}
                 displayValue={format('.0%')(this.props.data.inversionChance / 100)}
                 value={this.props.data.inversionChance}
                 onInput={(event) => {
@@ -329,7 +328,6 @@ class Chord extends Component {
                 viz='bar'
                 min={0}
                 max={4}
-                step={1}
                 unit=' oct'
                 value={this.props.data.inversionRange}
                 onInput={(event) => {
@@ -354,7 +352,10 @@ class Chord extends Component {
                 id={`pan-${this.props.data.id}-${i + 1}`}
                 min={-24}
                 max={24}
-                step={1}
+                steps={{
+                  shiftKey: 12,
+                  default: 1,
+                }}
                 unit='st'
                 displayValue={format('+')(this.props.data.value[i])}
                 value={this.props.data.value[i]}

@@ -13,14 +13,12 @@ const parameters = [
     unit: '%',
     min: 0,
     max: 100,
-    step: 1,
     scale: 1
   },
   { name: 'amount',
     unit: '%',
     min: 0,
     max: 400,
-    step: 1,
     scale: 1
   }
   // { name: 'feedback',
@@ -44,7 +42,6 @@ class Delay extends Component {
               id={param.name}
               min={param.min}
               max={param.max}
-              step={param.step}
               scale={param.scale}
               unit={param.unit}
               displayValue={this.props.data[param.name]}

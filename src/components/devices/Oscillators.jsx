@@ -106,7 +106,6 @@ class Oscillators extends Component {
               id={`detune-${i}`}
               min={-50}
               max={50}
-              step={1}
               unit=' ct'
               displayValue={osc.detune}
               value={osc.detune}
@@ -126,7 +125,7 @@ class Oscillators extends Component {
               id={`pitch-${i}`}
               min={-48}
               max={48}
-              step={1}
+              steps={{default: 1, shiftKey: 12, altKey: 1}}
               unit=' st'
               displayValue={osc.pitch}
               value={osc.pitch}
@@ -146,7 +145,7 @@ class Oscillators extends Component {
               id={`volume-${i}`}
               min={0}
               max={1}
-              step={0.01}
+              steps={{default: 0.01}}
               value={osc.volume}
               onInput={(event) => {
                 this.props.dispatch({

@@ -134,7 +134,7 @@ class Compressor extends Component {
                   id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                   min={params[el].min}
                   max={params[el].max}
-                  step={params[el].step}
+                  steps={{default: params[el].step, shiftKey: params[el].step * 10}}
                   unit={params[el].unit}
                   displayValue={format(params[el].format)(this.props.data[el])}
                   value={this.props.data[el]}
@@ -157,7 +157,7 @@ class Compressor extends Component {
                 id={`pan-${this.props.data.id}-${Math.floor(i * Math.random() * 1000)}`}
                 min={params[el].min}
                 max={params[el].max}
-                step={params[el].step}
+                steps={{default: params[el].step, shiftKey: params[el].step * 10}}
                 unit={params[el].unit}
                 displayValue={format(params[el].format)(this.props.data[el])}
                 value={this.props.data[el]}

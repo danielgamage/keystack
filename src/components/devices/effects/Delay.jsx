@@ -60,7 +60,7 @@ class Delay extends Component {
               id={param.name}
               min={param.min}
               max={param.max}
-              step={param.step}
+              steps={{default: param.step}}
               scale={param.scale}
               unit={param.unit}
               displayValue={format(param.format)(this.props.data[param.name])}

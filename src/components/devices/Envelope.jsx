@@ -165,7 +165,7 @@ class Envelope extends Component {
               id={el.name}
               min={el.min}
               max={el.max}
-              step={el.step}
+              steps={{default: el.step, shiftKey: el.step * 10}}
               unit={el.unit}
               displayValue={format(el.format)(envelope[el.name])}
               value={envelope[el.name]}
