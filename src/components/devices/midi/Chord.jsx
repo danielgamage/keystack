@@ -36,7 +36,7 @@ const StyledChordDevice = styled.div`
     flex-flow: row wrap;
     justify-content: space-between;
     align-content: flex-start;
-    width: calc(100% - 98px);
+    width: calc(100% - 80px);
     margin: 0 0 8px 0;
     .pad {
       position: relative;
@@ -80,6 +80,7 @@ const StyledChordDevice = styled.div`
 
   .chord-inversion-props {
     padding-left: 16px;
+    width: 80px;
   }
 
   .popover .popover-container {
@@ -130,15 +131,15 @@ class Chord extends Component {
         'Minor 9th',
         'Minor 6th',
 
-        'Power',
         'Suspended 2nd',
         'Suspended 4th',
-        'Augmented',
+        '9th suspended 2nd',
+        '9th suspended 4th',
 
-        null,
-        null,
-        null,
-        null,
+        'Augmented major 7th',
+        'Augmented 7th',
+        '9th augmented 5th',
+        'Augmented 6th',
       ],
 
       isPickerOpen: false,
@@ -209,7 +210,8 @@ class Chord extends Component {
                     >
                       <div
                         className='swap-button'
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation()
                           this.setState({
                             isPickerOpen: true,
                             openIndex: i,
@@ -276,12 +278,6 @@ class Chord extends Component {
                     filteredGroupedChords[group].map(chord => (
                       <Text
                         onClick={() => {
-                          this.props.dispatch({
-                            type: 'UPDATE_DEVICE',
-                            id: this.props.data.id,
-                            property: 'value',
-                            value: chord.naturalSet,
-                          })
                           if (this.state.openIndex) {
                             this.setState({
                               isPickerOpen: false,
@@ -302,7 +298,7 @@ class Chord extends Component {
             </div>
 
             <div className='chord-inversion-props'>
-              <Text type='h3'>Inversions</Text>
+              <Text type='h3' title='Random Inversions'>Rand Inv</Text>
 
               <NumericInput
                 label='Chance'
