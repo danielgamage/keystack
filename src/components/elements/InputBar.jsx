@@ -16,7 +16,7 @@ export const StyledInputBar = styled.div`
   position: relative;
   flex: 1;
   height: 1rem;
-  border: 1px solid ${vars.grey_2};
+  border: 1px solid ${props => props.isFocused ? vars.grey_7 : vars.grey_2};
   cursor: ew-resize;
 
   .text-items {
@@ -43,10 +43,14 @@ export const StyledInputBar = styled.div`
     right: -0.5rem;
     height: 22px;
 
-    opacity: ${props => props.showInput ? 1 : 0};
+    opacity: ${props => props.isFocused ? 1 : 0};
     appearance: none;
     background: none;
     color: inherit;
+
+    &:focus {
+      outline: 0
+    }
 
     -moz-appearance: textfield;
     &::-webkit-inner-spin-button,
@@ -56,7 +60,7 @@ export const StyledInputBar = styled.div`
     }
   }
   output {
-    opacity: ${props => props.showInput ? 0 : 1};
+    opacity: ${props => props.isFocused ? 0 : 1};
   }
   .progress-bar {
     position: absolute;
@@ -72,7 +76,7 @@ class InputBar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showInput: false
+      isFocused: false,
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
@@ -80,7 +84,7 @@ class InputBar extends Component {
 
   handleFocus (e) {
     this.setState({
-      showInput: true
+      isFocused: true
     })
 
     document.execCommand('selectall', null, false)
@@ -88,7 +92,7 @@ class InputBar extends Component {
 
   handleBlur (e) {
     this.setState({
-      showInput: false
+      isFocused: false
     })
   }
 
@@ -114,7 +118,7 @@ class InputBar extends Component {
     return (
       <StyledInputBar
         {...this.props}
-        showInput={this.state.showInput}
+        isFocused={this.state.isFocused}
         innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''}
         className='input-output'
