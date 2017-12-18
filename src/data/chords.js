@@ -385,13 +385,6 @@ export const chords = [
     ],
     'quality': 'Major'
   }, {
-    'name': '7th suspension four',
-    'abbr': '7sus4',
-    'set': [
-      0, 5, 7, 10
-    ],
-    'quality': 'Suspended'
-  }, {
     'name': 'So What',
     'set': [
       0, 5, 10, 3, 7
@@ -406,14 +399,48 @@ export const chords = [
     'set': [
       0, 2, 7
     ],
-    'quality': 'Indeterminate'
+    'quality': 'Suspended'
   }, {
     'name': 'Suspended 4th',
     'abbr': 'Sus4',
     'set': [
       0, 5, 7
     ],
-    'quality': 'Indeterminate'
+    'quality': 'Suspended'
+  }, {
+    'name': '7th Suspended 2nd',
+    'abbr': '7sus2',
+    'set': [
+      0, 2, 7, 10
+    ],
+    'quality': 'Suspended'
+  }, {
+    'name': '7th Suspended 4th',
+    'abbr': '7sus4',
+    'set': [
+      0, 5, 7, 10
+    ],
+    'quality': 'Suspended'
+  }, {
+    'name': '9th suspended 2nd',
+    'abbr': '9sus2',
+    'set': [
+      0, 2, 7, 11, 2
+    ],
+    'naturalSet': [
+      0, 2, 7, 11, 14
+    ],
+    'quality': 'Major'
+  }, {
+    'name': '9th suspended 4th',
+    'abbr': '9sus4',
+    'set': [
+      0, 5, 7, 11, 2
+    ],
+    'naturalSet': [
+      0, 5, 7, 11, 14
+    ],
+    'quality': 'Major'
   }, {
     'name': '13th flat 9th',
     'abbr': '13♭9',
