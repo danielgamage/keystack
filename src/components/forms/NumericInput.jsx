@@ -83,7 +83,6 @@ class NumericInput extends Component {
     this.onDrag = this.onDrag.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
-    this.onChange = this.onChange.bind(this)
 
     this.initialX = 0
     this.didMove = false
@@ -227,54 +226,6 @@ class NumericInput extends Component {
     value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
     value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
     return value
-  }
-
-  onChange (e) {
-    let value = parseFloat(e.target.value)
-    if (value) {
-      value = this.clampValue(value)
-      this.props.onInput(value)
-    }
-  }
-
-  angle (value) {
-    const scale = this.props.scale || 1
-    let angle
-
-    if (scale !== 1) {
-      angle = scaleLog()
-        .domain([this.props.min, this.props.max])
-        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
-        .base(scale)
-    } else {
-      angle = scaleLinear()
-        .domain([this.props.min, this.props.max])
-        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
-    }
-
-    return angle(value)
-  }
-
-  bar (value) {
-    const scale = this.props.scale || 1
-    let angle
-
-    if (scale !== 1) {
-      angle = scaleLog()
-        .domain([this.props.min, this.props.max])
-        .range([0, 100])
-        .base(scale)
-    } else {
-      angle = scaleLinear()
-        .domain([this.props.min, this.props.max])
-        .range([0, 100])
-    }
-
-    return angle(value)
-  }
-
-  radiansToDegrees (value) {
-    return value * 180 / Math.PI
   }
 
   render () {
