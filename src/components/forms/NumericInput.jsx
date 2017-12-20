@@ -214,7 +214,7 @@ class NumericInput extends Component {
     let value = this.props.value || 0
     value = this.scale(value)
 
-    let step = this.props.step || 1
+    let step = this.props.steps.default || 1
     value = (amount * (step || 1)) + value
     value = this.unscale(value)
     value = this.clampValue(value)
