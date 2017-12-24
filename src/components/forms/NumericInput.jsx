@@ -74,6 +74,7 @@ class NumericInput extends Component {
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handleInput = this.handleInput.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.getMultiplier = this.getMultiplier.bind(this)
     this.shiftValue = this.shiftValue.bind(this)
@@ -176,15 +177,22 @@ class NumericInput extends Component {
         break
       case 27: // esc
       case 13: // enter
-        this.inputElement.blur()
+        this.vizElement.inputElement.blur()
         break;
     }
   }
 
+  handleInput (e) {
+    let value = parseFloat(e.target.value) || 0
+    value = this.clampValue(value)
+
+    this.props.onInput(value)
+  }
+
   getMultiplier (e) {
-    if (e.altKey && e.shiftKey) return this.props.modifiers.altShiftKey || 100
-    if (e.shiftKey) return this.props.modifiers.shiftKey || 10
-    if (e.altKey) return this.props.modifiers.altKey || 0.1
+    if (e.altKey && e.shiftKey) return this.props.steps.altShiftKey || 100
+    if (e.shiftKey) return this.props.steps.shiftKey || 10
+    if (e.altKey) return this.props.steps.altKey || 0.1
     else return this.props.steps.default || 1
   }
 
@@ -261,6 +269,7 @@ class NumericInput extends Component {
           ref={(c) => this.vizElement = c}
           onTouchStart={this.onMouseDown.bind(this)}
           onKeyDown={this.handleKeyDown}
+          onInput={this.handleInput}
         />
       </StyledNumericInput>
     )
