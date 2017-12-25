@@ -92,8 +92,6 @@ class Midi extends Component {
       navigator.requestMIDIAccess({
         sysex: false
       }).then(this.onMIDISuccess, this.onMIDIFailure)
-    } else {
-      console.log('No MIDI support in your browser.')
     }
   }
   render () {

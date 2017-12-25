@@ -35,7 +35,7 @@ class Sample extends Component {
 
     const loopStartX = this.props.instrument.loopStart / sample.duration * viewBoxWidth
     const loopEndX = this.props.instrument.loopEnd / sample.duration * viewBoxWidth
-    console.log(sample.name)
+
     return (
       <section className='sample'>
         <svg

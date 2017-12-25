@@ -110,7 +110,6 @@ class UserSettings extends Component {
   }
 
   closePopover () {
-    console.log('closePopover')
     this.setState({
       isOpen: false
     })

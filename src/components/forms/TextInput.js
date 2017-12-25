@@ -9,8 +9,6 @@ import {
 
 import {StyledText} from '@/components/elements/Text'
 
-// console.log(StyledText, StyledText.withComponent('input'))
-
 export const StyledInput = styled(StyledText)`
   padding: 4px 8px 3px;
   border: 0;

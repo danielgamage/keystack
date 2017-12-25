@@ -52,16 +52,12 @@ class Waveform extends Component {
   }
 
   mouseDown (e) {
-    console.log('mousedown')
-
     window.addEventListener('mousemove', this.drag)
     window.addEventListener('mouseup', this.mouseUp)
     this.drag(e)
   }
 
   mouseUp () {
-    console.log('mouseup')
-
     window.removeEventListener('mousemove', this.drag)
     window.removeEventListener('mouseup', this.mouseUp)
   }

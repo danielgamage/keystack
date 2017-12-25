@@ -39,16 +39,12 @@ class Waveform extends Component {
   }
 
   componentWillMount () {
-    //setup audio context
     window.AudioContext = window.AudioContext || window.webkitAudioContext
     this.audioContext = new window.AudioContext()
-    console.log('this.audioContext', this)
 
-    //create nodes
     this.masterGain = this.audioContext.createGain()
     this.analyser = this.audioContext.createAnalyser()
 
-    //routing
     this.masterGain.connect(this.analyser)
     this.analyser.connect(this.audioContext.destination)
 
@@ -56,16 +52,12 @@ class Waveform extends Component {
   }
 
   componentDidMount () {
-    // button trigger
-    console.log('this.audioContext', this)
-
     var canvas = document.getElementById('scope')
     this.canvasContext = canvas.getContext("2d")
 
     canvas.height = 200
     canvas.width = 600
 
-    // make 0-line permanent as background
     this.canvasContext.moveTo(0, 100.5)
     this.canvasContext.lineTo(this.canvasContext.width, 100.5)
     this.canvasContext.stroke()
@@ -78,10 +70,8 @@ class Waveform extends Component {
   }
 
   mouseDown () {
-    console.log('this.audioContext', this)
     this.osc = this.audioContext.createOscillator()
 
-    //this.osc settings
     this.osc.frequency.value = 220
     var imag= new Float32Array([0, ...this.props.value])  // sine
     var real = new Float32Array(imag.length) // cos
