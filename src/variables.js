@@ -55,8 +55,8 @@ export default {
         `#CAF9B2`,
       ],
       yellow: [
+        `#FCBD30`,
         `#FFD149`,
-        `#FFEA77`,
         `#FFEEA4`,
       ],
     },
