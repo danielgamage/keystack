@@ -45,7 +45,7 @@ const StyledOscillators = styled.div`
     fill: none;
   }
   & :checked + .icon {
-    stroke: ${props => vars.accents[props.theme.accent][0]};
+    stroke: ${props => vars.accents[props.theme.accent][1]};
   }
 `
 
