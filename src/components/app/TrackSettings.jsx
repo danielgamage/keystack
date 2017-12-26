@@ -352,7 +352,7 @@ const insertHRs = (arr, type, edges) => {
       <hr
         key={`${type}-${length - i}`}
         className={`${type} ${type}-${length - i} ${(i === length || i === 0) ? 'edge' : ''}`}
-        />
+      />
     )
   }
   return arr
@@ -375,7 +375,13 @@ class TrackSettings extends Component {
         .filter(device => el.type === device.deviceType)
         .map((device, i) => {
           const ComponentName = devicesByName[device.deviceType][device.devicePrototype]
-          return (<ComponentName key={device.id} dragging={this.props.view.dragging} data={device} />)
+          return (
+            <ComponentName
+              key={device.id}
+              dragging={this.props.view.dragging}
+              data={device}
+            />
+          )
         })
       return (
         <FlipMove
@@ -411,6 +417,7 @@ class TrackSettings extends Component {
         </FlipMove>
       )
     })
+
     return (
       <StyledTrackSettings
         className={`
@@ -424,6 +431,8 @@ class TrackSettings extends Component {
             {this.state.add !== null
               ? Object.keys(schema[this.state.add]).map(item => (
                 <button
+                  key={item}
+                  className='button add-item-option'
                   onClick={() => {
                     const id = generateID()
                     this.props.dispatch({
@@ -438,14 +447,13 @@ class TrackSettings extends Component {
                       id: id
                     })
                   }}
-                  key={item}
-                  className='button add-item-option'
-                  >{item}</button>
+                >{item}</button>
               ))
               : ''
             }
           </div>
         </div>
+
         <div
           className='settings-container settings-container-main'
           onClick={(e) => {

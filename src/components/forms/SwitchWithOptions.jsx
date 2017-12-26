@@ -76,6 +76,7 @@ class SwitchWithOptions extends React.Component {
             <div className='options'>
               {this.props.options.map(el => (
                 <Text
+                  key={el.value}
                   type='h3'
                   className='option'
                   onClick={() => this.updateValue(el.value)}
