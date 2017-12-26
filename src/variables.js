@@ -20,19 +20,19 @@ export default {
 
     accents: {
       orange: [
-        `#FF9800`,
+        `#F98E00`,
         `#FFA850`,
         `#FFD4AE`,
       ],
       red: [
-        `#F6736A`,
+        `#F76D6D`,
         `#FF7E7B`,
         `#FFC5C5`,
       ],
       magenta: [
         `#F067AB`,
-        `#FF89C4`,
-        `#FFCCE7`,
+        `#FF8DBB`,
+        `#FFCFE6`,
       ],
       purple: [
         `#9B7FF2`,
@@ -40,18 +40,18 @@ export default {
         `#D4CAFF`,
       ],
       blue: [
-        `#67A0FA`,
-        `#90BBFF`,
+        `#5B94EF`,
+        `#8DB9FF`,
         `#B8D5FF`,
       ],
       aqua: [
-        `#1AD3CC`,
-        `#7BE4E0`,
-        `#C7F9F4`,
+        `#1CC9BC`,
+        `#6FDDD0`,
+        `#B0F7EE`,
       ],
       green: [
-        `#7DD35B`,
-        `#A8F489`,
+        `#6BC93F`,
+        `#94ED6B`,
         `#CAF9B2`,
       ],
       yellow: [
