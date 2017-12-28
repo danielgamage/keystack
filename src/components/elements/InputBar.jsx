@@ -15,8 +15,9 @@ import vars from '@/variables'
 export const StyledInputBar = styled.div`
   position: relative;
   flex: 1;
-  height: 1rem;
-  border: 1px solid ${props => props.isFocused ? vars.grey_7 : vars.grey_2};
+  height: 20px;
+  border: 1px solid ${props => props.isFocused ? vars.grey_7 : vars.grey_1};
+  border-bottom-width: 6px;
   cursor: ew-resize;
 
   .text-items {
@@ -66,9 +67,33 @@ export const StyledInputBar = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    opacity: 0.5;
-    background-color: ${props => vars.grey_2};
+    right: 0;
+    bottom: -6px;
+    transform-origin: top left;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      opacity: 0.3;
+      background-color: ${props => vars.grey_1};
+    }
+
+    &::after {
+      left: 1px;
+      bottom: 2px;
+      right: 1px;
+      height: 2px;
+      background-color: ${props => vars.accents[props.theme.accent][0]};
+    }
   }
 `
 
@@ -126,7 +151,7 @@ class InputBar extends Component {
         <div
           className='progress-bar'
           style={{
-            width: this.bar(this.props.value) + '%',
+            transform: `scaleX(${this.bar(this.props.value) / 100})`,
           }}
         />
         <Text type='value' className='text-items'>
