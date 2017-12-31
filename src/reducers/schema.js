@@ -63,13 +63,13 @@ const schema = {
         sustain: 0.1,
 
         attack: 0.05,
-        attackSlope: 1,
+        attackBias: -1,
 
         decay: 0.5,
-        decaySlope: -1,
+        decayBias: -1,
 
         release: 1,
-        releaseSlope: -1
+        releaseBias: -1
       }
     }),
     Sampler: (argsID) => ({

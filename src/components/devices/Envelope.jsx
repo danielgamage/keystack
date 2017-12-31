@@ -38,21 +38,12 @@ export const EnvelopeElement = styled.div`
   }
 `
 
-const getControlPointForSlope = (first, second, slope) => {
-  const pointSlope = (second.y - first.y) / (second.x - first.x)
+const getControlPointForBias = (first, second, bias) => {
+  bias = (bias + 1) / 2
 
-  slope = (slope + 1) / 2
-
-  if (pointSlope >= 0) {
-    return {
-      x: second.x + ((first.x - second.x) * slope),
-      y: first.y + ((second.y - first.y) * slope),
-    }
-  } else {
-    return {
-      x: first.x + ((second.x - first.x) * slope),
-      y: second.y + ((first.y - second.y) * slope),
-    }
+  return {
+    x: first.x + ((second.x - first.x) * bias),
+    y: second.y + ((first.y - second.y) * bias),
   }
 }
 
@@ -96,18 +87,18 @@ class Envelope extends Component {
 
     const lines = [[
       pointsDict.initital,
-      getControlPointForSlope(pointsDict.initital, pointsDict.peak, envelope.attackSlope),
+      getControlPointForBias(pointsDict.initital, pointsDict.peak, envelope.attackBias),
       pointsDict.peak,
     ], [
       pointsDict.peak,
-      getControlPointForSlope(pointsDict.peak, pointsDict.sustainStart, envelope.decaySlope),
+      getControlPointForBias(pointsDict.peak, pointsDict.sustainStart, envelope.decayBias),
       pointsDict.sustainStart,
     ], [
       pointsDict.sustainStart,
       pointsDict.sustainEnd,
     ], [
       pointsDict.sustainEnd,
-      getControlPointForSlope(pointsDict.sustainEnd, pointsDict.releaseEnd, envelope.releaseSlope),
+      getControlPointForBias(pointsDict.sustainEnd, pointsDict.releaseEnd, envelope.releaseBias),
       pointsDict.releaseEnd,
     ]]
 
@@ -250,8 +241,8 @@ class Envelope extends Component {
               step: 0.01
             },
             {
-              name: 'attackSlope',
-              label: 'attack slope',
+              name: 'attackBias',
+              label: 'attack bias',
               format: '+.2',
               showLabel: false,
               min: -1,
@@ -259,8 +250,8 @@ class Envelope extends Component {
               step: 0.01
             },
             {
-              name: 'decaySlope',
-              label: 'decay slope',
+              name: 'decayBias',
+              label: 'decay bias',
               format: '+.2',
               showLabel: false,
               min: -1,
@@ -268,8 +259,8 @@ class Envelope extends Component {
               step: 0.01
             },
             {
-              name: 'releaseSlope',
-              label: 'release slope',
+              name: 'releaseBias',
+              label: 'release bias',
               format: '+.2',
               showLabel: false,
               min: -1,
