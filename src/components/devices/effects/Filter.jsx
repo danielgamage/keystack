@@ -24,9 +24,17 @@ import {
 const StyledFilter = styled.div`
   position: relative;
 
+  .filter-magnitude {
+    stroke: ${props => vars.accents[props.theme.accent][1]};
+  }
+
+  .filter-phase {
+    stroke: ${vars.grey_1};
+  }
+
   .icon--crosshair {
     position: absolute;
-    fill: ${props => vars.accents[props.theme.accent][1]};
+    fill: ${vars.grey_7};
     pointer-events: none;
     transform: translate(-50%, -50%);
   }

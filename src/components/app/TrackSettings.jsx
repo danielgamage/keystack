@@ -72,11 +72,6 @@ const StyledTrackSettings = styled.div`
   .settings-title {
     transition: opacity 0.2s ease;
   }
-  .settings-title {
-    @extend %sc;
-    margin: 0;
-    color: ${vars.grey_2};
-  }
   hr {
     display: block;
     border: 0;
@@ -121,15 +116,6 @@ const StyledTrackSettings = styled.div`
     }
   }
 
-  .midi-manufacturer {
-    margin-right: 0.5rem;
-  }
-  .midi-manufacturer {
-    font-family: $sc;
-    text-transform: lowercase;
-    color: $orange-bright;
-  }
-
   .vis-path {
     overflow: visible;
     margin: 1rem 0 2rem;
@@ -163,18 +149,6 @@ const StyledTrackSettings = styled.div`
     text {
       fill: ${vars.grey_4};
       stroke: none;
-    }
-  }
-  .filter-phase {
-    stroke: ${vars.grey_1};
-  }
-  .envelope {
-    .vis-path {
-      padding: 0.5rem;
-      fill: unset;
-    }
-    .dot {
-      fill: ${vars.grey_0};
     }
   }
   .compressor-container {
