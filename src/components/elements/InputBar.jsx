@@ -81,7 +81,7 @@ export const StyledInputBar = styled.div`
     &::before {
       top: 0;
       left: 0;
-      bottom: 0;
+      bottom: 6px;
       right: 0;
       opacity: 0.3;
       background-color: ${props => vars.grey_1};
@@ -102,14 +102,23 @@ class InputBar extends Component {
     super(props)
     this.state = {
       isFocused: false,
+      inputValue: this.props.value,
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.onChange = this.onChange.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      inputValue: nextProps.value,
+    })
   }
 
   handleFocus (e) {
     this.setState({
-      isFocused: true
+      isFocused: true,
+      inputValue: this.props.value,
     })
 
     document.execCommand('selectall', null, false)
@@ -118,6 +127,14 @@ class InputBar extends Component {
   handleBlur (e) {
     this.setState({
       isFocused: false
+    })
+
+    this.props.onInput(e)
+  }
+
+  onChange (e) {
+    this.setState({
+      inputValue: e.target.value
     })
   }
 
@@ -171,12 +188,12 @@ class InputBar extends Component {
             inputMode='numeric'
             min={this.props.min}
             max={this.props.max}
-            value={this.props.value}
+            value={this.state.inputValue}
             step={this.props.steps.default || 1}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             defaultValue={this.props.defaultValue}
-            onChange={this.props.onInput}
+            onChange={this.onChange}
             onInput={(e) => {e.stopPropagation()}}
           />
         </Text>

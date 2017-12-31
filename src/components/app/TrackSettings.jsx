@@ -196,49 +196,6 @@ const StyledTrackSettings = styled.div`
     flex-flow: row wrap;
     margin-top: -1rem;
   }
-  .fader {
-    margin: 1rem 0 0 0;
-    &.small {
-      svg {
-        width: 1.2rem;
-        height: 1.2rem;
-      }
-    }
-    &.right {
-      display: flex;
-      align-items: center;
-      flex-flow: row wrap;
-      svg {
-        display: inline-block;
-        margin-right: 0.5rem;
-      }
-    }
-    &.disabled {
-      opacity: 0.1;
-      pointer-events: none;
-    }
-    label {
-      display: block;
-      width: 100%;
-      @extend %sc;
-    }
-    svg {
-      display: block;
-      margin: 0.5rem 0 0.2rem;
-      width: 3rem;
-      height: 3rem;
-      &:hover {
-        .fader-knob {
-          opacity: 1;
-        }
-      }
-    }
-    &.active {
-      .fader-knob {
-        opacity: 1;
-      }
-    }
-  }
   .draggable {
     cursor: ew-resize;
   }

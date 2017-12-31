@@ -12,7 +12,12 @@ import {
 import vars from '@/variables'
 
 export const Knob = styled.div`
-  margin: 12px 0 0 0;
+  &.small {
+    svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
   &.right {
     display: flex;
     align-items: center;
@@ -24,7 +29,7 @@ export const Knob = styled.div`
   }
   svg {
     display: block;
-    margin: 0.4rem 0 0.2rem;
+    margin: 4px 0 4px;
     width: ${props => props.small ? '1.2rem' : '3rem'};
     height: ${props => props.small ? '1.2rem' : '3rem'};
     &:hover {
@@ -102,14 +107,23 @@ class NumericInput extends Component {
     super(props)
     this.state = {
       isFocused: false,
+      inputValue: this.props.value,
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.onChange = this.onChange.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      inputValue: nextProps.value,
+    })
   }
 
   handleFocus (e) {
     this.setState({
-      isFocused: true
+      isFocused: true,
+      inputValue: this.props.value,
     })
 
     document.execCommand('selectall', null, false)
@@ -118,6 +132,14 @@ class NumericInput extends Component {
   handleBlur (e) {
     this.setState({
       isFocused: false
+    })
+
+    this.props.onInput(e)
+  }
+
+  onChange (e) {
+    this.setState({
+      inputValue: e.target.value
     })
   }
 
@@ -153,6 +175,7 @@ class NumericInput extends Component {
     return (
       <Knob
         {...this.props}
+        className={this.props.className}
         isFocused={this.state.isFocused}
         innerRef={(c) => this.containerElement = c}
         title={this.props.showLabel === false ? this.props.label : ''}
@@ -224,13 +247,12 @@ class NumericInput extends Component {
               inputMode='numeric'
               min={this.props.min}
               max={this.props.max}
-              value={this.props.value}
+              value={this.state.inputValue}
               step={this.props.steps.default || 1}
               onFocus={this.handleFocus}
               onBlur={this.handleBlur}
-              onKeyDown={this.handleKeyDown}
               defaultValue={this.props.defaultValue}
-              onChange={this.props.onInput}
+              onChange={this.onChange}
               onInput={(e) => {e.stopPropagation()}}
             />
           </Text>

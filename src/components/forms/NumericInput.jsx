@@ -34,17 +34,6 @@ export const StyledNumericInput = styled.div`
 
     ${vars.sc_mixin}
   }
-  svg {
-    display: block;
-    margin: 0.4rem 0 0.2rem;
-    width: ${props => props.small ? '1.2rem' : '3rem'};
-    height: ${props => props.small ? '1.2rem' : '3rem'};
-    &:hover {
-      .fader-knob {
-        opacity: 1;
-      }
-    }
-  }
   &.active {
     .fader-knob {
       opacity: 1;
@@ -183,10 +172,13 @@ class NumericInput extends Component {
   }
 
   handleInput (e) {
-    let value = parseFloat(e.target.value) || 0
-    value = this.clampValue(value)
+    let value = parseFloat(e.target.value)
 
-    this.props.onInput(value)
+    if (!isNaN(value)) {
+      value = this.clampValue(value)
+
+      this.props.onInput(value)
+    }
   }
 
   getMultiplier (e) {
@@ -263,7 +255,7 @@ class NumericInput extends Component {
 
         <VizComponent
           {...this.props}
-          className={`draggable`}
+          className={this.props.className + ` draggable`}
           aria-labelledby={`${this.props.id}-input`}
           onMouseDown={this.onMouseDown.bind(this)}
           ref={(c) => this.vizElement = c}
@@ -292,6 +284,7 @@ NumericInput.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  defaultValue: PropTypes.number,
   unit: PropTypes.string,
 
   min: PropTypes.number,
