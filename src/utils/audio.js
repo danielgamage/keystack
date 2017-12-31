@@ -3,9 +3,18 @@ import getDevicesOfType from './getDevicesOfType'
 import { setProps, createEffect } from '../pipeline/audioEffects'
 
 export let audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-var masterVolume = audioCtx.createGain()
-masterVolume.gain.value = 0.2
-masterVolume.connect(audioCtx.destination)
+
+const master = {
+  init () {
+    this.exit = audioCtx.createGain()
+    this.exit.gain.value = 0.2
+    this.exit.connect(audioCtx.destination)
+
+    this.entry = audioCtx.createGain()
+    this.entry.connect(this.exit)
+  },
+}
+master.init()
 
 let initialState = store.getState()
 
@@ -28,7 +37,7 @@ initialState.tracks.map((track, trackIndex, trackArray) => {
       if (deviceIndex !== deviceArray.length - 1) {
         audioEffectNodes[deviceIndex].exit.connect(audioEffectNodes[deviceIndex + 1].entry)
       } else {
-        audioEffectNodes[deviceIndex].exit.connect(masterVolume)
+        audioEffectNodes[deviceIndex].exit.connect(master.entry)
       }
     })
 })
@@ -58,7 +67,7 @@ function handleChange () {
         if (i !== arr.length - 1) {
           audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
         } else {
-          audioEffectNodes[i].exit.connect(masterVolume)
+          audioEffectNodes[i].exit.connect(master.entry)
         }
       })
     }
