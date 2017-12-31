@@ -85,18 +85,15 @@ export const playInstrument = (notes) => {
           const attackSamples = Math.floor(envelope.attack * sampleRate)
           const decaySamples = Math.floor(envelope.decay * sampleRate)
 
-          console.time('attackCurve')
           const attackCurve = getValueCurve({
             duration: attackSamples,
             bias: envelope.attackBias,
             from: Math.max(envelope.initial, minVolume),
             to: Math.max(envelope.peak, minVolume)
           })
-          console.timeEnd('attackCurve')
 
           const decayCurve = getValueCurve({
             duration: decaySamples,
-            sampleRate: 44100,
             bias: envelope.decayBias,
             from: Math.max(envelope.peak, minVolume),
             to: Math.max(envelope.sustain, minVolume)
