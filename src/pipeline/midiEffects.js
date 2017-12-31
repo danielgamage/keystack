@@ -72,6 +72,7 @@ export const startMIDIChain = (oldState) => {
 }
 
 export const sendMIDIOut = (newOutput, oldState) => {
+  newOutput = newOutput.filter(Boolean)
   const oldOutput = oldState.notes.output
   const notesToRemove = oldOutput.filter((el, i) => {
     return (!newOutput.includes(el))
