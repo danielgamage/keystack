@@ -6,13 +6,13 @@
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
 
-var webpack = require('webpack')
-var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var packageJSON = require('../package.json')
+var webpack = require("webpack");
+var path = require("path");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var packageJSON = require("../package.json");
 
-function resolve (dir) {
-  return path.resolve(__dirname, '..', dir)
+function resolve(dir) {
+  return path.resolve(__dirname, "..", dir);
 }
 
 module.exports = {
@@ -20,21 +20,21 @@ module.exports = {
     // your custom plugins
     new webpack.LoaderOptionsPlugin({
       debug: true
-    }),
+    })
   ],
 
   resolve: {
     extensions: [".js", ".jsx", ".json"],
     alias: {
-      '@': resolve('src'),
-    },
+      "@": resolve("src")
+    }
   },
 
   module: {
     rules: [
       // add your custom loaders.
       {
-        loader: 'babel-loader',
+        loader: "babel-loader",
 
         // Only run `.js` and `.jsx` files through Babel
         test: /\.jsx?$/,
@@ -44,25 +44,25 @@ module.exports = {
         // Options to configure babel with
         query: {
           plugins: [
-            'transform-runtime',
-            'transform-decorators-legacy',
-            'transform-react-jsx',
-            'transform-react-jsx-source'
+            "transform-runtime",
+            "transform-decorators-legacy",
+            "transform-react-jsx",
+            "transform-react-jsx-source"
           ],
-          presets: ['es2015', 'stage-0', 'react']
+          presets: ["es2015", "stage-0", "react"]
         }
       },
       {
         test: /\.s[ac]ss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.svg$/,
-        loader: 'file-loader',
+        loader: "file-loader",
         query: {
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: "static/media/[name].[hash:8].[ext]"
         }
       }
-    ],
-  },
+    ]
+  }
 };

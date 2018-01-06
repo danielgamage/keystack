@@ -1,40 +1,45 @@
-import generateID from '../utils/generateID'
+import generateID from "../utils/generateID";
 
 const schema = {
-
   // ------------
   // MIDI Effects
   // ------------
 
   midi: {
-    Transpose: (argsID) => ({
+    Transpose: argsID => ({
       id: argsID || generateID(),
       name: `Transpose`,
       deviceType: `midi`,
       devicePrototype: `Transpose`,
       value: 0
     }),
-    Chord: (argsID) => ({
+    Chord: argsID => ({
       id: argsID || generateID(),
       name: `Chord`,
       deviceType: `midi`,
       devicePrototype: `Chord`,
       inversionChance: 0,
       inversionRange: 4,
-      value: [
-        0, 0, 0,
-        0, 0, 0
-      ]
+      value: [0, 0, 0, 0, 0, 0]
     }),
-    DisableNotes: (argsID) => ({
+    DisableNotes: argsID => ({
       id: argsID || generateID(),
       name: `Disable Notes`,
       deviceType: `midi`,
       devicePrototype: `DisableNotes`,
       value: [
-        true, true, true, true,
-        true, true, true, true,
-        true, true, true, true
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
       ]
     })
   },
@@ -44,14 +49,14 @@ const schema = {
   // -----------
 
   instrument: {
-    KeySynth: (argsID) => ({
+    KeySynth: argsID => ({
       id: argsID || generateID(),
       name: `KeySynth`,
       deviceType: `instrument`,
       devicePrototype: `KeySynth`,
       oscillators: [
         {
-          type: 'sine',
+          type: "sine",
           volume: 0.8,
           detune: 0,
           pitch: 0
@@ -72,7 +77,7 @@ const schema = {
         releaseBias: -1
       }
     }),
-    Sampler: (argsID) => ({
+    Sampler: argsID => ({
       id: argsID || generateID(),
       name: `Sampler`,
       deviceType: `instrument`,
@@ -106,7 +111,7 @@ const schema = {
   // -------------
 
   audio: {
-    Filter: (argsID) => ({
+    Filter: argsID => ({
       id: argsID || generateID(),
       name: `Filter`,
       deviceType: `audio`,
@@ -117,7 +122,7 @@ const schema = {
       gain: 0,
       mix: 100
     }),
-    Delay: (argsID) => ({
+    Delay: argsID => ({
       id: argsID || generateID(),
       name: `Delay`,
       deviceType: `audio`,
@@ -126,13 +131,13 @@ const schema = {
       delay: 0.5,
       feedback: 30
     }),
-    Distortion: (argsID) => ({
+    Distortion: argsID => ({
       id: argsID || generateID(),
       name: `Distortion`,
       deviceType: `audio`,
       devicePrototype: `Distortion`,
       amount: 300,
-      oversample: '2x',
+      oversample: "2x",
       mix: 100
     }),
     // StereoPanner: (argsID) => ({
@@ -142,7 +147,7 @@ const schema = {
     //   devicePrototype: `StereoPanner`,
     //   pan: 0
     // }),
-    Compressor: (argsID) => ({
+    Compressor: argsID => ({
       id: argsID || generateID(),
       name: `Compressor`,
       deviceType: `audio`,
@@ -155,13 +160,13 @@ const schema = {
       mix: 100
     })
   }
-}
+};
 
 export const defaultDevices = [
   schema.midi.Chord(),
   schema.instrument.KeySynth(),
   schema.audio.Filter(),
   schema.audio.Delay()
-]
+];
 
-export default schema
+export default schema;

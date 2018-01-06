@@ -1,42 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { storiesOf } from '@storybook/react';
-import { boolean, select } from '@storybook/addon-knobs'
+import { storiesOf } from "@storybook/react";
+import { boolean, select } from "@storybook/addon-knobs";
 
-import {
-  ThemeSettings,
-} from '@/components'
+import { ThemeSettings } from "@/components";
 
 class Wrapper extends Component {
   constructor(props) {
-    super(props)
-    this.updateValue = this.updateValue.bind(this)
+    super(props);
+    this.updateValue = this.updateValue.bind(this);
 
     this.state = {
       prefs: {
-        lightness: 'dark',
-        accent: 'orange',
+        lightness: "dark",
+        accent: "orange"
       }
-    }
+    };
   }
 
-  updateValue (v) {
-    this.setState({prefs: v})
+  updateValue(v) {
+    this.setState({ prefs: v });
   }
 
-  render () {
+  render() {
     return (
       <ThemeSettings
         prefs={this.state.prefs}
         onInput={this.updateValue.bind(this)}
       />
-    )
+    );
   }
 }
 
-storiesOf('ThemeSettings', module)
-  .add('basic', () => {
-    return (
-      <Wrapper />
-    )
-  })
+storiesOf("ThemeSettings", module).add("basic", () => {
+  return <Wrapper />;
+});

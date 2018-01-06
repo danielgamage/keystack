@@ -6,18 +6,22 @@
   "homepage": "https://danielgamage.github.io/keystack/",
   "author": "Daniel Gamage",
   "license": "MIT",
+  "pre-commit": ["prettier"],
   "scripts": {
     "start": "node app",
     "webpack": "webpack -p",
     "clean": "rm -rf build/",
     "copy": "mkdir build && cp -r app/* build/",
-    "build": "npm run clean && NODE_ENV=production npm run webpack && npm run copy",
+    "build":
+      "npm run clean && NODE_ENV=production npm run webpack && npm run copy",
     "deploy": "gh-pages -d build",
     "lint": "standard",
     "test:dev": "jest --watch",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prettier":
+      "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status"
   },
   "dependencies": {
     "d3": "^4.7.2",
@@ -31,6 +35,7 @@
     "react-redux": "^5.x",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.x",
+    "reselect": "^3.0.1",
     "styled-components": "^2.2.x",
     "whatwg-fetch": "^2.0.3"
   },
@@ -55,6 +60,8 @@
     "gh-pages": "^0.12.0",
     "jest": "^22.0.4",
     "node-sass": "^4.5.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "1.9.2",
     "redux-devtools": "^3.3.2",
     "regenerator-runtime": "^0.11.1",
     "sass-loader": "^6.0.3",

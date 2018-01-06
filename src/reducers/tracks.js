@@ -1,14 +1,14 @@
-import generateID from '../utils/generateID'
-import { combineReducers } from 'redux'
+import generateID from "../utils/generateID";
+import { combineReducers } from "redux";
 
-import schema, { defaultDevices } from './schema.js'
+import schema, { defaultDevices } from "./schema.js";
 
 const defaultState = [
   {
     id: generateID(),
     devices: defaultDevices.map(el => el.id)
   }
-]
+];
 
 // const sortDevices = (array) => {
 //   const vals = {
@@ -21,55 +21,56 @@ const defaultState = [
 
 const track = (state, action) => {
   switch (action.type) {
-    case 'ADD_DEVICE_TO_TRACK':
+    case "ADD_DEVICE_TO_TRACK":
       return {
         ...state,
-        devices: [
-          ...state.devices,
-          action.id
-        ]
-      }
-    case 'MOVE_DEVICE':
-      let oldIndex = state.devices.indexOf(action.id)
-      let newState = [...state.devices]
-      let oldItems = newState.splice(oldIndex, 1)
-      newState.splice((action.newIndex > oldIndex ? action.newIndex - 1 : action.newIndex), 0, ...oldItems)
-      return {...state, devices: newState}
-    case 'REMOVE_DEVICE':
+        devices: [...state.devices, action.id]
+      };
+    case "MOVE_DEVICE":
+      let oldIndex = state.devices.indexOf(action.id);
+      let newState = [...state.devices];
+      let oldItems = newState.splice(oldIndex, 1);
+      newState.splice(
+        action.newIndex > oldIndex ? action.newIndex - 1 : action.newIndex,
+        0,
+        ...oldItems
+      );
+      return { ...state, devices: newState };
+    case "REMOVE_DEVICE":
       return {
         ...state,
         devices: [...state.devices].filter(id => id !== action.id)
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 const tracks = (state = defaultState, action) => {
   switch (action.type) {
-    case 'UPDATE_TRACK':
+    case "UPDATE_TRACK":
       return [...state].map(instrument => {
         if (instrument.id === action.id) {
-          return synth(instrument, action)
+          return synth(instrument, action);
         } else {
-          return instrument
+          return instrument;
         }
-      })
-    case 'ADD_TRACK':
+      });
+    case "ADD_TRACK":
       return [
         ...state,
         instrumentSchema[action.value]()
         // ...state.slice(action.index, state.length)
-      ]
-    case 'ADD_DEVICE_TO_TRACK':
-    case 'MOVE_DEVICE':
-    case 'REMOVE_DEVICE':
-      return [track(state[0], action)]
-    case 'REMOVE_TRACK':
-      return [...state].filter(el => el.id !== action.id)
+      ];
+    case "ADD_DEVICE_TO_TRACK":
+    case "MOVE_DEVICE":
+    case "REMOVE_DEVICE":
+      return [track(state[0], action)];
+    case "REMOVE_TRACK":
+      return [...state].filter(el => el.id !== action.id);
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default tracks
+export default tracks;

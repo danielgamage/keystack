@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux'
-import tracks from './tracks'
-import devices from './devices'
-import notes from './notes'
-import midi from './midi'
-import view from './view'
-import preferences from './preferences'
+import { combineReducers } from "redux";
+import tracks from "./tracks";
+import devices from "./devices";
+import notes from "./notes";
+import midi from "./midi";
+import view from "./view";
+import preferences from "./preferences";
 
 const keystackApp = combineReducers({
   tracks,
@@ -12,18 +12,18 @@ const keystackApp = combineReducers({
   notes,
   midi,
   view,
-  preferences,
-})
+  preferences
+});
 
 const rootReducer = (state, action) => {
   // Reset state to default
-  if (action.type === 'RESET_STATE') {
-    state = undefined
+  if (action.type === "RESET_STATE") {
+    state = undefined;
   }
-  if (action.type === 'LOAD_STATE') {
-    state = action.value
+  if (action.type === "LOAD_STATE") {
+    state = action.value;
   }
-  return keystackApp(state, action)
-}
+  return keystackApp(state, action);
+};
 
-export default rootReducer
+export default rootReducer;

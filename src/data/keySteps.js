@@ -18,4 +18,4 @@ export default [
   { key: `;`, code: 186, step: 17 },
   { key: `'`, code: 222, step: 18 },
   { key: `]`, code: 221, step: 19 }
-]
+];

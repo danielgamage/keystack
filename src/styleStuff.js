@@ -1,9 +1,9 @@
-import styled, { ThemeProvider } from 'styled-components'
-import variables from '@/variables'
+import styled, { ThemeProvider } from "styled-components";
+import variables from "@/variables";
 
 export {
   styled,
   ThemeProvider,
-  variables,
+  variables
   // utils,
-}
+};
