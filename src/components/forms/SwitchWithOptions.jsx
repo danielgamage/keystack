@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import {
   Switch,
   Text,
-} from '@/components'
+} from 'components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 export const Container = styled.div`
   width: 212px;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import {
   NumericInput,
   Item,
-} from '@/components'
+} from 'components'
 
 class StereoPanner extends Component {
   render () {

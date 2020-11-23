@@ -6,12 +6,15 @@ import {
   Text,
   Button,
   RemoveButton,
-} from '@/components'
+} from 'components'
 
-import sawtoothIcon from '@/images/wave-sawtooth.svg'
-import squareIcon from '@/images/wave-square.svg'
-import triangleIcon from '@/images/wave-triangle.svg'
-import sineIcon from '@/images/wave-sine.svg'
+import styled from 'styled-components'
+import vars from 'variables'
+
+import sawtoothIcon from 'images/wave-sawtooth.svg'
+import squareIcon from 'images/wave-square.svg'
+import triangleIcon from 'images/wave-triangle.svg'
+import sineIcon from 'images/wave-sine.svg'
 
 const waves = {
   'sawtooth': sawtoothIcon,
@@ -19,9 +22,6 @@ const waves = {
   'triangle': triangleIcon,
   'sine': sineIcon
 }
-
-import styled from 'styled-components'
-import vars from '@/variables'
 
 const StyledOscillators = styled.div`
   margin-bottom: 1rem;

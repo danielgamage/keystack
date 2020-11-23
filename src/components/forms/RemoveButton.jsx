@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import {
   Button,
   Icon,
-} from '@/components'
-import xIcon from '@/images/icon/x.svg'
+} from 'components'
+import xIcon from 'images/icon/x.svg'
 
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
 const StyledButton = styled(Button)`
   position: relative;

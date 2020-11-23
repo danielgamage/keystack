@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'whatwg-fetch'
 
 import styled from 'styled-components'
-import vars from '@/variables.js'
+import vars from 'variables.js'
 
 export const StyledIcon = styled.div`
   display: inline-block;

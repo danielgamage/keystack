@@ -7,7 +7,7 @@ import {
   NumericInput,
   Item,
   Echo,
-} from '@/components'
+} from 'components'
 
 const parameters = [
   { name: 'mix',

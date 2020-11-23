@@ -9,7 +9,7 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import { select } from 'd3-selection'
 import { format } from 'd3-format'
 
-import vars from '@/variables.js'
+import vars from 'variables.js'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 64

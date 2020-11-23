@@ -7,10 +7,10 @@ import { format } from 'd3-format'
 
 import {
   NumericInput,
-} from '@/components'
+} from 'components'
 
-import { keys } from '@/utils'
-import { loadSample } from '@/utils/audio'
+import { keys } from 'utils'
+import { loadSample } from 'utils/audio'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 64

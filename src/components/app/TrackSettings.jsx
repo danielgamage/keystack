@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import FlipMove from 'react-flip-move'
 
-import generateID from '@/utils/generateID'
+import generateID from 'utils/generateID'
 
 import {
   KeySynth,
@@ -22,12 +22,12 @@ import {
 
   Text,
   Button,
-} from '@/components'
+} from 'components'
 
 import styled, { ThemeProvider } from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
-import schema from '@/reducers/schema'
+import schema from 'reducers/schema'
 
 const StyledTrackSettings = styled.div`
   display: flex;

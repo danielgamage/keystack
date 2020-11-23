@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveProject, loadProject } from '@/utils/store'
+import { saveProject, loadProject } from 'utils/store'
 import {
   Midi,
   Help,
   UserSettings,
   Icon,
-} from '@/components'
+} from 'components'
 
-import downloadIcon from '@/images/icon/download.svg'
-import uploadIcon from '@/images/icon/upload.svg'
+import downloadIcon from 'images/icon/download.svg'
+import uploadIcon from 'images/icon/upload.svg'
 
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
 const StyledStatusBar = styled.div`
   height: 2rem;

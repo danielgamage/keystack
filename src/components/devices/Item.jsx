@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
+import { bindKeyboardEvents, unbindKeyboardEvents } from 'utils/keyboard'
 import {
   Button,
   Text,
   Icon,
   RemoveButton,
-} from '@/components'
-import xIcon from '@/images/icon/x.svg'
+} from 'components'
+import xIcon from 'images/icon/x.svg'
 
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
 const StyledItem = styled.div`
   transition: height 0.3s ease, background 0.4s ease;

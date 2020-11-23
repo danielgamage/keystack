@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 import {
   Text,
-} from '@/components'
+} from 'components'
 
 export const StyledButton = styled.button`
   padding: 4px 8px 3px;

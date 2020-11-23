@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-import vars from "@/variables";
+import vars from "variables";
 
-import { Text } from "@/components";
+import { Text } from "components";
 
-import { StyledText } from "@/components/elements/Text";
+import { StyledText } from "components/elements/Text";
 
 export const StyledInput = styled(StyledText)`
   padding: 4px 8px 3px;

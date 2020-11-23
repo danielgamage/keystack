@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindKeyboardEvents, unbindKeyboardEvents } from '@/utils/keyboard'
+import { bindKeyboardEvents, unbindKeyboardEvents } from 'utils/keyboard'
 
 import styled, { ThemeProvider } from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
 import {
   TrackSettings,
   StatusBar,
   Visualizers,
-} from '@/components'
+} from 'components'
 
 const StyledApp = styled.div`
   height: 100%;

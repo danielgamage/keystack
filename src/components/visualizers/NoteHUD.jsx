@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
 import {
   Icon,
-} from '@/components'
+} from 'components'
 
-import matchChords from '@/utils/matchChords'
-import eyeIcon from '@/images/icon/eye.svg'
+import matchChords from 'utils/matchChords'
+import eyeIcon from 'images/icon/eye.svg'
 
 const StyledNoteHUD = styled.div`
   display: flex;

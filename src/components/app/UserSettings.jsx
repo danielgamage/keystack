@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
 import {
   Icon,
@@ -9,9 +9,9 @@ import {
   ThemeSettings,
   Kbd,
   Popover
-} from '@/components'
+} from 'components'
 
-import gearIcon from '@/images/icon/gear.svg'
+import gearIcon from 'images/icon/gear.svg'
 
 const keyboardRows = [
   {

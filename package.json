@@ -1,75 +1,46 @@
 {
-  "name": "keystack",
-  "version": "1.0.0",
-  "description": "Circular piano roll",
-  "main": "app.js",
-  "homepage": "https://danielgamage.github.io/keystack/",
-  "author": "Daniel Gamage",
-  "license": "MIT",
-  "pre-commit": ["prettier"],
-  "scripts": {
-    "start": "node app",
-    "webpack": "webpack -p",
-    "clean": "rm -rf build/",
-    "copy": "mkdir build && cp -r app/* build/",
-    "build":
-      "npm run clean && NODE_ENV=production npm run webpack && npm run copy",
-    "deploy": "gh-pages -d build",
-    "lint": "standard",
-    "test:dev": "jest --watch",
-    "test": "jest",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "prettier":
-      "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status"
-  },
+  "name": "keystack-neue",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "d3": "^4.7.2",
-    "jest-cli": "^22.0.4",
-    "normalize-opentype.css": "^0.2.4",
-    "normalize.css": "^5.0.0",
-    "prop-types": "^15.6.0",
-    "react": "16.x",
-    "react-dom": "16.x",
-    "react-flip-move": "2.9.x",
-    "react-redux": "^5.x",
-    "react-transition-group": "^2.2.1",
-    "redux": "^3.7.x",
-    "reselect": "^3.0.1",
-    "styled-components": "^2.2.x",
-    "whatwg-fetch": "^2.0.3"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "d3": "^6.2.0",
+    "node-sass": "^4.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-flip-move": "^3.0.4",
+    "react-redux": "^7.2.2",
+    "react-scripts": "4.0.1",
+    "react-transition-group": "^4.4.1",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0",
+    "styled-components": "^5.2.1",
+    "web-vitals": "^0.2.4"
   },
-  "devDependencies": {
-    "@storybook/addon-knobs": "^3.2.13",
-    "@storybook/react": "^3.2.13",
-    "babel-core": "^6.1.2",
-    "babel-jest": "^22.0.4",
-    "babel-loader": "^6.1.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-react-jsx": "^6.23.0",
-    "babel-plugin-transform-react-jsx-source": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.1.2",
-    "babel-preset-es2015": "^6.1.2",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.1.2",
-    "browser-sync": "^2.8.0",
-    "bs-fullscreen-message": "^1.0.0",
-    "css-loader": "^0.27.3",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.10.1",
-    "gh-pages": "^0.12.0",
-    "jest": "^22.0.4",
-    "node-sass": "^4.5.0",
-    "pre-commit": "^1.2.2",
-    "prettier": "1.9.2",
-    "redux-devtools": "^3.3.2",
-    "regenerator-runtime": "^0.11.1",
-    "sass-loader": "^6.0.3",
-    "strip-ansi": "^3.0.0",
-    "style-loader": "^0.13.2",
-    "svg-inline-loader": "^0.7.1",
-    "webidl-conversions": "^4.0.2",
-    "webpack": "^2.2.1",
-    "webpack-dev-middleware": "^1.2.0"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

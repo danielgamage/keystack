@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 import {
   Text,
-} from '@/components'
+} from 'components'
 
 export const StyledSelect = styled.div`
   display: inline-block;

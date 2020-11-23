@@ -7,13 +7,13 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import { select } from 'd3-selection'
 import { format } from 'd3-format'
 
-import { audioEffectNodes } from '@/utils/audio'
-import { compressSample } from '@/utils/compressor'
+import { audioEffectNodes } from 'utils/audio'
+import { compressSample } from 'utils/compressor'
 
 import {
   NumericInput,
   Item,
-} from '@/components'
+} from 'components'
 
 const viewBoxWidth = 256
 const viewBoxHeight = 256

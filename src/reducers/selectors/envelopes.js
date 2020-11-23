@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { sampleRate, minWebAudioVolume } from "@/globals";
+import { sampleRate, minWebAudioVolume } from "globals";
 import { scaleLinear } from "d3-scale";
 
 const easeInQuad = t => t * t;

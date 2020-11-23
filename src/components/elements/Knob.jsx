@@ -7,9 +7,9 @@ import styled from 'styled-components'
 
 import {
   Text
-} from '@/components'
+} from 'components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 export const Knob = styled.div`
   &.small {

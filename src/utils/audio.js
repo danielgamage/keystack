@@ -117,7 +117,7 @@ export const loadSample = (e, instrumentId) => {
           myBuffer = buffer;
         },
         e => {
-          "Error with decoding audio data" + e.err;
+          console.error("Error with decoding audio data" + e.err);
         }
       );
     });

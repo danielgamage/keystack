@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 import { format } from 'd3-format'
 
 import {
@@ -11,11 +11,11 @@ import {
   Popover,
   Icon,
   TextInput,
-} from '@/components'
+} from 'components'
 
-import refreshIcon from '@/images/icon/refresh.svg'
+import refreshIcon from 'images/icon/refresh.svg'
 
-import {chords, groupedChords} from '@/data/chords'
+import {chords, groupedChords} from 'data/chords'
 
 const isSameArray = (a, b) => {
   return a.every((item, index) => (

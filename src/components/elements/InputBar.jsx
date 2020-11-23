@@ -8,9 +8,9 @@ import styled from 'styled-components'
 import {
   Text,
   Knob,
-} from '@/components'
+} from 'components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 export const StyledInputBar = styled.div`
   position: relative;

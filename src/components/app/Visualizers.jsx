@@ -6,7 +6,7 @@ import {
   RadialKeys,
 
   Button,
-} from '@/components'
+} from 'components'
 
 class Visualizers extends Component {
   constructor (props) {

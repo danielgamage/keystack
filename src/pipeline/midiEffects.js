@@ -2,7 +2,7 @@ import { store } from "../utils/store";
 import { keys, noteObjectForIndex } from "../utils";
 import getDevicesOfType from "../utils/getDevicesOfType";
 import { playInstrument, stopInstrument } from "./instruments";
-import { getRandomBoolean, getRandomIntegerInRange } from "@/utils/random";
+import { getRandomBoolean, getRandomIntegerInRange } from "utils/random";
 
 export const processMIDI = {
   Transpose: (notes, newNotes, effect, effectIndex, effectsArray, oldState) => {

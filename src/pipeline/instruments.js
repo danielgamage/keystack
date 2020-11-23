@@ -2,8 +2,8 @@ import { store } from "../utils/store";
 import getDevicesOfType from "../utils/getDevicesOfType";
 import transposeSample from "../utils/transposeSample";
 import { audioCtx, audioEffectNodes } from "../utils/audio";
-import { sampleRate, minWebAudioVolume } from "@/globals";
-import { getEnvelopeCurves } from "@/reducers/selectors/envelopes";
+import { sampleRate, minWebAudioVolume } from "globals";
+import { getEnvelopeCurves } from "reducers/selectors/envelopes";
 
 var oscillators = {};
 var samples = {};

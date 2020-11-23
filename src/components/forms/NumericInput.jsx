@@ -9,9 +9,9 @@ import {
   Text,
   InputBar,
   Knob,
-} from '@/components'
+} from 'components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 export const StyledNumericInput = styled.div`
   margin: 12px 0 0 0;

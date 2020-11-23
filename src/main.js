@@ -9,7 +9,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { store, getUserSettings, checkPreferences } from "./utils/store";
 
-import { App } from "@/components";
+import { App } from "components";
 
 import "./styles/style.scss";
 

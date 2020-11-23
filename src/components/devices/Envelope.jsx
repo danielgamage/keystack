@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { NumericInput } from '@/components'
+import { NumericInput } from 'components'
 import { line, curveBundle } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { format } from 'd3-format'
-import vars from '@/variables'
+import vars from 'variables'
 
 export const EnvelopeElement = styled.div`
   .background-grid {

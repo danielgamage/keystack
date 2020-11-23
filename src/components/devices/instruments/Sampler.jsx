@@ -5,7 +5,7 @@ import {
   Sample,
   Envelope,
   Item,
-} from '@/components'
+} from 'components'
 
 class Sampler extends Component {
   render () {

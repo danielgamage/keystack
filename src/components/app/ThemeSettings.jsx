@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import styled, { css } from 'styled-components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 import {
   Text,
   SwitchWithOptions,
-} from '@/components'
+} from 'components'
 
 const Container = styled.div`
   .switch {

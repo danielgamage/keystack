@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { audioEffectNodes } from '@/utils/audio'
+import { audioEffectNodes } from 'utils/audio'
 
 import { line, curveCatmullRom } from 'd3-shape'
 import { scaleLinear, scaleLog, scalePow } from 'd3-scale'
@@ -10,16 +10,16 @@ import { select } from 'd3-selection'
 import { format } from 'd3-format'
 
 import styled from 'styled-components'
-import vars from '@/variables'
+import vars from 'variables'
 
-import crosshairIcon from '@/images/icon/crosshair.svg'
+import crosshairIcon from 'images/icon/crosshair.svg'
 
 import {
   NumericInput,
   Item,
   Select,
   Icon,
-} from '@/components'
+} from 'components'
 
 const StyledFilter = styled.div`
   position: relative;

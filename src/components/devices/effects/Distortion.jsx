@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { audioEffectNodes } from '@/utils/audio'
+import { audioEffectNodes } from 'utils/audio'
 
 import {
   NumericInput,
   Item,
-} from '@/components'
+} from 'components'
 
 const parameters = [
   { name: 'mix',

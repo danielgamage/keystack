@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 
 import {
   HiddenInput,
-} from '@/components'
+} from 'components'
 
-import vars from '@/variables'
+import vars from 'variables'
 
 export const Container = styled.label`
   position: relative;
