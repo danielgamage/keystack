@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect, useRef } from "react"
+import styled from "styled-components"
 
-import vars from '../../variables.js'
-import Transition from 'react-transition-group/Transition'
+import vars from "../../variables.js"
+import Transition from "react-transition-group/Transition"
 
 export const StyledPopover = styled.div`
   position: absolute;
@@ -14,7 +14,7 @@ export const StyledPopover = styled.div`
   z-index: 2;
   pointer-events: none;
   opacity: 0;
-  filter: drop-shadow(0 0 8px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
 
   &.is-open {
     opacity: 1;
@@ -30,10 +30,8 @@ export const StyledPopover = styled.div`
     max-width: calc(100vw - 32px);
     max-height: calc(100vw - 32px);
 
-    background-color: ${props => props.theme.lightness === 'light'
-      ? vars.white
-      : vars.grey_0
-    };
+    background-color: ${(props) =>
+      props.theme.lightness === "light" ? vars.white : vars.grey_0};
     overflow: auto;
     pointer-events: auto;
     border-radius: ${vars.radius};
@@ -71,10 +69,8 @@ export const StyledPopover = styled.div`
 
     z-index: 1;
     pointer-events: auto;
-    fill: ${props => props.theme.lightness === 'light'
-      ? vars.white
-      : vars.grey_0
-    };
+    fill: ${(props) =>
+      props.theme.lightness === "light" ? vars.white : vars.grey_0};
   }
 
   &.is-up .arrow {
@@ -102,331 +98,291 @@ export const StyledPopover = styled.div`
   }
 `
 
-class Popover extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      openDirection: 'up',
-      horizontalOffset: null,
-      verticalOffset: null,
-      centeredHorizontalOffset: null,
-      centeredVerticalOffset: null,
-      width: null,
-      height: null,
+const Popover = (props) => {
+  const [openDirection, setOpenDirection] = useState("up")
+  const [horizontalOffset, setHorizontalOffset] = useState(null)
+  const [verticalOffset, setVerticalOffset] = useState(null)
+  const [centeredHorizontalOffset, setCenteredHorizontalOffset] = useState(null)
+  const [centeredVerticalOffset, setCenteredVerticalOffset] = useState(null)
+  const [width, setWidth] = useState(null)
+  const [height, setHeight] = useState(null)
+  const [viewportMargin, setViewportMargin] = useState(6)
+  const [viewportLayout, setViewportLayout] = useState(null)
+  const [elementLayout, setElementLayout] = useState(null)
+  const [containerLayout, setContainerLayout] = useState(null)
 
-      viewportMargin: 6,
-      viewportLayout: null,
-      elementLayout: null,
-      containerLayout: null,
+  const rootElement = useRef(null)
+  const containerElement = useRef(null)
+
+  useEffect(() => {
+    if (props.isOpen) {
+      entered()
     }
-
-    this.entered = this.entered.bind(this)
-    this.leaved = this.leaved.bind(this)
-    this.calcLayout = this.calcLayout.bind(this)
-    this.setViewportLayout = this.setViewportLayout.bind(this)
-    this.setElementLayout = this.setElementLayout.bind(this)
-    this.setContainerLayout = this.setContainerLayout.bind(this)
-    this.getAvailableDirections = this.getAvailableDirections.bind(this)
-    this.getHorizontalOffset = this.getHorizontalOffset.bind(this)
-    this.getVerticalOffset = this.getVerticalOffset.bind(this)
-    this.getCenteredHorizontalOffset = this.getCenteredHorizontalOffset.bind(this)
-    this.getCenteredVerticalOffset = this.getCenteredVerticalOffset.bind(this)
-    this.setOffset = this.setOffset.bind(this)
-    this.resized = this.resized.bind(this)
-    this.getDirection = this.getDirection.bind(this)
-    this.clicked = this.clicked.bind(this)
-    this.addOutsideClickListener = this.addOutsideClickListener.bind(this)
-    this.removeOutsideClickListener = this.removeOutsideClickListener.bind(this)
-    this.addResizeListener = this.addResizeListener.bind(this)
-    this.removeResizeListener = this.removeResizeListener.bind(this)
-  }
-
-  //
-  //
-  //
-
-
-  componentDidMount () {
-    if (this.props.isOpen) {
-      this.entered()
+    return () => {
+      removeOutsideClickListener()
+      removeResizeListener()
     }
-  }
-
-  componentWillUnmount () {
-    this.removeOutsideClickListener()
-    this.removeResizeListener()
-  }
+  })
 
   //
-  //
-  //
 
-  entered () {
-    this.calcLayout()
+  const entered = () => {
+    calcLayout()
 
-    this.addOutsideClickListener()
-    this.addResizeListener()
+    addOutsideClickListener()
+    addResizeListener()
   }
 
-  leaved () {
-    this.removeOutsideClickListener()
-    this.removeResizeListener()
+  const leaved = () => {
+    removeOutsideClickListener()
+    removeResizeListener()
   }
 
   //
-  //
-  //
 
-  calcLayout () {
-    this.setViewportLayout()
-    this.setElementLayout()
-    this.setContainerLayout()
+  const calcLayout = () => {
+    updateViewportLayout()
+    updateElementLayout()
+    updateContainerLayout()
 
-    if (this.props.direction) {
-      this.setState({
-        openDirection: this.props.direction
-      })
+    if (props.direction) {
+      setOpenDirection(props.direction)
     } else {
-      const availableDirections = this.getAvailableDirections()
-      this.setState({
-        openDirection: this.getDirection(availableDirections)
-      })
+      setOpenDirection(getDirection(getAvailableDirections()))
     }
 
-    this.setOffset()
+    setOffset()
   }
 
-  setViewportLayout () {
-    const rectangle = this.props.viewport ? this.props.viewport.getBoundingClientRect() : null
+  const updateViewportLayout = () => {
+    const rectangle = props.viewport
+      ? props.viewport.getBoundingClientRect()
+      : null
 
-    this.viewportLayout = {
-      width: this.props.viewport
-        ? this.props.viewport.clientWidth
-        : window.innerWidth,
-      height: this.props.viewport
-        ? this.props.viewport.clientHeight
-        : window.innerHeight,
-      top: this.props.viewport
+    setViewportLayout({
+      width: props.viewport ? props.viewport.clientWidth : window.innerWidth,
+      height: props.viewport ? props.viewport.clientHeight : window.innerHeight,
+      top: props.viewport
         ? rectangle.top + document.documentElement.scrollTop
         : 0,
-      left: this.props.viewport
+      left: props.viewport
         ? rectangle.left + document.documentElement.scrollLeft
-        : 0
-    }
+        : 0,
+    })
   }
 
-  setElementLayout () {
-    const rectangle = this.rootElement.getBoundingClientRect()
+  const updateElementLayout = () => {
+    const rectangle = rootElement.current.getBoundingClientRect()
+    console.log({ rectangle, viewportLayout })
 
-    this.elementLayout = {
-      top: rectangle.top - this.viewportLayout.top,
-      left: rectangle.left - this.viewportLayout.left,
-      height: this.rootElement.clientHeight,
-      width: this.rootElement.clientWidth,
-    }
+    setElementLayout({
+      top: rectangle.top - viewportLayout.top,
+      left: rectangle.left - viewportLayout.left,
+      height: rootElement.current.clientHeight,
+      width: rootElement.current.clientWidth,
+    })
   }
 
-  setContainerLayout () {
-    this.containerLayout = {
-      width: this.containerElement.clientWidth,
-      height: this.containerElement.clientHeight,
-    }
+  const updateContainerLayout = () => {
+    setContainerLayout({
+      width: containerElement.current.clientWidth,
+      height: containerElement.current.clientHeight,
+    })
   }
 
   //
-  //
-  //
 
-  getAvailableDirections () {
+  const getAvailableDirections = () => {
     const dropdownArrowHeight = 14
-    const dropdownHeight = this.containerLayout.height + dropdownArrowHeight
+    const dropdownHeight = containerLayout.height + dropdownArrowHeight
 
     const offsets = {
-      top: this.elementLayout.top,
-      bottom: this.viewportLayout.height - this.elementLayout.bottom,
+      top: elementLayout.top,
+      bottom: viewportLayout.height - elementLayout.bottom,
     }
 
     return {
-      up: (offsets.top - dropdownHeight > 0),
-      down: (offsets.bottom - dropdownHeight > 0),
-      preferred: (offsets.bottom - dropdownHeight) < (offsets.top - dropdownHeight)
-        ? 'up'
-        : 'down'
+      up: offsets.top - dropdownHeight > 0,
+      down: offsets.bottom - dropdownHeight > 0,
+      preferred:
+        offsets.bottom - dropdownHeight < offsets.top - dropdownHeight
+          ? "up"
+          : "down",
     }
   }
 
-  getDirection (availableDirections) {
+  const getDirection = (availableDirections) => {
     if (
       (availableDirections.up && availableDirections.down) ||
-      (availableDirections.up)
+      availableDirections.up
     ) {
-      return 'up'
+      return "up"
     } else if (!availableDirections.up && !availableDirections.down) {
       return availableDirections.preferred
     } else {
-      return 'down'
+      return "down"
     }
   }
 
-  getHorizontalOffset () {
-    const dropdownWidth = this.containerLayout.width
-    const dropdownOrigin = this.elementLayout.left + this.elementLayout.width / 2
+  const getHorizontalOffset = () => {
+    const dropdownWidth = containerLayout.width
+    const dropdownOrigin = elementLayout.left + elementLayout.width / 2
 
-    const leftOffset = dropdownOrigin - (dropdownWidth / 2) - this.state.viewportMargin
-    const rightOffset = this.viewportLayout.width - dropdownOrigin - (dropdownWidth / 2) - this.state.viewportMargin
+    const leftOffset =
+      dropdownOrigin - dropdownWidth / 2 - viewportMargin.current
+    const rightOffset =
+      viewportLayout.width -
+      dropdownOrigin -
+      dropdownWidth / 2 -
+      viewportMargin.current
 
     if (
       (leftOffset < 0 && rightOffset < 0) ||
       (leftOffset >= 0 && rightOffset >= 0)
-    ) return 0
-    if (leftOffset < 0) return (leftOffset * -1)
+    )
+      return 0
+    if (leftOffset < 0) return leftOffset * -1
     if (rightOffset < 0) return rightOffset
   }
 
-  getVerticalOffset () {
-    const dropdownHeight = this.containerLayout.height
-    const dropdownOrigin = this.elementLayout.top + this.elementLayout.height / 2
+  const getVerticalOffset = () => {
+    const dropdownHeight = containerLayout.height
+    const dropdownOrigin = elementLayout.top + elementLayout.height / 2
 
-    const topOffset = dropdownOrigin - (dropdownHeight / 2) - this.state.viewportMargin
-    const bottomOffset = this.viewportLayout.height - dropdownOrigin - (dropdownHeight / 2) - this.state.viewportMargin
+    const topOffset =
+      dropdownOrigin - dropdownHeight / 2 - viewportMargin.current
+    const bottomOffset =
+      viewportLayout.height -
+      dropdownOrigin -
+      dropdownHeight / 2 -
+      viewportMargin.current
 
     if (
       (topOffset < 0 && bottomOffset < 0) ||
       (topOffset >= 0 && bottomOffset >= 0)
-    ) return 0
-    if (topOffset < 0) return (topOffset * -1)
+    )
+      return 0
+    if (topOffset < 0) return topOffset * -1
     if (bottomOffset < 0) return bottomOffset
   }
 
-  getCenteredHorizontalOffset () {
-    if (['up', 'down'].includes(this.state.openDirection) && this.horizontalOffset !== null && this.containerLayout) {
-      return Math.floor(this.horizontalOffset - this.containerLayout.width / 2)
+  const isHorizontal = (input) => ["left", "right"].includes(input)
+
+  const isVertical = (input) => ["up", "down"].includes(input)
+
+  const getCenteredHorizontalOffset = () => {
+    if (
+      isVertical(openDirection) &&
+      horizontalOffset !== null &&
+      containerLayout
+    ) {
+      return Math.floor(horizontalOffset - containerLayout.width / 2)
     } else return 0
   }
 
-  getCenteredVerticalOffset () {
-    if (['left', 'right'].includes(this.state.openDirection) && this.verticalOffset !== null && this.containerLayout) {
-      return Math.floor(this.verticalOffset - this.containerLayout.height / 2)
+  const getCenteredVerticalOffset = () => {
+    if (
+      isHorizontal(openDirection) &&
+      verticalOffset !== null &&
+      containerLayout
+    ) {
+      return Math.floor(verticalOffset - containerLayout.height / 2)
     } else return 0
   }
 
-  setOffset () {
-    if (['up', 'down'].includes(this.state.openDirection)) {
-      this.horizontalOffset = this.getHorizontalOffset()
-      this.centeredHorizontalOffset = this.getCenteredHorizontalOffset()
-
-      this.setState({
-        horizontalOffset: this.horizontalOffset,
-        centeredHorizontalOffset: this.centeredHorizontalOffset,
-        verticalOffset: 0,
-        centeredVerticalOffset: 0,
-      })
-    } else if (['left', 'right'].includes(this.state.openDirection)) {
-      this.verticalOffset = this.getVerticalOffset()
-      this.centeredVerticalOffset = this.getCenteredVerticalOffset()
-
-      this.setState({
-        verticalOffset: this.verticalOffset,
-        centeredVerticalOffset: this.centeredVerticalOffset,
-        horizontalOffset: 0,
-        centeredHorizontalOffset: 0,
-      })
+  const setOffset = () => {
+    if (isVertical(openDirection)) {
+      setHorizontalOffset(getHorizontalOffset())
+      setCenteredHorizontalOffset(getCenteredHorizontalOffset())
+      setVerticalOffset(0)
+      setCenteredVerticalOffset(0)
+    } else if (isHorizontal(openDirection)) {
+      setVerticalOffset(getVerticalOffset())
+      setCenteredVerticalOffset(getCenteredVerticalOffset())
+      setHorizontalOffset(0)
+      setCenteredHorizontalOffset(0)
     }
   }
 
   //
-  //
-  //
 
-  clicked ($event) {
+  const clicked = ($event) => {
     const popoverElements = [
-      this.rootElement,
-      ...(this.props.includeElements || [])
+      rootElement.current,
+      ...(props.includeElements || []),
     ]
 
-    const clickedInside = popoverElements.some((el) => (
-      el.contains($event.target) ||
-      el === $event.target
-    ))
+    const clickedInside = popoverElements.some(
+      (el) => el.contains($event.target) || el === $event.target
+    )
 
     if (!clickedInside) {
-      this.props.onClickOutside()
+      props.onClickOutside()
     }
   }
 
-  resized () {
-    this.calcLayout()
+  const resized = () => {
+    calcLayout()
   }
 
   //
-  //
-  //
 
-  addOutsideClickListener () {
-    document.documentElement.addEventListener(
-      'mousedown',
-      this.clicked,
-      true
-    )
+  const addOutsideClickListener = () => {
+    document.documentElement.addEventListener("mousedown", clicked, true)
   }
 
-  removeOutsideClickListener () {
-    document.documentElement.removeEventListener(
-      'mousedown',
-      this.clicked,
-      true
-    )
+  const removeOutsideClickListener = () => {
+    document.documentElement.removeEventListener("mousedown", clicked, true)
   }
 
-  addResizeListener () {
-    window.addEventListener('resize', this.resized)
+  const addResizeListener = () => {
+    window.addEventListener("resize", resized)
   }
 
-  removeResizeListener () {
-    window.removeEventListener('resize', this.resized)
+  const removeResizeListener = () => {
+    window.removeEventListener("resize", resized)
   }
 
-  render () {
-    return (
-      <Transition
-        in={this.props.isOpen}
-        onEnter={() => {this.entered()}}
-        onExit={() => {this.leaved()}}
-        mountOnEnter={true}
-        unmountOnExit={true}
-        timeout={{
-          enter: 300,
-          exit: 500,
-        }}
+  return (
+    <Transition
+      in={props.isOpen}
+      onEnter={() => {
+        entered()
+      }}
+      onExit={() => {
+        leaved()
+      }}
+      mountOnEnter={true}
+      unmountOnExit={true}
+      timeout={{
+        enter: 300,
+        exit: 500,
+      }}
+    >
+      <StyledPopover
+        {...props}
+        ref={rootElement}
+        className={`popover is-${openDirection} ${props.isOpen && "is-open"}`}
       >
-        <StyledPopover
-          {...this.props}
-          innerRef={(e) => {this.rootElement = e}}
-          className={'popover' + ` is-${this.state.openDirection}` + ` ${this.props.isOpen && 'is-open'}`}
+        <div
+          className="popover-container"
+          ref={containerElement}
+          style={{
+            width: width,
+            height: height,
+            marginLeft: `${centeredHorizontalOffset}px`,
+            marginTop: `${centeredVerticalOffset}px`,
+          }}
         >
-          <div
-            className='popover-container'
-            ref={(e) => {this.containerElement = e}}
-            style={{
-              width: this.state.width,
-              height: this.state.height,
-              marginLeft: `${this.state.centeredHorizontalOffset}px`,
-              marginTop: `${this.state.centeredVerticalOffset}px`,
-            }}
-          >
-            {this.props.children}
-          </div>
+          {props.children}
+        </div>
 
-          <svg
-            className='arrow'
-            viewBox='0 0 20 20'
-          >
-            <path d='M0,0 10,10 20,0' />
-          </svg>
-        </StyledPopover>
-      </Transition>
-    )
-  }
+        <svg className="arrow" viewBox="0 0 20 20">
+          <path d="M0,0 10,10 20,0" />
+        </svg>
+      </StyledPopover>
+    </Transition>
+  )
 }
 
 export default Popover

@@ -1,17 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { arc } from 'd3-shape'
-import { scaleLinear, scaleLog } from 'd3-scale'
-import styled from 'styled-components'
+import React, { Component, useState, useRef } from "react"
+import { connect } from "react-redux"
+import { arc } from "d3-shape"
+import { scaleLinear, scaleLog } from "d3-scale"
+import styled from "styled-components"
 
-import {
-  Text,
-  InputBar,
-  Knob,
-} from 'components'
+import { Text, InputBar, Knob } from "components"
 
-import vars from 'variables'
+import vars from "variables"
 
 export const StyledNumericInput = styled.div`
   margin: 12px 0 0 0;
@@ -51,106 +46,101 @@ export const StyledNumericInput = styled.div`
     stroke: ${vars.grey_7};
   }
   .fader-value {
-    stroke: ${props => vars.accents[props.theme.accent][1]}
+    stroke: ${(props) => vars.accents[props.theme.accent][1]};
   }
 `
 
-class NumericInput extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      showInput: false
-    }
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
-    this.handleInput = this.handleInput.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.getMultiplier = this.getMultiplier.bind(this)
-    this.shiftValue = this.shiftValue.bind(this)
-    this.clampValue = this.clampValue.bind(this)
-    this.scale = this.scale.bind(this)
-    this.unscale = this.unscale.bind(this)
-    this.onDrag = this.onDrag.bind(this)
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseUp = this.onMouseUp.bind(this)
+const NumericInput = ({
+  className, // string,
+  disabled, // bool,
+  showLabel = true, // bool,
+  label, // string,
+  id, // string,
+  viz = "knob", // oneOf(['knob','bar',]),
 
-    this.initialX = 0
-    this.didMove = false
+  value, // number,
+  displayValue, // oneOfType([string,number,]),
+  defaultValue, // number,
+  unit, // string,
+
+  min, // number,
+  max, // number,
+  steps = {}, // object,
+  step, // number,
+  scale, // number,
+
+  onInput = () => {}, // func,
+  ...props
+}) => {
+  const [showInput, setShowInput] = useState(false)
+
+  const containerElement = useRef(null)
+  const vizElement = useRef(null)
+
+  const didMove = useRef(false)
+
+  const handleFocus = (e) => {
+    setShowInput(true)
+
+    document.execCommand("selectall", null, false)
   }
 
-  handleFocus (e) {
-    this.setState({
-      showInput: true
-    })
-
-    document.execCommand('selectall', null, false)
+  const handleBlur = (e) => {
+    setShowInput(false)
   }
 
-  handleBlur (e) {
-    this.setState({
-      showInput: false
-    })
-  }
-
-  onMouseDown (e) {
+  const onMouseDown = (e) => {
     e.preventDefault()
 
-    const isRightClick = (
-      e.button === 2 ||
-      e.ctrlKey
-    )
+    const isRightClick = e.button === 2 || e.ctrlKey
 
     if (!isRightClick) {
       e.target.requestPointerLock()
 
-      this.initialX = e.pageX || e.touches[0].pageX
+      containerElement.current.classList.add("active")
 
-      this.containerElement.classList.add('active')
+      document.addEventListener("mousemove", onDrag)
+      document.addEventListener("mouseup", onMouseUp)
+      document.addEventListener("touchmove", onDrag)
+      document.addEventListener("touchend", onMouseUp)
 
-      document.addEventListener('mousemove', this.onDrag)
-      document.addEventListener('mouseup', this.onMouseUp)
-      document.addEventListener('touchmove', this.onDrag)
-      document.addEventListener('touchend', this.onMouseUp)
-
-      document.body.classList.add('cursor--lr')
+      document.body.classList.add("cursor--lr")
     }
   }
 
-  onMouseUp (e) {
+  const onMouseUp = (e) => {
     document.exitPointerLock()
-    const currentMouseDownX = e.pageX || e.touches[0].pageX
-    const currentMouseDownY = e.pageY || e.touches[0].pageY
 
-    if (!this.didMove) {
-      this.vizElement.inputElement.focus()
+    if (!didMove.current) {
+      vizElement.current.inputElement.focus()
     }
 
-    this.didMove = false
-    this.containerElement.classList.remove('active')
-    document.removeEventListener('mousemove', this.onDrag)
-    document.removeEventListener('mouseup', this.onMouseUp)
-    document.removeEventListener('touchmove', this.onDrag)
-    document.removeEventListener('touchend', this.onMouseUp)
-    document.body.classList.remove('cursor--lr')
+    didMove.current = false
+    containerElement.current.classList.remove("active")
+    document.removeEventListener("mousemove", onDrag)
+    document.removeEventListener("mouseup", onMouseUp)
+    document.removeEventListener("touchmove", onDrag)
+    document.removeEventListener("touchend", onMouseUp)
+    document.body.classList.remove("cursor--lr")
   }
 
-  scale (value) {
-    const scale = this.props.scale || 1
-    if (scale !== 1) {
-      value = Math.log(value) / Math.log(scale)
+  const scaleValue = (v) => {
+    const newScale = scale || 1
+    if (newScale !== 1) {
+      v = Math.log(v) / Math.log(newScale)
     }
-    return value
+    return v
   }
 
-  unscale (value) {
-    const scale = this.props.scale || 1
-    if (scale !== 1) {
-      value = scale ** value
+  const unscaleValue = (v) => {
+    const newScale = scale || 1
+    if (newScale !== 1) {
+      v = newScale ** v
     }
-    return value
+    return v
   }
 
-  handleKeyDown (e) {
+  const handleKeyDown = (e) => {
     let direction
     switch (e.keyCode) {
       case 38: // up
@@ -160,148 +150,107 @@ class NumericInput extends Component {
         if (e.keyCode === 38) direction = 1
         if (e.keyCode === 40) direction = -1
 
-        const multiplier = this.getMultiplier(e)
-        const value = this.shiftValue(direction * multiplier)
-        this.props.onInput(value)
+        const multiplier = getMultiplier(e)
+        const v = shiftValue(direction * multiplier)
+        onInput(v)
         break
       case 27: // esc
       case 13: // enter
-        this.vizElement.inputElement.blur()
-        break;
+        vizElement.inputElement.blur()
+        break
     }
   }
 
-  handleInput (e) {
-    let value = parseFloat(e.target.value)
+  const handleInput = (e) => {
+    let v = parseFloat(e.target.value)
 
-    if (!isNaN(value)) {
-      value = this.clampValue(value)
+    if (!isNaN(v)) {
+      v = clampValue(v)
 
-      this.props.onInput(value)
+      onInput(v)
     }
   }
 
-  getMultiplier (e) {
-    if (e.altKey && e.shiftKey) return this.props.steps.altShiftKey || 100
-    if (e.shiftKey) return this.props.steps.shiftKey || 10
-    if (e.altKey) return this.props.steps.altKey || 0.1
-    else return this.props.steps.default || 1
+  const getMultiplier = (e) => {
+    if (e.altKey && e.shiftKey) return steps.altShiftKey || 100
+    if (e.shiftKey) return steps.shiftKey || 10
+    if (e.altKey) return steps.altKey || 0.1
+    else return steps.default || 1
   }
 
-  onDrag (e) {
-    let movement
-    this.didMove = true
+  const onDrag = (e) => {
+    didMove.current = true
 
-    if (e.movementX !== undefined) {
-      movement = e.movementX
-    } else {
-      if (e.pageX !== undefined) {
-        movement = e.pageX - this.initialX
-        this.initialX = e.pageX
-      } else {
-        movement = e.touches[0].pageX - this.initialX
-        this.initialX = e.touches[0].pageX
-      }
-    }
-
-    const value = this.shiftValue(movement)
-
-    this.props.onInput(value)
+    onInput(shiftValue(e.movementX))
   }
 
-  shiftValue (amount) {
-    let value = this.props.value || 0
-    value = this.scale(value)
+  const shiftValue = (amount) => {
+    // why does this have the old `value`
+    console.log("shift", value)
+    let v = value || 0
+    v = scaleValue(v)
 
-    let step = this.props.steps.default || 1
-    value = (amount * (step || 1)) + value
-    value = this.unscale(value)
-    value = this.clampValue(value)
-    value = Math.round(value * 100) / 100
-
-    return value
+    let step = steps.default || 1
+    v += amount * (step || 1)
+    v = unscaleValue(v)
+    v = clampValue(v)
+    v = Math.round(v * 100) / 100
+    // console.log("shift", value, amount, v)
+    return v
   }
 
-  clampValue (value) {
-    value = (this.props.min !== undefined) ? Math.max(this.props.min, value) : value
-    value = (this.props.max !== undefined) ? Math.min(this.props.max, value) : value
-    return value
+  const clampValue = (v) => {
+    v = min !== undefined ? Math.max(min, v) : v
+    v = max !== undefined ? Math.min(max, v) : v
+    return v
   }
 
-  render () {
-    const VizComponent = this.props.viz === 'knob'
-      ? Knob
-      : InputBar
+  const VizComponent = viz === "knob" ? Knob : InputBar
 
-    return (
-      <StyledNumericInput
-        {...this.props}
-        showInput={this.state.showInput}
-        className={`control fader ${this.props.className && this.props.className} ${this.props.disabled ? 'disabled' : ''}`}
-        innerRef={(c) => this.containerElement = c}
-        title={this.props.showLabel === false ? this.props.label : ''}
-      >
-        <label
-          id={`${this.props.id}-input`}
-          htmlFor={this.props.id}
-          className={`ControlTitle`}
-          >
-          {this.props.showLabel !== false &&
-            <Text type='h3'>
-              {this.props.label}
-            </Text>
-          }
-        </label>
+  console.log({ value })
 
-        <VizComponent
-          {...this.props}
-          className={this.props.className + ` draggable`}
-          aria-labelledby={`${this.props.id}-input`}
-          onMouseDown={this.onMouseDown.bind(this)}
-          ref={(c) => this.vizElement = c}
-          onTouchStart={this.onMouseDown.bind(this)}
-          onKeyDown={this.handleKeyDown}
-          onInput={this.handleInput}
-        />
-      </StyledNumericInput>
-    )
-  }
-}
+  return (
+    <StyledNumericInput
+      {...props}
+      showInput={showInput}
+      className={`control fader ${className && className} ${
+        disabled ? "disabled" : ""
+      }`}
+      ref={containerElement}
+      title={showLabel === false ? label : ""}
+    >
+      <label id={`${id}-input`} htmlFor={id} className={`ControlTitle`}>
+        {showLabel !== false && <Text type="h3">{label}</Text>}
+      </label>
 
-NumericInput.propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  showLabel: PropTypes.bool,
-  label: PropTypes.string,
-  id: PropTypes.string,
-  viz: PropTypes.oneOf([
-    'knob',
-    'bar',
-  ]),
-
-  value: PropTypes.number,
-  displayValue: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  defaultValue: PropTypes.number,
-  unit: PropTypes.string,
-
-  min: PropTypes.number,
-  max: PropTypes.number,
-  step: PropTypes.number,
-  scale: PropTypes.number,
-
-  onInput: PropTypes.func,
-}
-
-NumericInput.defaultProps = {
-  showLabel: true,
-  viz: 'knob',
-
-  steps: {},
-
-  onInput: () => {},
+      <VizComponent
+        {...{
+          className,
+          disabled,
+          showLabel,
+          label,
+          id,
+          viz,
+          value,
+          displayValue,
+          defaultValue,
+          unit,
+          min,
+          max,
+          steps,
+          step,
+          scale,
+          onMouseDown,
+        }}
+        className={className + ` draggable`}
+        aria-labelledby={`${id}-input`}
+        ref={vizElement}
+        onTouchStart={onMouseDown}
+        onKeyDown={handleKeyDown}
+        onInput={handleInput}
+      />
+    </StyledNumericInput>
+  )
 }
 
 export default NumericInput

@@ -1,22 +1,19 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { arc } from 'd3-shape'
-import { scaleLinear, scaleLog } from 'd3-scale'
-import styled from 'styled-components'
+import React, { Component, useState, useRef, useEffect } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { arc } from "d3-shape"
+import { scaleLinear, scaleLog } from "d3-scale"
+import styled from "styled-components"
 
-import {
-  Text,
-  Knob,
-} from 'components'
+import { Text, Knob } from "components"
 
-import vars from 'variables'
+import vars from "variables"
 
 export const StyledInputBar = styled.div`
   position: relative;
   flex: 1;
   height: 20px;
-  border: 1px solid ${props => props.isFocused ? vars.grey_7 : vars.grey_1};
+  border: 1px solid ${(props) => (props.isFocused ? vars.grey_7 : vars.grey_1)};
   border-bottom-width: 6px;
   cursor: ew-resize;
 
@@ -44,13 +41,13 @@ export const StyledInputBar = styled.div`
     right: -0.5rem;
     height: 22px;
 
-    opacity: ${props => props.isFocused ? 1 : 0};
+    opacity: ${(props) => (props.isFocused ? 1 : 0)};
     appearance: none;
     background: none;
     color: inherit;
 
     &:focus {
-      outline: 0
+      outline: 0;
     }
 
     -moz-appearance: textfield;
@@ -61,7 +58,7 @@ export const StyledInputBar = styled.div`
     }
   }
   output {
-    opacity: ${props => props.isFocused ? 0 : 1};
+    opacity: ${(props) => (props.isFocused ? 0 : 1)};
   }
   .progress-bar {
     position: absolute;
@@ -73,7 +70,7 @@ export const StyledInputBar = styled.div`
 
     &::before,
     &::after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
     }
@@ -84,7 +81,7 @@ export const StyledInputBar = styled.div`
       bottom: 6px;
       right: 0;
       opacity: 0.3;
-      background-color: ${props => vars.grey_1};
+      background-color: ${(props) => vars.grey_1};
     }
 
     &::after {
@@ -92,149 +89,124 @@ export const StyledInputBar = styled.div`
       bottom: 2px;
       right: 1px;
       height: 2px;
-      background-color: ${props => vars.accents[props.theme.accent][0]};
+      background-color: ${(props) => vars.accents[props.theme.accent][0]};
     }
   }
 `
 
-class InputBar extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isFocused: false,
-      inputValue: this.props.value,
-    }
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
-    this.onChange = this.onChange.bind(this)
+const InputBar = (props) => {
+  const [isFocused, setIsFocused] = useState(false)
+  const [inputValue, setInputValue] = useState(props.value)
+  const containerElement = useRef(null)
+  const inputElement = useRef(null)
+
+  useEffect(() => {
+    setInputValue(props.value)
+  }, [props.value])
+
+  const handleFocus = (e) => {
+    setIsFocused(true)
+    setInputValue(props.value)
+
+    document.execCommand("selectall", null, false)
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      inputValue: nextProps.value,
-    })
+  const handleBlur = (e) => {
+    setIsFocused(true)
+
+    props.onInput(e)
   }
 
-  handleFocus (e) {
-    this.setState({
-      isFocused: true,
-      inputValue: this.props.value,
-    })
-
-    document.execCommand('selectall', null, false)
+  const onChange = (e) => {
+    setInputValue(e.target.value)
   }
 
-  handleBlur (e) {
-    this.setState({
-      isFocused: false
-    })
-
-    this.props.onInput(e)
-  }
-
-  onChange (e) {
-    this.setState({
-      inputValue: e.target.value
-    })
-  }
-
-  bar (value) {
-    const scale = this.props.scale || 1
+  const bar = (value) => {
+    const scale = props.scale || 1
     let angle
 
     if (scale !== 1) {
       angle = scaleLog()
-        .domain([this.props.min, this.props.max])
+        .domain([props.min, props.max])
         .range([0, 100])
         .base(scale)
     } else {
-      angle = scaleLinear()
-        .domain([this.props.min, this.props.max])
-        .range([0, 100])
+      angle = scaleLinear().domain([props.min, props.max]).range([0, 100])
     }
 
     return angle(value)
   }
 
-  render () {
-    return (
-      <StyledInputBar
-        {...this.props}
-        isFocused={this.state.isFocused}
-        innerRef={(c) => this.containerElement = c}
-        title={this.props.showLabel === false ? this.props.label : ''}
-        className='input-output'
-      >
-        <div
-          className='progress-bar'
-          style={{
-            transform: `scaleX(${this.bar(this.props.value) / 100})`,
+  return (
+    <StyledInputBar
+      {...props}
+      isFocused={isFocused}
+      ref={containerElement}
+      title={props.showLabel === false ? props.label : ""}
+      className="input-output"
+    >
+      <div
+        className="progress-bar"
+        style={{
+          transform: `scaleX(${bar(props.value) / 100})`,
+        }}
+      />
+      <Text type="value" className="text-items">
+        <output htmlFor={props.id}>
+          {props.displayValue !== undefined ? props.displayValue : props.value}
+          <span className="suffix">{props.unit}</span>
+        </output>
+
+        <input
+          ref={inputElement}
+          id={`${props.id}-input`}
+          type="number"
+          disabled={props.disabled}
+          inputMode="numeric"
+          min={props.min}
+          max={props.max}
+          value={inputValue}
+          step={props.steps.default || 1}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          defaultValue={props.defaultValue}
+          onChange={onChange}
+          onInput={(e) => {
+            e.stopPropagation()
           }}
         />
-        <Text type='value' className='text-items'>
-          <output htmlFor={this.props.id}>
-            {this.props.displayValue !== undefined
-              ? this.props.displayValue
-              : this.props.value
-            }
-            <span className='suffix'>{this.props.unit}</span>
-          </output>
-
-          <input
-            ref={i => this.inputElement = i}
-            id={`${this.props.id}-input`}
-            type='number'
-            disabled={this.props.disabled}
-            inputMode='numeric'
-            min={this.props.min}
-            max={this.props.max}
-            value={this.state.inputValue}
-            step={this.props.steps.default || 1}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            defaultValue={this.props.defaultValue}
-            onChange={this.onChange}
-            onInput={(e) => {e.stopPropagation()}}
-          />
-        </Text>
-      </StyledInputBar>
-    )
-  }
+      </Text>
+    </StyledInputBar>
+  )
 }
 
-InputBar.propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  showLabel: PropTypes.bool,
-  label: PropTypes.string,
-  id: PropTypes.string,
-  viz: PropTypes.oneOf([
-    'knob',
-    'bar',
-  ]),
+// InputBar.propTypes = {
+//   className: PropTypes.string,
+//   disabled: PropTypes.bool,
+//   showLabel: PropTypes.bool,
+//   label: PropTypes.string,
+//   id: PropTypes.string,
+//   viz: PropTypes.oneOf(["knob", "bar"]),
 
-  value: PropTypes.number,
-  displayValue: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  unit: PropTypes.string,
+//   value: PropTypes.number,
+//   displayValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+//   unit: PropTypes.string,
 
-  min: PropTypes.number,
-  max: PropTypes.number,
-  steps: PropTypes.object,
-  scale: PropTypes.number,
+//   min: PropTypes.number,
+//   max: PropTypes.number,
+//   steps: PropTypes.object,
+//   scale: PropTypes.number,
 
-  onInput: PropTypes.func,
-}
+//   onInput: PropTypes.func,
+// }
 
-InputBar.defaultProps = {
-  showLabel: true,
-  viz: 'knob',
+// InputBar.defaultProps = {
+//   showLabel: true,
+//   viz: "knob",
 
-  steps: {},
+//   steps: {},
 
-  onInput: () => {},
-}
+//   onInput: () => {},
+// }
 
 export default InputBar

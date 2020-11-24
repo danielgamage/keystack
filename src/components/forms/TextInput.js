@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
-import vars from "variables";
+import vars from "variables"
 
-import { Text } from "components";
+import { Text } from "components"
 
-import { StyledText } from "components/elements/Text";
+import { StyledText } from "components/elements/Text"
 
 export const StyledInput = styled(StyledText)`
   padding: 4px 8px 3px;
@@ -23,8 +23,8 @@ export const StyledInput = styled(StyledText)`
     background: ${vars.white};
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   }
-`;
-export const StyledInputCorrected = StyledInput.withComponent("input");
+`
+export const StyledInputCorrected = StyledInput.withComponent("input")
 
 class TextInput extends React.Component {
   render() {
@@ -32,11 +32,11 @@ class TextInput extends React.Component {
       <StyledInputCorrected
         {...this.props}
         type="h3"
-        innerRef={e => (this.inputElement = e)}
+        ref={(e) => (this.inputElement = e)}
         type="text"
       />
-    );
+    )
   }
 }
 
-export default TextInput;
+export default TextInput

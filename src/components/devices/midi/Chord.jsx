@@ -1,28 +1,20 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import styled from 'styled-components'
-import vars from 'variables'
-import { format } from 'd3-format'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import styled from "styled-components"
+import vars from "variables"
+import { format } from "d3-format"
 
-import {
-  NumericInput,
-  Item,
-  Text,
-  Popover,
-  Icon,
-  TextInput,
-} from 'components'
+import { NumericInput, Item, Text, Popover, Icon, TextInput } from "components"
 
-import refreshIcon from 'images/icon/refresh.svg'
+import refreshIcon from "images/icon/refresh.svg"
 
-import {chords, groupedChords} from 'data/chords'
+import { chords, groupedChords } from "data/chords"
 
 const isSameArray = (a, b) => {
-  return a.every((item, index) => (
-    a[index] === b[index]
-  )) && b.every((item, index) => (
-    b[index] === a[index]
-  ))
+  return (
+    a.every((item, index) => a[index] === b[index]) &&
+    b.every((item, index) => b[index] === a[index])
+  )
 }
 
 const StyledChordDevice = styled.div`
@@ -52,7 +44,7 @@ const StyledChordDevice = styled.div`
       border-radius: ${vars.radius};
       cursor: pointer;
       &.active {
-        background-color: ${props => vars.accents[props.theme.accent][1]};
+        background-color: ${(props) => vars.accents[props.theme.accent][1]};
         color: ${vars.grey_0};
       }
       &.open-index {
@@ -121,25 +113,25 @@ class Chord extends Component {
 
     this.state = {
       favorites: [
-        'Major',
-        'Major 7th',
-        'Major 7th sharp 11th',
-        'Major 6th',
+        "Major",
+        "Major 7th",
+        "Major 7th sharp 11th",
+        "Major 6th",
 
-        'Minor',
-        'Minor 7th',
-        'Minor 9th',
-        'Minor 6th',
+        "Minor",
+        "Minor 7th",
+        "Minor 9th",
+        "Minor 6th",
 
-        'Suspended 2nd',
-        'Suspended 4th',
-        '9th suspended 2nd',
-        '9th suspended 4th',
+        "Suspended 2nd",
+        "Suspended 4th",
+        "9th suspended 2nd",
+        "9th suspended 4th",
 
-        'Augmented major 7th',
-        'Augmented 7th',
-        '9th augmented 5th',
-        'Augmented 6th',
+        "Augmented major 7th",
+        "Augmented 7th",
+        "9th augmented 5th",
+        "Augmented 6th",
       ],
 
       isPickerOpen: false,
@@ -148,7 +140,7 @@ class Chord extends Component {
     }
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.isPickerOpen === true && this.state.isPickerOpen === false) {
       this.setState({
         filterText: null,
@@ -156,27 +148,29 @@ class Chord extends Component {
       })
     }
     if (prevState.isPickerOpen === false && this.state.isPickerOpen === true) {
-      this.filterInputElement.inputElement.focus()
+      this.filterInputElement.inputElement.current.focus()
     }
   }
 
-  render () {
-    const favorites = this.state.favorites.map(fave => (
-      chords.find(chord => fave === chord.name)
-    ))
+  render() {
+    const favorites = this.state.favorites.map((fave) =>
+      chords.find((chord) => fave === chord.name)
+    )
 
-    const currentChord = favorites.find(favorite => {
+    const currentChord = favorites.find((favorite) => {
       return favorite && isSameArray(favorite.naturalSet, this.props.data.value)
     })
 
-    const filterText = this.state.filterText && this.state.filterText.toLowerCase()
+    const filterText =
+      this.state.filterText && this.state.filterText.toLowerCase()
 
     const filteredGroupedChords = this.state.filterText
       ? Object.keys(groupedChords).reduce((acc, key) => {
-          const matches = groupedChords[key].filter(el => (
-            (el.name && el.name.toLowerCase().includes(filterText)) ||
-            (el.abbr && el.abbr.toLowerCase().includes(filterText))
-          ))
+          const matches = groupedChords[key].filter(
+            (el) =>
+              (el.name && el.name.toLowerCase().includes(filterText)) ||
+              (el.abbr && el.abbr.toLowerCase().includes(filterText))
+          )
 
           if (matches.length) acc[key] = matches
 
@@ -185,152 +179,164 @@ class Chord extends Component {
       : groupedChords
 
     return (
-      <Item type='midi' index={this.props.index} item={this.props.data}>
+      <Item type="midi" index={this.props.index} item={this.props.data}>
         <StyledChordDevice>
-          <div className='top'>
-            <div className='chord-pads'>
-              {favorites.map((chord, i) => (
-                chord
-                  ? (
-                    <div
-                      key={i}
-                      className={`
+          <div className="top">
+            <div className="chord-pads">
+              {favorites.map((chord, i) =>
+                chord ? (
+                  <div
+                    key={i}
+                    className={`
                         pad
-                        ${currentChord && currentChord.name === chord.name ? 'active' : ''}
-                        ${this.state.openIndex === i ? 'open-index' : ''}
+                        ${
+                          currentChord && currentChord.name === chord.name
+                            ? "active"
+                            : ""
+                        }
+                        ${this.state.openIndex === i ? "open-index" : ""}
                       `}
-                      onClick={() => {
-                        this.props.dispatch({
-                          type: 'UPDATE_DEVICE',
-                          id: this.props.data.id,
-                          property: 'value',
-                          value: chord.naturalSet || [0,0,0,0],
-                        })
-                      }}
-                    >
-                      <div
-                        className='swap-button'
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          this.setState({
-                            isPickerOpen: true,
-                            openIndex: i,
-                          })
-                        }}
-                      >
-                        <Icon
-                          className='swap-icon'
-                          src={refreshIcon}
-                        />
-                      </div>
-
-                      <Text>
-                        <span>{chord.abbr || chord.name}</span>
-                      </Text>
-                    </div>
-                  )
-                  : (
+                    onClick={() => {
+                      this.props.dispatch({
+                        type: "UPDATE_DEVICE",
+                        id: this.props.data.id,
+                        property: "value",
+                        value: chord.naturalSet || [0, 0, 0, 0],
+                      })
+                    }}
+                  >
                     <div
-                      key={i}
-                      className={`
-                        pad
-                        ${this.state.openIndex === i ? 'open-index' : ''}
-                      `}
-                      onClick={() => {
+                      className="swap-button"
+                      onClick={(e) => {
+                        e.stopPropagation()
                         this.setState({
                           isPickerOpen: true,
                           openIndex: i,
                         })
                       }}
                     >
-                      <Text>
-                        <span>-</span>
-                      </Text>
+                      <Icon className="swap-icon" src={refreshIcon} />
                     </div>
-                  )
-              ))}
+
+                    <Text>
+                      <span>{chord.abbr || chord.name}</span>
+                    </Text>
+                  </div>
+                ) : (
+                  <div
+                    key={i}
+                    className={`
+                        pad
+                        ${this.state.openIndex === i ? "open-index" : ""}
+                      `}
+                    onClick={() => {
+                      this.setState({
+                        isPickerOpen: true,
+                        openIndex: i,
+                      })
+                    }}
+                  >
+                    <Text>
+                      <span>-</span>
+                    </Text>
+                  </div>
+                )
+              )}
 
               <Popover
                 isOpen={this.state.isPickerOpen}
                 onClickOutside={() => {
-                  this.setState({isPickerOpen: false})
+                  this.setState({ isPickerOpen: false })
                 }}
-                viewport={document.querySelector('.settings-inner-container')}
-                className='chord-list-popover'
+                viewport={document.querySelector(".settings-inner-container")}
+                className="chord-list-popover"
               >
-                <div className='chord-list'>
-                  <TextInput type='text'
-                    ref={(e) => this.filterInputElement = e}
-                    placeholder='Search chords...'
+                <div className="chord-list">
+                  <TextInput
+                    type="text"
+                    ref={(e) => (this.filterInputElement = e)}
+                    placeholder="Search chords..."
                     onKeyUp={(e) => e.stopPropagation()}
                     onKeyDown={(e) => e.stopPropagation()}
                     onInput={(e) => {
                       this.setState({
-                        filterText: e.target.value
+                        filterText: e.target.value,
                       })
                     }}
                     value={this.state.filterText}
                   />
 
-                  {Object.keys(filteredGroupedChords).map(group => ([
-                    <Text className='chord-group-title' type='h3'>{group}</Text>,
+                  {Object.keys(filteredGroupedChords).map((group) => [
+                    <Text className="chord-group-title" type="h3">
+                      {group}
+                    </Text>,
 
-                    filteredGroupedChords[group].map(chord => (
+                    filteredGroupedChords[group].map((chord) => (
                       <Text
                         onClick={() => {
                           if (this.state.openIndex) {
                             this.setState({
                               isPickerOpen: false,
                               openIndex: null,
-                              favorites: Object.assign([], this.state.favorites, {[this.state.openIndex]: chord.name}),
+                              favorites: Object.assign(
+                                [],
+                                this.state.favorites,
+                                { [this.state.openIndex]: chord.name }
+                              ),
                             })
                           }
                         }}
                       >
                         <span>{chord.name}</span>
                         &nbsp;
-                        <span className='chord-set'>({chord.naturalSet.join(', ')})</span>
+                        <span className="chord-set">
+                          ({chord.naturalSet.join(", ")})
+                        </span>
                       </Text>
-                    ))
-                  ]))}
+                    )),
+                  ])}
                 </div>
               </Popover>
             </div>
 
-            <div className='chord-inversion-props'>
-              <Text type='h3' title='Random Inversions'>Rand Inv</Text>
+            <div className="chord-inversion-props">
+              <Text type="h3" title="Random Inversions">
+                Rand Inv
+              </Text>
 
               <NumericInput
-                label='Chance'
-                className='numeric-input small'
-                viz='bar'
+                label="Chance"
+                className="numeric-input small"
+                viz="bar"
                 min={0}
                 max={100}
-                displayValue={format('.0%')(this.props.data.inversionChance / 100)}
+                displayValue={format(".0%")(
+                  this.props.data.inversionChance / 100
+                )}
                 value={this.props.data.inversionChance}
                 onInput={(event) => {
                   this.props.dispatch({
-                    type: 'UPDATE_DEVICE',
+                    type: "UPDATE_DEVICE",
                     id: this.props.data.id,
-                    property: 'inversionChance',
+                    property: "inversionChance",
                     value: event,
                   })
                 }}
               />
 
               <NumericInput
-                label='Range'
-                className='numeric-input small'
-                viz='bar'
+                label="Range"
+                className="numeric-input small"
+                viz="bar"
                 min={0}
                 max={4}
-                unit=' oct'
+                unit=" oct"
                 value={this.props.data.inversionRange}
                 onInput={(event) => {
                   this.props.dispatch({
-                    type: 'UPDATE_DEVICE',
+                    type: "UPDATE_DEVICE",
                     id: this.props.data.id,
-                    property: 'inversionRange',
+                    property: "inversionRange",
                     value: event,
                   })
                 }}
@@ -338,13 +344,13 @@ class Chord extends Component {
             </div>
           </div>
 
-          <div className='flex-container'>
+          <div className="flex-container">
             {this.props.data.value.map((el, i) => (
               <NumericInput
                 key={i}
                 label={`Note #${i + 1}`}
                 showLabel={false}
-                className='numeric-input small'
+                className="numeric-input small"
                 id={`pan-${this.props.data.id}-${i + 1}`}
                 min={-24}
                 max={24}
@@ -352,19 +358,19 @@ class Chord extends Component {
                   shiftKey: 12,
                   default: 1,
                 }}
-                unit='st'
-                displayValue={format('+')(this.props.data.value[i])}
+                unit="st"
+                displayValue={format("+")(this.props.data.value[i])}
                 value={this.props.data.value[i]}
                 onInput={(event) => {
                   this.props.dispatch({
-                    type: 'UPDATE_DEVICE_ARRAY',
+                    type: "UPDATE_DEVICE_ARRAY",
                     id: this.props.data.id,
-                    property: 'value',
+                    property: "value",
                     index: i,
                     value: event,
                   })
                 }}
-                />
+              />
             ))}
           </div>
         </StyledChordDevice>

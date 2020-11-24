@@ -1,17 +1,13 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { arc } from 'd3-shape'
-import { scaleLinear, scaleLog } from 'd3-scale'
-import styled from 'styled-components'
+import React, { useState, useEffect, useRef } from "react"
+import { arc } from "d3-shape"
+import { scaleLinear, scaleLog } from "d3-scale"
+import styled from "styled-components"
 
-import {
-  Text
-} from 'components'
+import { Text } from "components"
 
-import vars from 'variables'
+import vars from "variables"
 
-export const Knob = styled.div`
+export const StyledKnob = styled.div`
   &.small {
     svg {
       width: 1.2rem;
@@ -30,8 +26,8 @@ export const Knob = styled.div`
   svg {
     display: block;
     margin: 4px 0 4px;
-    width: ${props => props.small ? '1.2rem' : '3rem'};
-    height: ${props => props.small ? '1.2rem' : '3rem'};
+    width: ${(props) => (props.small ? "1.2rem" : "3rem")};
+    height: ${(props) => (props.small ? "1.2rem" : "3rem")};
     &:hover {
       .fader-knob {
         opacity: 1;
@@ -55,7 +51,7 @@ export const Knob = styled.div`
     stroke: ${vars.grey_7};
   }
   .fader-value {
-    stroke: ${props => vars.accents[props.theme.accent][1]}
+    stroke: ${(props) => vars.accents[props.theme.accent][1]};
   }
   .input-output {
     position: relative;
@@ -84,7 +80,7 @@ export const Knob = styled.div`
       right: -0.5rem;
       height: 22px;
 
-      opacity: ${props => props.isFocused ? 1 : 0};
+      opacity: ${(props) => (props.isFocused ? 1 : 0)};
       appearance: none;
       background: none;
       color: inherit;
@@ -97,204 +93,159 @@ export const Knob = styled.div`
       }
     }
     output {
-      opacity: ${props => props.isFocused ? 0 : 1};
+      opacity: ${(props) => (props.isFocused ? 0 : 1)};
     }
   }
 `
 
-class NumericInput extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isFocused: false,
-      inputValue: this.props.value,
-    }
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
-    this.onChange = this.onChange.bind(this)
+const Knob = (props) => {
+  const [isFocused, setIsFocused] = useState(false)
+  const [inputValue, setInputValue] = useState(props.value)
+  const containerElement = useRef(null)
+  const inputElement = useRef(null)
+
+  useEffect(() => {
+    console.log("knob", props.value)
+    setInputValue(props.value)
+  }, [props.value])
+
+  const handleFocus = (e) => {
+    setIsFocused(true)
+    setInputValue(props.value)
+
+    document.execCommand("selectall", null, false)
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      inputValue: nextProps.value,
-    })
+  const handleBlur = (e) => {
+    setIsFocused(false)
+
+    props.onInput(e)
   }
 
-  handleFocus (e) {
-    this.setState({
-      isFocused: true,
-      inputValue: this.props.value,
-    })
-
-    document.execCommand('selectall', null, false)
+  const onChange = (e) => {
+    setInputValue(e.target.value)
   }
 
-  handleBlur (e) {
-    this.setState({
-      isFocused: false
-    })
-
-    this.props.onInput(e)
-  }
-
-  onChange (e) {
-    this.setState({
-      inputValue: e.target.value
-    })
-  }
-
-  angle (value) {
-    const scale = this.props.scale || 1
+  const getAngle = (value) => {
+    const scale = props.scale || 1
     let angle
 
     if (scale !== 1) {
       angle = scaleLog()
-        .domain([this.props.min, this.props.max])
-        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
+        .domain([props.min, props.max])
+        .range([(Math.PI / 2) * 2.5, (Math.PI / 2) * 5.5])
         .base(scale)
     } else {
       angle = scaleLinear()
-        .domain([this.props.min, this.props.max])
-        .range([Math.PI / 2 * 2.5, Math.PI / 2 * 5.5])
+        .domain([props.min, props.max])
+        .range([(Math.PI / 2) * 2.5, (Math.PI / 2) * 5.5])
     }
 
     return angle(value)
   }
 
-  radiansToDegrees (value) {
-    return value * 180 / Math.PI
+  const radiansToDegrees = (value) => {
+    return (value * 180) / Math.PI
   }
 
-  render () {
-    var arcPath = arc()
+  var arcPath = arc()
 
-    const min = this.angle(this.props.min)
-    const max = this.angle(this.props.max)
-    const value = this.angle(this.props.value)
+  const min = getAngle(props.min)
+  const max = getAngle(props.max)
+  const value = getAngle(props.value)
 
-    return (
-      <Knob
-        {...this.props}
-        className={this.props.className}
-        isFocused={this.state.isFocused}
-        innerRef={(c) => this.containerElement = c}
-        title={this.props.showLabel === false ? this.props.label : ''}
-      >
-        <svg
-          viewBox='0 0 32 32'
-          aria-labelledby={`${this.props.id}-input`}
-        >
-          <circle
-            vectorEffect='non-scaling-stroke'
-            className='fader-knob'
-            cx={16}
-            cy={16}
-            r='10'
+  return (
+    <StyledKnob
+      {...props}
+      className={props.className}
+      isFocused={isFocused}
+      ref={containerElement}
+      title={props.showLabel === false ? props.label : ""}
+    >
+      <svg viewBox="0 0 32 32" aria-labelledby={`${props.id}-input`}>
+        <circle
+          vectorEffect="non-scaling-stroke"
+          className="fader-knob"
+          cx={16}
+          cy={16}
+          r="10"
+        />
+
+        <path
+          vectorEffect="non-scaling-stroke"
+          className="fader-track"
+          transform="translate(16, 16)"
+          d={arcPath({
+            innerRadius: 14,
+            outerRadius: 14,
+            startAngle: min,
+            endAngle: max,
+          })}
+        />
+
+        <path
+          vectorEffect="non-scaling-stroke"
+          className="fader-value"
+          transform="translate(16, 16)"
+          d={arcPath({
+            innerRadius: 14,
+            outerRadius: 14,
+            startAngle: min,
+            endAngle: value,
+          })}
+        />
+
+        <line
+          className="fader-pointer"
+          x1="16"
+          y1="2"
+          x2="16"
+          y2="12"
+          vectorEffect="non-scaling-stroke"
+          transform={`rotate(${radiansToDegrees(value)} 16 16)`}
+        />
+      </svg>
+
+      <div className="input-output">
+        <Text type="value" className="text-items">
+          <output htmlFor={props.id}>
+            {props.displayValue !== undefined
+              ? props.displayValue
+              : props.value}
+            <span className="suffix">{props.unit}</span>
+          </output>
+
+          <input
+            ref={inputElement}
+            id={`${props.id}-input`}
+            type="number"
+            disabled={props.disabled}
+            inputMode="numeric"
+            min={props.min}
+            max={props.max}
+            value={inputValue}
+            step={props.steps.default || 1}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            defaultValue={props.defaultValue}
+            onChange={onChange}
+            onInput={(e) => {
+              e.stopPropagation()
+            }}
           />
-
-          <path
-            vectorEffect='non-scaling-stroke'
-            className='fader-track'
-            transform='translate(16, 16)'
-            d={arcPath({
-              innerRadius: 14,
-              outerRadius: 14,
-              startAngle: min,
-              endAngle: max
-            })}
-          />
-
-          <path
-            vectorEffect='non-scaling-stroke'
-            className='fader-value'
-            transform='translate(16, 16)'
-            d={arcPath({
-              innerRadius: 14,
-              outerRadius: 14,
-              startAngle: min,
-              endAngle: value
-            })}
-          />
-
-          <line
-            className='fader-pointer'
-            x1='16'
-            y1='2'
-            x2='16'
-            y2='12'
-            vectorEffect='non-scaling-stroke'
-            transform={`rotate(${this.radiansToDegrees(value)} 16 16)`}
-          />
-        </svg>
-
-        <div
-          className='input-output'
-        >
-          <Text type='value' className='text-items'>
-            <output htmlFor={this.props.id}>
-              {this.props.displayValue !== undefined
-                ? this.props.displayValue
-                : this.props.value
-              }
-              <span className='suffix'>{this.props.unit}</span>
-            </output>
-
-            <input
-              ref={i => this.inputElement = i}
-              id={`${this.props.id}-input`}
-              type='number'
-              disabled={this.props.disabled}
-              inputMode='numeric'
-              min={this.props.min}
-              max={this.props.max}
-              value={this.state.inputValue}
-              step={this.props.steps.default || 1}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-              defaultValue={this.props.defaultValue}
-              onChange={this.onChange}
-              onInput={(e) => {e.stopPropagation()}}
-            />
-          </Text>
-        </div>
-      </Knob>
-    )
-  }
+        </Text>
+      </div>
+    </StyledKnob>
+  )
 }
 
-NumericInput.propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  showLabel: PropTypes.bool,
-  label: PropTypes.string,
-  id: PropTypes.string,
-  viz: PropTypes.oneOf([
-    'knob',
-    'bar',
-  ]),
-
-  value: PropTypes.number,
-  displayValue: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  unit: PropTypes.string,
-
-  min: PropTypes.number,
-  max: PropTypes.number,
-  steps: PropTypes.object,
-  scale: PropTypes.number,
-
-  onInput: PropTypes.func,
-}
-
-NumericInput.defaultProps = {
+Knob.defaultProps = {
   showLabel: true,
-  viz: 'knob',
+  viz: "knob",
 
   steps: {},
 
   onInput: () => {},
 }
 
-export default NumericInput
+export default Knob

@@ -165,7 +165,7 @@ export const stopInstrument = (notes) => {
 
               oscillators[note.index].volume.gain.cancelAndHoldAtTime(0)
               oscillators[note.index].volume.gain.setValueCurveAtTime(
-                instrument.envelopeCurves.R,
+                releaseCurve,
                 audioCtx.currentTime,
                 releaseTime
               )
