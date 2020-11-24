@@ -1,16 +1,16 @@
-import { store } from "../utils/store";
-import getDevicesOfType from "../utils/getDevicesOfType";
-import transposeSample from "../utils/transposeSample";
-import { audioCtx, audioEffectNodes } from "../utils/audio";
-import { sampleRate, minWebAudioVolume } from "globals";
-import { getEnvelopeCurves } from "reducers/selectors/envelopes";
+import { store } from "../utils/store"
+import getDevicesOfType from "../utils/getDevicesOfType"
+import transposeSample from "../utils/transposeSample"
+import { audioCtx, audioEffectNodes } from "../utils/audio"
+import { sampleRate, minWebAudioVolume } from "constants.js"
+import { getEnvelopeCurves } from "reducers/selectors/envelopes"
 
-var oscillators = {};
-var samples = {};
+var oscillators = {}
+var samples = {}
 
 export const shiftFrequencyByStep = (frequency, step) => {
-  return frequency * 2 ** (step / 12);
-};
+  return frequency * 2 ** (step / 12)
+}
 //
 // const easeInQuad = (t) => (t * t)
 // const easeOutQuad = (t) => (t * (2 - t))
@@ -47,172 +47,162 @@ export const shiftFrequencyByStep = (frequency, step) => {
 //   return valueCurve
 // }
 
-export const playInstrument = notes => {
-  const state = store.getState();
+export const playInstrument = (notes) => {
+  const state = store.getState()
   const instruments = getDevicesOfType(
     state,
     state.tracks[0].devices,
     "instrument"
-  );
-  const instrumentsWithCurves = getEnvelopeCurves(instruments);
-  console.log(instrumentsWithCurves);
+  )
+  const instrumentsWithCurves = getEnvelopeCurves(instruments)
 
-  instrumentsWithCurves.map(instrument => {
-    const envelope = instrument.envelope;
+  instrumentsWithCurves.map((instrument) => {
+    const envelope = instrument.envelope
 
     switch (instrument.devicePrototype) {
       case `KeySynth`:
-        notes.map(note => {
-          var noteVolume = audioCtx.createGain();
-          noteVolume.gain.value = envelope.initial;
-          noteVolume.connect(audioEffectNodes[0].entry);
+        notes.map((note) => {
+          var noteVolume = audioCtx.createGain()
+          noteVolume.gain.value = envelope.initial
+          noteVolume.connect(audioEffectNodes[0].entry)
 
-          const initializedOscillators = instrument.oscillators.map(el => {
-            const osc = audioCtx.createOscillator();
-            osc.frequency.value = shiftFrequencyByStep(
-              note.frequency,
-              el.pitch
-            );
-            osc.detune.value = el.detune;
-            osc.type = el.type;
+          const initializedOscillators = instrument.oscillators.map((el) => {
+            const osc = audioCtx.createOscillator()
+            osc.frequency.value = shiftFrequencyByStep(note.frequency, el.pitch)
+            osc.detune.value = el.detune
+            osc.type = el.type
 
-            var oscVolume = audioCtx.createGain();
-            oscVolume.gain.value = el.volume;
+            var oscVolume = audioCtx.createGain()
+            oscVolume.gain.value = el.volume
 
-            osc.connect(oscVolume);
-            oscVolume.connect(noteVolume);
+            osc.connect(oscVolume)
+            oscVolume.connect(noteVolume)
 
-            osc.start(audioCtx.currentTime);
-            return osc;
-          });
+            osc.start(audioCtx.currentTime)
+            return osc
+          })
 
           oscillators[note.index] = {
             oscillators: initializedOscillators,
-            volume: noteVolume
-          };
+            volume: noteVolume,
+          }
 
-          const attackSamples = Math.floor(envelope.attack * sampleRate);
-          const decaySamples = Math.floor(envelope.decay * sampleRate);
+          const attackSamples = Math.floor(envelope.attack * sampleRate)
+          const decaySamples = Math.floor(envelope.decay * sampleRate)
 
           noteVolume.gain.setValueCurveAtTime(
             instrument.envelopeCurves.AD,
             audioCtx.currentTime,
             (attackSamples + decaySamples) / sampleRate
-          );
-        });
-        break;
+          )
+        })
+        break
 
       case `Sampler`:
-        if (myBuffer !== null) {
-          notes.map(note => {
-            let source = audioCtx.createBufferSource();
-            var noteVolume = audioCtx.createGain();
-            noteVolume.gain.value = envelope.initial;
-            noteVolume.connect(audioEffectNodes[0].entry);
+        if (window.myBuffer !== null) {
+          notes.map((note) => {
+            let source = audioCtx.createBufferSource()
+            var noteVolume = audioCtx.createGain()
+            noteVolume.gain.value = envelope.initial
+            noteVolume.connect(audioEffectNodes[0].entry)
 
-            source.buffer = myBuffer;
+            source.buffer = window.myBuffer
             source.playbackRate.value = transposeSample(
               note.index + 27 - instrument.pitch
-            );
-            source.loop = instrument.loop;
-            source.loopStart = instrument.loopStart;
-            source.loopEnd = instrument.loopEnd;
-            source.connect(noteVolume);
-            source.start(audioCtx.currentTime);
+            )
+            source.loop = instrument.loop
+            source.loopStart = instrument.loopStart
+            source.loopEnd = instrument.loopEnd
+            source.connect(noteVolume)
+            source.start(audioCtx.currentTime)
 
             samples[note.index] = {
               instance: source,
-              volume: noteVolume
-            };
+              volume: noteVolume,
+            }
 
             noteVolume.gain.linearRampToValueAtTime(
               Math.max(envelope.peak, minWebAudioVolume),
               audioCtx.currentTime + envelope.attack
-            );
+            )
             noteVolume.gain.exponentialRampToValueAtTime(
               Math.max(envelope.sustain, minWebAudioVolume),
               audioCtx.currentTime + envelope.attack + envelope.decay
-            );
-          });
+            )
+          })
         }
-        break;
+        break
     }
-  });
-};
+  })
+}
 
-export const stopInstrument = notes => {
-  const state = store.getState();
+export const stopInstrument = (notes) => {
+  const state = store.getState()
   const instruments = getDevicesOfType(
     state,
     state.tracks[0].devices,
     "instrument"
-  );
-  const instrumentsWithCurves = getEnvelopeCurves(instruments);
+  )
+  const instrumentsWithCurves = getEnvelopeCurves(instruments)
 
-  instrumentsWithCurves.map(instrument => {
-    const envelope = instrument.envelope;
+  instrumentsWithCurves.map((instrument) => {
+    const envelope = instrument.envelope
 
     switch (instrument.devicePrototype) {
       case `KeySynth`:
-        notes.map(note => {
+        notes.map((note) => {
           if (oscillators[note.index]) {
-            const currentVolume = oscillators[note.index].volume.gain.value;
+            const currentVolume = oscillators[note.index].volume.gain.value
 
             if (currentVolume > minWebAudioVolume) {
-              const releaseSamples = Math.floor(envelope.release * sampleRate);
-              const releaseTime = releaseSamples / sampleRate;
+              const releaseSamples = Math.floor(envelope.release * sampleRate)
+              const releaseTime = releaseSamples / sampleRate
 
               const releaseCurve =
                 currentVolume === 1
                   ? instrument.envelopeCurves.R
-                  : instrument.envelopeCurves.R.map(el => el * currentVolume);
+                  : instrument.envelopeCurves.R.map((el) => el * currentVolume)
 
-              console.log({
-                currentVolume,
-                R: instrument.envelopeCurves.R,
-                releaseCurve
-              });
-
-              oscillators[note.index].volume.gain.cancelAndHoldAtTime(0);
+              oscillators[note.index].volume.gain.cancelAndHoldAtTime(0)
               oscillators[note.index].volume.gain.setValueCurveAtTime(
                 instrument.envelopeCurves.R,
                 audioCtx.currentTime,
                 releaseTime
-              );
+              )
 
-              oscillators[note.index].oscillators.forEach(oscillator => {
-                oscillator.stop(audioCtx.currentTime + releaseTime);
-              });
+              oscillators[note.index].oscillators.forEach((oscillator) => {
+                oscillator.stop(audioCtx.currentTime + releaseTime)
+              })
             } else {
-              oscillators[note.index].oscillators.forEach(oscillator => {
-                oscillator.stop(audioCtx.currentTime);
-              });
+              oscillators[note.index].oscillators.forEach((oscillator) => {
+                oscillator.stop(audioCtx.currentTime)
+              })
             }
 
-            oscillators[note.index] = null;
+            oscillators[note.index] = null
           }
-        });
-        break;
+        })
+        break
 
       case `Sampler`:
-        if (myBuffer !== null) {
-          notes.map(note => {
+        if (window.myBuffer !== null) {
+          notes.map((note) => {
             samples[note.index].instance.stop(
               audioCtx.currentTime + envelope.release
-            );
+            )
 
             samples[note.index].volume.gain.cancelAndHoldAtTime(
               audioCtx.currentTime
-            );
+            )
             // samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
             samples[note.index].volume.gain.exponentialRampToValueAtTime(
               minWebAudioVolume,
               audioCtx.currentTime + envelope.release
-            );
-            samples[note.index] = null;
-          });
+            )
+            samples[note.index] = null
+          })
         }
-        break;
+        break
     }
-  });
-};
+  })
+}
