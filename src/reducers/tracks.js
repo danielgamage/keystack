@@ -51,7 +51,7 @@ const tracks = (state = defaultState, action) => {
     case "UPDATE_TRACK":
       return [...state].map(instrument => {
         if (instrument.id === action.id) {
-          return synth(instrument, action);
+          return track(instrument, action);
         } else {
           return instrument;
         }
@@ -59,7 +59,7 @@ const tracks = (state = defaultState, action) => {
     case "ADD_TRACK":
       return [
         ...state,
-        instrumentSchema[action.value]()
+        schema.instrument[action.value]()
         // ...state.slice(action.index, state.length)
       ];
     case "ADD_DEVICE_TO_TRACK":

@@ -1,11 +1,15 @@
 {
-  "name": "keystack-neue",
+  "name": "ksts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
     "d3": "^6.2.0",
     "node-sass": "^4.0.0",
     "react": "^17.0.1",
@@ -17,6 +21,7 @@
     "redux": "^4.0.5",
     "reselect": "^4.0.0",
     "styled-components": "^5.2.1",
+    "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
