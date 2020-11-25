@@ -1,0 +1,88 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.app {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+:root {
+  --white: #fdfcfb;
+  --grey-7: #f2f1f0;
+  --grey-6: #e8e9eb;
+  --grey-5: #cdd1d3;
+  --grey-4: #949496;
+  --grey-3: #87878b;
+  --grey-2: #7c7c7f;
+  --grey-1: #5a5a5f;
+  --grey-0: #444649;
+  --black: #3a3b3e;
+
+  --orange-dark: #f98e00;
+  --orange: #ffa850;
+  --orange-bright: #ffd4ae;
+  --red-dark: #f76d6d;
+  --red: #ff7e7b;
+  --red-bright: #ffc5c5;
+  --magenta-dark: #f067ab;
+  --magenta: #ff8dbb;
+  --magenta-bright: #ffcfe6;
+  --purple-dark: #9b7ff2;
+  --purple: #bba5ff;
+  --purple-bright: #d4caff;
+  --blue-dark: #5b94ef;
+  --blue: #8db9ff;
+  --blue-bright: #b8d5ff;
+  --aqua-dark: #1cc9bc;
+  --aqua: #6fddd0;
+  --aqua-bright: #b0f7ee;
+  --green-dark: #6bc93f;
+  --green: #94ed6b;
+  --green-bright: #caf9b2;
+  --yellow-dark: #fcbd30;
+  --yellow: #ffd149;
+  --yellow-bright: #ffeea4;
+  --accent-dark: var(--orange-dark);
+  --accent: var(--orange);
+  --accent-bright: var(--orange-bright);
+
+  --sans: "Source Sans Pro", sans-serif;
+  --sc: "Source Sans Pro", sans-serif;
+
+  --radius: 3px;
+}
+
+.theme--light {
+  --foreground-lllll: var(--grey-4);
+  --foreground-llll: var(--grey-3);
+  --foreground-lll: var(--grey-2);
+  --foreground-ll: var(--grey-1);
+  --foreground-l: var(--grey-0);
+  --foreground: var(--black);
+
+  --background-elevated: var(--white);
+  --background: var(--grey-7);
+  --background-recessed: var(--grey-6);
+  --background-deep: var(--grey-5);
+}
+.theme--dark {
+  --foreground-lllll: var(--grey-3);
+  --foreground-llll: var(--grey-4);
+  --foreground-lll: var(--grey-5);
+  --foreground-ll: var(--grey-6);
+  --foreground-l: var(--grey-7);
+  --foreground: var(--white);
+
+  --background-elevated: var(--black);
+  --background: var(--grey-0);
+  --background-recessed: var(--grey-1);
+  --background-deep: var(--grey-2);
+}

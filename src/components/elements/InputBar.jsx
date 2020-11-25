@@ -1,4 +1,10 @@
-import React, { Component, useState, useRef, useEffect } from "react"
+import React, {
+  forwardRef,
+  Component,
+  useState,
+  useRef,
+  useEffect,
+} from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { arc } from "d3-shape"
@@ -165,7 +171,7 @@ const InputBar = (props) => {
           min={props.min}
           max={props.max}
           value={inputValue}
-          step={props.steps.default || 1}
+          step={props.steps?.default || 1}
           onFocus={handleFocus}
           onBlur={handleBlur}
           defaultValue={props.defaultValue}

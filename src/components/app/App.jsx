@@ -1,26 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindKeyboardEvents, unbindKeyboardEvents } from 'utils/keyboard'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { bindKeyboardEvents, unbindKeyboardEvents } from "utils/keyboard"
 
-import styled, { ThemeProvider } from 'styled-components'
-import vars from 'variables'
+import styled, { ThemeProvider } from "styled-components"
+import vars from "variables"
 
-import {
-  TrackSettings,
-  StatusBar,
-  Visualizers,
-} from 'components'
+import { TrackSettings, StatusBar, Visualizers } from "components"
 
 const StyledApp = styled.div`
   height: 100%;
-  background-color: ${props => props.theme.lightness === 'light'
-    ? vars.white
-    : vars.grey_0
-  };
-  color: ${props => props.theme.lightness === 'light'
-    ? vars.grey_3
-    : vars.grey_5
-  };
+  background-color: var(--background);
+  color: var(--foreground-lll);
 
   .app-container {
     height: 100%;
@@ -39,23 +29,22 @@ const StyledApp = styled.div`
     flex: 0 0 auto;
     width: calc((100% / 2) - 0.5rem);
   }
-
 `
 
 class App extends Component {
-  componentDidMount () {
+  componentDidMount() {
     bindKeyboardEvents()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     unbindKeyboardEvents()
   }
 
-  render () {
+  render() {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <StyledApp>
-          <div className='app-container'>
+        <StyledApp className={`hello theme--${this.props.theme.lightness}`}>
+          <div className="app-container">
             <StatusBar />
             <main>
               <Visualizers />
@@ -68,7 +57,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     theme: state.preferences.theme,
   }

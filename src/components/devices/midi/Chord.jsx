@@ -148,7 +148,7 @@ class Chord extends Component {
       })
     }
     if (prevState.isPickerOpen === false && this.state.isPickerOpen === true) {
-      this.filterInputElement.inputElement.current.focus()
+      this.filterInputElement.current.inputElement.current.focus()
     }
   }
 
