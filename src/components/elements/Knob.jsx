@@ -41,17 +41,17 @@ export const StyledKnob = styled.div`
   }
   .fader-knob {
     transition: 0.2s ease;
-    fill: ${vars.grey_2};
+    fill: var(--grey-2);
     opacity: 0;
   }
   .fader-track {
-    stroke: ${vars.grey_2};
+    stroke: var(--grey-2);
   }
   .fader-pointer {
-    stroke: ${vars.grey_7};
+    stroke: var(--grey-7);
   }
   .fader-value {
-    stroke: ${(props) => vars.accents[props.theme.accent][1]};
+    stroke: var(--accent);
   }
   .input-output {
     position: relative;

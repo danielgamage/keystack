@@ -11,8 +11,8 @@ export const StyledInput = styled(StyledText)`
   padding: 4px 8px 3px;
   border: 0;
 
-  background: ${vars.grey_7};
-  color: ${vars.grey_1};
+  background: var(--grey-7);
+  color: var(--grey-1);
   border-radius: ${vars.radius};
 
   appearance: none;

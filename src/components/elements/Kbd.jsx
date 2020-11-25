@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-import vars from '../../variables.js'
+import vars from "../../variables.js"
 
 export const StyledKbd = styled.kbd`
   display: inline-block;
@@ -11,8 +11,8 @@ export const StyledKbd = styled.kbd`
   padding: 0.2rem;
   border: 1px solid;
 
-  background: ${vars.grey_0};
-  color: ${vars.grey_5};
+  background: var(--grey-0);
+  color: var(--grey-5);
   border-radius: ${vars.radius};
 
   font-family: ${vars.sc};
@@ -23,12 +23,8 @@ export const StyledKbd = styled.kbd`
 `
 
 class Button extends React.Component {
-  render () {
-    return (
-      <StyledKbd {...this.props}>
-        {this.props.children}
-      </StyledKbd>
-    )
+  render() {
+    return <StyledKbd {...this.props}>{this.props.children}</StyledKbd>
   }
 }
 

@@ -43,7 +43,14 @@ class App extends Component {
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <StyledApp className={`hello theme--${this.props.theme.lightness}`}>
+        <StyledApp
+          className={`hello theme--${this.props.theme.lightness}`}
+          style={{
+            "--accent-dark": `var(--${this.props.theme.accent}-dark)`,
+            "--accent": `var(--${this.props.theme.accent})`,
+            "--accent-bright": `var(--${this.props.theme.accent}-bright)`,
+          }}
+        >
           <div className="app-container">
             <StatusBar />
             <main>

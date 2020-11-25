@@ -1,31 +1,22 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindKeyboardEvents, unbindKeyboardEvents } from 'utils/keyboard'
-import {
-  Button,
-  Text,
-  Icon,
-  RemoveButton,
-} from 'components'
-import xIcon from 'images/icon/x.svg'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { bindKeyboardEvents, unbindKeyboardEvents } from "utils/keyboard"
+import { Button, Text, Icon, RemoveButton } from "components"
+import xIcon from "images/icon/x.svg"
 
-import styled from 'styled-components'
-import vars from 'variables'
+import styled from "styled-components"
+import vars from "variables"
 
 const StyledItem = styled.div`
   transition: height 0.3s ease, background 0.4s ease;
   margin: 0 -2rem;
   padding: 1rem 2rem;
-  background-color: ${props => props.theme.lightness === 'light'
-    ? vars.grey_0
-    : vars.black
-  };
+  background-color: ${(props) =>
+    props.theme.lightness === "light" ? vars.grey_0 : vars.black};
   &.selected,
   &.dragging {
-    background-color: ${props => props.theme.lightness === 'light'
-      ? vars.grey_1
-      : vars.grey_0
-    };
+    background-color: ${(props) =>
+      props.theme.lightness === "light" ? vars.grey_1 : vars.grey_0};
   }
   .item-header {
     cursor: move;
@@ -36,7 +27,8 @@ const StyledItem = styled.div`
     .title {
       position: relative;
       -webkit-font-smoothing: antialiased;
-      h3, input {
+      h3,
+      input {
         font-size: 1.3rem;
         font-weight: 700;
         line-height: 1;
@@ -75,7 +67,7 @@ const StyledItem = styled.div`
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      fill: ${vars.grey_5};
+      fill: var(--grey-5);
     }
     &:hover,
     &:focus {
@@ -94,111 +86,118 @@ const StyledItem = styled.div`
 `
 
 class Item extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       titleFocus: false,
-      dragging: false
+      dragging: false,
     }
     this.index = 0
     this.getDragIndex = this.getDragIndex.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleMouseUp = this.handleMouseUp.bind(this)
   }
-  getDragIndex (e) {
+  getDragIndex(e) {
     const items = [...document.querySelectorAll(`.item`)]
     let dragIndex
-    if (items.some((box, i) => { // use some to return as soon as a match is found
-      dragIndex = i
-      const bounds = box.getBoundingClientRect()
-      const midline = bounds.top + (bounds.height / 2)
-      return e.pageY < midline
-    })) {
+    if (
+      items.some((box, i) => {
+        // use some to return as soon as a match is found
+        dragIndex = i
+        const bounds = box.getBoundingClientRect()
+        const midline = bounds.top + bounds.height / 2
+        return e.pageY < midline
+      })
+    ) {
       return dragIndex
     } else {
       return items.length
     }
   }
-  handleDrag (e) {
+  handleDrag(e) {
     e.preventDefault()
     const index = this.getDragIndex(e)
 
     if (!this.state.dragging) {
-      document.body.classList.add('cursor--move')
+      document.body.classList.add("cursor--move")
       this.setState({
-        dragging: true
+        dragging: true,
       })
     }
     if (index !== this.index) {
       this.props.dispatch({
-        type: 'UPDATE_VIEW',
-        property: 'dragging',
-        value: true
+        type: "UPDATE_VIEW",
+        property: "dragging",
+        value: true,
       })
       this.props.dispatch({
         type: `MOVE_DEVICE`,
         id: this.props.item.id,
-        newIndex: index
+        newIndex: index,
       })
     }
     this.index = index
   }
-  handleMouseUp (e) {
-    document.removeEventListener('mousemove', this.handleDrag)
-    document.removeEventListener('mouseup', this.handleMouseUp)
-    document.removeEventListener('mouseleave', this.handleMouseUp)
-    document.body.classList.remove('cursor--move')
+  handleMouseUp(e) {
+    document.removeEventListener("mousemove", this.handleDrag)
+    document.removeEventListener("mouseup", this.handleMouseUp)
+    document.removeEventListener("mouseleave", this.handleMouseUp)
+    document.body.classList.remove("cursor--move")
     this.setState({
-      dragging: false
+      dragging: false,
     })
     this.props.dispatch({
-      type: 'UPDATE_VIEW',
-      property: 'dragging',
-      value: false
+      type: "UPDATE_VIEW",
+      property: "dragging",
+      value: false,
     })
   }
-  render () {
+  render() {
     return (
       <StyledItem
-        className={`item item-${this.props.type} ${this.state.dragging ? 'dragging' : ''}`}
+        className={`item item-${this.props.type} ${
+          this.state.dragging ? "dragging" : ""
+        }`}
       >
         <header
-          className='item-header'
+          className="item-header"
           onMouseDown={(e) => {
-            document.addEventListener('mousemove', this.handleDrag)
-            document.addEventListener('mouseup', this.handleMouseUp)
-            document.addEventListener('mouseleave', this.handleMouseUp)
+            document.addEventListener("mousemove", this.handleDrag)
+            document.addEventListener("mouseup", this.handleMouseUp)
+            document.addEventListener("mouseleave", this.handleMouseUp)
           }}
         >
-          <Text
-            type='h2'
-            className='title item-title'
-          >
+          <Text type="h2" className="title item-title">
             <div
               onMouseDown={(e) => {
                 this.mouseDownX = e.pageX
                 this.mouseDownY = e.pageY
               }}
               onMouseUp={(e) => {
-                if (this.mouseDownX === e.pageX && this.mouseDownY === e.pageY) {
+                if (
+                  this.mouseDownX === e.pageX &&
+                  this.mouseDownY === e.pageY
+                ) {
                   this.titleInput.focus()
                 }
               }}
-              className={this.state.titleFocus ? '' : 'active'}
-            >{this.props.item.name}</div>
+              className={this.state.titleFocus ? "" : "active"}
+            >
+              {this.props.item.name}
+            </div>
 
             <input
-              ref={t => this.titleInput = t}
-              className={this.state.titleFocus ? 'active' : ''}
+              ref={(t) => (this.titleInput = t)}
+              className={this.state.titleFocus ? "active" : ""}
               onFocus={() => {
                 this.setState({
-                  titleFocus: true
+                  titleFocus: true,
                 })
                 unbindKeyboardEvents()
               }}
               onBlur={() => {
                 this.setState({
-                  titleFocus: false
+                  titleFocus: false,
                 })
                 bindKeyboardEvents()
               }}
@@ -206,32 +205,29 @@ class Item extends Component {
                 this.props.dispatch({
                   type: `UPDATE_DEVICE`,
                   id: this.props.item.id,
-                  property: 'name',
-                  value: e.target.value
+                  property: "name",
+                  value: e.target.value,
                 })
               }}
-              type='text'
-              value={this.props.item.name} />
+              type="text"
+              value={this.props.item.name}
+            />
           </Text>
-          <div className='aux'>
-            {this.props.headerChildren}
-          </div>
+          <div className="aux">{this.props.headerChildren}</div>
           <RemoveButton
             onClick={() => {
               this.props.dispatch({
                 type: `REMOVE_DEVICE`,
-                id: this.props.item.id
+                id: this.props.item.id,
               })
             }}
             onMouseDown={(e) => {
               e.stopPropagation()
             }}
-            title='remove device'
+            title="remove device"
           />
         </header>
-        <div className='item-body'>
-          {this.props.children}
-        </div>
+        <div className="item-body">{this.props.children}</div>
       </StyledItem>
     )
   }

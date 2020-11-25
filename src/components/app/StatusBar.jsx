@@ -1,30 +1,22 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { saveProject, loadProject } from 'utils/store'
-import {
-  Midi,
-  Help,
-  UserSettings,
-  Icon,
-} from 'components'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { saveProject, loadProject } from "utils/store"
+import { Midi, Help, UserSettings, Icon } from "components"
 
-import downloadIcon from 'images/icon/download.svg'
-import uploadIcon from 'images/icon/upload.svg'
+import downloadIcon from "images/icon/download.svg"
+import uploadIcon from "images/icon/upload.svg"
 
-import styled from 'styled-components'
-import vars from 'variables'
+import styled from "styled-components"
+import vars from "variables"
 
 const StyledStatusBar = styled.div`
   height: 2rem;
   display: flex;
-  background-color: ${props => props.theme.lightness === 'light'
-    ? vars.grey_6
-    : vars.grey_1
-  };
-  color: ${props => props.theme.lightness === 'light'
-    ? vars.grey_3
-    : vars.grey_5
-  };
+  gap: 1rem;
+  background-color: ${(props) =>
+    props.theme.lightness === "light" ? vars.grey_6 : vars.grey_1};
+  color: ${(props) =>
+    props.theme.lightness === "light" ? vars.grey_3 : vars.grey_5};
 
   border-radius: ${vars.radius};
   .file-operations {
@@ -35,7 +27,7 @@ const StyledStatusBar = styled.div`
   .button {
     color: inherit;
     & + .button {
-      margin-left: 8px
+      margin-left: 8px;
     }
 
     ${vars.mixins.button_reset}
@@ -48,36 +40,28 @@ const StyledStatusBar = styled.div`
 `
 
 class StatusBar extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
-  render () {
+  render() {
     return (
       <StyledStatusBar>
         <div className="file-operations">
           <button
-            className='button'
+            className="button"
             onClick={() => {
               saveProject()
             }}
-            >
-            <Icon
-              className='icon'
-              src={downloadIcon}
-              scale={2}
-            />
+          >
+            <Icon className="icon" src={downloadIcon} scale={2} />
           </button>
           <button
-            className='button'
+            className="button"
             onClick={() => {
               loadProject()
             }}
-            >
-            <Icon
-              className='icon'
-              src={uploadIcon}
-              scale={2}
-            />
+          >
+            <Icon className="icon" src={uploadIcon} scale={2} />
           </button>
         </div>
 

@@ -1,21 +1,15 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import styled from 'styled-components'
-import vars from 'variables'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import styled from "styled-components"
+import vars from "variables"
 
-import {
-  Icon,
-  Text,
-  ThemeSettings,
-  Kbd,
-  Popover
-} from 'components'
+import { Icon, Text, Kbd, Popover } from "components"
 
-import helpIcon from 'images/icon/help.svg'
+import helpIcon from "images/icon/help.svg"
 
 const keyboardRows = [
   {
-    color: 'black',
+    color: "black",
     keys: [
       { key: `Q`, disabled: true },
       { key: `W`, disabled: false },
@@ -28,11 +22,11 @@ const keyboardRows = [
       { key: `O`, disabled: false },
       { key: `P`, disabled: false },
       { key: `[`, disabled: true },
-      { key: `]`, disabled: false }
-    ]
+      { key: `]`, disabled: false },
+    ],
   },
   {
-    color: 'white',
+    color: "white",
     keys: [
       { key: `A`, disabled: false },
       { key: `S`, disabled: false },
@@ -44,9 +38,9 @@ const keyboardRows = [
       { key: `K`, disabled: false },
       { key: `L`, disabled: false },
       { key: `;`, disabled: false },
-      { key: `'`, disabled: false }
-    ]
-  }
+      { key: `'`, disabled: false },
+    ],
+  },
 ]
 
 const StyledHelp = styled.div`
@@ -79,14 +73,14 @@ const StyledHelp = styled.div`
       }
       &.black {
         kbd {
-          border-color: ${vars.grey_0};
+          border-color: var(--grey-0);
         }
       }
       &.white {
         kbd {
-          color: ${vars.grey_0};
-          background: ${vars.grey_6};
-          border-color: ${vars.grey_4};
+          color: var(--grey-0);
+          background: var(--grey-6);
+          border-color: var(--grey-4);
         }
       }
     }
@@ -94,7 +88,7 @@ const StyledHelp = styled.div`
 `
 
 class Help extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       isOpen: false,
@@ -104,61 +98,65 @@ class Help extends Component {
     this.closePopover = this.closePopover.bind(this)
   }
 
-  togglePopover () {
+  togglePopover() {
     this.setState({ isOpen: !this.state.isOpen })
   }
 
-  closePopover () {
+  closePopover() {
     this.setState({
-      isOpen: false
+      isOpen: false,
     })
   }
 
-  render () {
+  render() {
     return (
       <StyledHelp>
         <button
-          className='button'
-          title={`${this.state.isOpen ? 'Close' : 'Open'} Help Panel`}
+          className="button"
+          title={`${this.state.isOpen ? "Close" : "Open"} Help Panel`}
           onClick={(e) => {
             this.setState({ isOpen: !this.state.isOpen })
           }}
         >
-          <Icon
-            className={`icon icon--help`}
-            src={helpIcon}
-            scale={2}
-          />
+          <Icon className={`icon icon--help`} src={helpIcon} scale={2} />
         </button>
 
         <Popover
           isOpen={this.state.isOpen}
           onClickOutside={this.closePopover}
-          place='below'
+          place="below"
         >
           <div className="help-container">
-            <Text type='h3'>Help</Text>
-            <div className='flex-container'>
+            <Text type="h3">Help</Text>
+            <div className="flex-container">
               <section>
-                <Text type='h2'>octave</Text>
-                <Kbd title='z shifts octave down'>z</Kbd>/<Kbd title='x shifts octave up'>x</Kbd>
+                <Text type="h2">octave</Text>
+                <Kbd title="z shifts octave down">z</Kbd>/
+                <Kbd title="x shifts octave up">x</Kbd>
               </section>
               <section>
-                <Text type='h2'>notes</Text>
-                <div className='keyboard'>
-                  {keyboardRows.map(row => (
+                <Text type="h2">notes</Text>
+                <div className="keyboard">
+                  {keyboardRows.map((row) => (
                     <div key={row.color} className={`row ${row.color}`}>
-                      {row.keys.map(key => (
-                        <Kbd key={key.key} disabled={key.disabled}>{key.key}</Kbd>
-                        ))}
+                      {row.keys.map((key) => (
+                        <Kbd key={key.key} disabled={key.disabled}>
+                          {key.key}
+                        </Kbd>
+                      ))}
                     </div>
-                    ))}
+                  ))}
                 </div>
               </section>
             </div>
 
             <div>
-              <a className='button' href='https://github.com/danielgamage/keystack'>Keystack on GitHub</a>
+              <a
+                className="button"
+                href="https://github.com/danielgamage/keystack"
+              >
+                Keystack on GitHub
+              </a>
             </div>
           </div>
         </Popover>
@@ -167,8 +165,7 @@ class Help extends Component {
   }
 }
 
-
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     theme: state.preferences.theme,
   }

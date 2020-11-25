@@ -1,11 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-import vars from 'variables'
+import vars from "variables"
 
-import {
-  Text,
-} from 'components'
+import { Text } from "components"
 
 export const StyledSelect = styled.div`
   display: inline-block;
@@ -21,10 +19,10 @@ export const StyledSelect = styled.div`
     height: 0;
     margin-top: -0.15rem;
     pointer-events: none;
-    border-top: .3rem solid ${vars.grey_6};
-    border-right: .25rem solid transparent;
-    border-bottom: .3rem solid transparent;
-    border-left: .25rem solid transparent;
+    border-top: 0.3rem solid var(--grey-6);
+    border-right: 0.25rem solid transparent;
+    border-bottom: 0.3rem solid transparent;
+    border-left: 0.25rem solid transparent;
   }
 
   select {
@@ -35,29 +33,31 @@ export const StyledSelect = styled.div`
     appearance: none;
     cursor: pointer;
 
-    background: ${vars.grey_1};
-    color: ${vars.grey_6};
+    background: var(--grey-1);
+    color: var(--grey-6);
     border-radius: ${vars.radius};
 
     &:hover,
     &:focus {
-      background: ${vars.grey_2};
+      background: var(--grey-2);
     }
   }
 `
 
 class Button extends React.Component {
-  render () {
+  render() {
     return (
-      <StyledSelect {...this.props} type='button'>
-        <Text type='h3'>
+      <StyledSelect {...this.props} type="button">
+        <Text type="h3">
           <select
             onChange={(e) => {
               this.props.onUpdate(e.target.value)
             }}
           >
-            {this.props.options.map(option => (
-              <option key={option.value} value={option.value}>{option.label}</option>
+            {this.props.options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
         </Text>

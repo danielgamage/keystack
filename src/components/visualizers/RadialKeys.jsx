@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { store } from 'utils/store'
-import { startNote, stopNote } from 'utils/notes'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { store } from "utils/store"
+import { startNote, stopNote } from "utils/notes"
 
-import { select, selectAll } from 'd3-selection'
-import { axisLeft } from 'd3-axis'
-import { scaleLinear } from 'd3-scale'
-import { radialLine } from 'd3-shape'
-import { range } from 'd3-array'
+import { select, selectAll } from "d3-selection"
+import { axisLeft } from "d3-axis"
+import { scaleLinear } from "d3-scale"
+import { radialLine } from "d3-shape"
+import { range } from "d3-array"
 
-import { keys, noteForIndex } from 'utils'
-import styled from 'styled-components'
-import vars from 'variables'
+import { keys, noteForIndex } from "utils"
+import styled from "styled-components"
+import vars from "variables"
 
 const StyledRadialKeys = styled.div`
   #chart {
@@ -24,20 +24,18 @@ const StyledRadialKeys = styled.div`
   }
   .play-area,
   .settings {
-    width: calc((100% - 2rem) / 2)
+    width: calc((100% - 2rem) / 2);
   }
 
   .axis {
     & text {
       font-size: 13px;
-      fill: ${vars.grey_0};
+      fill: var(--grey-0);
     }
   }
   circle.tick {
-    fill: ${props => props.theme.lightness === 'dark'
-      ? vars.grey_1
-      : vars.grey_6
-    };
+    fill: ${(props) =>
+      props.theme.lightness === "dark" ? vars.grey_1 : vars.grey_6};
     stroke-dasharray: 2 3;
   }
   path.spiral {
@@ -45,20 +43,20 @@ const StyledRadialKeys = styled.div`
     stroke-width: 14px;
     transition: 0.3s ease-out;
     &.black {
-      stroke: ${vars.grey_0};
+      stroke: var(--grey-0);
     }
     &.white {
       stroke: ${vars.white};
     }
     &.on {
       transition: 0s ease;
-      stroke: ${props => vars.accents[props.theme.accent][0]};
+      stroke: ${(props) => vars.accents[props.theme.accent][0]};
     }
   }
 `
 
 class RadialKeys extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.interact = this.interact.bind(this)
     this.unBind = this.unBind.bind(this)
@@ -66,7 +64,7 @@ class RadialKeys extends Component {
     this.radialNoteOff = this.radialNoteOff.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     var width = 400,
       height = 400,
       num_axes = 12,
@@ -79,50 +77,59 @@ class RadialKeys extends Component {
       .domain([start, end])
       .range([0, Math.min(width, height) / 2 - 25])
 
-    var angle = scaleLinear()
-      .domain([0, num_axes])
-      .range([0, 360])
+    var angle = scaleLinear().domain([0, num_axes]).range([0, 360])
 
-    var svg = select('#chart').append('svg')
-        .attr('class', 'radial-keys')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('viewBox', `0 0 ${width} ${height}`)
-      .append('g')
-        .attr('transform', 'translate(' + width / 2 + ',' + (height / 2) + ')')
+    var svg = select("#chart")
+      .append("svg")
+      .attr("class", "radial-keys")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
-    svg.selectAll('circle.tick')
-        .data(range(end, start, (start - end) / 8))
-      .enter().append('circle')
-        .attr('class', 'tick')
-        .attr('cx', 0)
-        .attr('cy', 0)
-        .attr('r', function (d) { return radius(d) })
+    svg
+      .selectAll("circle.tick")
+      .data(range(end, start, (start - end) / 8))
+      .enter()
+      .append("circle")
+      .attr("class", "tick")
+      .attr("cx", 0)
+      .attr("cy", 0)
+      .attr("r", function (d) {
+        return radius(d)
+      })
 
-    svg.selectAll('.axis')
-        .data(range(num_axes))
-      .enter().append('g')
-        .attr('class', 'axis')
-        .attr('transform', function (d) { return 'rotate(' + -angle(d) + ')' })
+    svg
+      .selectAll(".axis")
+      .data(range(num_axes))
+      .enter()
+      .append("g")
+      .attr("class", "axis")
+      .attr("transform", function (d) {
+        return "rotate(" + -angle(d) + ")"
+      })
       .call(radial_tick)
-      .append('text')
-        .attr('y', radius(end) + 24)
-        .text(function (d, i) {
-          return noteForIndex(i)
-        })
-        .attr('text-anchor', 'middle')
-        .attr('transform', function (d) { return 'rotate(' + (180 - (360 / 12 / 2)) + ')' })
+      .append("text")
+      .attr("y", radius(end) + 24)
+      .text(function (d, i) {
+        return noteForIndex(i)
+      })
+      .attr("text-anchor", "middle")
+      .attr("transform", function (d) {
+        return "rotate(" + (180 - 360 / 12 / 2) + ")"
+      })
 
-    function radial_tick (selection) {
+    function radial_tick(selection) {
       selection.each(function (axis_num) {
         axisLeft(radius)
           .ticks(5)
           .tickValues(axis_num == tick_axis ? null : [])
 
         select(this)
-          .selectAll('text')
-          .attr('text-anchor', 'bottom')
-          .attr('transform', 'rotate(' + angle(axis_num) + ')')
+          .selectAll("text")
+          .attr("text-anchor", "bottom")
+          .attr("transform", "rotate(" + angle(axis_num) + ")")
       })
     }
 
@@ -133,90 +140,91 @@ class RadialKeys extends Component {
       var r = end * 5
 
       var theta = function (r) {
-    	  return -2 * Math.PI * r
-    	}
+        return -2 * Math.PI * r
+      }
 
       var radius2 = scaleLinear()
         .domain([start, end])
         .range([0, Math.min(width, height) / 3.5])
 
-    	var spiral = radialLine()
-    	  .angle(theta)
-    	  .radius(radius2)
+      var spiral = radialLine().angle(theta).radius(radius2)
 
-      svg.selectAll(`.spiral.spiral-${i}`)
-    	    .data([el])
-    	  .enter().append('path')
-    	    .attr('data-index', () => i)
-    	    .attr('class', (d) => `spiral spiral-${i} ${(d.black) ? 'black' : 'white'}`)
-    	    .attr('d', (d) => spiral(pieces))
+      svg
+        .selectAll(`.spiral.spiral-${i}`)
+        .data([el])
+        .enter()
+        .append("path")
+        .attr("data-index", () => i)
+        .attr(
+          "class",
+          (d) => `spiral spiral-${i} ${d.black ? "black" : "white"}`
+        )
+        .attr("d", (d) => spiral(pieces))
     })
 
-    const radialKeys = document.querySelector('.radial-keys')
-    radialKeys.addEventListener('mousedown', this.interact)
-    radialKeys.addEventListener('touchstart', this.interact)
+    const radialKeys = document.querySelector(".radial-keys")
+    radialKeys.addEventListener("mousedown", this.interact)
+    radialKeys.addEventListener("touchstart", this.interact)
   }
 
-  interact (event) {
-    if ([...event.target.classList].includes('spiral')) {
+  interact(event) {
+    if ([...event.target.classList].includes("spiral")) {
       this.radialNoteOn(event)
     }
 
     event.preventDefault()
-
-    ;[...document.querySelectorAll('.spiral')].map((el, i) => {
-      el.addEventListener('mousemove', this.radialNoteOn)
-      el.addEventListener('mouseleave', this.radialNoteOff)
-      el.addEventListener('mouseup', this.radialNoteOff)
-      el.addEventListener('touchmove', this.radialNoteOn)
-      el.addEventListener('touchcancel', this.radialNoteOff)
-      el.addEventListener('touchend', this.radialNoteOff)
+    ;[...document.querySelectorAll(".spiral")].map((el, i) => {
+      el.addEventListener("mousemove", this.radialNoteOn)
+      el.addEventListener("mouseleave", this.radialNoteOff)
+      el.addEventListener("mouseup", this.radialNoteOff)
+      el.addEventListener("touchmove", this.radialNoteOn)
+      el.addEventListener("touchcancel", this.radialNoteOff)
+      el.addEventListener("touchend", this.radialNoteOff)
     })
 
-    window.addEventListener('mouseup', this.unBind)
-    window.addEventListener('mouseleave', this.unBind)
-    window.addEventListener('touchend', this.unBind)
+    window.addEventListener("mouseup", this.unBind)
+    window.addEventListener("mouseleave", this.unBind)
+    window.addEventListener("touchend", this.unBind)
   }
 
-  unBind (event) {
-    ;[...document.querySelectorAll('.spiral')].map((el, i) => {
-      el.removeEventListener('mousemove', this.radialNoteOn)
-      el.removeEventListener('mouseleave', this.radialNoteOff)
-      el.removeEventListener('mouseup', this.radialNoteOff)
-      el.removeEventListener('touchmove', this.radialNoteOn)
-      el.removeEventListener('touchcancel', this.radialNoteOff)
-      el.removeEventListener('touchend', this.radialNoteOff)
-    })
-  }
-
-  radialNoteOn (e) {
-    startNote(keys[e.target.getAttribute('data-index')])
-  }
-
-  radialNoteOff (e) {
-    stopNote(keys[e.target.getAttribute('data-index')])
-  }
-
-  componentWillReceiveProps (nextProps) {
-    [...document.querySelectorAll(`.spiral.on`)].map(note => {
-      note.classList.remove('on')
-    })
-    nextProps.notes[this.props.midiReadPosition].map(note => {
-      document.querySelector(`.spiral-${note.index}`)
-        .classList.add('on')
+  unBind(event) {
+    ;[...document.querySelectorAll(".spiral")].map((el, i) => {
+      el.removeEventListener("mousemove", this.radialNoteOn)
+      el.removeEventListener("mouseleave", this.radialNoteOff)
+      el.removeEventListener("mouseup", this.radialNoteOff)
+      el.removeEventListener("touchmove", this.radialNoteOn)
+      el.removeEventListener("touchcancel", this.radialNoteOff)
+      el.removeEventListener("touchend", this.radialNoteOff)
     })
   }
 
-  render () {
+  radialNoteOn(e) {
+    startNote(keys[e.target.getAttribute("data-index")])
+  }
+
+  radialNoteOff(e) {
+    stopNote(keys[e.target.getAttribute("data-index")])
+  }
+
+  componentWillReceiveProps(nextProps) {
+    ;[...document.querySelectorAll(`.spiral.on`)].map((note) => {
+      note.classList.remove("on")
+    })
+    nextProps.notes[this.props.midiReadPosition].map((note) => {
+      document.querySelector(`.spiral-${note.index}`).classList.add("on")
+    })
+  }
+
+  render() {
     return (
       <StyledRadialKeys>
-        <div id='chart' />
+        <div id="chart" />
       </StyledRadialKeys>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return { notes: state.notes, view: state.view }
 }
 

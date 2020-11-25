@@ -1,35 +1,35 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import styled from 'styled-components'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import styled from "styled-components"
 
-import { line, curveBundle } from 'd3-shape'
-import { scaleLinear, scaleBand, scalePow } from 'd3-scale'
-import { axisBottom, axisLeft } from 'd3-axis'
-import { select } from 'd3-selection'
-import { format } from 'd3-format'
+import { line, curveBundle } from "d3-shape"
+import { scaleLinear, scaleBand, scalePow } from "d3-scale"
+import { axisBottom, axisLeft } from "d3-axis"
+import { select } from "d3-selection"
+import { format } from "d3-format"
 
-import vars from 'variables.js'
+import vars from "variables.js"
 
 const viewBoxWidth = 256
 const viewBoxHeight = 128
 
 export const WaveformContainer = styled.div`
   padding: 8px;
-  background: ${vars.grey_0};
+  background: var(--grey-0);
   border-radius: ${vars.radius};
 
   .background {
-    fill: ${vars.grey_1}
+    fill: var(--grey-1);
   }
 
   .value {
-    fill: ${vars.grey_5}
+    fill: var(--grey-5);
   }
 `
 
 class Waveform extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.drawWave = this.drawWave.bind(this)
@@ -38,7 +38,7 @@ class Waveform extends Component {
     this.mouseUp = this.mouseUp.bind(this)
   }
 
-  componentWillMount () {
+  componentWillMount() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext
     this.audioContext = new window.AudioContext()
 
@@ -51,8 +51,8 @@ class Waveform extends Component {
     this.isPlaying = false
   }
 
-  componentDidMount () {
-    var canvas = document.getElementById('scope')
+  componentDidMount() {
+    var canvas = document.getElementById("scope")
     this.canvasContext = canvas.getContext("2d")
 
     canvas.height = 200
@@ -65,17 +65,21 @@ class Waveform extends Component {
 
     this.drawWave(this.analyser)
 
-    document.querySelector('button.start').addEventListener('mousedown', this.mouseDown)
-    document.querySelector('button.start').addEventListener('mouseup', this.mouseUp);
+    document
+      .querySelector("button.start")
+      .addEventListener("mousedown", this.mouseDown)
+    document
+      .querySelector("button.start")
+      .addEventListener("mouseup", this.mouseUp)
   }
 
-  mouseDown () {
+  mouseDown() {
     this.osc = this.audioContext.createOscillator()
 
     this.osc.frequency.value = 220
-    var imag= new Float32Array([0, ...this.props.value])  // sine
+    var imag = new Float32Array([0, ...this.props.value]) // sine
     var real = new Float32Array(imag.length) // cos
-    var customWave = this.audioContext.createPeriodicWave(real, imag)  // cos,sine
+    var customWave = this.audioContext.createPeriodicWave(real, imag) // cos,sine
     this.osc.setPeriodicWave(customWave)
 
     this.osc.connect(this.masterGain)
@@ -85,26 +89,31 @@ class Waveform extends Component {
     this.drawWave(this.analyser)
   }
 
-  mouseUp () {
+  mouseUp() {
     this.isPlaying = false
     this.osc.stop()
   }
 
-  drawWave () {
+  drawWave() {
     this.buffer = new Float32Array(512)
     this.w = this.canvasContext.canvas.width
 
     this.canvasContext.strokeStyle = vars.orange
-    this.canvasContext.setTransform(1,0,0,-1,0,100.5) // flip y-axis and translate to center
+    this.canvasContext.setTransform(1, 0, 0, -1, 0, 100.5) // flip y-axis and translate to center
     this.canvasContext.lineWidth = 2
 
     this.loop()
   }
 
-  loop () {
+  loop() {
     this.analyser.getFloatTimeDomainData(this.buffer)
 
-    this.canvasContext.clearRect(0, -100, this.w, this.canvasContext.canvas.height)
+    this.canvasContext.clearRect(
+      0,
+      -100,
+      this.w,
+      this.canvasContext.canvas.height
+    )
 
     this.canvasContext.beginPath()
     this.canvasContext.moveTo(0, this.buffer[0] * 90)
@@ -118,17 +127,15 @@ class Waveform extends Component {
     if (this.isPlaying) requestAnimationFrame(this.loop)
   }
 
-  render () {
-
+  render() {
     return (
       <WaveformContainer>
-        <canvas id='scope'></canvas>
-        <button className='start'>click me</button>
+        <canvas id="scope"></canvas>
+        <button className="start">click me</button>
       </WaveformContainer>
     )
   }
 }
-
 
 Waveform.propTypes = {
   value: PropTypes.array,

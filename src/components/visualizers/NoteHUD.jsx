@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react"
+import { connect } from "react-redux"
 
-import styled from 'styled-components'
-import vars from 'variables'
+import styled from "styled-components"
+import vars from "variables"
 
-import {
-  Icon,
-} from 'components'
+import { Icon } from "components"
 
-import matchChords from 'utils/matchChords'
-import eyeIcon from 'images/icon/eye.svg'
+import matchChords from "utils/matchChords"
+import eyeIcon from "images/icon/eye.svg"
 
 const StyledNoteHUD = styled.div`
   display: flex;
@@ -18,21 +16,22 @@ const StyledNoteHUD = styled.div`
   .section-icon {
     margin-right: 0.5rem;
   }
-  .icon--eye{
+  .icon--eye {
     transform: translateY(-0.5rem);
     flex: 0;
     cursor: pointer;
 
-    circle, path {
+    circle,
+    path {
       fill: none;
-      stroke: ${vars.grey_1};
+      stroke: var(--grey-1);
     }
     .pupil {
       transition: 0.5s ease;
     }
     &.on {
       .pupil {
-        fill: ${vars.grey_1};
+        fill: var(--grey-1);
       }
     }
   }
@@ -46,7 +45,7 @@ const StyledNoteHUD = styled.div`
     line-height: 1.5;
   }
   .empty {
-    color: ${vars.grey_5};
+    color: var(--grey-5);
   }
   .notes {
     display: inline-block;
@@ -67,59 +66,72 @@ const StyledNoteHUD = styled.div`
 `
 
 class NoteHUD extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      showHUD: true
+      showHUD: true,
     }
   }
-  switchTabs (tab) {
-    this.setState({tab: tab})
+  switchTabs(tab) {
+    this.setState({ tab: tab })
   }
-  render () {
+  render() {
     let matches = []
-    if (this.state.showHUD === true && this.props.notes[this.props.midiReadPosition].length > 0) {
+    if (
+      this.state.showHUD === true &&
+      this.props.notes[this.props.midiReadPosition].length > 0
+    ) {
       matches = matchChords([...this.props.notes[this.props.midiReadPosition]])
     }
     return (
       <StyledNoteHUD>
-        <div className='section-icon'>
+        <div className="section-icon">
           <Icon
-            className={`icon icon--eye ${this.state.showHUD && 'on'}`}
+            className={`icon icon--eye ${this.state.showHUD && "on"}`}
             onClick={() => {
-              this.setState({showHUD: !this.state.showHUD})
+              this.setState({ showHUD: !this.state.showHUD })
             }}
             src={eyeIcon}
-            />
+          />
         </div>
-        {(this.state.showHUD === true) &&
-        <div>
+        {this.state.showHUD === true && (
           <div>
-            <div className='viewer note-viewer'>{
-                this.props.notes[this.props.midiReadPosition].length > 0
-                ? this.props.notes[this.props.midiReadPosition].map(el => (
-                  <span key={el.note + el.octave} className='notes'>{el.note}<sub>{el.octave}</sub></span>
-                ))
-                : <span className='empty'>Notes will appear here.</span>
-              }</div>
-            <div className='viewer chord-viewer'>{
-                matches.length > 0
-                ? matches.map((match, i, arr) => (
-                  <span key={match.name} className='chord'>
-                    <span className='root'>{match.root}</span><span className='name'>{match.name}</span>
+            <div>
+              <div className="viewer note-viewer">
+                {this.props.notes[this.props.midiReadPosition].length > 0 ? (
+                  this.props.notes[this.props.midiReadPosition].map((el) => (
+                    <span key={el.note + el.octave} className="notes">
+                      {el.note}
+                      <sub>{el.octave}</sub>
+                    </span>
+                  ))
+                ) : (
+                  <span className="empty">Notes will appear here.</span>
+                )}
+              </div>
+              <div className="viewer chord-viewer">
+                {matches.length > 0 ? (
+                  matches.map((match, i, arr) => (
+                    <span key={match.name} className="chord">
+                      <span className="root">{match.root}</span>
+                      <span className="name">{match.name}</span>
+                    </span>
+                  ))
+                ) : (
+                  <span className="empty">
+                    Matched chords will appear here.
                   </span>
-                ))
-                : <span className='empty'>Matched chords will appear here.</span>
-              }</div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-        }
+        )}
       </StyledNoteHUD>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return { notes: state.notes, view: state.view }
 }
 

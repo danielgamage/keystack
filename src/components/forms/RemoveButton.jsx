@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
-import {
-  Button,
-  Icon,
-} from 'components'
-import xIcon from 'images/icon/x.svg'
+import React, { Component } from "react"
+import { Button, Icon } from "components"
+import xIcon from "images/icon/x.svg"
 
-import styled from 'styled-components'
-import vars from 'variables'
+import styled from "styled-components"
+import vars from "variables"
 
 const StyledButton = styled(Button)`
   position: relative;
@@ -19,7 +16,7 @@ const StyledButton = styled(Button)`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    fill: ${vars.grey_5};
+    fill: var(--grey-5);
   }
   &:hover,
   &:focus {
@@ -31,18 +28,14 @@ const StyledButton = styled(Button)`
 `
 
 class Item extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  render () {
+  render() {
     return (
       <StyledButton {...this.props}>
-        <Icon
-          className='icon--x'
-          src={xIcon}
-          scale={1.5}
-        />
+        <Icon className="icon--x" src={xIcon} scale={1.5} />
       </StyledButton>
     )
   }

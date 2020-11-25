@@ -40,12 +40,12 @@ const StyledChordDevice = styled.div`
       height: 32px;
       text-overflow: ellipsis;
       text-align: center;
-      background-color: ${vars.grey_1};
+      background-color: var(--grey-1);
       border-radius: ${vars.radius};
       cursor: pointer;
       &.active {
         background-color: ${(props) => vars.accents[props.theme.accent][1]};
-        color: ${vars.grey_0};
+        color: var(--grey-0);
       }
       &.open-index {
         box-shadow: 0 0 0 1px ${vars.white} inset;
@@ -57,8 +57,8 @@ const StyledChordDevice = styled.div`
       right: -3px;
       width: 13px;
       height: 13px;
-      background: ${vars.grey_2};
-      box-shadow: 0 0 0 1px ${vars.grey_0};
+      background: var(--grey-2);
+      box-shadow: 0 0 0 1px var(--grey-0);
       color: ${vars.white};
       border-radius: 50%;
     }
@@ -79,14 +79,14 @@ const StyledChordDevice = styled.div`
     width: 100%;
   }
   .popover .arrow {
-    fill: ${vars.grey_6};
+    fill: var(--grey-6);
   }
   .chord-list {
     height: 192px;
     overflow-y: auto;
     padding: 12px 16px;
-    background-color: ${vars.grey_6};
-    color: ${vars.grey_0};
+    background-color: var(--grey-6);
+    color: var(--grey-0);
   }
 
   .chord-group-title {
@@ -97,7 +97,7 @@ const StyledChordDevice = styled.div`
   }
 
   .chord-set {
-    color: ${vars.grey_4};
+    color: var(--grey-4);
   }
 
   .flex-container {

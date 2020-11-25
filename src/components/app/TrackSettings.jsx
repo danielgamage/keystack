@@ -1,47 +1,42 @@
 // RENAME: TrackDevices.jsx
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react"
+import { connect } from "react-redux"
 
-import FlipMove from 'react-flip-move'
+import FlipMove from "react-flip-move"
 
-import generateID from 'utils/generateID'
+import generateID from "utils/generateID"
 
 import {
   KeySynth,
   Sampler,
-
   Filter,
   StereoPanner,
   Compressor,
   Delay,
   Distortion,
-
   Transpose,
   Chord,
   DisableNotes,
-
   Text,
   Button,
-} from 'components'
+} from "components"
 
-import styled, { ThemeProvider } from 'styled-components'
-import vars from 'variables'
+import styled, { ThemeProvider } from "styled-components"
+import vars from "variables"
 
-import schema from 'reducers/schema'
+import schema from "reducers/schema"
 
 const StyledTrackSettings = styled.div`
   display: flex;
   flex-flow: column;
-  background-color: ${props => props.theme.lightness === 'light'
-    ? vars.grey_0
-    : vars.black
-  };
-  color: ${vars.grey_6};
+  background-color: ${(props) =>
+    props.theme.lightness === "light" ? vars.grey_0 : vars.black};
+  color: var(--grey-6);
   border-radius: $radius;
   &.add-open {
     .settings-container-add {
       height: 12rem;
-      box-shadow: 0 1rem 1rem rgba(0,0,0,0.1);
+      box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
     }
   }
   &.dragging {
@@ -65,7 +60,7 @@ const StyledTrackSettings = styled.div`
   .settings-inner-container {
     padding: 2rem;
   }
-  .settings-section{
+  .settings-section {
     position: relative;
   }
   .add-button,
@@ -75,7 +70,7 @@ const StyledTrackSettings = styled.div`
   hr {
     display: block;
     border: 0;
-    border-top: 2px solid ${vars.grey_1};
+    border-top: 2px solid var(--grey-1);
     margin: 0;
     &.edge {
       opacity: 0;
@@ -92,7 +87,7 @@ const StyledTrackSettings = styled.div`
     display: block;
     margin-bottom: 0.25rem;
     &:hover {
-      color: ${props => vars.accents[props.theme.accent][1]};
+      color: var(--accent);
     }
   }
   .add-item-toggle {
@@ -119,7 +114,7 @@ const StyledTrackSettings = styled.div`
   .vis-path {
     overflow: visible;
     margin: 1rem 0 2rem;
-    stroke: ${vars.grey_4};
+    stroke: var(--grey-4);
     fill: none;
     stroke-width: 2px;
     stroke-linejoin: round;
@@ -137,17 +132,17 @@ const StyledTrackSettings = styled.div`
       .domain {
         display: none;
       }
-      stroke: ${vars.grey_1};
+      stroke: var(--grey-1);
     }
   }
   .graph-axis {
     font-family: unset;
     font-size: 10px;
     .tick {
-      fill: ${vars.grey_4};
+      fill: var(--grey-4);
     }
     text {
-      fill: ${vars.grey_4};
+      fill: var(--grey-4);
       stroke: none;
     }
   }
@@ -183,7 +178,7 @@ const StyledTrackSettings = styled.div`
     width: calc(100% / 6);
   }
 
-  .sample{
+  .sample {
     .frame,
     .loop-bar,
     .loop-marker,
@@ -192,10 +187,10 @@ const StyledTrackSettings = styled.div`
       stroke-width: 1px;
     }
     .frame {
-      stroke: ${vars.grey_1};
+      stroke: var(--grey-1);
     }
     .start-marker-flag {
-      fill: ${vars.grey_4};
+      fill: var(--grey-4);
     }
     .sample-text {
       display: none;
@@ -203,7 +198,7 @@ const StyledTrackSettings = styled.div`
       ${vars.mixins.sc};
 
       font-size: 0.6rem;
-      fill: ${vars.grey_4};
+      fill: var(--grey-4);
       stroke: none;
     }
     .vis-path {
@@ -213,11 +208,11 @@ const StyledTrackSettings = styled.div`
           display: block;
         }
         .waveform {
-          stroke: ${vars.grey_1};
+          stroke: var(--grey-1);
         }
       }
       &.dragging {
-        background-color: ${vars.grey_1};
+        background-color: var(--grey-1);
         .drop-text {
           display: block;
         }
@@ -227,8 +222,8 @@ const StyledTrackSettings = styled.div`
       }
     }
     .inactive-cover {
-      fill: ${vars.grey_0};
-      stroke: ${vars.grey_0};
+      fill: var(--grey-0);
+      stroke: var(--grey-0);
       opacity: 0.9;
     }
   }
@@ -242,7 +237,7 @@ const StyledTrackSettings = styled.div`
       overflow: scroll;
     }
     .size {
-      color: ${vars.grey_3};
+      color: var(--grey-3);
       margin-left: 1rem;
     }
   }
@@ -250,39 +245,43 @@ const StyledTrackSettings = styled.div`
 
 const devicesByName = {
   midi: {
-    'Transpose': Transpose,
-    'Chord': Chord,
-    'DisableNotes': DisableNotes
+    Transpose: Transpose,
+    Chord: Chord,
+    DisableNotes: DisableNotes,
   },
   instrument: {
-    'KeySynth': KeySynth,
-    'Sampler': Sampler
+    KeySynth: KeySynth,
+    Sampler: Sampler,
   },
   audio: {
-    'Filter': Filter,
-    'StereoPanner': StereoPanner,
-    'Compressor': Compressor,
-    'Delay': Delay,
-    'Distortion': Distortion
+    Filter: Filter,
+    StereoPanner: StereoPanner,
+    Compressor: Compressor,
+    Delay: Delay,
+    Distortion: Distortion,
   },
 }
 
 const customEnterAnimation = {
-  from: { opacity: 0, transform: 'scale(0.8, 0.8)' },
-  to: { opacity: 1, transform: 'scale(1, 1)' }
+  from: { opacity: 0, transform: "scale(0.8, 0.8)" },
+  to: { opacity: 1, transform: "scale(1, 1)" },
 }
 const customLeaveAnimation = {
-  from: { opacity: 1, transform: 'scale(1, 1)' },
-  to: { opacity: 0, transform: 'scale(0.8, 0.8)' }
+  from: { opacity: 1, transform: "scale(1, 1)" },
+  to: { opacity: 0, transform: "scale(0.8, 0.8)" },
 }
 
 const insertHRs = (arr, type, edges) => {
   const length = arr.length
-  for (let i = (edges ? 0 : 1); i <= (edges ? length : length - 1); i++) {
-    arr.splice(length - i, 0,
+  for (let i = edges ? 0 : 1; i <= (edges ? length : length - 1); i++) {
+    arr.splice(
+      length - i,
+      0,
       <hr
         key={`${type}-${length - i}`}
-        className={`${type} ${type}-${length - i} ${(i === length || i === 0) ? 'edge' : ''}`}
+        className={`${type} ${type}-${length - i} ${
+          i === length || i === 0 ? "edge" : ""
+        }`}
       />
     )
   }
@@ -290,22 +289,23 @@ const insertHRs = (arr, type, edges) => {
 }
 
 class TrackSettings extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      add: null
+      add: null,
     }
   }
-  render () {
+  render() {
     const chain = [
-      {type: 'midi', title: 'Midi Effects'},
-      {type: 'instrument', title: 'Instruments'},
-      {type: 'audio', title: 'Audio Effects'}
-    ].map(el => {
+      { type: "midi", title: "Midi Effects" },
+      { type: "instrument", title: "Instruments" },
+      { type: "audio", title: "Audio Effects" },
+    ].map((el) => {
       const devices = this.props.devices
-        .filter(device => el.type === device.deviceType)
+        .filter((device) => el.type === device.deviceType)
         .map((device, i) => {
-          const ComponentName = devicesByName[device.deviceType][device.devicePrototype]
+          const ComponentName =
+            devicesByName[device.deviceType][device.devicePrototype]
           return (
             <ComponentName
               key={device.id}
@@ -317,34 +317,34 @@ class TrackSettings extends Component {
       return (
         <FlipMove
           duration={200}
-          easing='ease'
-          typeName='section'
+          easing="ease"
+          typeName="section"
           className={`settings-section settings-section--${el.type}`}
           staggerDurationBy={20}
           enterAnimation={customEnterAnimation}
           leaveAnimation={customLeaveAnimation}
         >
-          <Text
-            type='h3'
-            key='title'
-            style={{color: vars.grey_4}}
-          >{el.title}</Text>
+          <Text type="h3" key="title" style={{ color: vars.grey_4 }}>
+            {el.title}
+          </Text>
 
           {insertHRs(devices, el.type, true)}
 
           <Button
-            key='button'
+            key="button"
             style={{
-              paddingLeft: '22px',
-              paddingRight: '24px',
+              paddingLeft: "22px",
+              paddingRight: "24px",
             }}
             onClick={(e) => {
               e.stopPropagation()
               this.setState({
-                add: el.type
+                add: el.type,
               })
             }}
-          >+ Add</Button>
+          >
+            + Add
+          </Button>
         </FlipMove>
       )
     })
@@ -352,50 +352,51 @@ class TrackSettings extends Component {
     return (
       <StyledTrackSettings
         className={`
-          ${this.state.add !== null ? 'add-open' : ''}
-          ${this.props.view.dragging ? 'dragging' : ''}
+          ${this.state.add !== null ? "add-open" : ""}
+          ${this.props.view.dragging ? "dragging" : ""}
           settings
         `}
       >
-        <div className='settings-container settings-container-add'>
-          <div className='settings-inner-container'>
+        <div className="settings-container settings-container-add">
+          <div className="settings-inner-container">
             {this.state.add !== null
-              ? Object.keys(schema[this.state.add]).map(item => (
-                <button
-                  key={item}
-                  className='button add-item-option'
-                  onClick={() => {
-                    const id = generateID()
-                    this.props.dispatch({
-                      type: 'CREATE_DEVICE',
-                      deviceType: this.state.add,
-                      value: item,
-                      id: id
-                    })
-                    this.props.dispatch({
-                      type: 'ADD_DEVICE_TO_TRACK',
-                      track: 0,
-                      id: id
-                    })
-                  }}
-                >{item}</button>
-              ))
-              : ''
-            }
+              ? Object.keys(schema[this.state.add]).map((item) => (
+                  <button
+                    key={item}
+                    className="button add-item-option"
+                    onClick={() => {
+                      const id = generateID()
+                      this.props.dispatch({
+                        type: "CREATE_DEVICE",
+                        deviceType: this.state.add,
+                        value: item,
+                        id: id,
+                      })
+                      this.props.dispatch({
+                        type: "ADD_DEVICE_TO_TRACK",
+                        track: 0,
+                        id: id,
+                      })
+                    }}
+                  >
+                    {item}
+                  </button>
+                ))
+              : ""}
           </div>
         </div>
 
         <div
-          className='settings-container settings-container-main'
+          className="settings-container settings-container-main"
           onClick={(e) => {
             this.setState({
               add: null,
-              action: null
+              action: null,
             })
           }}
-          >
-          <div className='settings-inner-container'>
-            {insertHRs(chain, 'big', false)}
+        >
+          <div className="settings-inner-container">
+            {insertHRs(chain, "big", false)}
           </div>
         </div>
       </StyledTrackSettings>
@@ -403,10 +404,10 @@ class TrackSettings extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
-    devices: state.tracks[0].devices.map(el => state.devices[el]),
-    view: state.view
+    devices: state.tracks[0].devices.map((el) => state.devices[el]),
+    view: state.view,
   }
 }
 
