@@ -102,7 +102,6 @@ const Knob = (props) => {
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState(props.value)
   const containerElement = useRef(null)
-  const inputElement = useRef(null)
 
   useEffect(() => {
     console.log("knob", props.value)
@@ -216,7 +215,7 @@ const Knob = (props) => {
           </output>
 
           <input
-            ref={inputElement}
+            ref={props.inputRef}
             id={`${props.id}-input`}
             type="number"
             disabled={props.disabled}

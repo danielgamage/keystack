@@ -98,7 +98,6 @@ const InputBar = (props) => {
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState(props.value)
   const containerElement = useRef(null)
-  const inputElement = useRef(null)
 
   useEffect(() => {
     setInputValue(props.value)
@@ -158,7 +157,7 @@ const InputBar = (props) => {
         </output>
 
         <input
-          ref={inputElement}
+          ref={props.inputRef}
           id={`${props.id}-input`}
           type="number"
           disabled={props.disabled}

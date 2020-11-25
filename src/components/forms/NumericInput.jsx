@@ -75,7 +75,7 @@ const NumericInput = ({
   const [showInput, setShowInput] = useState(false)
 
   const containerElement = useRef(null)
-  const vizElement = useRef(null)
+  const inputRef = useRef(null)
 
   const didMove = useRef(false)
 
@@ -112,7 +112,7 @@ const NumericInput = ({
     document.exitPointerLock()
 
     if (!didMove.current) {
-      vizElement.current.inputElement.focus()
+      inputRef.current.focus()
     }
 
     didMove.current = false
@@ -156,7 +156,7 @@ const NumericInput = ({
         break
       case 27: // esc
       case 13: // enter
-        vizElement.inputElement.blur()
+        inputRef.current.blur()
         break
     }
   }
@@ -244,7 +244,7 @@ const NumericInput = ({
         }}
         className={className + ` draggable`}
         aria-labelledby={`${id}-input`}
-        ref={vizElement}
+        inputRef={inputRef}
         onTouchStart={onMouseDown}
         onKeyDown={handleKeyDown}
         onInput={handleInput}
