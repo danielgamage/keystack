@@ -20,18 +20,18 @@ export const StyledPopover = styled.div`
   transform: translate3d(0, 0, 0);
   transition: opacity 0.4s var(--easeOut);
 
-  .is-open {
+  &.is-open {
     opacity: 1;
     transform: scale(1);
     transition: opacity 0.1s var(--easeOut);
   }
-  .is-open .container,
-  .is-open .arrow {
+  &.is-open .container,
+  &.is-open .arrow {
     pointer-events: auto;
   }
 
-  .is-mouse-disabled .container,
-  .is-mouse-disabled .arrow {
+  &.is-mouse-disabled .container,
+  &.is-mouse-disabled .arrow {
     pointer-events: none;
   }
 
@@ -54,7 +54,7 @@ export const StyledPopover = styled.div`
     border-radius: var(--radiusLarge);
   }
 
-  .is-up {
+  &.is-up {
     .container {
       left: 50%;
       bottom: calc(100% + 14px);
@@ -66,7 +66,7 @@ export const StyledPopover = styled.div`
     }
   }
 
-  .is-down {
+  &.is-down {
     .container {
       left: 50%;
       top: calc(100% + 14px);
@@ -78,7 +78,7 @@ export const StyledPopover = styled.div`
     }
   }
 
-  .is-left {
+  &.is-left {
     .container {
       top: 50%;
       right: calc(100% + 14px);
@@ -90,7 +90,7 @@ export const StyledPopover = styled.div`
     }
   }
 
-  .is-right {
+  &.is-right {
     .container {
       top: 50%;
       left: calc(100% + 14px);
