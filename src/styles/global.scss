@@ -16,15 +16,16 @@ body,
 
 :root {
   --white: #fdfcfb;
-  --grey-7: #f2f1f0;
-  --grey-6: #e8e9eb;
-  --grey-5: #cdd1d3;
-  --grey-4: #949496;
-  --grey-3: #87878b;
-  --grey-2: #7c7c7f;
-  --grey-1: #5a5a5f;
-  --grey-0: #444649;
-  --black: #3a3b3e;
+  --grey-8: #f2f1f0;
+  --grey-7: #e8e9eb;
+  --grey-6: #cdd1d3;
+  --grey-5: #949496;
+  --grey-4: #87878b;
+  --grey-3: #7c7c7f;
+  --grey-2: #5a5a5f;
+  --grey-1: #444649;
+  --grey-0: #3a3b3e;
+  --black: #303134;
 
   --orange-dark: #f98e00;
   --orange: #ffa850;
@@ -58,9 +59,11 @@ body,
   --sc: "Source Sans Pro", sans-serif;
 
   --radius: 3px;
+  --radius-large: 7px;
 }
 
 .theme--light {
+  --foreground-llllll: var(--grey-5);
   --foreground-lllll: var(--grey-4);
   --foreground-llll: var(--grey-3);
   --foreground-lll: var(--grey-2);
@@ -69,20 +72,21 @@ body,
   --foreground: var(--black);
 
   --background-elevated: var(--white);
-  --background: var(--grey-7);
-  --background-recessed: var(--grey-6);
-  --background-deep: var(--grey-5);
+  --background: var(--grey-8);
+  --background-recessed: var(--grey-7);
+  --background-deep: var(--grey-6);
 }
 .theme--dark {
-  --foreground-lllll: var(--grey-3);
-  --foreground-llll: var(--grey-4);
-  --foreground-lll: var(--grey-5);
-  --foreground-ll: var(--grey-6);
-  --foreground-l: var(--grey-7);
+  --foreground-llllll: var(--grey-3);
+  --foreground-lllll: var(--grey-4);
+  --foreground-llll: var(--grey-5);
+  --foreground-lll: var(--grey-6);
+  --foreground-ll: var(--grey-7);
+  --foreground-l: var(--grey-8);
   --foreground: var(--white);
 
-  --background-elevated: var(--black);
-  --background: var(--grey-0);
-  --background-recessed: var(--grey-1);
-  --background-deep: var(--grey-2);
+  --background-elevated: var(--grey-2);
+  --background: var(--grey-1);
+  --background-recessed: var(--grey-0);
+  --background-deep: var(--black);
 }

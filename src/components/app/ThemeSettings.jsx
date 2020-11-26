@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
-import styled, { css } from 'styled-components'
+import React, { Component } from "react"
+import styled, { css } from "styled-components"
 
-import vars from 'variables'
+import vars from "variables"
 
-import {
-  Text,
-  SwitchWithOptions,
-} from 'components'
+import { Text, SwitchWithOptions } from "components"
 
 const Container = styled.div`
   .switch {
@@ -22,18 +19,11 @@ const Palette = styled.div`
   margin: 16px 0;
   padding: 12px;
 
-  background-color: ${props => props.lightness === 'dark'
-    ? vars.grey_0
-    : vars.white
-  };
-  box-shadow: 0 0 0 1px ${props => props.lightness === 'dark'
-    ? vars.grey_1
-    : vars.grey_6
-  } inset;
-  color: ${props => props.lightness === 'dark'
-    ? vars.white
-    : vars.grey_1
-  };
+  background-color: ${(props) =>
+    props.lightness === "dark" ? vars.grey_0 : vars.white};
+  box-shadow: 0 0 0 1px
+    ${(props) => (props.lightness === "dark" ? vars.grey_1 : vars.grey_6)} inset;
+  color: ${(props) => (props.lightness === "dark" ? vars.white : vars.grey_1)};
   border-radius: 7px;
 `
 
@@ -48,22 +38,20 @@ const Swatch = styled.button`
   border-radius: 1rem;
   padding: 0;
 
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   cursor: pointer;
 
   &::before {
-    content: '';
+    content: "";
     display: block;
-    background: ${props => props.lightness === 'dark'
-      ? vars.grey_0
-      : vars.white
-    };
+    background: ${(props) =>
+      props.lightness === "dark" ? vars.grey_0 : vars.white};
     border-radius: 1rem;
     width: 8px;
     height: 8px;
     transition: opacity 0.2s, transform 0.2s;
-    transform: ${props => props.selected ? 'scale(1)' : 'scale(0.5)'};
-    opacity: ${props => props.selected ? 1 : 0}
+    transform: ${(props) => (props.selected ? "scale(1)" : "scale(0.5)")};
+    opacity: ${(props) => (props.selected ? 1 : 0)};
   }
 
   &:nth-child(4n) {
@@ -82,46 +70,47 @@ const colorOptions = Object.keys(vars.accents).map((key) => {
   }
 })
 
-const lightnessOptions = [{
-  value: 'dark',
-  strong: true,
-}, {
-  value: 'light',
-  strong: false,
-}]
+const lightnessOptions = [
+  {
+    value: "dark",
+    strong: true,
+  },
+  {
+    value: "light",
+    strong: false,
+  },
+]
 
 class ThemeSettings extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.updateAccent = this.updateAccent.bind(this)
     this.updateLightness = this.updateLightness.bind(this)
   }
 
-  updateAccent (value) {
+  updateAccent(value) {
     this.props.onInput({
       ...this.props.prefs,
-      accent: value
+      accent: value,
     })
   }
 
-  updateLightness (value) {
+  updateLightness(value) {
     this.props.onInput({
       ...this.props.prefs,
-      lightness: value
+      lightness: value,
     })
   }
 
-  render () {
+  render() {
     const currentColors = colorOptions.map((el, i) => ({
       ...el,
-      hex: this.props.prefs.lightness === 'dark'
-        ? el[1]
-        : el[0]
+      hex: this.props.prefs.lightness === "dark" ? el[1] : el[0],
     }))
 
     return (
       <Container>
-        <Text type='h2'>Theme</Text>
+        <Text type="h2">Theme</Text>
 
         <Palette lightness={this.props.prefs.lightness}>
           {currentColors.map((color, i) => (
@@ -129,19 +118,21 @@ class ThemeSettings extends Component {
               lightness={this.props.prefs.lightness}
               color={color.hex}
               title={color.key}
-              tabIndex='0'
+              tabIndex="0"
               selected={color.key === this.props.prefs.accent}
               index={i}
-              onClick={() => {this.updateAccent(color.key)}}
+              onClick={() => {
+                this.updateAccent(color.key)
+              }}
             />
           ))}
         </Palette>
 
         <SwitchWithOptions
-          className='switch'
+          className="switch"
           value={this.props.prefs.lightness}
           options={lightnessOptions}
-          orientation='row'
+          orientation="row"
           onInput={this.updateLightness}
         />
       </Container>

@@ -1,31 +1,31 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react"
+import { connect } from "react-redux"
 
-import {
-  NoteHUD,
-  RadialKeys,
-
-  Button,
-} from 'components'
+import { NoteHUD, RadialKeys, Button } from "components"
 
 class Visualizers extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      midiReadPosition: 'input'
+      midiReadPosition: "input",
     }
   }
-  render () {
+  render() {
+    const midiReadLabel =
+      this.state.midiReadPosition === "input" ? "pre-fx" : "post-fx"
     return (
-      <div className='play-area'>
+      <div className="play-area">
         <Button
-          title={'Change where visualizers read notes from: pre or post-FX'}
+          title={"Change where visualizers read notes from: pre or post-FX"}
           onClick={() => {
-            this.setState({midiReadPosition: this.state.midiReadPosition === 'input' ? 'output' : 'input'})
+            this.setState({
+              midiReadPosition:
+                this.state.midiReadPosition === "input" ? "output" : "input",
+            })
           }}
-          className='button input-output-switch'
+          className="button input-output-switch"
         >
-          {this.state.midiReadPosition}
+          {midiReadLabel}
         </Button>
 
         <RadialKeys midiReadPosition={this.state.midiReadPosition} />
@@ -35,7 +35,7 @@ class Visualizers extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return { textBoxes: state.textBoxes, view: state.view }
 }
 

@@ -24,31 +24,28 @@ const StyledChordDevice = styled.div`
 
   .chord-pads {
     position: relative;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     width: calc(100% - 80px);
     margin: 0 0 8px 0;
+    gap: 8px;
     .pad {
       position: relative;
-      margin: 0 0 6px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: calc((100% / 4) - (6px * 3 / 4));
-      height: 32px;
       text-overflow: ellipsis;
+      height: 32px;
       text-align: center;
-      background-color: var(--grey-1);
-      border-radius: ${vars.radius};
+      border: 1px solid var(--foreground-l);
+      border-radius: var(--radius);
       cursor: pointer;
       &.active {
-        background-color: ${(props) => vars.accents[props.theme.accent][1]};
+        background-color: var(--accent);
         color: var(--grey-0);
       }
       &.open-index {
-        box-shadow: 0 0 0 1px ${vars.white} inset;
+        box-shadow: 0 0 0 1px var(--white) inset;
       }
     }
     .swap-button {
@@ -57,9 +54,9 @@ const StyledChordDevice = styled.div`
       right: -3px;
       width: 13px;
       height: 13px;
-      background: var(--grey-2);
-      box-shadow: 0 0 0 1px var(--grey-0);
-      color: ${vars.white};
+      background: var(--background-recessed);
+      box-shadow: 0 0 0 1px var(--backrgound-deep);
+      color: var(--foreground-ll);
       border-radius: 50%;
     }
     .swap-icon {

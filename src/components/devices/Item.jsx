@@ -11,12 +11,10 @@ const StyledItem = styled.div`
   transition: height 0.3s ease, background 0.4s ease;
   margin: 0 -2rem;
   padding: 1rem 2rem;
-  background-color: ${(props) =>
-    props.theme.lightness === "light" ? vars.grey_0 : vars.black};
+  background-color: var(--background-deep);
   &.selected,
   &.dragging {
-    background-color: ${(props) =>
-      props.theme.lightness === "light" ? vars.grey_1 : vars.grey_0};
+    background-color: var(--background-recessed);
   }
   .item-header {
     cursor: move;
@@ -53,27 +51,6 @@ const StyledItem = styled.div`
         background: none;
         color: inherit;
         pointer-events: none;
-      }
-    }
-  }
-  .remove-button {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    flex: 0 0 auto;
-    border-radius: 4rem;
-    .icon--x {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      fill: var(--grey-5);
-    }
-    &:hover,
-    &:focus {
-      background-color: ${vars.accents.red.dark};
-      .icon--x {
-        fill: ${vars.white};
       }
     }
   }

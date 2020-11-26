@@ -56,7 +56,7 @@ export const playInstrument = (notes) => {
   )
   const instrumentsWithCurves = getEnvelopeCurves(instruments)
 
-  instrumentsWithCurves.map((instrument) => {
+  instrumentsWithCurves.forEach((instrument) => {
     const envelope = instrument.envelope
 
     switch (instrument.devicePrototype) {
@@ -90,6 +90,8 @@ export const playInstrument = (notes) => {
           const attackSamples = Math.floor(envelope.attack * sampleRate)
           const decaySamples = Math.floor(envelope.decay * sampleRate)
 
+          noteVolume.gain.cancelScheduledValues(audioCtx.currentTime)
+          // noteVolume.gain.setValueAtTime(audioCtx.currentTime)
           noteVolume.gain.setValueCurveAtTime(
             instrument.envelopeCurves.AD,
             audioCtx.currentTime,
@@ -145,14 +147,15 @@ export const stopInstrument = (notes) => {
   )
   const instrumentsWithCurves = getEnvelopeCurves(instruments)
 
-  instrumentsWithCurves.map((instrument) => {
+  instrumentsWithCurves.forEach((instrument) => {
     const envelope = instrument.envelope
 
     switch (instrument.devicePrototype) {
       case `KeySynth`:
         notes.map((note) => {
           if (oscillators[note.index]) {
-            const currentVolume = oscillators[note.index].volume.gain.value
+            const gain = oscillators[note.index].volume.gain
+            const currentVolume = gain.value
 
             if (currentVolume > minWebAudioVolume) {
               const releaseSamples = Math.floor(envelope.release * sampleRate)
@@ -163,8 +166,9 @@ export const stopInstrument = (notes) => {
                   ? instrument.envelopeCurves.R
                   : instrument.envelopeCurves.R.map((el) => el * currentVolume)
 
-              oscillators[note.index].volume.gain.cancelAndHoldAtTime(0)
-              oscillators[note.index].volume.gain.setValueCurveAtTime(
+              gain.cancelScheduledValues(audioCtx.currentTime)
+              // gain.setValueAtTime(currentVolume, audioCtx.currentTime)
+              gain.setValueCurveAtTime(
                 releaseCurve,
                 audioCtx.currentTime,
                 releaseTime
@@ -187,15 +191,14 @@ export const stopInstrument = (notes) => {
       case `Sampler`:
         if (window.myBuffer !== null) {
           notes.map((note) => {
+            const gain = samples[note.index].volume.gain
             samples[note.index].instance.stop(
               audioCtx.currentTime + envelope.release
             )
 
-            samples[note.index].volume.gain.cancelAndHoldAtTime(
-              audioCtx.currentTime
-            )
-            // samples[note.index].volume.gain.setValueAtTime(samples[note.index].volume.gain.value, audioCtx.currentTime)
-            samples[note.index].volume.gain.exponentialRampToValueAtTime(
+            gain.cancelAndHoldAtTime(audioCtx.currentTime)
+            gain.setValueAtTime(gain.value, audioCtx.currentTime)
+            gain.exponentialRampToValueAtTime(
               minWebAudioVolume,
               audioCtx.currentTime + envelope.release
             )

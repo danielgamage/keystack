@@ -50,8 +50,8 @@ export const StyledPopover = styled.div`
 
     overflow: auto;
     pointer-events: none;
-    background: var(--backgroundElevated);
-    border-radius: var(--radiusLarge);
+    background: var(--background-elevated);
+    border-radius: var(--radius-large);
   }
 
   &.is-up {
@@ -110,7 +110,7 @@ export const StyledPopover = styled.div`
     z-index: 1;
     pointer-events: none;
     speak: never;
-    fill: var(--backgroundElevated);
+    fill: var(--background-elevated);
   }
 `
 export interface IPopoverProps {

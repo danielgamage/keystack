@@ -7,52 +7,13 @@ import { Icon, Text, ThemeSettings, Kbd, Popover } from "components"
 
 import gearIcon from "images/icon/gear.svg"
 
-const keyboardRows = [
-  {
-    color: "black",
-    keys: [
-      { key: `Q`, disabled: true },
-      { key: `W`, disabled: false },
-      { key: `E`, disabled: false },
-      { key: `R`, disabled: true },
-      { key: `T`, disabled: false },
-      { key: `Y`, disabled: false },
-      { key: `U`, disabled: false },
-      { key: `I`, disabled: true },
-      { key: `O`, disabled: false },
-      { key: `P`, disabled: false },
-      { key: `[`, disabled: true },
-      { key: `]`, disabled: false },
-    ],
-  },
-  {
-    color: "white",
-    keys: [
-      { key: `A`, disabled: false },
-      { key: `S`, disabled: false },
-      { key: `D`, disabled: false },
-      { key: `F`, disabled: false },
-      { key: `G`, disabled: false },
-      { key: `H`, disabled: false },
-      { key: `J`, disabled: false },
-      { key: `K`, disabled: false },
-      { key: `L`, disabled: false },
-      { key: `;`, disabled: false },
-      { key: `'`, disabled: false },
-    ],
-  },
-]
-
 const StyledUserSettings = styled.div`
   position: relative;
   display: flex;
   padding-right: 8px;
 
-  .help-container {
-    border-radius: ${vars.radius};
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+  .settings-container {
     padding: 2rem;
-    width: calc(100vw - 8rem);
     max-width: 16rem;
     max-height: calc(100vh - 8rem);
     z-index: 10;
@@ -127,7 +88,7 @@ class UserSettings extends Component {
           onClickOutside={this.closePopover}
           place="below"
         >
-          <div className="help-container">
+          <div className="settings-container">
             <Text type="h3">Settings</Text>
 
             <ThemeSettings

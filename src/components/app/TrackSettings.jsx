@@ -29,9 +29,8 @@ import schema from "reducers/schema"
 const StyledTrackSettings = styled.div`
   display: flex;
   flex-flow: column;
-  background-color: ${(props) =>
-    props.theme.lightness === "light" ? vars.grey_0 : vars.black};
-  color: var(--grey-6);
+  background-color: var(--background-deep);
+  color: var(--foreground);
   border-radius: $radius;
   &.add-open {
     .settings-container-add {
@@ -70,7 +69,7 @@ const StyledTrackSettings = styled.div`
   hr {
     display: block;
     border: 0;
-    border-top: 2px solid var(--grey-1);
+    border-top: 2px solid var(--background);
     margin: 0;
     &.edge {
       opacity: 0;
@@ -190,7 +189,7 @@ const StyledTrackSettings = styled.div`
       stroke: var(--grey-1);
     }
     .start-marker-flag {
-      fill: var(--grey-4);
+      fill: var(--foreground-lllll);
     }
     .sample-text {
       display: none;
@@ -198,7 +197,7 @@ const StyledTrackSettings = styled.div`
       ${vars.mixins.sc};
 
       font-size: 0.6rem;
-      fill: var(--grey-4);
+      fill: var(--foreground-lllll);
       stroke: none;
     }
     .vis-path {
@@ -208,11 +207,11 @@ const StyledTrackSettings = styled.div`
           display: block;
         }
         .waveform {
-          stroke: var(--grey-1);
+          stroke: var(--foreground-lllll);
         }
       }
       &.dragging {
-        background-color: var(--grey-1);
+        background-color: var(--foreground-lllll);
         .drop-text {
           display: block;
         }
@@ -237,7 +236,7 @@ const StyledTrackSettings = styled.div`
       overflow: scroll;
     }
     .size {
-      color: var(--grey-3);
+      color: var(--foreground-llll);
       margin-left: 1rem;
     }
   }

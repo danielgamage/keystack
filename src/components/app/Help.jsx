@@ -51,8 +51,6 @@ const StyledHelp = styled.div`
     border-radius: ${vars.radius};
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
     padding: 2rem;
-    width: calc(100vw - 8rem);
-    max-width: 32rem;
     max-height: calc(100vh - 8rem);
     z-index: 10;
     section {

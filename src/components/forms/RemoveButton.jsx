@@ -11,23 +11,24 @@ const StyledButton = styled(Button)`
   height: 20px;
   flex: 0 0 auto;
   border-radius: 4rem;
+  background: var(--background-recessed);
   .icon--x {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    fill: var(--grey-5);
+    fill: var(--foreground-ll);
   }
   &:hover,
   &:focus {
-    background-color: ${vars.accents.red.dark};
+    background-color: var(--red);
     .icon--x {
-      fill: ${vars.white};
+      fill: var(--foreground);
     }
   }
 `
 
-class Item extends Component {
+class RemoveButton extends Component {
   constructor(props) {
     super(props)
   }
@@ -41,4 +42,4 @@ class Item extends Component {
   }
 }
 
-export default Item
+export default RemoveButton

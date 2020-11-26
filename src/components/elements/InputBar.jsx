@@ -19,7 +19,9 @@ export const StyledInputBar = styled.div`
   position: relative;
   flex: 1;
   height: 20px;
-  border: 1px solid ${(props) => (props.isFocused ? vars.grey_7 : vars.grey_1)};
+  border: 1px solid
+    ${(props) =>
+      props.isFocused ? "var(--foreground)" : "var(--foreground-llll)"};
   border-bottom-width: 6px;
   cursor: ew-resize;
 
