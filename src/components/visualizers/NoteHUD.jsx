@@ -17,7 +17,6 @@ const StyledNoteHUD = styled.div`
     margin-right: 0.5rem;
   }
   .icon--eye {
-    transform: translateY(-0.5rem);
     flex: 0;
     cursor: pointer;
 

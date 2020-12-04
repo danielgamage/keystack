@@ -11,7 +11,7 @@ export const EnvelopeElement = styled.div`
   .background-grid {
     stroke-dasharray: 2, 6;
     stroke-width: 1px;
-    stroke: var(--grey-1);
+    stroke: var(--fg-6);
   }
 
   .curve {
@@ -25,7 +25,7 @@ export const EnvelopeElement = styled.div`
 
   .control-point {
     fill: var(--grey-1);
-    stroke: var(--grey-4);
+    stroke: var(--fg-6);
     stroke-width: 1px;
   }
 

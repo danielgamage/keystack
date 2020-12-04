@@ -20,7 +20,7 @@ export const StyledInputBar = styled.div`
   flex: 1;
   height: 20px;
   border: 1px solid
-    ${(props) => (props.isFocused ? "var(--fg)" : "var(--fg-1)")};
+    ${(props) => (props.isFocused ? "var(--fg)" : "var(--fg-6)")};
   border-bottom-width: 6px;
   cursor: ew-resize;
 
@@ -87,8 +87,7 @@ export const StyledInputBar = styled.div`
       left: 0;
       bottom: 6px;
       right: 0;
-      opacity: 0.3;
-      background-color: var(--fg-3);
+      background-color: var(--fg-8);
     }
 
     &::after {

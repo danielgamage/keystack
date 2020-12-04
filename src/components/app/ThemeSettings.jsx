@@ -16,14 +16,13 @@ const Palette = styled.div`
   flex-flow: row wrap;
   justify-content: space-between;
   width: 112px;
+
   margin: 16px 0;
   padding: 12px;
 
-  background-color: ${(props) =>
-    props.lightness === "dark" ? vars.grey_0 : vars.white};
-  box-shadow: 0 0 0 1px
-    ${(props) => (props.lightness === "dark" ? vars.grey_1 : vars.grey_6)} inset;
-  color: ${(props) => (props.lightness === "dark" ? vars.white : vars.grey_1)};
+  background-color: var(--bg);
+  box-shadow: 0 0 0 1px var(--bg-recessed) inset;
+  color: var(--fg);
   border-radius: 7px;
 `
 
@@ -44,8 +43,7 @@ const Swatch = styled.button`
   &::before {
     content: "";
     display: block;
-    background: ${(props) =>
-      props.lightness === "dark" ? vars.grey_0 : vars.white};
+    background: var(--bg);
     border-radius: 1rem;
     width: 8px;
     height: 8px;
