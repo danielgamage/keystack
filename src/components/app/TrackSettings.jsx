@@ -324,7 +324,7 @@ class TrackSettings extends Component {
           enterAnimation={customEnterAnimation}
           leaveAnimation={customLeaveAnimation}
         >
-          <Text type="h3" key="title" style={{ color: vars.grey_4 }}>
+          <Text type="h3" key="title">
             {el.title}
           </Text>
 

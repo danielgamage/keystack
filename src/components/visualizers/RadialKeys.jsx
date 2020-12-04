@@ -34,7 +34,7 @@ const StyledRadialKeys = styled.div`
     }
   }
   circle.tick {
-    fill: var(--bg-deep);
+    fill: var(--bg-recessed);
     stroke-dasharray: 2 3;
   }
   path.spiral {
