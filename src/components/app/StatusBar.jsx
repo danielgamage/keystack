@@ -13,10 +13,7 @@ const StyledStatusBar = styled.div`
   height: 2rem;
   display: flex;
   gap: 1rem;
-  background-color: ${(props) =>
-    props.theme.lightness === "light" ? vars.grey_6 : vars.grey_1};
-  color: ${(props) =>
-    props.theme.lightness === "light" ? vars.grey_3 : vars.grey_5};
+  background: var(--bg-recessed);
 
   border-radius: ${vars.radius};
   .file-operations {

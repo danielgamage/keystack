@@ -41,14 +41,14 @@ export const StyledKnob = styled.div`
   }
   .fader-knob {
     transition: 0.2s ease;
-    fill: var(--grey-2);
+    fill: var(--fg-6);
     opacity: 0;
   }
   .fader-track {
-    stroke: var(--grey-2);
+    stroke: var(--fg-3);
   }
   .fader-pointer {
-    stroke: var(--grey-7);
+    stroke: var(--fg-1);
   }
   .fader-value {
     stroke: var(--accent);

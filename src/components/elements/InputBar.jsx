@@ -20,8 +20,7 @@ export const StyledInputBar = styled.div`
   flex: 1;
   height: 20px;
   border: 1px solid
-    ${(props) =>
-      props.isFocused ? "var(--foreground)" : "var(--foreground-llll)"};
+    ${(props) => (props.isFocused ? "var(--fg)" : "var(--fg-1)")};
   border-bottom-width: 6px;
   cursor: ew-resize;
 
@@ -89,7 +88,7 @@ export const StyledInputBar = styled.div`
       bottom: 6px;
       right: 0;
       opacity: 0.3;
-      background-color: ${(props) => vars.grey_1};
+      background-color: var(--fg-3);
     }
 
     &::after {
@@ -97,7 +96,7 @@ export const StyledInputBar = styled.div`
       bottom: 2px;
       right: 1px;
       height: 2px;
-      background-color: ${(props) => vars.accents[props.theme.accent][0]};
+      background-color: var(--accent);
     }
   }
 `

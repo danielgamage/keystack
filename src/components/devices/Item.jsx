@@ -11,10 +11,10 @@ const StyledItem = styled.div`
   transition: height 0.3s ease, background 0.4s ease;
   margin: 0 -2rem;
   padding: 1rem 2rem;
-  background-color: var(--background-deep);
+  background-color: var(--bg-recessed);
   &.selected,
   &.dragging {
-    background-color: var(--background-recessed);
+    background-color: var(--bg-recessed);
   }
   .item-header {
     cursor: move;

@@ -37,7 +37,7 @@ const StyledChordDevice = styled.div`
       text-overflow: ellipsis;
       height: 32px;
       text-align: center;
-      border: 1px solid var(--foreground-l);
+      border: 1px solid var(--fg-7);
       border-radius: var(--radius);
       cursor: pointer;
       &.active {
@@ -54,9 +54,9 @@ const StyledChordDevice = styled.div`
       right: -3px;
       width: 13px;
       height: 13px;
-      background: var(--background-recessed);
+      background: var(--bg-recessed);
       box-shadow: 0 0 0 1px var(--backrgound-deep);
-      color: var(--foreground-ll);
+      color: var(--fg-2);
       border-radius: 50%;
     }
     .swap-icon {

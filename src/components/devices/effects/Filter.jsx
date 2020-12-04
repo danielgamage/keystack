@@ -29,7 +29,7 @@ const StyledFilter = styled.div`
 
   .icon--crosshair {
     position: absolute;
-    fill: var(--grey-7);
+    fill: var(--fg-1);
     pointer-events: none;
     transform: translate(-50%, -50%);
   }

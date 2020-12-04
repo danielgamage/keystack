@@ -10,20 +10,20 @@ const StyledButton = styled(Button)`
   width: 20px;
   height: 20px;
   flex: 0 0 auto;
-  border-radius: 4rem;
-  background: var(--background-recessed);
+  border-radius: var(--radius);
+  background: var(--fg-7);
   .icon--x {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    fill: var(--foreground-ll);
+    fill: var(--fg-2);
   }
   &:hover,
   &:focus {
     background-color: var(--red);
     .icon--x {
-      fill: var(--foreground);
+      fill: var(--fg);
     }
   }
 `

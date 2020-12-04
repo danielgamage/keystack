@@ -9,8 +9,8 @@ import { TrackSettings, StatusBar, Visualizers } from "components"
 
 const StyledApp = styled.div`
   height: 100%;
-  background-color: var(--background);
-  color: var(--foreground-lll);
+  background-color: var(--bg);
+  color: var(--fg-3);
 
   .app-container {
     height: 100%;

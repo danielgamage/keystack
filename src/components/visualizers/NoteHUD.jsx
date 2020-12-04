@@ -24,14 +24,14 @@ const StyledNoteHUD = styled.div`
     circle,
     path {
       fill: none;
-      stroke: var(--grey-1);
+      stroke: var(--fg-1);
     }
     .pupil {
       transition: 0.5s ease;
     }
     &.on {
       .pupil {
-        fill: var(--grey-1);
+        fill: var(--fg-3);
       }
     }
   }
@@ -45,7 +45,7 @@ const StyledNoteHUD = styled.div`
     line-height: 1.5;
   }
   .empty {
-    color: var(--grey-5);
+    color: var(--fg-3);
   }
   .notes {
     display: inline-block;

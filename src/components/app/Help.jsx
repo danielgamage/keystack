@@ -48,7 +48,7 @@ const StyledHelp = styled.div`
   display: flex;
 
   .help-container {
-    border-radius: ${vars.radius};
+    border-radius: var(--radius);
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
     padding: 2rem;
     max-height: calc(100vh - 8rem);
@@ -65,19 +65,23 @@ const StyledHelp = styled.div`
       justify-content: center;
       kbd {
         margin: 0.1rem;
+        background: var(--grey-10);
+        color: var(--grey-0);
         &[disabled] {
           opacity: 0.2;
         }
       }
       &.black {
         kbd {
-          border-color: var(--grey-0);
+          border-color: var(--grey-10);
+          background: var(--grey-10);
+          color: var(--grey-0);
         }
       }
       &.white {
         kbd {
-          color: var(--grey-0);
-          background: var(--grey-6);
+          color: var(--grey-10);
+          background: var(--grey-0);
           border-color: var(--grey-4);
         }
       }

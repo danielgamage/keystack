@@ -35,7 +35,7 @@ const StyledOscillators = styled.div`
     height: 1.5rem;
     margin: 0.25rem 0.5rem 0 0;
 
-    stroke: var(--grey-1);
+    stroke: var(--fg-5);
     fill: none;
   }
   & :checked + .icon {

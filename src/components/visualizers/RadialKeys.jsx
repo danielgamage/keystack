@@ -30,7 +30,7 @@ const StyledRadialKeys = styled.div`
   .axis {
     & text {
       font-size: 13px;
-      fill: var(--grey-0);
+      fill: var(--fg-3);
     }
   }
   circle.tick {
@@ -43,14 +43,14 @@ const StyledRadialKeys = styled.div`
     stroke-width: 14px;
     transition: 0.3s ease-out;
     &.black {
-      stroke: var(--grey-0);
+      stroke: var(--grey-10);
     }
     &.white {
-      stroke: ${vars.white};
+      stroke: var(--grey-0);
     }
     &.on {
       transition: 0s ease;
-      stroke: ${(props) => vars.accents[props.theme.accent][0]};
+      stroke: var(--accent);
     }
   }
 `

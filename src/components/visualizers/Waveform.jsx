@@ -16,15 +16,15 @@ const viewBoxHeight = 128
 
 export const WaveformContainer = styled.div`
   padding: 8px;
-  background: var(--grey-0);
-  border-radius: ${vars.radius};
+  background: var(--fg-1);
+  border-radius: var(--radius);
 
   .background {
-    fill: var(--grey-1);
+    fill: var(--fg-1);
   }
 
   .value {
-    fill: var(--grey-5);
+    fill: var(--fg-4);
   }
 `
 

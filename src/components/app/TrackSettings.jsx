@@ -29,9 +29,10 @@ import schema from "reducers/schema"
 const StyledTrackSettings = styled.div`
   display: flex;
   flex-flow: column;
-  background-color: var(--background-deep);
-  color: var(--foreground);
-  border-radius: $radius;
+  background-color: var(--bg-recessed);
+  color: var(--fg);
+  border-radius: var(--radius);
+  overflow: hidden;
   &.add-open {
     .settings-container-add {
       height: 12rem;
@@ -69,7 +70,7 @@ const StyledTrackSettings = styled.div`
   hr {
     display: block;
     border: 0;
-    border-top: 2px solid var(--background);
+    border-top: 2px solid var(--bg-deep);
     margin: 0;
     &.edge {
       opacity: 0;
@@ -113,7 +114,7 @@ const StyledTrackSettings = styled.div`
   .vis-path {
     overflow: visible;
     margin: 1rem 0 2rem;
-    stroke: var(--grey-4);
+    stroke: var(--fg-4);
     fill: none;
     stroke-width: 2px;
     stroke-linejoin: round;
@@ -131,7 +132,7 @@ const StyledTrackSettings = styled.div`
       .domain {
         display: none;
       }
-      stroke: var(--grey-1);
+      stroke: var(--bg-elevated);
     }
   }
   .graph-axis {
@@ -189,7 +190,7 @@ const StyledTrackSettings = styled.div`
       stroke: var(--grey-1);
     }
     .start-marker-flag {
-      fill: var(--foreground-lllll);
+      fill: var(--fg-5);
     }
     .sample-text {
       display: none;
@@ -197,7 +198,7 @@ const StyledTrackSettings = styled.div`
       ${vars.mixins.sc};
 
       font-size: 0.6rem;
-      fill: var(--foreground-lllll);
+      fill: var(--fg-5);
       stroke: none;
     }
     .vis-path {
@@ -207,11 +208,11 @@ const StyledTrackSettings = styled.div`
           display: block;
         }
         .waveform {
-          stroke: var(--foreground-lllll);
+          stroke: var(--fg-5);
         }
       }
       &.dragging {
-        background-color: var(--foreground-lllll);
+        background-color: var(--fg-5);
         .drop-text {
           display: block;
         }
@@ -236,7 +237,7 @@ const StyledTrackSettings = styled.div`
       overflow: scroll;
     }
     .size {
-      color: var(--foreground-llll);
+      color: var(--fg-4);
       margin-left: 1rem;
     }
   }

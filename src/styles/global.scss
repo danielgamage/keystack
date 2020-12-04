@@ -16,15 +16,6 @@ body,
 
 :root {
   --white: #fdfcfb;
-  --grey-8: #f2f1f0;
-  --grey-7: #e8e9eb;
-  --grey-6: #cdd1d3;
-  --grey-5: #949496;
-  --grey-4: #87878b;
-  --grey-3: #7c7c7f;
-  --grey-2: #5a5a5f;
-  --grey-1: #444649;
-  --grey-0: #3a3b3e;
   --black: #303134;
 
   --orange-dark: #f98e00;
@@ -63,28 +54,55 @@ body,
 }
 
 .theme--light {
-  --background-elevated: #ffffff;
-  --background: #f8f7f5;
-  --background-recessed: #eeedea;
-  --background-deep: #e2e0de;
-  --foreground-llllll: #d3d1cf;
-  --foreground-lllll: #c2c0bf;
-  --foreground-llll: #afacab;
-  --foreground-lll: #9a9493;
-  --foreground-ll: #827776;
-  --foreground-l: #645455;
-  --foreground: #362727;
+  --grey-0: #ffffff;
+  --grey-1: #f8f7f5;
+  --grey-2: #efedeb;
+  --grey-3: #e3e1df;
+  --grey-4: #d5d3d1;
+  --grey-5: #c4c1c1;
+  --grey-6: #b0acac;
+  --grey-7: #979191;
+  --grey-8: #7a6f6f;
+  --grey-9: #584b4b;
+  --grey-10: #362727;
+  --bg-elevated: var(--grey-0);
+  --bg: var(--grey-1);
+  --bg-recessed: var(--grey-2);
+  --bg-deep: var(--grey-3);
+  --fg-8: var(--grey-2);
+  --fg-7: var(--grey-3);
+  --fg-6: var(--grey-4);
+  --fg-5: var(--grey-5);
+  --fg-4: var(--grey-6);
+  --fg-3: var(--grey-7);
+  --fg-2: var(--grey-8);
+  --fg-1: var(--grey-9);
+  --fg: var(--grey-10);
 }
 .theme--dark {
-  --foreground: #f5eee8;
-  --foreground-l: #d3c6be;
-  --foreground-ll: #ad9f99;
-  --foreground-lll: #8b7c79;
-  --foreground-llll: #6d6261;
-  --foreground-lllll: #574e4f;
-  --foreground-llllll: #453e40;
-  --background-elevated: #373133;
-  --background: #2c272a;
-  --background-recessed: #231e21;
-  --background-deep: #1c181b;
+  --grey-0: #f5eee8;
+  --grey-1: #d3c6be;
+  --grey-2: #ad9f99;
+  --grey-3: #8b7c79;
+  --grey-4: #6d6261;
+  --grey-5: #574e4f;
+  --grey-6: #453e40;
+  --grey-7: #373133;
+  --grey-8: #2c272a;
+  --grey-9: #231e21;
+  --grey-10: #1c181b;
+
+  --fg: var(--grey-0);
+  --fg-1: var(--grey-1);
+  --fg-2: var(--grey-2);
+  --fg-3: var(--grey-3);
+  --fg-4: var(--grey-4);
+  --fg-5: var(--grey-5);
+  --fg-6: var(--grey-6);
+  --fg-7: var(--grey-7);
+  --fg-8: var(--grey-8);
+  --bg-elevated: var(--grey-7);
+  --bg: var(--grey-8);
+  --bg-recessed: var(--grey-9);
+  --bg-deep: var(--grey-10);
 }

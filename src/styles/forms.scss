@@ -1,5 +1,8 @@
-input, optgroup, select, textarea {
- font-family: inherit;
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
 }
 
 %button-reset {
@@ -41,44 +44,44 @@ input, optgroup, select, textarea {
   margin-left: 0.5rem;
 }
 
-.select {
-  position: relative;
-  display: inline-block;
-  color: $grey-6;
-}
-.select select {
-  @extend %button;
-  display: inline-block;
-  padding: 0.2rem 1.5rem 0.25rem 0.4rem;
-  width: 100%;
-  margin: 0;
-  @extend %sc;
-  outline: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-}
-/* Undo the Firefox inner focus ring */
-.select select:focus:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-/* Dropdown arrow */
-.select:after {
-  position: absolute;
-  top: 50%;
-  right: 0.5rem;
-  display: inline-block;
-  content: "";
-  width: 0;
-  height: 0;
-  margin-top: -0.15rem;
-  pointer-events: none;
-  border-top: .35rem solid;
-  border-right: .35rem solid transparent;
-  border-bottom: .35rem solid transparent;
-  border-left: .35rem solid transparent;
-}
+// .select {
+//   position: relative;
+//   display: inline-block;
+//   color: $grey-6;
+// }
+// .select select {
+//   @extend %button;
+//   display: inline-block;
+//   padding: 0.2rem 1.5rem 0.25rem 0.4rem;
+//   width: 100%;
+//   margin: 0;
+//   @extend %sc;
+//   outline: 0;
+//   -webkit-appearance: none;
+//      -moz-appearance: none;
+//           appearance: none;
+// }
+// /* Undo the Firefox inner focus ring */
+// .select select:focus:-moz-focusring {
+//   color: transparent;
+//   text-shadow: 0 0 0 #000;
+// }
+// /* Dropdown arrow */
+// .select:after {
+//   position: absolute;
+//   top: 50%;
+//   right: 0.5rem;
+//   display: inline-block;
+//   content: "";
+//   width: 0;
+//   height: 0;
+//   margin-top: -0.15rem;
+//   pointer-events: none;
+//   border-top: 0.35rem solid;
+//   border-right: 0.35rem solid transparent;
+//   border-bottom: 0.35rem solid transparent;
+//   border-left: 0.35rem solid transparent;
+// }
 
 /* Hover state */
 /* Uncomment if you need it, but be aware of the sticky iOS states.
@@ -107,7 +110,7 @@ input, optgroup, select, textarea {
   /* Firefox hack to hide the arrow */
   .select select {
     text-indent: 0.01px;
-    text-overflow: '';
+    text-overflow: "";
     padding-right: 1rem;
   }
 
@@ -146,11 +149,11 @@ input, optgroup, select, textarea {
     height: 0.5rem;
     background-color: $grey-6;
     border-radius: 0.5rem;
-    transform: translate(-50%, -50%) scale(0.7,0.7);
+    transform: translate(-50%, -50%) scale(0.7, 0.7);
     transition: 0.2s ease;
     opacity: 0;
     &.active {
-      transform: translate(-50%, -50%) scale(1,1);
+      transform: translate(-50%, -50%) scale(1, 1);
       opacity: 1;
     }
   }

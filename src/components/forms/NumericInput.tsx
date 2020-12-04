@@ -31,20 +31,6 @@ export const StyledNumericInput = styled.div`
       opacity: 1;
     }
   }
-  .fader-knob {
-    transition: 0.2s ease;
-    fill: var(--grey-2);
-    opacity: 0;
-  }
-  .fader-track {
-    stroke: var(--grey-2);
-  }
-  .fader-pointer {
-    stroke: var(--grey-7);
-  }
-  .fader-value {
-    stroke: var(--accent);
-  }
 `
 
 const NumericInput = (props: {

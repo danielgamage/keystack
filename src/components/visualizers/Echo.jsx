@@ -31,12 +31,12 @@ export const EchoContainer = styled.div`
   }
 
   .value {
-    fill: var(--foreground-lll);
+    fill: var(--fg-3);
   }
 
   .grid-line {
     fill: none;
-    stroke: var(--foreground-lllll);
+    stroke: var(--bg);
     stroke-width: 1;
     stroke-linecap: round;
     stroke-miterlimit: 10;
@@ -53,7 +53,7 @@ export const EchoContainer = styled.div`
     fill: none;
 
     &.first {
-      stroke: var(--foreground-ll);
+      stroke: var(--fg-2);
     }
   }
   .st1 {

@@ -9,16 +9,16 @@ export const StyledButton = styled.button`
   padding: 4px 8px 3px;
   border: 0;
 
-  background: var(--grey-1);
-  color: var(--grey-6);
-  border-radius: ${vars.radius};
+  background: var(--bg-deep);
+  color: var(--fg);
+  border-radius: var(--radius);
 
   appearance: none;
   cursor: pointer;
 
   &:hover,
   &:focus {
-    background: var(--grey-2);
+    background: var(--fg-6);
   }
 `
 

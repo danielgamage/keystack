@@ -19,7 +19,7 @@ export const StyledSelect = styled.div`
     height: 0;
     margin-top: -0.15rem;
     pointer-events: none;
-    border-top: 0.3rem solid var(--grey-6);
+    border-top: 0.3rem solid var(--fg);
     border-right: 0.25rem solid transparent;
     border-bottom: 0.3rem solid transparent;
     border-left: 0.25rem solid transparent;
@@ -33,13 +33,13 @@ export const StyledSelect = styled.div`
     appearance: none;
     cursor: pointer;
 
-    background: var(--grey-1);
-    color: var(--grey-6);
-    border-radius: ${vars.radius};
+    background: var(--bg-deep);
+    color: var(--fg);
+    border-radius: var(--radius);
 
     &:hover,
     &:focus {
-      background: var(--grey-2);
+      background: var(--fg-6);
     }
   }
 `
