@@ -33,6 +33,7 @@ const StyledStatusBar = styled.div`
     display: flex;
     width: calc(50% - 3rem);
     align-items: center;
+    gap: 0.5rem;
   }
 `
 
