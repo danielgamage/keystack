@@ -174,7 +174,10 @@ const NumericInput = (props: {
   }
 
   const shiftValue = (amount: number) => {
-    let v = currentValue.current || props.value || 0
+    let v = currentValue.current
+    v ??= props.value
+    v ??= 0
+
     v = scaleValue(v)
 
     let step = props.steps.default || 1
