@@ -227,9 +227,21 @@ export const chords = [
     quality: "Minor",
   },
   {
-    name: "Mu",
+    name: "Major Add 2",
+    abbr: "Maj2",
     set: [0, 2, 4, 7],
     quality: "Major",
+  },
+  {
+    name: "Major Add 4",
+    abbr: "Maj2",
+    set: [0, 4, 5, 7],
+    quality: "Major",
+  },
+  {
+    name: "Split 3rd",
+    set: [0, 3, 4, 7],
+    quality: "Atonal",
   },
   {
     name: "Mystic",
