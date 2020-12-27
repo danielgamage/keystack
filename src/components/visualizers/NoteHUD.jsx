@@ -12,6 +12,7 @@ import eyeIcon from "images/icon/eye.svg"
 const StyledNoteHUD = styled.div`
   display: flex;
   margin-bottom: 1rem;
+  color: var(--fg-1);
 
   .section-icon {
     margin-right: 0.5rem;
@@ -44,11 +45,15 @@ const StyledNoteHUD = styled.div`
     line-height: 1.5;
   }
   .empty {
-    color: var(--fg-3);
+    color: var(--fg-5);
   }
   .notes {
     display: inline-block;
     margin-right: 0.25rem;
+    sub {
+      font-weight: 400;
+      color: var(--fg-5);
+    }
   }
   .chord {
     margin-right: 1rem;
