@@ -9,7 +9,7 @@ export const StyledButton = styled.button`
   padding: 4px 8px 3px;
   border: 0;
 
-  background: var(--bg-deep);
+  background: var(--fg-7);
   color: var(--fg);
   border-radius: var(--radius);
 
