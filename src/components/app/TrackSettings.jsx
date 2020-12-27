@@ -86,9 +86,6 @@ const StyledTrackSettings = styled.div`
   .add-item-option {
     display: block;
     margin-bottom: 0.25rem;
-    &:hover {
-      color: var(--accent);
-    }
   }
   .add-item-toggle {
     width: 2rem;
@@ -361,7 +358,7 @@ class TrackSettings extends Component {
           <div className="settings-inner-container">
             {this.state.add !== null
               ? Object.keys(schema[this.state.add]).map((item) => (
-                  <button
+                  <Button
                     key={item}
                     className="button add-item-option"
                     onClick={() => {
@@ -380,7 +377,7 @@ class TrackSettings extends Component {
                     }}
                   >
                     {item}
-                  </button>
+                  </Button>
                 ))
               : ""}
           </div>
