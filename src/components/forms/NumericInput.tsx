@@ -210,7 +210,7 @@ const NumericInput = (props: {
         htmlFor={props.id}
         className={`ControlTitle`}
       >
-        {props.showLabel !== false && <Text type="h3">{props.label}</Text>}
+        {props.showLabel !== false && <span className="h3">{props.label}</span>}
       </label>
 
       <VizComponent

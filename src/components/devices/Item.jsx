@@ -144,7 +144,7 @@ class Item extends Component {
             document.addEventListener("mouseleave", this.handleMouseUp)
           }}
         >
-          <Text type="h2" className="title item-title">
+          <h3 className="h2 title item-title">
             <div
               onMouseDown={(e) => {
                 this.mouseDownX = e.pageX
@@ -189,7 +189,7 @@ class Item extends Component {
               type="text"
               value={this.props.item.name}
             />
-          </Text>
+          </h3>
           <div className="aux">{this.props.headerChildren}</div>
           <RemoveButton
             onClick={() => {

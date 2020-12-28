@@ -48,7 +48,7 @@ class Button extends React.Component {
   render() {
     return (
       <StyledSelect {...this.props} type="button">
-        <Text type="h3">
+        <span className="h3">
           <select
             onChange={(e) => {
               this.props.onUpdate(e.target.value)
@@ -60,7 +60,7 @@ class Button extends React.Component {
               </option>
             ))}
           </select>
-        </Text>
+        </span>
       </StyledSelect>
     )
   }

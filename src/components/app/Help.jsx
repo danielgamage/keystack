@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 import vars from "variables"
 
-import { Icon, Text, Kbd, Popover } from "components"
+import { Icon, Kbd, Popover } from "components"
 
 import helpIcon from "images/icon/help.svg"
 
@@ -129,15 +129,15 @@ class Help extends Component {
           place="below"
         >
           <div className="help-container">
-            <Text type="h3">Help</Text>
+            <span className="h3">Help</span>
             <div className="flex-container">
               <section>
-                <Text type="h2">octave</Text>
+                <span className="h2">octave</span>
                 <Kbd title="z shifts octave down">z</Kbd>/
                 <Kbd title="x shifts octave up">x</Kbd>
               </section>
               <section>
-                <Text type="h2">notes</Text>
+                <span className="h2">notes</span>
                 <div className="keyboard">
                   {keyboardRows.map((row) => (
                     <div key={row.color} className={`row ${row.color}`}>

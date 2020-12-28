@@ -297,9 +297,9 @@ class Chord extends Component {
             </div>
 
             <div className="chord-inversion-props">
-              <Text type="h3" title="Random Inversions">
+              <h3 className="h3" title="Random Inversions">
                 Rand Inv
-              </Text>
+              </h3>
 
               <NumericInput
                 label="Chance"

@@ -156,7 +156,7 @@ const InputBar = (props) => {
           transform: `scaleX(${bar(props.value) / 100})`,
         }}
       />
-      <Text type="value" className="text-items">
+      <div className="text-items value">
         <output htmlFor={props.id}>
           {props.displayValue !== undefined ? props.displayValue : props.value}
           <span className="suffix">{props.unit}</span>
@@ -180,7 +180,7 @@ const InputBar = (props) => {
             e.stopPropagation()
           }}
         />
-      </Text>
+      </div>
     </StyledInputBar>
   )
 }

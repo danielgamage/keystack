@@ -45,7 +45,7 @@ export const StyledKnob = styled.div`
     opacity: 0;
   }
   .fader-track {
-    stroke: var(--fg-3);
+    stroke: var(--fg-5);
   }
   .fader-pointer {
     stroke: var(--fg-1);
@@ -206,7 +206,7 @@ const Knob = (props) => {
       </svg>
 
       <div className="input-output">
-        <Text type="value" className="text-items">
+        <div className="value text-items">
           <output htmlFor={props.id}>
             {props.displayValue !== undefined
               ? props.displayValue
@@ -232,7 +232,7 @@ const Knob = (props) => {
               e.stopPropagation()
             }}
           />
-        </Text>
+        </div>
       </div>
     </StyledKnob>
   )

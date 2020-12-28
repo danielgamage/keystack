@@ -17,7 +17,6 @@ import {
   Transpose,
   Chord,
   DisableNotes,
-  Text,
   Button,
 } from "components"
 
@@ -322,18 +321,14 @@ class TrackSettings extends Component {
           enterAnimation={customEnterAnimation}
           leaveAnimation={customLeaveAnimation}
         >
-          <Text type="h3" key="title">
+          <h2 className="h3" key="title">
             {el.title}
-          </Text>
+          </h2>
 
           {insertHRs(devices, el.type, true)}
 
           <Button
             key="button"
-            style={{
-              paddingLeft: "22px",
-              paddingRight: "24px",
-            }}
             onClick={(e) => {
               e.stopPropagation()
               this.setState({

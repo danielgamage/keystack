@@ -89,7 +89,7 @@ class UserSettings extends Component {
           place="below"
         >
           <div className="settings-container">
-            <Text type="h3">Settings</Text>
+            <h3 className="h3">Settings</h3>
 
             <ThemeSettings
               prefs={this.props.theme}

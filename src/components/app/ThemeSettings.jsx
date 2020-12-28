@@ -108,7 +108,7 @@ class ThemeSettings extends Component {
 
     return (
       <Container>
-        <Text type="h2">Theme</Text>
+        <h2 className="h2">Theme</h2>
 
         <Palette lightness={this.props.prefs.lightness}>
           {currentColors.map((color, i) => (

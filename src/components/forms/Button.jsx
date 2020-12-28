@@ -26,7 +26,7 @@ class Button extends React.Component {
   render() {
     return (
       <StyledButton {...this.props} type="button">
-        <Text type="h3">{this.props.children}</Text>
+        <span className="h3">{this.props.children}</span>
       </StyledButton>
     )
   }
