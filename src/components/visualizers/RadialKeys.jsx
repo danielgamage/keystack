@@ -39,7 +39,7 @@ const StyledRadialKeys = styled.div`
   }
   path.spiral {
     fill: none;
-    stroke-width: 14px;
+    stroke-width: 15px;
     transition: 0.3s ease-out;
     &.black {
       stroke: var(--grey-10);
