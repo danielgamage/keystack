@@ -15,7 +15,11 @@ const StyledStatusBar = styled.div`
   gap: 1rem;
   background: var(--bg-recessed);
 
-  border-radius: ${vars.radius};
+  border-radius: var(--radius);
+  .section-icon {
+    display: flex;
+    align-items: center;
+  }
   .file-operations {
     padding-left: 8px;
     display: flex;
