@@ -8,10 +8,16 @@ import { format } from "d3-format"
 import vars from "variables"
 
 export const EnvelopeElement = styled.div`
-  .background-grid {
-    stroke-dasharray: 2, 6;
+  .vis {
+    background: var(--bg-deep);
+    padding: 8px;
+    border: 1px solid var(--tick);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+  }
+  .grid {
+    stroke-dasharray: 4, 6;
     stroke-width: 1px;
-    stroke: var(--fg-6);
   }
 
   .curve {
@@ -142,65 +148,67 @@ class Envelope extends Component {
 
     return (
       <EnvelopeElement>
-        <svg className="vis-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
-          <linearGradient
-            id="EnvelopeGradient"
-            x1="0"
-            x2="0"
-            y1="0"
-            y2={viewBoxHeight}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0%" stopColor="#59595b" />
-            <stop offset="80%" stopColor="#47494b" />
-            <stop offset="100%" stopColor="#444649" />
-          </linearGradient>
+        <div className="vis">
+          <svg className="vis-path" viewBox={`0 0 32 ${viewBoxHeight}`}>
+            <linearGradient
+              id="EnvelopeGradient"
+              x1="0"
+              x2="0"
+              y1="0"
+              y2={viewBoxHeight}
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="#59595b" />
+              <stop offset="80%" stopColor="#47494b" />
+              <stop offset="100%" stopColor="#444649" />
+            </linearGradient>
 
-          {points
-            .filter((el, i, arr) => i !== 0 && i !== arr.length - 1)
-            .map((point) => (
-              <line
+            {points
+              .filter((el, i, arr) => i !== 0 && i !== arr.length - 1)
+              .map((point) => (
+                <line
+                  vectorEffect="non-scaling-stroke"
+                  key={`${point.x}-${point.y}`}
+                  className="grid"
+                  x1={x(point.x)}
+                  x2={x(point.x)}
+                  y1={0}
+                  y2={viewBoxHeight}
+                />
+              ))}
+
+            {lines.map((line, i) => (
+              <path
+                key={i}
+                className="curve"
                 vectorEffect="non-scaling-stroke"
-                key={`${point.x}-${point.y}`}
-                className="background-grid"
-                x1={x(point.x)}
-                x2={x(point.x)}
-                y1={0}
-                y2={viewBoxHeight}
+                d={line.length === 2 ? envelopeLine(line) : envelopeCurve(line)}
               />
             ))}
 
-          {lines.map((line, i) => (
-            <path
-              key={i}
-              className="curve"
-              vectorEffect="non-scaling-stroke"
-              d={line.length === 2 ? envelopeLine(line) : envelopeCurve(line)}
-            />
-          ))}
+            {lines.map((line, i) => (
+              <circle
+                key={i}
+                className="control-point"
+                vectorEffect="non-scaling-stroke"
+                cx={x(line[1].x)}
+                cy={y(line[1].y)}
+                r={0.2}
+              />
+            ))}
 
-          {lines.map((line, i) => (
-            <circle
-              key={i}
-              className="control-point"
-              vectorEffect="non-scaling-stroke"
-              cx={x(line[1].x)}
-              cy={y(line[1].y)}
-              r={0.2}
-            />
-          ))}
-
-          {points.map((point, i) => (
-            <circle
-              vectorEffect="non-scaling-stroke"
-              key={i}
-              className="point"
-              cx={x(point.x)}
-              cy={y(point.y)}
-              r="0.3"
-            />
-          ))}
-        </svg>
+            {points.map((point, i) => (
+              <circle
+                vectorEffect="non-scaling-stroke"
+                key={i}
+                className="point"
+                cx={x(point.x)}
+                cy={y(point.y)}
+                r="0.3"
+              />
+            ))}
+          </svg>
+        </div>
         <div className="flex-container">
           {[
             {

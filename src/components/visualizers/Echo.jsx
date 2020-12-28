@@ -9,21 +9,21 @@ import { axisBottom, axisLeft } from "d3-axis"
 import { select } from "d3-selection"
 import { format } from "d3-format"
 
-import vars from "variables.js"
-
 const viewBoxWidth = 256
 const viewBoxHeight = 64
-const marginLeft = 24
-const marginRight = 24
+const marginLeft = 20
+const marginRight = 20
 
 export const EchoContainer = styled.div`
   padding: 0 0 10%;
-  border-radius: ${vars.radius};
 
   svg {
     width: 100%;
     height: 100%;
     overflow: visible;
+    background: var(--bg-deep);
+    border-radius: var(--radius);
+    border: 1px solid var(--tick);
   }
 
   .background {
@@ -36,7 +36,7 @@ export const EchoContainer = styled.div`
 
   .grid-line {
     fill: none;
-    stroke: var(--bg);
+    stroke: var(--tick);
     stroke-width: 1;
     stroke-linecap: round;
     stroke-miterlimit: 10;
@@ -65,8 +65,8 @@ export const EchoContainer = styled.div`
     stroke-miterlimit: 10;
   }
   .handle {
-    fill: #b3b3b3;
-    stroke: #b3b3b3;
+    fill: var(--fg-5);
+    stroke: var(--fg-5);
     stroke-width: 2;
     stroke-linecap: round;
     stroke-miterlimit: 10;
@@ -75,12 +75,12 @@ export const EchoContainer = styled.div`
   .graph-axis {
     line,
     path {
-      stroke: var(--grey-4);
+      stroke: var(--tick);
       stroke-width: 1px;
     }
     text {
       font-size: 10px;
-      fill: var(--grey-4);
+      fill: var(--fg-4);
     }
   }
 `
@@ -223,43 +223,7 @@ class Echo extends Component {
     return (
       <EchoContainer>
         <svg x="0px" y="0px" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-          <g>
-            {/* horizontal */}
-            <line
-              className="grid-line"
-              vectorEffect="non-scaling-stroke"
-              x1={0}
-              y1={viewBoxHeight}
-              x2={viewBoxWidth}
-              y2={viewBoxHeight}
-            />
-            <line
-              className="grid-line"
-              vectorEffect="non-scaling-stroke"
-              x1={0}
-              y1="0"
-              x2={viewBoxWidth}
-              y2="0"
-            />
-
-            {/* vertical */}
-            <line
-              className="grid-line"
-              vectorEffect="non-scaling-stroke"
-              x1={0}
-              y1={0}
-              x2={0}
-              y2={viewBoxHeight}
-            />
-            <line
-              className="grid-line"
-              vectorEffect="non-scaling-stroke"
-              x1={viewBoxWidth}
-              y1={0}
-              x2={viewBoxWidth}
-              y2={viewBoxHeight}
-            />
-
+          <g className="grid">
             {delays.map((el, i, arr) => (
               <g transform={`translate(${el.offset} 0)`} key={i}>
                 <line

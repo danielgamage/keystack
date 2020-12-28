@@ -110,8 +110,7 @@ const StyledTrackSettings = styled.div`
 
   .vis-path {
     overflow: visible;
-    margin: 1rem 0 2rem;
-    stroke: var(--fg-4);
+    stroke: var(--tick);
     fill: none;
     stroke-width: 2px;
     stroke-linejoin: round;
@@ -125,21 +124,20 @@ const StyledTrackSettings = styled.div`
       }
     }
     .grid {
-      opacity: 0.5;
+      stroke: var(--tick);
       .domain {
         display: none;
       }
-      stroke: var(--bg-elevated);
     }
   }
   .graph-axis {
     font-family: unset;
     font-size: 10px;
     .tick {
-      fill: var(--grey-4);
+      fill: var(--tick);
     }
     text {
-      fill: var(--grey-4);
+      fill: var(--grey-3);
       stroke: none;
     }
   }

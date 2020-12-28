@@ -18,6 +18,8 @@ import { NumericInput, Item, Select, Icon } from "components"
 
 const StyledFilter = styled.div`
   position: relative;
+  background: var(--bg-deep);
+  margin-bottom: 2rem;
 
   .filter-magnitude {
     stroke: var(--accent);

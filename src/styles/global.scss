@@ -39,9 +39,9 @@ body,
   --green-dark: #6bc93f;
   --green: #94ed6b;
   --green-bright: #caf9b2;
-  --yellow-dark: #fcbd30;
-  --yellow: #ffd149;
-  --yellow-bright: #ffeea4;
+  --yellow-dark: #eda917;
+  --yellow: #f2c233;
+  --yellow-bright: #fee98c;
   --accent-dark: var(--orange-dark);
   --accent: var(--orange);
   --accent-bright: var(--orange-bright);
@@ -78,6 +78,8 @@ body,
   --fg-2: var(--grey-8);
   --fg-1: var(--grey-9);
   --fg: var(--grey-10);
+
+  --tick: var(--fg-5);
 }
 .theme--dark {
   --grey-0: #f5eee8;
@@ -105,4 +107,6 @@ body,
   --bg: var(--grey-8);
   --bg-recessed: var(--grey-9);
   --bg-deep: var(--grey-10);
+
+  --tick: var(--fg-5);
 }
