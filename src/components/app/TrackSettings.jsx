@@ -30,6 +30,7 @@ const StyledTrackSettings = styled.div`
   display: flex;
   flex-flow: column;
   background-color: var(--bg-recessed);
+  border: 1px solid var(--bg-deep);
   color: var(--fg);
   border-radius: var(--radius);
   overflow: hidden;
@@ -70,7 +71,7 @@ const StyledTrackSettings = styled.div`
   hr {
     display: block;
     border: 0;
-    border-top: 2px solid var(--bg-deep);
+    border-top: 1px solid var(--bg-deep);
     margin: 0;
     &.edge {
       opacity: 0;
