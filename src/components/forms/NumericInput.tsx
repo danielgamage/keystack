@@ -93,7 +93,7 @@ const NumericInput = (props: {
       document.addEventListener("touchmove", onDrag)
       document.addEventListener("touchend", onMouseUp)
 
-      document.body.classList.add("cursor--lr")
+      document.body.classList.add("cursor--tb")
     }
   }
 
@@ -110,7 +110,7 @@ const NumericInput = (props: {
     document.removeEventListener("mouseup", onMouseUp)
     document.removeEventListener("touchmove", onDrag)
     document.removeEventListener("touchend", onMouseUp)
-    document.body.classList.remove("cursor--lr")
+    document.body.classList.remove("cursor--tb")
   }
 
   const scaleValue = (v: number) => {
@@ -169,8 +169,8 @@ const NumericInput = (props: {
 
   const onDrag = (e: MouseEvent | TouchEvent) => {
     didMove.current = true
-    props.onInput(shiftValue((e as any).movementX))
-    currentValue.current = shiftValue((e as any).movementX)
+    props.onInput(shiftValue((e as any).movementY * -1))
+    currentValue.current = shiftValue((e as any).movementY * -1)
   }
 
   const shiftValue = (amount: number) => {

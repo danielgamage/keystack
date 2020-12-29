@@ -1,4 +1,3 @@
-
 // --------
 // Keystack
 // --------
@@ -19,10 +18,14 @@ body {
   background: $grey-6;
   color: $grey-0;
 
-  &.cursor--lr { cursor: ew-resize }
-  &.cursor--move { cursor: move }
+  &.cursor--tb {
+    cursor: ew-resize;
+  }
+  &.cursor--move {
+    cursor: move;
+  }
 
-  &[class^='cursor--'] {
+  &[class^="cursor--"] {
     & * {
       user-select: none;
       pointer-events: none;
