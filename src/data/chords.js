@@ -227,6 +227,18 @@ export const chords = [
     quality: "Minor",
   },
   {
+    name: "Minor Add 2",
+    abbr: "m2",
+    set: [0, 2, 3, 7],
+    quality: "Minor",
+  },
+  {
+    name: "Minor Add 4",
+    abbr: "m4",
+    set: [0, 3, 5, 7],
+    quality: "Minor",
+  },
+  {
     name: "Major Add 2",
     abbr: "Maj2",
     set: [0, 2, 4, 7],
@@ -234,7 +246,7 @@ export const chords = [
   },
   {
     name: "Major Add 4",
-    abbr: "Maj2",
+    abbr: "Maj4",
     set: [0, 4, 5, 7],
     quality: "Major",
   },
@@ -284,6 +296,21 @@ export const chords = [
     name: "Petrushka",
     set: [0, 1, 4, 6, 7, 10],
     quality: "Mixed",
+  },
+  {
+    name: "Alpha",
+    set: [0, 3, 6, 9, 11],
+    //    C♯ E  G  B♭ C E♭ F♯ A
+  },
+  {
+    name: "Beta",
+    set: [0, 3, 6, 9, 11],
+    //    C♯ E  G  B♭ C♮
+  },
+  {
+    name: "Gamma",
+    set: [0, 3, 6, 8, 11],
+    //    C♯ E  G  A  C♮
   },
   {
     name: "Power",

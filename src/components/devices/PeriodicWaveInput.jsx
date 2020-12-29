@@ -189,7 +189,7 @@ class Waveform extends Component {
     const oscillators = ["sine", "saw", "square"]
 
     return (
-      <div>
+      <div className="waveforms">
         <WaveformContainer>
           <svg
             className="vis-path"

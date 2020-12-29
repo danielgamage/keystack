@@ -20,6 +20,8 @@ const StyledFilter = styled.div`
   position: relative;
   background: var(--bg-deep);
   margin-bottom: 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--tick);
 
   .filter-magnitude {
     stroke: var(--accent);
@@ -35,79 +37,104 @@ const StyledFilter = styled.div`
     pointer-events: none;
     transform: translate(-50%, -50%);
   }
+  .grid,
+  .graph-axis {
+    opacity: 1;
+    .domain,
+    .tick:nth-child(2),
+    .tick:last-child {
+      display: none;
+    }
+  }
 `
 
 const filterTypes = [
   {
     name: "lowpass",
     label: "Low-pass",
-    frequency: true,
-    q: true,
-    gain: false,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: true,
+      gain: false,
+      mix: true,
+    },
     y: "q",
   },
   {
     name: "highpass",
     label: "High-pass",
-    frequency: true,
-    q: true,
-    gain: false,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: true,
+      gain: false,
+      mix: true,
+    },
     y: "q",
   },
   {
     name: "bandpass",
     label: "Band-pass",
-    frequency: true,
-    q: true,
-    gain: false,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: true,
+      gain: false,
+      mix: true,
+    },
     y: "q",
   },
   {
     name: "lowshelf",
     label: "Low-shelf",
-    frequency: true,
-    q: false,
-    gain: true,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: false,
+      gain: true,
+      mix: true,
+    },
     y: "gain",
   },
   {
     name: "highshelf",
     label: "High-shelf",
-    frequency: true,
-    q: false,
-    gain: true,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: false,
+      gain: true,
+      mix: true,
+    },
     y: "gain",
   },
   {
     name: "peaking",
     label: "Peaking",
-    frequency: true,
-    q: true,
-    gain: true,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: true,
+      gain: true,
+      mix: true,
+    },
     y: "gain",
   },
   {
     name: "notch",
     label: "Notch",
-    frequency: true,
-    q: true,
-    gain: false,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: true,
+      gain: false,
+      mix: true,
+    },
     y: "q",
   },
   {
     name: "allpass",
     label: "All-pass",
-    frequency: true,
-    q: true,
-    gain: false,
-    mix: true,
+    uses: {
+      frequency: true,
+      q: true,
+      gain: false,
+      mix: true,
+    },
     y: "q",
   },
 ]
@@ -425,9 +452,8 @@ class Filter extends Component {
               label={param.label || param.name}
               className="quad"
               disabled={
-                !filterTypes.find((el) => el.name === this.props.data.type)[
-                  param.name
-                ]
+                !filterTypes.find((el) => el.name === this.props.data.type)
+                  .uses[param.name]
               }
               id={param.name}
               min={param.min}

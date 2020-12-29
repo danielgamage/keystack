@@ -33,6 +33,11 @@ const StyledTrackSettings = styled.div`
   color: var(--fg);
   border-radius: var(--radius);
   overflow: hidden;
+  h2 {
+    color: var(--fg-3);
+    display: flex;
+    justify-content: space-between;
+  }
   &.add-open {
     .settings-container-add {
       height: 12rem;
@@ -137,7 +142,7 @@ const StyledTrackSettings = styled.div`
       fill: var(--tick);
     }
     text {
-      fill: var(--grey-3);
+      fill: var(--tick);
       stroke: none;
     }
   }
@@ -161,7 +166,7 @@ const StyledTrackSettings = styled.div`
     margin-top: -1rem;
   }
   .draggable {
-    cursor: ew-resize;
+    cursor: ns-resize;
   }
   .tri {
     width: calc(100% / 3);
@@ -321,21 +326,20 @@ class TrackSettings extends Component {
         >
           <h2 className="h3" key="title">
             {el.title}
+            <Button
+              key="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                this.setState({
+                  add: el.type,
+                })
+              }}
+            >
+              + Add
+            </Button>
           </h2>
 
           {insertHRs(devices, el.type, true)}
-
-          <Button
-            key="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              this.setState({
-                add: el.type,
-              })
-            }}
-          >
-            + Add
-          </Button>
         </FlipMove>
       )
     })

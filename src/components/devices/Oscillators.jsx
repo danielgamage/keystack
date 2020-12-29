@@ -23,6 +23,7 @@ const StyledOscillators = styled.div`
   .oscillator-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     .text {
       margin-right: 8px;
@@ -30,13 +31,21 @@ const StyledOscillators = styled.div`
   }
 
   .icon--wave {
-    display: inline-block;
+    display: block;
     width: 1.5rem;
     height: 1.5rem;
-    margin: 0.25rem 0.5rem 0 0;
 
     stroke: var(--fg-5);
     fill: none;
+  }
+  .wave-options {
+    display: flex;
+    margin-top: 0.2rem;
+    gap: 0.2rem;
+    padding: 0 0.3rem;
+    background: var(--bg-deep);
+    border: 1px solid var(--tick);
+    border-radius: var(--radius);
   }
   & :checked + .icon {
     stroke: var(--accent);
@@ -66,29 +75,31 @@ class Oscillators extends Component {
                 />
               </header>
 
-              {["sawtooth", "triangle", "square", "sine"].map(
-                (type, typeIndex) => (
-                  <label title={type} key={type}>
-                    <input
-                      className="hide-input"
-                      name={`osc-${this.props.instrument.id}-${i}`}
-                      type="radio"
-                      value={type}
-                      checked={osc.type === type}
-                      onChange={(e) => {
-                        this.props.dispatch({
-                          id: this.props.instrument.id,
-                          type: "UPDATE_OSC",
-                          property: "type",
-                          value: type,
-                          index: i,
-                        })
-                      }}
-                    />
-                    <Icon className="icon icon--wave" src={waves[type]} />
-                  </label>
-                )
-              )}
+              <div className="wave-options">
+                {["sawtooth", "triangle", "square", "sine"].map(
+                  (type, typeIndex) => (
+                    <label title={type} key={type}>
+                      <input
+                        className="hide-input"
+                        name={`osc-${this.props.instrument.id}-${i}`}
+                        type="radio"
+                        value={type}
+                        checked={osc.type === type}
+                        onChange={(e) => {
+                          this.props.dispatch({
+                            id: this.props.instrument.id,
+                            type: "UPDATE_OSC",
+                            property: "type",
+                            value: type,
+                            index: i,
+                          })
+                        }}
+                      />
+                      <Icon className="icon icon--wave" src={waves[type]} />
+                    </label>
+                  )
+                )}
+              </div>
             </div>
             <NumericInput
               label="tune"

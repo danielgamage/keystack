@@ -37,9 +37,10 @@ const StyledChordDevice = styled.div`
       text-overflow: ellipsis;
       height: 32px;
       text-align: center;
-      border: 1px solid var(--fg-7);
       border-radius: var(--radius);
       cursor: pointer;
+      background: var(--bg);
+      box-shadow: var(--shadow-raised);
       &.active {
         background-color: var(--accent);
         color: var(--grey-0);

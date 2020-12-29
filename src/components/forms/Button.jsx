@@ -1,17 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 
-import vars from "variables"
-
-import { Text } from "components"
-
 export const StyledButton = styled.button`
-  padding: 4px 8px 3px;
+  padding: 3px 8px 4px;
   border: 0;
 
-  background: var(--fg-7);
+  background: var(--bg);
   color: var(--fg);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-raised);
 
   appearance: none;
   cursor: pointer;
