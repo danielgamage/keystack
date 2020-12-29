@@ -22,7 +22,7 @@ export const StyledInputBar = styled.div`
   border: 1px solid
     ${(props) => (props.isFocused ? "var(--fg)" : "var(--fg-6)")};
   border-bottom-width: 6px;
-  cursor: ew-resize;
+  cursor: ns-resize;
 
   .text-items {
     position: relative;
