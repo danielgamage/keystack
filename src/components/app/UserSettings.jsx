@@ -10,7 +10,6 @@ import gearIcon from "images/icon/gear.svg"
 const StyledUserSettings = styled.div`
   position: relative;
   display: flex;
-  padding-right: 8px;
 
   .settings-container {
     padding: 2rem;

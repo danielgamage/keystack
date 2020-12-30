@@ -69,6 +69,7 @@ export { default as DisableNotes } from "./devices/midi/DisableNotes"
 export { default as Transpose } from "./devices/midi/Transpose"
 
 export { default as NoteHUD } from "./visualizers/NoteHUD"
+export { default as GridKeys } from "./visualizers/GridKeys"
 export { default as RadialKeys } from "./visualizers/RadialKeys"
 export { default as Echo } from "./visualizers/Echo"
 export { default as Waveform } from "./visualizers/Waveform"

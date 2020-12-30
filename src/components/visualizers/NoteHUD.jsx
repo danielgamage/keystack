@@ -2,12 +2,8 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import styled from "styled-components"
-import vars from "variables"
-
-import { Icon } from "components"
 
 import matchChords from "utils/matchChords"
-import eyeIcon from "images/icon/eye.svg"
 
 const StyledNoteHUD = styled.div`
   display: flex;
@@ -16,24 +12,6 @@ const StyledNoteHUD = styled.div`
 
   .section-icon {
     margin-right: 0.5rem;
-  }
-  .icon--eye {
-    flex: 0;
-    cursor: pointer;
-
-    circle,
-    path {
-      fill: none;
-      stroke: var(--fg-1);
-    }
-    .pupil {
-      transition: 0.5s ease;
-    }
-    &.on {
-      .pupil {
-        fill: var(--fg-3);
-      }
-    }
   }
   .viewer {
     margin-bottom: 0.5rem;
@@ -89,15 +67,6 @@ class NoteHUD extends Component {
     }
     return (
       <StyledNoteHUD>
-        <div className="section-icon">
-          <Icon
-            className={`icon icon--eye ${this.state.showHUD && "on"}`}
-            onClick={() => {
-              this.setState({ showHUD: !this.state.showHUD })
-            }}
-            src={eyeIcon}
-          />
-        </div>
         {this.state.showHUD === true && (
           <div>
             <div>

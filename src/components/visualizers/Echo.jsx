@@ -21,9 +21,6 @@ export const EchoContainer = styled.div`
     width: 100%;
     height: 100%;
     overflow: visible;
-    background: var(--bg-deep);
-    border-radius: var(--radius);
-    border: 1px solid var(--tick);
   }
 
   .background {
@@ -32,6 +29,10 @@ export const EchoContainer = styled.div`
 
   .value {
     fill: var(--fg-3);
+  }
+
+  .domain {
+    display: none;
   }
 
   .grid-line {
@@ -222,65 +223,67 @@ class Echo extends Component {
 
     return (
       <EchoContainer>
-        <svg x="0px" y="0px" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-          <g className="grid">
-            {delays.map((el, i, arr) => (
-              <g transform={`translate(${el.offset} 0)`} key={i}>
-                <line
-                  className="grid-line weak"
-                  vectorEffect="non-scaling-stroke"
-                  x1={marginLeft}
-                  y1="0"
-                  x2={marginLeft}
-                  y2={viewBoxHeight}
-                  style={{ opacity: (i * 0.8) / arr.length + 0.2 }}
-                />
-              </g>
-            ))}
-          </g>
-
-          <g>
-            {delays.map((el, i, arr) => (
-              <g transform={`translate(${el.offset} 0)`} key={i}>
-                <g>
-                  <ellipse
-                    className="handle"
+        <div className="vis">
+          <svg x="0px" y="0px" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
+            <g className="grid">
+              {delays.map((el, i, arr) => (
+                <g transform={`translate(${el.offset} 0)`} key={i}>
+                  <line
+                    className="grid-line weak"
                     vectorEffect="non-scaling-stroke"
-                    cx={marginLeft}
-                    cy={viewBoxHeight / 2}
-                    rx="1"
-                    ry="2.5"
+                    x1={marginLeft}
+                    y1="0"
+                    x2={marginLeft}
+                    y2={viewBoxHeight}
+                    style={{ opacity: (i * 0.8) / arr.length + 0.2 }}
                   />
                 </g>
+              ))}
+            </g>
 
-                <g
-                  transform={`
-                    translate(${marginLeft} ${viewBoxHeight / 2})
-                    scale(${el.size / 2})
-                    translate(-32 -${viewBoxHeight})
-                  `}
-                >
-                  <path
-                    className={"st1 " + (i == arr.length - 1 ? "first" : "")}
-                    vectorEffect="non-scaling-stroke"
-                    d="M32,120C18.7,120,8,94.9,8,64S18.7,8,32,8"
-                  />
-                  <path
-                    className={"st2 " + (i == arr.length - 1 ? "first" : "")}
-                    vectorEffect="non-scaling-stroke"
-                    d="M32,8c13.3,0,24,25.1,24,56s-10.7,56-24,56"
-                  />
+            <g>
+              {delays.map((el, i, arr) => (
+                <g transform={`translate(${el.offset} 0)`} key={i}>
+                  <g>
+                    <ellipse
+                      className="handle"
+                      vectorEffect="non-scaling-stroke"
+                      cx={marginLeft}
+                      cy={viewBoxHeight / 2}
+                      rx="1"
+                      ry="2.5"
+                    />
+                  </g>
+
+                  <g
+                    transform={`
+                      translate(${marginLeft} ${viewBoxHeight / 2})
+                      scale(${el.size / 2})
+                      translate(-32 -${viewBoxHeight})
+                    `}
+                  >
+                    <path
+                      className={"st1 " + (i == arr.length - 1 ? "first" : "")}
+                      vectorEffect="non-scaling-stroke"
+                      d="M32,120C18.7,120,8,94.9,8,64S18.7,8,32,8"
+                    />
+                    <path
+                      className={"st2 " + (i == arr.length - 1 ? "first" : "")}
+                      vectorEffect="non-scaling-stroke"
+                      d="M32,8c13.3,0,24,25.1,24,56s-10.7,56-24,56"
+                    />
+                  </g>
                 </g>
-              </g>
-            ))}
-          </g>
+              ))}
+            </g>
 
-          <g
-            className="graph-axis axis-x"
-            data-id={this.props.id}
-            transform={`translate(${marginLeft}, ${viewBoxHeight})`}
-          />
-        </svg>
+            <g
+              className="graph-axis axis-x"
+              data-id={this.props.id}
+              transform={`translate(${marginLeft}, ${viewBoxHeight})`}
+            />
+          </svg>
+        </div>
       </EchoContainer>
     )
   }

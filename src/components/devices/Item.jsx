@@ -20,7 +20,7 @@ const StyledItem = styled.div`
     cursor: move;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     line-height: 1;
     .title {
       position: relative;

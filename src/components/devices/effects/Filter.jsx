@@ -18,17 +18,14 @@ import { NumericInput, Item, Select, Icon } from "components"
 
 const StyledFilter = styled.div`
   position: relative;
-  background: var(--bg-deep);
   margin-bottom: 2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--tick);
 
   .filter-magnitude {
     stroke: var(--accent);
   }
 
   .filter-phase {
-    stroke: var(--grey-1);
+    stroke: var(--fg-6);
   }
 
   .icon--crosshair {
@@ -385,54 +382,56 @@ class Filter extends Component {
         }
       >
         <StyledFilter>
-          <svg
-            className="vis-path"
-            id={`vis-${this.props.data.id}`}
-            viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}
-            ref={(e) => (this.svgElement = e)}
-            onMouseDown={this.onMouseDown}
-          >
-            <defs>
-              <clipPath id="cut-off">
-                <rect
-                  x="0"
-                  y="0"
-                  width={this.viewBoxWidth}
-                  height={this.viewBoxHeight}
-                />
-              </clipPath>
-            </defs>
-            <g className="grid grid-x" />
-            <g className="grid grid-y" />
-            <path
-              className="filter-phase"
-              vectorEffect="non-scaling-stroke"
-              d={this.envelopePath(phasePoints)}
-              clipPath="url(#cut-off)"
-            />
-            <path
-              className="filter-magnitude"
-              vectorEffect="non-scaling-stroke"
-              d={this.envelopePath(magnitudePoints)}
-              clipPath="url(#cut-off)"
-            />
-            <g
-              className="graph-axis axis-x"
-              transform={`translate(0,${this.viewBoxHeight})`}
-            />
-
-            {/* {[...myFrequencyArray].map(el => (
-              <line
-                x1={this.x(el)}
-                x2={this.x(el)}
-                y1={0}
-                y2={this.viewBoxHeight}
-                style={{
-                  strokeWidth: '1px'
-                }}
+          <div className="vis">
+            <svg
+              className="vis-path"
+              id={`vis-${this.props.data.id}`}
+              viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}
+              ref={(e) => (this.svgElement = e)}
+              onMouseDown={this.onMouseDown}
+            >
+              <defs>
+                <clipPath id="cut-off">
+                  <rect
+                    x="0"
+                    y="0"
+                    width={this.viewBoxWidth}
+                    height={this.viewBoxHeight}
+                  />
+                </clipPath>
+              </defs>
+              <g className="grid grid-x" />
+              <g className="grid grid-y" />
+              <path
+                className="filter-phase"
+                vectorEffect="non-scaling-stroke"
+                d={this.envelopePath(phasePoints)}
+                clipPath="url(#cut-off)"
               />
-            ))} */}
-          </svg>
+              <path
+                className="filter-magnitude"
+                vectorEffect="non-scaling-stroke"
+                d={this.envelopePath(magnitudePoints)}
+                clipPath="url(#cut-off)"
+              />
+              <g
+                className="graph-axis axis-x"
+                transform={`translate(0,${this.viewBoxHeight})`}
+              />
+
+              {/* {[...myFrequencyArray].map(el => (
+                <line
+                  x1={this.x(el)}
+                  x2={this.x(el)}
+                  y1={0}
+                  y2={this.viewBoxHeight}
+                  style={{
+                    strokeWidth: '1px'
+                  }}
+                />
+              ))} */}
+            </svg>
+          </div>
 
           <Icon
             className="icon--crosshair"

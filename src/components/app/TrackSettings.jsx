@@ -113,6 +113,12 @@ const StyledTrackSettings = styled.div`
     }
   }
 
+  .vis {
+    background: var(--bg-deep);
+    box-shadow: 0 0 0 1px var(--tick) inset;
+    border-radius: var(--radius);
+  }
+
   .vis-path {
     overflow: visible;
     stroke: var(--tick);
@@ -125,7 +131,7 @@ const StyledTrackSettings = styled.div`
       line,
       path {
         stroke-linecap: butt;
-        stroke-width: 1px;
+        stroke-width: 0.5px;
       }
     }
     .grid {

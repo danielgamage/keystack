@@ -9,11 +9,7 @@ import vars from "variables"
 
 export const EnvelopeElement = styled.div`
   .vis {
-    background: var(--bg-deep);
     padding: 8px;
-    border: 1px solid var(--tick);
-    border-radius: var(--radius);
-    margin-bottom: 1rem;
   }
   .grid {
     stroke-dasharray: 4, 6;

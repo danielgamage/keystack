@@ -1,9 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { store } from "utils/store"
 import { startNote, stopNote } from "utils/notes"
 
-import { select, selectAll } from "d3-selection"
+import { select } from "d3-selection"
 import { axisLeft } from "d3-axis"
 import { scaleLinear } from "d3-scale"
 import { radialLine } from "d3-shape"
@@ -11,7 +10,6 @@ import { range } from "d3-array"
 
 import { keys, noteForIndex } from "utils"
 import styled from "styled-components"
-import vars from "variables"
 
 const StyledRadialKeys = styled.div`
   #chart {

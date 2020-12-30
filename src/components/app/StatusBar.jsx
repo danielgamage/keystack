@@ -12,26 +12,28 @@ import vars from "variables"
 const StyledStatusBar = styled.div`
   height: 2rem;
   display: flex;
-  gap: 1rem;
+  gap: 2px;
   background: var(--bg-recessed);
-
   border-radius: var(--radius);
+  padding: 2px;
+  border: 1px solid var(--bg-deep);
+
   .section-icon {
     display: flex;
     align-items: center;
   }
   .file-operations {
-    padding-left: 8px;
     display: flex;
     width: calc(50% + 1rem);
+    gap: 2px;
   }
   .button {
-    color: inherit;
-    & + .button {
-      margin-left: 8px;
-    }
-
     ${vars.mixins.button_reset}
+
+    color: inherit;
+    padding: 0 0.5rem;
+    background: var(--bg);
+    border-radius: var(--radius);
   }
   .inputs {
     display: flex;
