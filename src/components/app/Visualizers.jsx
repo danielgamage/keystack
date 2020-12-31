@@ -44,9 +44,7 @@ const StyledVisualizers = styled.div`
   }
 `
 const Visualizers = () => {
-  const [midiReadPosition, setMidiReadPosition] = useState("input")
   const [vizVisibility, setVizVisibility] = useState(["GridKeys", "NoteHUD"])
-  const midiReadLabel = midiReadPosition === "input" ? "pre-fx" : "post-fx"
 
   const toggleVizVisibility = (viz) => {
     if (vizVisibility.includes(viz)) {
@@ -95,28 +93,16 @@ const Visualizers = () => {
             />
           </Button>
         </div>
-
-        <Button
-          title={"Change where visualizers read notes from: pre or post-FX"}
-          onClick={() => {
-            setMidiReadPosition(
-              midiReadPosition === "input" ? "output" : "input"
-            )
-          }}
-          className="button input-output-switch"
-        >
-          {midiReadLabel}
-        </Button>
       </header>
 
       {vizVisibility.includes("GridKeys") && (
-        <GridKeys midiReadPosition={midiReadPosition} />
+        <GridKeys midiReadPosition={"input"} />
       )}
       {vizVisibility.includes("RadialKeys") && (
-        <RadialKeys midiReadPosition={midiReadPosition} />
+        <RadialKeys midiReadPosition={"input"} />
       )}
       {vizVisibility.includes("NoteHUD") && (
-        <NoteHUD midiReadPosition={midiReadPosition} />
+        <NoteHUD midiReadPosition={"input"} />
       )}
     </StyledVisualizers>
   )
