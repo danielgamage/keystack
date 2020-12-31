@@ -114,8 +114,11 @@ const StyledTrackSettings = styled.div`
   }
 
   .vis {
+    position: relative;
     background: var(--bg-deep);
-    box-shadow: 0 0 0 1px var(--tick) inset;
+    box-shadow: 0 0 0 1px var(--tick) inset,
+      0 -1.5px 0 0 var(--bg-elevated) inset,
+      0 40px 20px -30px var(--bg-deepest) inset;
     border-radius: var(--radius);
   }
 

@@ -73,6 +73,13 @@ export const EchoContainer = styled.div`
     stroke-miterlimit: 10;
   }
 
+  .total-time {
+    position: absolute;
+    right: 6px;
+    bottom: 4px;
+    color: var(--fg-2);
+  }
+
   .graph-axis {
     line,
     path {
@@ -177,13 +184,15 @@ class Echo extends Component {
   //
   //
 
-  renderAxes() {
-    const formatSeconds = format(".1r")
+  formatSeconds(v) {
+    return format(".1r")(v)
+  }
 
+  renderAxes() {
     const xAxis = axisBottom()
       .scale(this.xScale)
       .ticks(5)
-      .tickFormat((d) => formatSeconds(d) + "s")
+      .tickFormat((d) => this.formatSeconds(d) + "s")
       .tickSizeOuter([6])
       .tickSizeInner([2])
 
@@ -221,9 +230,14 @@ class Echo extends Component {
       })
       .reverse()
 
+    console.log(delays)
+
     return (
       <EchoContainer>
-        <div className="vis">
+        <div className="vis type--time">
+          <div className="total-time flourish">
+            {this.formatSeconds(this.delayCount * this.props.delayTime)}s
+          </div>
           <svg x="0px" y="0px" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
             <g className="grid">
               {delays.map((el, i, arr) => (
