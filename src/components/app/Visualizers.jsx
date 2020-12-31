@@ -20,19 +20,19 @@ const StyledVisualizers = styled.div`
     top: 0;
     background: var(--bg);
   }
-  .icon--gridkeys,
-  .icon--radialkeys {
-    fill: var(--fg-1);
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    height: 2.5rem;
+  }
+  .icon {
+    stroke: var(--fg-1);
+    stroke-width: 1px;
   }
   .icon--eye {
     flex: 0;
     cursor: pointer;
 
-    circle,
-    path {
-      fill: none;
-      stroke: var(--fg-1);
-    }
     .pupil {
       transition: 0.5s ease;
     }
@@ -63,6 +63,7 @@ const Visualizers = () => {
             className="button input-output-switch"
           >
             <Icon
+              scale={2}
               className={`icon icon--gridkeys ${
                 vizVisibility.includes("GridKeys") && "on"
               }`}
@@ -75,6 +76,7 @@ const Visualizers = () => {
             className="button input-output-switch"
           >
             <Icon
+              scale={2}
               className={`icon icon--radialkeys ${
                 vizVisibility.includes("RadialKeys") && "on"
               }`}
@@ -86,6 +88,7 @@ const Visualizers = () => {
             className="button input-output-switch"
           >
             <Icon
+              scale={2}
               className={`icon icon--eye ${
                 vizVisibility.includes("NoteHUD") && "on"
               }`}
