@@ -51,52 +51,57 @@ body,
   --sc: "Source Sans Pro", sans-serif;
 
   --radius: 3px;
+  --radius-outer: 4px;
   --radius-large: 7px;
-
-  --shadow-raised: 0 -0.5px 0 var(--bg-elevated), 0 1px 4px var(--shading),
-    0 0 0 1px var(--bg-recessed);
 }
 
 .theme--light {
-  --grey-0: #ffffff;
-  --grey-1: #f8f7f5;
-  --grey-2: #efedeb;
-  --grey-3: #e3e1df;
-  --grey-4: #d5d3d1;
-  --grey-5: #c4c1c1;
-  --grey-6: #b0acac;
-  --grey-7: #979191;
-  --grey-8: #7a6f6f;
-  --grey-9: #584b4b;
-  --grey-10: #362727;
+  --grey-0: hsl(52.6, 52.9%, 100%);
+  --grey-1: hsl(41.06, 37.89%, 98.67%);
+  --grey-2: hsl(31.45, 27.45%, 96.92%);
+  --grey-3: hsl(23.57, 19.95%, 94.62%);
+  --grey-4: hsl(17.2, 14.57%, 91.63%);
+  --grey-5: hsl(12.14, 10.83%, 87.74%);
+  --grey-6: hsl(8.22, 8.43%, 82.65%);
+  --grey-7: hsl(5.24, 7.14%, 75.99%);
+  --grey-8: hsl(3.07, 6.83%, 67.19%);
+  --grey-9: hsl(1.55, 7.39%, 55.46%);
+  --grey-10: hsl(0.57, 8.75%, 39.68%);
+  --grey-11: hsl(0, 10.87%, 18.24%);
+
   --bg-elevated: var(--grey-0);
   --bg: var(--grey-1);
   --bg-recessed: var(--grey-2);
   --bg-deep: var(--grey-3);
-  --fg-8: var(--grey-2);
-  --fg-7: var(--grey-3);
-  --fg-6: var(--grey-4);
-  --fg-5: var(--grey-5);
-  --fg-4: var(--grey-6);
-  --fg-3: var(--grey-7);
-  --fg-2: var(--grey-8);
-  --fg-1: var(--grey-9);
-  --fg: var(--grey-10);
+  --bg-deepest: var(--grey-4);
+
+  --fg-8: var(--grey-3);
+  --fg-7: var(--grey-4);
+  --fg-6: var(--grey-5);
+  --fg-5: var(--grey-6);
+  --fg-4: var(--grey-7);
+  --fg-3: var(--grey-8);
+  --fg-2: var(--grey-9);
+  --fg-1: var(--grey-10);
+  --fg: var(--grey-11);
 
   --tick: var(--fg-5);
+  --shadow-raised: 0 0.5px 0 rgba(255, 255, 255, 0.7) inset,
+    0 -0.5px 0 0.5px rgba(0, 0, 0, 0.1) inset, 0 1px 7px rgba(0, 0, 0, 0.1);
 }
 .theme--dark {
-  --grey-0: #f5eee8;
-  --grey-1: #d3c6be;
-  --grey-2: #ad9f99;
-  --grey-3: #8b7c79;
-  --grey-4: #6d6261;
-  --grey-5: #574e4f;
-  --grey-6: #453e40;
-  --grey-7: #373133;
-  --grey-8: #2c272a;
-  --grey-9: #231e21;
-  --grey-10: #1c181b;
+  --grey-0: hsl(27.95, 40%, 94.12%);
+  --grey-1: hsl(14.43, 23.24%, 78.3%);
+  --grey-2: hsl(2.35, 14.48%, 61.15%);
+  --grey-3: hsl(351.75, 9.52%, 45.85%);
+  --grey-4: hsl(342.52, 6.86%, 34.83%);
+  --grey-5: hsl(334.52, 5.77%, 27.24%);
+  --grey-6: hsl(327.59, 5.82%, 21.76%);
+  --grey-7: hsl(321.56, 6.74%, 17.59%);
+  --grey-8: hsl(316.3, 8.33%, 14.26%);
+  --grey-9: hsl(311.7, 10.46%, 11.53%);
+  --grey-10: hsl(307.67, 13.02%, 9.23%);
+  --grey-11: hsl(304.11, 15.94%, 7.25%);
 
   --fg: var(--grey-0);
   --fg-1: var(--grey-1);
@@ -107,10 +112,40 @@ body,
   --fg-6: var(--grey-6);
   --fg-7: var(--grey-7);
   --fg-8: var(--grey-8);
+
   --bg-elevated: var(--grey-7);
   --bg: var(--grey-8);
   --bg-recessed: var(--grey-9);
   --bg-deep: var(--grey-10);
+  --bg-deepest: var(--grey-11);
 
   --tick: var(--fg-7);
+  --shadow-raised: 0 0.5px 0 rgba(255, 255, 255, 0.1) inset,
+    0 -0.5px 0 0.5px rgba(0, 0, 0, 0.2) inset, 0 1px 7px rgba(0, 0, 0, 0.2);
+}
+
+.type--volume {
+  --accent-dark: var(--blue-dark);
+  --accent: var(--blue);
+  --accent-bright: var(--blue-bright);
+}
+.type--pitch {
+  --accent-dark: var(--red-dark);
+  --accent: var(--red);
+  --accent-bright: var(--red-bright);
+}
+.type--filter {
+  --accent-dark: var(--magenta-dark);
+  --accent: var(--magenta);
+  --accent-bright: var(--magenta-bright);
+}
+.type--fx {
+  --accent-dark: var(--green-dark);
+  --accent: var(--green);
+  --accent-bright: var(--green-bright);
+}
+.type--time {
+  --accent-dark: var(--yellow-dark);
+  --accent: var(--yellow);
+  --accent-bright: var(--yellow-bright);
 }

@@ -45,7 +45,7 @@ export const StyledKnob = styled.div`
     opacity: 0;
   }
   .fader-track {
-    stroke: var(--fg-5);
+    stroke: var(--fg-6);
   }
   .fader-pointer {
     stroke: var(--fg-1);

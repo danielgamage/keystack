@@ -11,6 +11,15 @@ body,
   height: 100%;
 }
 
+button {
+  line-height: 1;
+  padding: 0;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background: none;
+}
+
 h1 {
   margin-top: 0;
 }
@@ -78,6 +87,7 @@ h6 {
   font-weight: 900;
   font-style: italic;
   font-size: 32px;
+  line-height: 1;
 }
 
 .text {

@@ -5,8 +5,7 @@ export const StyledButton = styled.button`
   padding: 3px 8px 4px;
   border: 0;
 
-  background: var(--bg);
-  color: var(--fg);
+  color: var(--fg-1);
   border-radius: var(--radius);
   box-shadow: var(--shadow-raised);
 
@@ -15,7 +14,7 @@ export const StyledButton = styled.button`
 
   &:hover,
   &:focus {
-    background: var(--fg-6);
+    background: var(--bg-elevated);
   }
 `
 

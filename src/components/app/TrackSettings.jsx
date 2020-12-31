@@ -20,7 +20,7 @@ import {
   Button,
 } from "components"
 
-import styled, { ThemeProvider } from "styled-components"
+import styled from "styled-components"
 import vars from "variables"
 
 import schema from "reducers/schema"
@@ -31,7 +31,7 @@ const StyledTrackSettings = styled.div`
   background-color: var(--bg-recessed);
   border: 1px solid var(--bg-deep);
   color: var(--fg);
-  border-radius: var(--radius);
+  border-radius: var(--radius-large);
   overflow: hidden;
   h2 {
     color: var(--fg-3);
@@ -177,15 +177,6 @@ const StyledTrackSettings = styled.div`
   .draggable {
     cursor: ns-resize;
   }
-  .tri {
-    width: calc(100% / 3);
-  }
-  .quad {
-    width: calc(100% / 4);
-  }
-  .six {
-    width: calc(100% / 6);
-  }
 
   .sample {
     .frame,
@@ -306,7 +297,6 @@ class TrackSettings extends Component {
   }
   render() {
     const chain = [
-      { type: "midi", title: "Midi Effects" },
       { type: "instrument", title: "Instruments" },
       { type: "audio", title: "Audio Effects" },
     ].map((el) => {

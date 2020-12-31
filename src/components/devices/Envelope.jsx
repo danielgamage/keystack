@@ -297,7 +297,11 @@ class Envelope extends Component {
             <NumericInput
               label={el.label}
               key={el.name}
-              className="tri"
+              className={
+                "tri " +
+                (["attack", "decay", "release"].includes(el.name) &&
+                  "type--time")
+              }
               viz="bar"
               showLabel={el.showLabel}
               id={el.name}

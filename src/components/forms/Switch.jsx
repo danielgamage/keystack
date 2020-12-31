@@ -13,7 +13,7 @@ export const Container = styled.label`
   width: 32px;
   display: flex;
   padding: 0 8px;
-  background: var(--grey-2);
+  background: var(--fg-2);
   border-radius: 16px;
   transition: background 0.2s ease-out;
 
@@ -38,13 +38,13 @@ export const Container = styled.label`
       position: absolute;
       width: 10px;
       height: 10px;
-      background: var(--white);
+      background: var(--bg);
       border-radius: 5px;
       cursor: pointer;
 
       &.is-active,
       &:hover {
-        background: var(--grey-6);
+        background: var(--fg-2);
       }
     }
   }

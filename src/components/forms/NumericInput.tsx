@@ -199,7 +199,7 @@ const NumericInput = (props: {
 
   return (
     <StyledNumericInput
-      className={`control fader ${props.className} ${
+      className={`NumericInput control fader ${props.viz} ${props.className} ${
         props.disabled ? "disabled" : ""
       } ${isActive && "active"}`}
       ref={containerElement!}

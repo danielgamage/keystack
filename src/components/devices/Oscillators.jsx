@@ -142,7 +142,7 @@ class Oscillators extends Component {
             />
             <NumericInput
               label="vol"
-              className="small"
+              className="small type--volume"
               id={`volume-${i}`}
               min={0}
               max={1}

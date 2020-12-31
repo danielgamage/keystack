@@ -3,7 +3,6 @@ import { Button, Icon } from "components"
 import xIcon from "images/icon/x.svg"
 
 import styled from "styled-components"
-import vars from "variables"
 
 const StyledButton = styled(Button)`
   position: relative;
@@ -11,7 +10,6 @@ const StyledButton = styled(Button)`
   height: 20px;
   flex: 0 0 auto;
   border-radius: var(--radius);
-  background: var(--fg-7);
   .icon--x {
     position: absolute;
     left: 50%;

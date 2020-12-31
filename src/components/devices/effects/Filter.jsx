@@ -139,6 +139,7 @@ const filterTypes = [
 const parameters = [
   {
     name: "frequency",
+    class: "type--filter",
     label: "freq",
     unit: "hz",
     format: ".3s",
@@ -149,6 +150,7 @@ const parameters = [
   },
   {
     name: "q",
+    class: "type--filter",
     unit: "",
     format: ".2",
     min: 0.1,
@@ -158,6 +160,7 @@ const parameters = [
   },
   {
     name: "gain",
+    class: "type--volume",
     format: "",
     unit: "dB",
     min: -18,
@@ -167,6 +170,7 @@ const parameters = [
   },
   {
     name: "mix",
+    class: "type--volume",
     format: "",
     unit: "%",
     min: 0,
@@ -382,7 +386,7 @@ class Filter extends Component {
         }
       >
         <StyledFilter>
-          <div className="vis">
+          <div className="vis type--filter">
             <svg
               className="vis-path"
               id={`vis-${this.props.data.id}`}
@@ -449,7 +453,7 @@ class Filter extends Component {
             <NumericInput
               key={param.name}
               label={param.label || param.name}
-              className="quad"
+              className={param.class}
               disabled={
                 !filterTypes.find((el) => el.name === this.props.data.type)
                   .uses[param.name]

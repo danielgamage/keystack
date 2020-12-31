@@ -60,6 +60,9 @@ const StyledItem = styled.div`
   .item-body {
     transition: opacity 0.2s ease;
   }
+  .NumericInput.knob:not(.small) {
+    width: 4rem;
+  }
 `
 
 class Item extends Component {
@@ -191,18 +194,6 @@ class Item extends Component {
             />
           </h3>
           <div className="aux">{this.props.headerChildren}</div>
-          <RemoveButton
-            onClick={() => {
-              this.props.dispatch({
-                type: `REMOVE_DEVICE`,
-                id: this.props.item.id,
-              })
-            }}
-            onMouseDown={(e) => {
-              e.stopPropagation()
-            }}
-            title="remove device"
-          />
         </header>
         <div className="item-body">{this.props.children}</div>
       </StyledItem>
