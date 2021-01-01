@@ -44,26 +44,24 @@ export const StyledSelect = styled.div`
   }
 `
 
-class Button extends React.Component {
+class Select extends React.Component {
   render() {
     return (
-      <StyledSelect {...this.props} type="button">
-        <span className="h3">
-          <select
-            onChange={(e) => {
-              this.props.onUpdate(e.target.value)
-            }}
-          >
-            {this.props.options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </span>
+      <StyledSelect {...this.props} className="h3">
+        <select
+          onChange={(e) => {
+            this.props.onUpdate(e.target.value)
+          }}
+        >
+          {this.props.options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </StyledSelect>
     )
   }
 }
 
-export default Button
+export default Select

@@ -13,7 +13,7 @@ import {
   StereoPanner,
   Compressor,
   Delay,
-  Distortion,
+  Waveshaper,
   Transpose,
   Chord,
   DisableNotes,
@@ -120,6 +120,9 @@ const StyledTrackSettings = styled.div`
       0 -1.5px 0 0 var(--bg-elevated) inset,
       0 40px 20px -30px var(--bg-deepest) inset;
     border-radius: var(--radius);
+    * {
+      vector-effect: non-scaling-stroke;
+    }
   }
 
   .vis-path {
@@ -143,6 +146,9 @@ const StyledTrackSettings = styled.div`
         display: none;
       }
     }
+  }
+  .vis-path--primary {
+    stroke: var(--accent);
   }
   .graph-axis {
     font-family: unset;
@@ -258,7 +264,7 @@ const devicesByName = {
     StereoPanner: StereoPanner,
     Compressor: Compressor,
     Delay: Delay,
-    Distortion: Distortion,
+    Waveshaper: Waveshaper,
   },
 }
 

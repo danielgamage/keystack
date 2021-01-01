@@ -56,7 +56,7 @@ export { default as Oscillators } from "./devices/Oscillators"
 
 export { default as Compressor } from "./devices/effects/Compressor"
 export { default as Delay } from "./devices/effects/Delay"
-export { default as Distortion } from "./devices/effects/Distortion"
+export { default as Waveshaper } from "./devices/effects/Waveshaper"
 export { default as Filter } from "./devices/effects/Filter"
 export { default as StereoPanner } from "./devices/effects/StereoPanner"
 

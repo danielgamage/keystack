@@ -10,7 +10,6 @@ import { select } from "d3-selection"
 import { format } from "d3-format"
 
 import styled from "styled-components"
-import vars from "variables"
 
 import crosshairIcon from "images/icon/crosshair.svg"
 
@@ -139,7 +138,6 @@ const filterTypes = [
 const parameters = [
   {
     name: "frequency",
-    class: "type--filter",
     label: "freq",
     unit: "hz",
     format: ".3s",
@@ -150,7 +148,6 @@ const parameters = [
   },
   {
     name: "q",
-    class: "type--filter",
     unit: "",
     format: ".2",
     min: 0.1,
@@ -160,7 +157,6 @@ const parameters = [
   },
   {
     name: "gain",
-    class: "type--volume",
     format: "",
     unit: "dB",
     min: -18,
@@ -170,7 +166,6 @@ const parameters = [
   },
   {
     name: "mix",
-    class: "type--volume",
     format: "",
     unit: "%",
     min: 0,
