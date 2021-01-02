@@ -1,6 +1,7 @@
 import { store } from "./store"
 import getDevicesOfType from "./getDevicesOfType"
 import { setProps, createEffect } from "../pipeline/audioEffects"
+import deepEqual from "deep-equal"
 
 export let audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
@@ -46,45 +47,19 @@ initialState.tracks.map((track, trackIndex, trackArray) => {
 
 let currentEffects
 function handleChange() {
-  console.log("handleChange")
   const previousEffects = currentEffects
   const state = store.getState()
   currentEffects = getDevicesOfType(state, state.tracks[0].devices, "audio")
-  if (previousEffects) {
-    if (
-      currentEffects.length !== previousEffects.length ||
-      !currentEffects.every((effect, i) => previousEffects[i].id === effect.id)
-    ) {
-      // disconnect and remove unused
-      audioEffectNodes.map((el, i, arr) => {
-        el.exit.disconnect()
-        if (!currentEffects.some((effect) => el.id === effect.id)) {
-          audioEffectNodes.splice(i, 1)
-        }
-      })
-      // add new
-      currentEffects.map((effect, i, arr) => {
-        if (!audioEffectNodes.some((el) => el.id === effect.id)) {
-          createEffect[effect.devicePrototype](effect)
-        }
-      })
-      // connect
-      currentEffects.map((el, i, arr) => {
-        if (i !== arr.length - 1) {
-          audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
-        } else {
-          audioEffectNodes[i].exit.connect(master.entry)
-        }
-      })
-    }
+  if (!deepEqual(previousEffects, currentEffects)) {
+    currentEffects.map((effect) => {
+      setProps[effect.devicePrototype](
+        audioEffectNodes.find((el) => el.id === effect.id),
+        effect
+      )
+    })
   }
-  currentEffects.map((effect) => {
-    setProps[effect.devicePrototype](
-      audioEffectNodes.find((el) => el.id === effect.id),
-      effect
-    )
-  })
 }
+
 let unsubscribe = store.subscribe(handleChange)
 
 let myBuffer = null
