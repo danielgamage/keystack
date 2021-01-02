@@ -43,6 +43,11 @@ const Waveshaper = (props) => {
     samples: 256,
     method: props.data.method,
   })
+  const mixedCurve = originalCurve.map(
+    (el, i) =>
+      el * (1 - props.data.mix / 100) +
+      (distortionCurve[i] * props.data.mix) / 100
+  )
 
   return (
     <Item type="audio" index={props.index} item={props.data}>
@@ -71,7 +76,7 @@ const Waveshaper = (props) => {
             ref={svgElement}
           >
             <path className="vis-path--secondary" d={pathD(originalCurve)} />
-            <path className="vis-path--primary" d={pathD(distortionCurve)} />
+            <path className="vis-path--primary" d={pathD(mixedCurve)} />
           </svg>
         </div>
         <div className="flex-container type--volume">
