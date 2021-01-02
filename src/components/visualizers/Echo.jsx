@@ -65,14 +65,6 @@ export const EchoContainer = styled.div`
     stroke-linecap: round;
     stroke-miterlimit: 10;
   }
-  .handle {
-    fill: var(--fg-5);
-    stroke: var(--fg-5);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-miterlimit: 10;
-  }
-
   .total-time {
     position: absolute;
     right: 6px;
@@ -258,17 +250,6 @@ class Echo extends Component {
             <g>
               {delays.map((el, i, arr) => (
                 <g transform={`translate(${el.offset} 0)`} key={i}>
-                  <g>
-                    <ellipse
-                      className="handle"
-                      vectorEffect="non-scaling-stroke"
-                      cx={marginLeft}
-                      cy={viewBoxHeight / 2}
-                      rx="1"
-                      ry="2.5"
-                    />
-                  </g>
-
                   <g
                     transform={`
                       translate(${marginLeft} ${viewBoxHeight / 2})
