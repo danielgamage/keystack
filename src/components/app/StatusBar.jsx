@@ -50,25 +50,6 @@ class StatusBar extends Component {
   render() {
     return (
       <StyledStatusBar>
-        <div className="file-operations">
-          <button
-            className="button"
-            onClick={() => {
-              saveProject()
-            }}
-          >
-            <Icon className="icon" src={downloadIcon} scale={2} />
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              loadProject()
-            }}
-          >
-            <Icon className="icon" src={uploadIcon} scale={2} />
-          </button>
-        </div>
-
         <Midi />
 
         <Help />
