@@ -15,6 +15,12 @@ export const makeWaveshaperCurve = (
 
   switch (method) {
     case "chebyshev":
+      /** @todo
+       *  Chebyshev calculation is pretty slow
+       *  at higher levels of recursion
+       *
+       *  Maybe we can generate these upfront and cache them
+       *  */
       const polynomial = function (n, x) {
         if (n === 0) return 1
         if (n === 1) return x
@@ -60,7 +66,9 @@ export const setProps = {
   },
 
   Waveshaper: (effect, state) => {
-    effect.waveshaper.curve = makeWaveshaperCurve(state.amount)
+    effect.waveshaper.curve = makeWaveshaperCurve(state.amount, {
+      method: state.method,
+    })
     effect.waveshaper.oversample = state.oversample
     mix(effect.dry, effect.wet, state.mix)
   },
