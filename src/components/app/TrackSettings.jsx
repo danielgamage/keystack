@@ -329,21 +329,6 @@ class TrackSettings extends Component {
           enterAnimation={customEnterAnimation}
           leaveAnimation={customLeaveAnimation}
         >
-          <h2 className="h3" key="title">
-            {el.title}
-            <Button
-              key="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                this.setState({
-                  add: el.type,
-                })
-              }}
-            >
-              + Add
-            </Button>
-          </h2>
-
           {insertHRs(devices, el.type, true)}
         </FlipMove>
       )
