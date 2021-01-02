@@ -63,16 +63,17 @@ class Oscillators extends Component {
                 <Text className="text" type="h3">
                   {`OSC ${i}`}
                 </Text>
-
-                <RemoveButton
-                  onClick={() => {
-                    this.props.dispatch({
-                      id: this.props.instrument.id,
-                      type: "DELETE_OSC",
-                      index: i,
-                    })
-                  }}
-                />
+                {this.props.oscillators.length > 1 && (
+                  <RemoveButton
+                    onClick={() => {
+                      this.props.dispatch({
+                        id: this.props.instrument.id,
+                        type: "DELETE_OSC",
+                        index: i,
+                      })
+                    }}
+                  />
+                )}
               </header>
 
               <div className="wave-options">
