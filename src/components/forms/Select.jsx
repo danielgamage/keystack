@@ -54,7 +54,11 @@ class Select extends React.Component {
           }}
         >
           {this.props.options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              key={option.value}
+              value={option.value}
+              selected={option.value === this.props.value}
+            >
               {option.label}
             </option>
           ))}

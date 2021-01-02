@@ -62,6 +62,7 @@ const Waveshaper = (props) => {
             { label: "Distortion", value: "distortion" },
             { label: "Sine", value: "sine" },
           ]}
+          value={props.data.method}
           onUpdate={(event) => {
             props.dispatch({
               type: "UPDATE_DEVICE",
