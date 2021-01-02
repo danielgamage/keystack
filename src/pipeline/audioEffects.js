@@ -41,9 +41,10 @@ export const makeWaveshaperCurve = (
       }
       break
     case "depth":
+      const base = 300 / (amount + 1)
       for (let i = 0; i < samples; ++i) {
         x = (i * 2) / samples - 1
-        curve[i] = Math.round(x)
+        curve[i] = Math.round(x * base) / base
       }
       break
     case "distortion":
