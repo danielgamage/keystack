@@ -63,7 +63,7 @@ const StyledTrackSettings = styled.div`
     z-index: 1;
   }
   .settings-inner-container {
-    padding: 2rem;
+    padding: 1rem 2rem;
   }
   .settings-section {
     position: relative;
@@ -277,23 +277,6 @@ const customLeaveAnimation = {
   to: { opacity: 0, transform: "scale(0.8, 0.8)" },
 }
 
-const insertHRs = (arr, type, edges) => {
-  const length = arr.length
-  for (let i = edges ? 0 : 1; i <= (edges ? length : length - 1); i++) {
-    arr.splice(
-      length - i,
-      0,
-      <hr
-        key={`${type}-${length - i}`}
-        className={`${type} ${type}-${length - i} ${
-          i === length || i === 0 ? "edge" : ""
-        }`}
-      />
-    )
-  }
-  return arr
-}
-
 class TrackSettings extends Component {
   constructor(props) {
     super(props)
@@ -319,19 +302,7 @@ class TrackSettings extends Component {
             />
           )
         })
-      return (
-        <FlipMove
-          duration={200}
-          easing="ease"
-          typeName="section"
-          className={`settings-section settings-section--${el.type}`}
-          staggerDurationBy={20}
-          enterAnimation={customEnterAnimation}
-          leaveAnimation={customLeaveAnimation}
-        >
-          {insertHRs(devices, el.type, true)}
-        </FlipMove>
-      )
+      return devices
     })
 
     return (
@@ -380,9 +351,7 @@ class TrackSettings extends Component {
             })
           }}
         >
-          <div className="settings-inner-container">
-            {insertHRs(chain, "big", false)}
-          </div>
+          <div className="settings-inner-container">{chain}</div>
         </div>
       </StyledTrackSettings>
     )
