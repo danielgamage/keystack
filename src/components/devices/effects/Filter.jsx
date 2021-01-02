@@ -139,6 +139,7 @@ const parameters = [
   {
     name: "frequency",
     label: "freq",
+    class: "type--filter",
     unit: "hz",
     format: ".3s",
     min: 30,
@@ -148,6 +149,7 @@ const parameters = [
   },
   {
     name: "q",
+    class: "type--filter",
     unit: "",
     format: ".2",
     min: 0.1,
@@ -157,6 +159,7 @@ const parameters = [
   },
   {
     name: "gain",
+    class: "type--volume",
     format: "",
     unit: "dB",
     min: -18,
@@ -167,6 +170,7 @@ const parameters = [
   {
     name: "mix",
     format: "",
+    class: "type--volume",
     unit: "%",
     min: 0,
     max: 100,

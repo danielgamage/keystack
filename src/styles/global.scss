@@ -14,6 +14,31 @@ body,
   margin: 0;
 }
 
+html,
+body {
+  overflow: hidden;
+}
+
+body {
+  font-family: $sans;
+  background: $grey-6;
+  color: $grey-0;
+
+  &.cursor--tb {
+    cursor: ew-resize;
+  }
+  &.cursor--move {
+    cursor: move;
+  }
+
+  &[class^="cursor--"] {
+    & * {
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+}
+
 :root {
   --white: #fdfcfb;
   --black: #303134;
@@ -56,17 +81,17 @@ body,
 }
 
 .theme--light {
-  --grey-0: hsl(52.6, 52.9%, 100%);
-  --grey-1: hsl(41.06, 37.89%, 98.67%);
-  --grey-2: hsl(31.45, 27.45%, 96.92%);
-  --grey-3: hsl(23.57, 19.95%, 94.62%);
-  --grey-4: hsl(17.2, 14.57%, 91.63%);
-  --grey-5: hsl(12.14, 10.83%, 87.74%);
-  --grey-6: hsl(8.22, 8.43%, 82.65%);
-  --grey-7: hsl(5.24, 7.14%, 75.99%);
-  --grey-8: hsl(3.07, 6.83%, 67.19%);
-  --grey-9: hsl(1.55, 7.39%, 55.46%);
-  --grey-10: hsl(0.57, 8.75%, 39.68%);
+  --grey-0: hsl(52.6, 24.64%, 100%);
+  --grey-1: hsl(41.06, 18.54%, 96.71%);
+  --grey-2: hsl(31.45, 14.19%, 93.24%);
+  --grey-3: hsl(23.57, 11.01%, 89.53%);
+  --grey-4: hsl(17.2, 8.74%, 85.46%);
+  --grey-5: hsl(12.14, 7.21%, 80.9%);
+  --grey-6: hsl(8.22, 6.34%, 75.61%);
+  --grey-7: hsl(5.24, 6.06%, 69.2%);
+  --grey-8: hsl(3.07, 6.37%, 61.03%);
+  --grey-9: hsl(1.55, 7.25%, 50.2%);
+  --grey-10: hsl(0.57, 8.73%, 35.83%);
   --grey-11: hsl(0, 10.87%, 18.24%);
 
   --bg-elevated: var(--grey-0);
@@ -86,22 +111,23 @@ body,
   --fg: var(--grey-11);
 
   --tick: var(--fg-5);
-  --shadow-raised: 0 0.5px 0 rgba(255, 255, 255, 0.7) inset,
+  --shadow-raised: 0 -15px 15px -15px rgba(0, 0, 0, 0.05) inset,
+    0 0.5px 0 rgba(255, 255, 255, 0.7) inset,
     0 -0.5px 0 0.5px rgba(0, 0, 0, 0.1) inset, 0 1px 7px rgba(0, 0, 0, 0.1);
 }
 .theme--dark {
-  --grey-0: hsl(27.95, 40%, 94.12%);
-  --grey-1: hsl(14.43, 23.24%, 78.3%);
-  --grey-2: hsl(2.35, 14.48%, 61.15%);
-  --grey-3: hsl(351.75, 9.52%, 45.85%);
-  --grey-4: hsl(342.52, 6.86%, 34.83%);
-  --grey-5: hsl(334.52, 5.77%, 27.24%);
-  --grey-6: hsl(327.59, 5.82%, 21.76%);
-  --grey-7: hsl(321.56, 6.74%, 17.59%);
-  --grey-8: hsl(316.3, 8.33%, 14.26%);
-  --grey-9: hsl(311.7, 10.46%, 11.53%);
-  --grey-10: hsl(307.67, 13.02%, 9.23%);
-  --grey-11: hsl(304.11, 15.94%, 7.25%);
+  --grey-0: hsl(27.95, 21.74%, 94.12%);
+  --grey-1: hsl(14.43, 12.62%, 78.3%);
+  --grey-2: hsl(2.35, 7.86%, 61.15%);
+  --grey-3: hsl(351.75, 5.22%, 45.85%);
+  --grey-4: hsl(342.52, 3.87%, 34.83%);
+  --grey-5: hsl(334.52, 3.43%, 27.24%);
+  --grey-6: hsl(327.59, 3.65%, 21.76%);
+  --grey-7: hsl(321.56, 4.39%, 17.59%);
+  --grey-8: hsl(316.3, 5.55%, 14.26%);
+  --grey-9: hsl(311.7, 7.05%, 11.53%);
+  --grey-10: hsl(307.67, 8.84%, 9.23%);
+  --grey-11: hsl(304.11, 10.87%, 7.25%);
 
   --fg: var(--grey-0);
   --fg-1: var(--grey-1);
@@ -120,8 +146,9 @@ body,
   --bg-deepest: var(--grey-11);
 
   --tick: var(--fg-7);
-  --shadow-raised: 0 0.5px 0 rgba(255, 255, 255, 0.1) inset,
-    0 -0.5px 0 0.5px rgba(0, 0, 0, 0.2) inset, 0 1px 7px rgba(0, 0, 0, 0.2);
+  --shadow-raised: 0 15px 15px -15px rgba(255, 255, 255, 0.05) inset,
+    0 0.5px 0 rgba(255, 255, 255, 0.1) inset,
+    0 -0.5px 0 0.5px rgba(0, 0, 0, 0.3) inset, 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .type--volume {

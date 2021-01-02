@@ -14,7 +14,7 @@ const StyledApp = styled.div`
 
   .app-container {
     height: 100%;
-    padding: 2rem;
+    padding: 1rem;
     max-width: 56rem;
     margin: auto;
     align-items: stretch;
@@ -22,12 +22,20 @@ const StyledApp = styled.div`
     flex-flow: column;
     justify-content: space-between;
     display: flex;
+    gap: 1rem;
+  }
+
+  main {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .play-area,
   .settings {
-    flex: 0 0 auto;
-    width: calc((100% / 2) - 0.5rem);
+    flex: 1 0 auto;
   }
 `
 

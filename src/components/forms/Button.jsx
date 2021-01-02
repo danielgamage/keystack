@@ -11,11 +11,6 @@ export const StyledButton = styled.button`
 
   appearance: none;
   cursor: pointer;
-
-  &:hover,
-  &:focus {
-    background: var(--bg-elevated);
-  }
 `
 
 class Button extends React.Component {

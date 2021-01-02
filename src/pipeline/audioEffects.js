@@ -7,11 +7,12 @@ export const mix = (dry, wet, mix) => {
 
 export const makeWaveshaperCurve = (
   amount = 50,
-  { method = "distortion", samples = 44100 } = {}
+  { method = "distortion", samples = 128 } = {}
 ) => {
   let curve = new Float32Array(samples)
   let deg = Math.PI / 180
   let x
+  console.log("making")
 
   switch (method) {
     case "chebyshev":
@@ -27,9 +28,10 @@ export const makeWaveshaperCurve = (
         var k = n - 1
         return 2 * x * polynomial(k, x) - polynomial(k - 1, x)
       }
+      const boop = Math.ceil((amount / 300) * 8 + 1)
       for (let i = 0; i < samples; ++i) {
         x = (i * 2) / samples - 1
-        curve[i] = polynomial(Math.ceil((amount / 300) * 8 + 1), x)
+        curve[i] = polynomial(boop, x)
       }
       break
     case "sine":
@@ -164,6 +166,7 @@ export const createEffect = {
   },
 
   Waveshaper: (effect) => {
+    console.log("waveshaper")
     let effectObj = {
       id: effect.id,
       waveshaper: audioCtx.createWaveShaper(),

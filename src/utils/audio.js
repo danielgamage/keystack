@@ -1,54 +1,55 @@
-import { store } from "./store";
-import getDevicesOfType from "./getDevicesOfType";
-import { setProps, createEffect } from "../pipeline/audioEffects";
+import { store } from "./store"
+import getDevicesOfType from "./getDevicesOfType"
+import { setProps, createEffect } from "../pipeline/audioEffects"
 
-export let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+export let audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
 const master = {
   init() {
-    this.exit = audioCtx.createGain();
-    this.exit.gain.value = 0.2;
-    this.exit.connect(audioCtx.destination);
+    this.exit = audioCtx.createGain()
+    this.exit.gain.value = 0.2
+    this.exit.connect(audioCtx.destination)
 
-    this.entry = audioCtx.createGain();
-    this.entry.connect(this.exit);
-  }
-};
-master.init();
+    this.entry = audioCtx.createGain()
+    this.entry.connect(this.exit)
+  },
+}
+master.init()
 
-let initialState = store.getState();
+let initialState = store.getState()
 
-export let audioEffectNodes = [];
+export let audioEffectNodes = []
 initialState.tracks.map((track, trackIndex, trackArray) => {
   track.devices
-    .map(el => initialState.devices[el])
-    .filter(el => el.deviceType === "audio")
+    .map((el) => initialState.devices[el])
+    .filter((el) => el.deviceType === "audio")
     .map((device, deviceIndex, deviceArray) => {
-      createEffect[device.devicePrototype](device);
-    });
-});
+      createEffect[device.devicePrototype](device)
+    })
+})
 
 // initial connections
 initialState.tracks.map((track, trackIndex, trackArray) => {
   track.devices
-    .map(el => initialState.devices[el])
-    .filter(el => el.deviceType === "audio")
+    .map((el) => initialState.devices[el])
+    .filter((el) => el.deviceType === "audio")
     .map((device, deviceIndex, deviceArray) => {
       if (deviceIndex !== deviceArray.length - 1) {
         audioEffectNodes[deviceIndex].exit.connect(
           audioEffectNodes[deviceIndex + 1].entry
-        );
+        )
       } else {
-        audioEffectNodes[deviceIndex].exit.connect(master.entry);
+        audioEffectNodes[deviceIndex].exit.connect(master.entry)
       }
-    });
-});
+    })
+})
 
-let currentEffects;
+let currentEffects
 function handleChange() {
-  const previousEffects = currentEffects;
-  const state = store.getState();
-  currentEffects = getDevicesOfType(state, state.tracks[0].devices, "audio");
+  console.log("handleChange")
+  const previousEffects = currentEffects
+  const state = store.getState()
+  currentEffects = getDevicesOfType(state, state.tracks[0].devices, "audio")
   if (previousEffects) {
     if (
       currentEffects.length !== previousEffects.length ||
@@ -56,52 +57,52 @@ function handleChange() {
     ) {
       // disconnect and remove unused
       audioEffectNodes.map((el, i, arr) => {
-        el.exit.disconnect();
-        if (!currentEffects.some(effect => el.id === effect.id)) {
-          audioEffectNodes.splice(i, 1);
+        el.exit.disconnect()
+        if (!currentEffects.some((effect) => el.id === effect.id)) {
+          audioEffectNodes.splice(i, 1)
         }
-      });
+      })
       // add new
       currentEffects.map((effect, i, arr) => {
-        if (!audioEffectNodes.some(el => el.id === effect.id)) {
-          createEffect[effect.devicePrototype](effect);
+        if (!audioEffectNodes.some((el) => el.id === effect.id)) {
+          createEffect[effect.devicePrototype](effect)
         }
-      });
+      })
       // connect
       currentEffects.map((el, i, arr) => {
         if (i !== arr.length - 1) {
-          audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry);
+          audioEffectNodes[i].exit.connect(audioEffectNodes[i + 1].entry)
         } else {
-          audioEffectNodes[i].exit.connect(master.entry);
+          audioEffectNodes[i].exit.connect(master.entry)
         }
-      });
+      })
     }
   }
-  currentEffects.map(effect => {
+  currentEffects.map((effect) => {
     setProps[effect.devicePrototype](
-      audioEffectNodes.find(el => el.id === effect.id),
+      audioEffectNodes.find((el) => el.id === effect.id),
       effect
-    );
-  });
+    )
+  })
 }
-let unsubscribe = store.subscribe(handleChange);
+let unsubscribe = store.subscribe(handleChange)
 
-let myBuffer = null;
-let bufferChannelData;
+let myBuffer = null
+let bufferChannelData
 
 export const loadSample = (e, instrumentId) => {
   // If dropped items aren't files, reject them
-  var dt = e.dataTransfer;
+  var dt = e.dataTransfer
 
   if (dt.files) {
-    const file = [...dt.files][0];
-    readSample(file).then(sampleData => {
+    const file = [...dt.files][0]
+    readSample(file).then((sampleData) => {
       audioCtx.decodeAudioData(
         sampleData,
-        buffer => {
+        (buffer) => {
           bufferChannelData = buffer
             .getChannelData(0)
-            .filter((el, i, arr) => i % Math.ceil(arr.length / 256) === 0);
+            .filter((el, i, arr) => i % Math.ceil(arr.length / 256) === 0)
           store.dispatch({
             type: "UPDATE_SAMPLE",
             id: instrumentId,
@@ -111,29 +112,29 @@ export const loadSample = (e, instrumentId) => {
               size: file.size,
               duration: buffer.duration,
               length: buffer.length,
-              type: file.type
-            }
-          });
-          myBuffer = buffer;
+              type: file.type,
+            },
+          })
+          myBuffer = buffer
         },
-        e => {
-          console.error("Error with decoding audio data" + e.err);
+        (e) => {
+          console.error("Error with decoding audio data" + e.err)
         }
-      );
-    });
+      )
+    })
   }
-};
+}
 
-const readSample = file => {
+const readSample = (file) => {
   return new Promise((resolve, reject) => {
-    let reader = new FileReader();
+    let reader = new FileReader()
     reader.addEventListener(
       "load",
       () => {
-        resolve(reader.result);
+        resolve(reader.result)
       },
       false
-    );
-    reader.readAsArrayBuffer(file);
-  });
-};
+    )
+    reader.readAsArrayBuffer(file)
+  })
+}

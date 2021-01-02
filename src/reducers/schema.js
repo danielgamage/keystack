@@ -1,49 +1,6 @@
 import generateID from "../utils/generateID"
 
 const schema = {
-  // ------------
-  // MIDI Effects
-  // ------------
-
-  midi: {
-    Transpose: (argsID) => ({
-      id: argsID || generateID(),
-      name: `Transpose`,
-      deviceType: `midi`,
-      devicePrototype: `Transpose`,
-      value: 0,
-    }),
-    Chord: (argsID) => ({
-      id: argsID || generateID(),
-      name: `Chord`,
-      deviceType: `midi`,
-      devicePrototype: `Chord`,
-      inversionChance: 0,
-      inversionRange: 4,
-      value: [0, 0, 0, 0, 0, 0],
-    }),
-    DisableNotes: (argsID) => ({
-      id: argsID || generateID(),
-      name: `Disable Notes`,
-      deviceType: `midi`,
-      devicePrototype: `DisableNotes`,
-      value: [
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-      ],
-    }),
-  },
-
   // -----------
   // Instruments
   // -----------
@@ -135,11 +92,11 @@ const schema = {
       id: argsID || generateID(),
       name: `Waveshaper`,
       deviceType: `audio`,
-      method: `distortion`,
+      method: `chebyshev`,
       devicePrototype: `Waveshaper`,
-      amount: 300,
+      amount: 50,
       oversample: "2x",
-      mix: 100,
+      mix: 10,
     }),
     // StereoPanner: (argsID) => ({
     //   id: argsID || generateID(),

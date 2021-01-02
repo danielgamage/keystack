@@ -27,15 +27,15 @@ export const StyledSelect = styled.div`
 
   select {
     all: inherit;
-    padding: 4px 24px 3px 8px;
+    padding: 3px 24px 4px 8px;
     border: 0;
+
+    color: var(--fg-1);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-raised);
 
     appearance: none;
     cursor: pointer;
-
-    background: var(--bg-deep);
-    color: var(--fg);
-    border-radius: var(--radius);
 
     &:hover,
     &:focus {
@@ -47,7 +47,7 @@ export const StyledSelect = styled.div`
 class Select extends React.Component {
   render() {
     return (
-      <StyledSelect {...this.props} className="h3">
+      <StyledSelect {...this.props} className="button h3">
         <select
           onChange={(e) => {
             this.props.onUpdate(e.target.value)

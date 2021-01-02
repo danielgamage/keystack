@@ -13,6 +13,9 @@ const StyledWaveshaper = styled.div`
     max-width: 120px;
     overflow: hidden;
   }
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 `
 
 const parameters = [
