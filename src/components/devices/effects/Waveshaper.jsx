@@ -15,6 +15,7 @@ const StyledWaveshaper = styled.div`
   }
   display: flex;
   gap: 1rem;
+  align-items: flex-start;
   flex-direction: column;
 `
 
@@ -53,25 +54,49 @@ const Waveshaper = (props) => {
   )
 
   return (
-    <Item type="audio" index={props.index} item={props.data}>
+    <Item
+      type="audio"
+      index={props.index}
+      item={props.data}
+      headerChildren={
+        <>
+          <Select
+            options={[
+              { label: "Chebyshev", value: "chebyshev" },
+              { label: "Depth", value: "depth" },
+              { label: "Distortion", value: "distortion" },
+              { label: "Sine", value: "sine" },
+            ]}
+            value={props.data.method}
+            onUpdate={(event) => {
+              props.dispatch({
+                type: "UPDATE_DEVICE",
+                id: props.data.id,
+                property: "method",
+                value: event,
+              })
+            }}
+          />
+          <Select
+            options={[
+              { label: "0x", value: "none" },
+              { label: "2x", value: "2x" },
+              { label: "4x", value: "4x" },
+            ]}
+            value={props.data.oversample}
+            onUpdate={(event) => {
+              props.dispatch({
+                type: "UPDATE_DEVICE",
+                id: props.data.id,
+                property: "oversample",
+                value: event,
+              })
+            }}
+          />
+        </>
+      }
+    >
       <StyledWaveshaper>
-        <Select
-          options={[
-            { label: "Chebyshev", value: "chebyshev" },
-            { label: "Depth", value: "depth" },
-            { label: "Distortion", value: "distortion" },
-            { label: "Sine", value: "sine" },
-          ]}
-          value={props.data.method}
-          onUpdate={(event) => {
-            props.dispatch({
-              type: "UPDATE_DEVICE",
-              id: props.data.id,
-              property: "method",
-              value: event,
-            })
-          }}
-        />
         <div className="vis type--volume">
           <svg
             className="vis-path"
