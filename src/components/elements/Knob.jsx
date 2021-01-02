@@ -3,16 +3,16 @@ import { arc } from "d3-shape"
 import { scaleLinear, scaleLog } from "d3-scale"
 import styled from "styled-components"
 
-import { Text } from "components"
-
-import vars from "variables"
-
 export const StyledKnob = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  --width: 3rem;
+  --height: calc(var(--size) * 26 / 32);
   &.small {
-    svg {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
+    --width: 1.2rem;
   }
   &.right {
     display: flex;
@@ -23,29 +23,46 @@ export const StyledKnob = styled.div`
       margin-right: 0.5rem;
     }
   }
+  .svg-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
   svg {
     display: block;
-    margin: 4px 0 4px;
-    width: ${(props) => (props.small ? "1.2rem" : "3rem")};
-    height: ${(props) => (props.small ? "1.2rem" : "3rem")};
-    &:hover {
-      .fader-knob {
-        opacity: 1;
-      }
-    }
+    width: var(--width);
+    height: 100%;
   }
   &.active {
     .fader-knob {
-      opacity: 1;
+      background: var(--bg-elevated);
     }
   }
   .fader-knob {
+    border-radius: 4rem;
+    position: absolute;
+    width: calc(var(--width) - 12px);
+    height: calc(var(--width) - 12px);
+    top: calc(var(--width) / 2);
+    left: calc(var(--width) / 2);
+    min-width: 0.9rem;
+    min-height: 0.9rem;
+    transform: translate(-50%, -50%);
     transition: 0.2s ease;
-    fill: var(--fg-6);
-    opacity: 0;
+    .theme--light & {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3),
+        0 1px 0 -0.5px rgba(255, 255, 255, 0.5) inset,
+        0 -4px 10px -4px rgba(0, 0, 0, 0.1) inset;
+    }
+    .theme--dark & {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5),
+        0 1px 0 -0.5px rgba(255, 255, 255, 0.2) inset,
+        0 -4px 10px -4px rgba(0, 0, 0, 0.2) inset;
+    }
   }
   .fader-track {
-    stroke: var(--fg-6);
+    stroke: var(--fg-7);
   }
   .fader-pointer {
     stroke: var(--fg-1);
@@ -161,49 +178,44 @@ const Knob = (props) => {
       ref={containerElement}
       title={props.showLabel === false ? props.label : ""}
     >
-      <svg viewBox="0 0 32 32" aria-labelledby={`${props.id}-input`}>
-        <circle
-          vectorEffect="non-scaling-stroke"
-          className="fader-knob"
-          cx={16}
-          cy={16}
-          r="10"
-        />
+      <div className="svg-wrapper">
+        <div className="fader-knob"></div>
+        <svg viewBox="0 0 32 26" aria-labelledby={`${props.id}-input`}>
+          <path
+            vectorEffect="non-scaling-stroke"
+            className="fader-track"
+            transform="translate(16, 16)"
+            d={arcPath({
+              innerRadius: 14,
+              outerRadius: 14,
+              startAngle: min,
+              endAngle: max,
+            })}
+          />
 
-        <path
-          vectorEffect="non-scaling-stroke"
-          className="fader-track"
-          transform="translate(16, 16)"
-          d={arcPath({
-            innerRadius: 14,
-            outerRadius: 14,
-            startAngle: min,
-            endAngle: max,
-          })}
-        />
+          <path
+            vectorEffect="non-scaling-stroke"
+            className="fader-value"
+            transform="translate(16, 16)"
+            d={arcPath({
+              innerRadius: 14,
+              outerRadius: 14,
+              startAngle: min,
+              endAngle: value,
+            })}
+          />
 
-        <path
-          vectorEffect="non-scaling-stroke"
-          className="fader-value"
-          transform="translate(16, 16)"
-          d={arcPath({
-            innerRadius: 14,
-            outerRadius: 14,
-            startAngle: min,
-            endAngle: value,
-          })}
-        />
-
-        <line
-          className="fader-pointer"
-          x1="16"
-          y1="2"
-          x2="16"
-          y2="12"
-          vectorEffect="non-scaling-stroke"
-          transform={`rotate(${radiansToDegrees(value)} 16 16)`}
-        />
-      </svg>
+          <line
+            className="fader-pointer"
+            x1="16"
+            y1="2"
+            x2="16"
+            y2="12"
+            vectorEffect="non-scaling-stroke"
+            transform={`rotate(${radiansToDegrees(value)} 16 16)`}
+          />
+        </svg>
+      </div>
 
       <div className="input-output">
         <div className="value text-items">
